@@ -1,0 +1,25 @@
+# Arduino build artifacts
+build/
+*.elf
+*.bin
+*.hex
+*.map
+
+# Arduino IDE / VS Code
+.vscode/
+*.code-workspace
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Logs / temporary
+*.log
+*.tmp
+
+# Keep the images folder in git even when empty
+!docs/images/.gitkeep

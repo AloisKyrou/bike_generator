@@ -5,6 +5,7 @@
 
 #include "hardware.h"
 #include "config.h"
+#include "driver/gpio.h"  // for gpio_set_pull_mode / GPIO_FLOATING
 
 void Hardware_Init() {
   Serial.println("[HW] Initializing hardware...");
@@ -19,11 +20,13 @@ void Hardware_SetupADC() {
   // Current sensor (ACS712)
   analogSetPinAttenuation(PIN_CURRENT_SENSOR, ADC_11db);
   pinMode(PIN_CURRENT_SENSOR, INPUT);
+  gpio_set_pull_mode((gpio_num_t)PIN_CURRENT_SENSOR, GPIO_FLOATING);  // disable internal pull-up/down (must be last)
   Serial.printf("[HW] Current sensor on GPIO%d (ACS712 30A)\n", PIN_CURRENT_SENSOR);
 
   // Voltage sensor (resistive divider)
   analogSetPinAttenuation(PIN_VOLTAGE_SENSOR, ADC_11db);
   pinMode(PIN_VOLTAGE_SENSOR, INPUT);
+  gpio_set_pull_mode((gpio_num_t)PIN_VOLTAGE_SENSOR, GPIO_FLOATING);  // disable internal pull-up/down (must be last)
   Serial.printf("[HW] Voltage sensor on GPIO%d (divider R1=%.0fk R2=%.0fk, max=%.1fV)\n",
                 PIN_VOLTAGE_SENSOR,
                 VDIV_R1_OHMS / 1000.0f,

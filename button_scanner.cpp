@@ -20,17 +20,17 @@ static const uint8_t TARGET_MAC[6] = {
 
 class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
   void onResult(BLEAdvertisedDevice advertisedDevice) {
-    std::string macStr = advertisedDevice.getAddress().toString();
+    String macStr = advertisedDevice.getAddress().toString();
     
     char targetStr[18];
     snprintf(targetStr, sizeof(targetStr), "%02x:%02x:%02x:%02x:%02x:%02x",
              TARGET_MAC[0], TARGET_MAC[1], TARGET_MAC[2],
              TARGET_MAC[3], TARGET_MAC[4], TARGET_MAC[5]);
     
-    bool isTarget = (strcasecmp(macStr.c_str(), targetStr) == 0);
+    bool isTarget = (macStr.equalsIgnoreCase(targetStr));
     
     if (isTarget && advertisedDevice.haveManufacturerData()) {
-      std::string mfgData = advertisedDevice.getManufacturerData();
+      String mfgData = advertisedDevice.getManufacturerData();
       
       if (mfgData.length() >= 11) {
         uint8_t* data = (uint8_t*)mfgData.c_str();

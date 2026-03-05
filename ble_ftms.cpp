@@ -40,10 +40,10 @@ class MyServerCallbacks: public BLEServerCallbacks {
 // ---- FTMS Control Point Callback ----
 class FitnessMachineControlPointCallbacks: public BLECharacteristicCallbacks {
   void onWrite(BLECharacteristic* pCharacteristic) {
-    std::string value = pCharacteristic->getValue();
+    String value = pCharacteristic->getValue();
     
     if (value.length() > 0) {
-      uint8_t opCode = value[0];
+      uint8_t opCode = (uint8_t)value[0];
       
       // Response buffer
       uint8_t response[20];
@@ -214,7 +214,7 @@ void FTMS_Start() {
   
   // Service Data - FTMS with Indoor Bike flag
   uint8_t serviceData[4] = {0x26, 0x18, 0x01, 0x00};
-  advData.setServiceData(BLEUUID((uint16_t)0x1826), std::string((char*)serviceData, 4));
+  advData.setServiceData(BLEUUID((uint16_t)0x1826), String((char*)serviceData, 4));
   
   // Scan response data with device name
   BLEAdvertisementData scanResponse;

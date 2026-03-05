@@ -13,7 +13,7 @@
 // ============================================================================
 
 #define PIN_CURRENT_SENSOR  0   // ACS712 30A on GPIO0 (ADC)
-#define PIN_VOLTAGE_SENSOR  1   // Voltage divider on GPIO1 (future)
+#define PIN_VOLTAGE_SENSOR  1   // Voltage divider on GPIO1 (ADC1 ch1)
 #define PIN_POT_CS          5   // Digipot Chip Select
 #define PIN_POT_SCK         6   // Digipot Clock
 #define PIN_POT_MOSI        7   // Digipot MOSI
@@ -39,8 +39,8 @@
 //
 // To change resistors: update only R1_OHMS and R2_OHMS below.
 // All scaling is derived automatically.
-#define VDIV_R1_OHMS        100000.0f   // Top resistor (V_BUS side), Ω  e.g. 100kΩ
-#define VDIV_R2_OHMS        12000.0f    // Bottom resistor (GND side),  Ω  e.g. 12kΩ
+#define VDIV_R1_OHMS        100000.0f   // Top resistor (V_BUS side), Ω  — 100kΩ
+#define VDIV_R2_OHMS         7500.0f    // Bottom resistor (GND side),  Ω  — 7.5kΩ (safe to 40V)
 
 // ADC reference voltage (ESP32-C3 with ADC_11db attenuation, nominally 3.3V)
 // Trim this slightly if your readings are off — measure 3V3 pin with multimeter.
@@ -106,9 +106,14 @@
 #define FLAT_POWER_TARGET       50.0f   // Max power on flat ground (W)
 #define HILL_POWER_TARGET       200.0f  // Max power capability (W) - 120W battery + 2x40W halogen
 #define MAX_SIMULATED_GRADE     12.5f   // Maximum grade we can simulate (%)
-#define SPEED_POWER_COEFF       4.0f    // Speed = coeff  (power), tuned for ~18 km/h at 100W
-#define GRADE_SPEED_PENALTY     2.5f    // km/h lost per 1% grade
 #define CADENCE_SMOOTH_FACTOR   0.15f   // Cadence smoothing (0-1, lower=smoother)
+
+// Cycling physics model — P = (Crr*m*g + m*g*grade + 0.5*rho*CdA*v²) * v
+#define PHYSICS_RIDER_MASS_KG   75.0f   // Rider mass (kg)
+#define PHYSICS_BIKE_MASS_KG    10.0f   // Bike mass (kg)
+#define PHYSICS_CDA             0.32f   // CdA — drag coefficient × frontal area (m²), upright position
+#define PHYSICS_CRR             0.004f  // Rolling resistance coefficient (road bike / smooth floor)
+#define PHYSICS_AIR_DENSITY     1.225f  // Air density (kg/m³) at sea level
 
 // ============================================================================
 // POWER & RESISTANCE MAPPING

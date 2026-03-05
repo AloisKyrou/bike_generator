@@ -148,6 +148,8 @@ Full procedure: **[docs/hardware.md](docs/hardware.md)**
 
 | Document | Contents |
 |----------|---------|
+| **[docs/build-tutorial.md](docs/build-tutorial.md)** | **Full step-by-step build guide — start here** |
+| [docs/ble-api.md](docs/ble-api.md) | BLE API reference for app/game developers |
 | [docs/hardware.md](docs/hardware.md) | Power path, wiring, pinout, calibration |
 | [docs/firmware.md](docs/firmware.md) | Code architecture, BLE FTMS, control modes |
 | [docs/components/README.md](docs/components/README.md) | Datasheets and product links |

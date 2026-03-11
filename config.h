@@ -103,7 +103,7 @@
 // PHYSICS SIMULATION PARAMETERS
 // ============================================================================
 
-#define FLAT_POWER_TARGET       50.0f   // Max power on flat ground (W)
+#define FLAT_POWER_TARGET       80.0f   // Target resistance on flat (W) — allows ~25 km/h
 #define HILL_POWER_TARGET       200.0f  // Max power capability (W) - 120W battery + 2x40W halogen
 #define MAX_SIMULATED_GRADE     12.5f   // Maximum grade we can simulate (%)
 #define CADENCE_SMOOTH_FACTOR   0.15f   // Cadence smoothing (0-1, lower=smoother)
@@ -119,7 +119,7 @@
 // POWER & RESISTANCE MAPPING
 // ============================================================================
 
-#define POWER_PER_GRADE_PERCENT 8.0f    // Watts gained per 1% grade increase
+#define POWER_PER_GRADE_PERCENT 14.0f   // Watts gained per 1% grade increase
 #define ERG_MODE_POWER_MARGIN   5.0f    // Extra 5W capacity in ERG mode
 
 // ============================================================================

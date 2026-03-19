@@ -59,7 +59,7 @@ void updateBikeData() {
   float speed = Physics_CalculateSpeed(sensors.power, gradePercent);
   bikeData.instantaneousSpeed = (uint16_t)(speed * 100);
   
-  currentCadence = Physics_CalculateCadence(sensors.power, currentCadence);
+  currentCadence = Physics_CalculateCadence(sensors.power, gradePercent, currentCadence);
   bikeData.instantaneousCadence = (uint16_t)(currentCadence * 2);
   
   bikeData.instantaneousPower = (int16_t)sensors.power;

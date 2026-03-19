@@ -4,8 +4,25 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class SphereController : MonoBehaviour
 {
-    [Tooltip("Forward speed in units/second per watt")]
+    [Header("Speed Mapping")]
+    [Tooltip("When enabled, spin follows trainer speed (km/h) using omega = v / r")]
+    public bool UseTrainerSpeedForSpin = true;
+
+    [Tooltip("Conversion from metres to world units (1 = 1 Unity unit per metre)")]
+    public float WorldUnitsPerMeter = 1f;
+
+    [Tooltip("Fallback mode only: speed in units/second per watt")]
     public float SpeedScale = 0.04f;
+
+    [Tooltip("Max allowed angular speed (rad/s). Increase so spin is not clamped by Unity default.")]
+    public float MaxAngularVelocity = 80f;
+
+    [Header("Debug")]
+    [Tooltip("Log target vs actual sphere rotation speed in the Console")]
+    public bool LogRotationDebug = false;
+
+    [Tooltip("Seconds between rotation debug logs")]
+    public float RotationLogInterval = 0.75f;
 
     [Header("Jump")]
     [Tooltip("Enable simple jump gameplay")]
@@ -28,10 +45,18 @@ public class SphereController : MonoBehaviour
 
     Rigidbody _rb;
     float _lastJumpTime;
+    float _nextRotationLogTime;
+
+    const float RAD_PER_SEC_TO_RPM = 60f / (2f * Mathf.PI);
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+
+        // Unity defaults this to 7 rad/s, which can clamp visible spin and make
+        // SpeedScale changes appear to have little/no effect at moderate watts.
+        _rb.maxAngularVelocity = MaxAngularVelocity;
+
         // Freeze X/Z position — sphere stays at scene centre, road scrolls past it
         _rb.constraints = RigidbodyConstraints.FreezeRotationY
                         | RigidbodyConstraints.FreezeRotationZ
@@ -49,15 +74,38 @@ public class SphereController : MonoBehaviour
 
     void FixedUpdate()
     {
-        int watts      = BikeManager.Instance.LastData.PowerWatts;
-        float speed    = watts * SpeedScale;               // units/sec
+        var bikeData   = BikeManager.Instance.LastData;
+        int watts      = bikeData.PowerWatts;
+        float speedMs  = Mathf.Max(0f, bikeData.SpeedKmh / 3.6f) * Mathf.Max(0.01f, WorldUnitsPerMeter);
+        float speed    = UseTrainerSpeedForSpin ? speedMs : Mathf.Max(0, watts) * SpeedScale; // units/sec
         float radius   = transform.localScale.x * 0.5f;   // sphere radius
+        float safeRad  = Mathf.Max(0.0001f, radius);
+        float targetWx = speed / safeRad;
 
         // Drive forward; keep Y velocity so gravity / bounce still work
         _rb.linearVelocity = new Vector3(0f, _rb.linearVelocity.y, speed);
 
         // Spin the ball at the correct angular speed for its size
-        _rb.angularVelocity = new Vector3(speed / radius, 0f, 0f);
+        _rb.angularVelocity = new Vector3(targetWx, 0f, 0f);
+
+        if (LogRotationDebug && Time.time >= _nextRotationLogTime)
+        {
+            float actualWx   = _rb.angularVelocity.x;
+            float targetRad  = Mathf.Abs(targetWx);
+            float actualRad  = Mathf.Abs(actualWx);
+            float targetRpm  = targetRad * RAD_PER_SEC_TO_RPM;
+            float actualRpm  = actualRad * RAD_PER_SEC_TO_RPM;
+            bool  isClamping = targetRad > (_rb.maxAngularVelocity - 0.05f);
+
+            Debug.Log(
+                $"[SphereRot] mode={(UseTrainerSpeedForSpin ? "trainer-speed" : "watts-scale")} " +
+                $"kmh={bikeData.SpeedKmh:F1} watts={watts} speedScale={SpeedScale:F4} radius={radius:F3} " +
+                $"target={targetRad:F2}rad/s ({targetRpm:F1}rpm) " +
+                $"actual={actualRad:F2}rad/s ({actualRpm:F1}rpm) " +
+                $"max={_rb.maxAngularVelocity:F2} clampLikely={isClamping}");
+
+            _nextRotationLogTime = Time.time + Mathf.Max(0.1f, RotationLogInterval);
+        }
 
         TryJump(watts);
     }

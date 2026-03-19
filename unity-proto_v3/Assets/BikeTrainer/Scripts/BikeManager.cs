@@ -39,7 +39,7 @@ public class BikeManager : MonoBehaviour
     const int CMD_PORT  = 5701;  // Unity  â†’ bridge
     const string PYTHON_PREF_KEY = "BikeTrainer.PythonExecutable";
 
-    public enum ConnectionState { Idle, Connecting, Connected, Disconnected }
+    public enum ConnectionState { Idle, Connecting, Connected, Disconnected, Error }
 
     [Header("Bridge")]
     [Tooltip("Override path to bike_bridge.py. Leave empty to use StreamingAssets.")]
@@ -55,6 +55,7 @@ public class BikeManager : MonoBehaviour
 
     public static BikeManager Instance { get; private set; }
     public ConnectionState State { get; private set; } = ConnectionState.Idle;
+    public string ErrorMessage { get; private set; } = "";
     public BikeData LastData { get; private set; }
 
     UdpClient _receiver;
@@ -120,8 +121,24 @@ public class BikeManager : MonoBehaviour
                 RedirectStandardOutput = true,
                 RedirectStandardError  = true,
             };
-            _bridge.OutputDataReceived += (_, e) => { if (e.Data != null) UnityEngine.Debug.Log($"[bridge] {e.Data}"); };
-            _bridge.ErrorDataReceived  += (_, e) => { if (e.Data != null) UnityEngine.Debug.LogWarning($"[bridge] {e.Data}"); };
+            _bridge.OutputDataReceived += (_, e) =>
+            {
+                if (e.Data != null)
+                {
+                    UnityEngine.Debug.Log($"[bridge] {e.Data}");
+                    // Detect error keywords in output
+                    if (e.Data.Contains("ERROR") || e.Data.Contains("Error") || e.Data.Contains("error"))
+                        _mainQueue.Enqueue(() => SetError(e.Data));
+                }
+            };
+            _bridge.ErrorDataReceived  += (_, e) =>
+            {
+                if (e.Data != null)
+                {
+                    UnityEngine.Debug.LogWarning($"[bridge] {e.Data}");
+                    _mainQueue.Enqueue(() => SetError(e.Data));
+                }
+            };
             _bridge.Start();
             _bridge.BeginOutputReadLine();
             _bridge.BeginErrorReadLine();
@@ -141,6 +158,10 @@ public class BikeManager : MonoBehaviour
 
         _receiveThread = new Thread(ReceiveLoop) { IsBackground = true, Name = "BikeUDP" };
         _receiveThread.Start();
+
+        // Monitor bridge process in background to detect early crashes
+        var monitorThread = new Thread(MonitorBridge) { IsBackground = true, Name = "BridgeMonitor" };
+        monitorThread.Start();
     }
 
     /// Set Python executable at runtime (optionally persisted across launches).
@@ -246,8 +267,64 @@ public class BikeManager : MonoBehaviour
     void SetState(ConnectionState s)
     {
         State = s;
+        ErrorMessage = "";
         _mainQueue.Enqueue(() => OnStateChanged?.Invoke(s));
         UnityEngine.Debug.Log($"[Bike] State -> {s}");
+    }
+
+    void SetError(string msg)
+    {
+        if (State == ConnectionState.Error) return;  // Already in error state
+
+        // Bridge output can still emit scan errors after data has started flowing.
+        // Once we've connected at least once, keep state stable and only log warning.
+        if (_everConnected || State == ConnectionState.Connected)
+        {
+            UnityEngine.Debug.LogWarning($"[Bike] Late bridge error ignored while connected: {msg}");
+            return;
+        }
+
+        State = ConnectionState.Error;
+        // Extract short error message: look for common patterns
+        if (msg.Contains("not installed"))
+            ErrorMessage = "Missing: " + (msg.Contains("bleak") ? "bleak" : "dependency");
+        else if (msg.Contains("No such file") || msg.Contains("FileNotFoundError"))
+            ErrorMessage = "File not found";
+        else if (msg.Contains("Connection") || msg.Contains("connection"))
+            ErrorMessage = "Connection failed";
+        else if (msg.Contains("Timeout"))
+            ErrorMessage = "Timeout";
+        else
+            ErrorMessage = msg.Length > 50 ? msg.Substring(0, 50) + "..." : msg;
+
+        _mainQueue.Enqueue(() =>
+        {
+            OnStateChanged?.Invoke(State);
+            UnityEngine.Debug.LogError($"[Bike] Error: {ErrorMessage}");
+        });
+    }
+
+    void MonitorBridge()
+    {
+        while (_running && _bridge != null)
+        {
+            Thread.Sleep(500);
+            try
+            {
+                if (_bridge.HasExited && State == ConnectionState.Connecting)
+                {
+                    int exitCode = _bridge.ExitCode;
+                    string msg = exitCode switch
+                    {
+                        1 => "Bridge process crashed",
+                        _ => $"Bridge exited (code {exitCode})"
+                    };
+                    _mainQueue.Enqueue(() => SetError(msg));
+                    break;
+                }
+            }
+            catch { break; }
+        }
     }
 
     void ApplyPythonExecutableOverride()

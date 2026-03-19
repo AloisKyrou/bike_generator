@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class BikeDemo : MonoBehaviour
 {
@@ -14,12 +15,32 @@ public class BikeDemo : MonoBehaviour
         var bike = BikeManager.Instance;
         if (bike == null) { Debug.LogError("[Demo] No BikeManager in scene!"); return; }
 
+        ConfigureStatusLayout();
+
         bike.OnConnected.AddListener(()    => UpdateStatus("Connected"));
         bike.OnDisconnected.AddListener(() => UpdateStatus("Disconnected"));
         bike.OnStateChanged.AddListener(s  => UpdateStatus(s.ToString()));
         bike.OnBikeData.AddListener(UpdateDisplay);
 
         UpdateStatus(bike.State.ToString());
+    }
+
+    void ConfigureStatusLayout()
+    {
+        if (StatusText == null) return;
+
+        // Let status wrap and keep it readable for short error strings.
+        StatusText.textWrappingMode = TextWrappingModes.Normal;
+        StatusText.enableAutoSizing   = true;
+        StatusText.fontSizeMax        = 36f;
+        StatusText.fontSizeMin        = 20f;
+
+        // Ensure VerticalLayoutGroup uses a larger preferred height for status row.
+        var layout = StatusText.GetComponent<LayoutElement>();
+        if (layout == null) layout = StatusText.gameObject.AddComponent<LayoutElement>();
+        layout.minHeight       = 50f;
+        layout.preferredHeight = 72f;
+        layout.flexibleHeight  = 0f;
     }
 
     public void OnConnectButton()    => BikeManager.Instance.Connect();
@@ -45,6 +66,24 @@ public class BikeDemo : MonoBehaviour
 
     void UpdateStatus(string msg)
     {
-        if (StatusText != null) StatusText.text = msg;
+        if (StatusText != null)
+        {
+            // Show error message if in error state
+            if (BikeManager.Instance != null && BikeManager.Instance.State == BikeManager.ConnectionState.Error)
+            {
+                StatusText.text = $"ERROR: {BikeManager.Instance.ErrorMessage}";
+                StatusText.color = new Color(1f, 0.3f, 0.3f);  // Red
+            }
+            else
+            {
+                StatusText.text = msg;
+                StatusText.color = Color.white;  // Normal white
+            }
+
+            // Rebuild layout so status height updates immediately after text change.
+            var parent = StatusText.transform.parent as RectTransform;
+            if (parent != null)
+                LayoutRebuilder.ForceRebuildLayoutImmediate(parent);
+        }
     }
 }

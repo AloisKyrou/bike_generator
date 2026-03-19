@@ -23,7 +23,8 @@ public class BikeHUD : MonoBehaviour
         var state = BikeManager.Instance.State;
 
         float boxW = 220f;
-        float boxH = 155f;
+        // Increase height if showing error message
+        float boxH = state == BikeManager.ConnectionState.Error ? 190f : 155f;
         var rect = new Rect(Position.x, Position.y, boxW, boxH);
 
         // Semi-transparent dark background
@@ -33,16 +34,33 @@ public class BikeHUD : MonoBehaviour
         float y  = rect.y + 12f;
         float lh = FontSize + 10f;  // line height
 
-        // Connection state pill
-        string stateLabel = state == BikeManager.ConnectionState.Connected ? "● LIVE" : $"○ {state}";
-        Color  stateColor = state == BikeManager.ConnectionState.Connected
-            ? new Color(0.2f, 1f, 0.4f)
-            : new Color(1f, 0.6f, 0.2f);
+        // Connection state pill (or error message in red)
+        string stateLabel;
+        Color  stateColor;
+
+        if (state == BikeManager.ConnectionState.Error)
+        {
+            stateLabel = $"⚠ {BikeManager.Instance.ErrorMessage}";
+            stateColor = new Color(1f, 0.3f, 0.3f);
+        }
+        else if (state == BikeManager.ConnectionState.Connected)
+        {
+            stateLabel = "● LIVE";
+            stateColor = new Color(0.2f, 1f, 0.4f);
+        }
+        else
+        {
+            stateLabel = $"○ {state}";
+            stateColor = new Color(1f, 0.6f, 0.2f);
+        }
 
         _labelStyle.normal.textColor = stateColor;
-        _labelStyle.fontSize = FontSize - 6;
-        GUI.Label(new Rect(x, y, boxW, lh), stateLabel, _labelStyle);
-        y += lh - 4f;
+        // Smaller font for error messages to fit better
+        _labelStyle.fontSize = state == BikeManager.ConnectionState.Error ? FontSize - 8 : FontSize - 6;
+        // More vertical space for error text
+        float errorHeight = state == BikeManager.ConnectionState.Error ? lh + 10f : lh;
+        GUI.Label(new Rect(x, y, boxW - 32f, errorHeight), stateLabel, _labelStyle);
+        y += errorHeight - 4f;
 
         // Data rows
         DrawRow(ref y, x, boxW, lh, "⚡", $"{data.PowerWatts}", "W");

@@ -48,7 +48,8 @@ public class RouteController : MonoBehaviour
     public float KeepAliveInterval = 2f;
 
     public static RouteController Instance { get; private set; }
-    public float CurrentGrade => _currentGrade;
+    public float CurrentGrade       => _currentGrade;
+    public float CurrentDistanceM   => _distanceM;
 
     float _distanceM;
     float _currentGrade;
@@ -128,7 +129,7 @@ public class RouteController : MonoBehaviour
         return (short)Mathf.RoundToInt(watts);
     }
 
-    float SampleGrade(float dist)
+    public float SampleGrade(float dist)
     {
         if (Route == null || Route.Length == 0) return 0f;
         if (dist <= Route[0].DistanceM)         return Route[0].GradePercent;

@@ -9,6 +9,6 @@
 #include <Arduino.h>
 
 float Physics_CalculateSpeed(float power, float gradePercent);
-float Physics_CalculateCadence(float power, float currentCadence);
+float Physics_CalculateCadence(float power, float gradePercent, float currentCadence);
 
 #endif // PHYSICS_H

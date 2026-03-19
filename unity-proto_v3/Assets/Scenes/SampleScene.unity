@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BridgeScriptPath: 
-  PythonExecutable: python
+  PythonExecutable: C:\Users\alois\miniconda3\python.exe
   OnConnected:
     m_PersistentCalls:
       m_Calls: []
@@ -1161,8 +1161,8 @@ RectTransform:
   - {fileID: 1989270145}
   - {fileID: 1016850993}
   - {fileID: 786179649}
-  - {fileID: 139484390}
   - {fileID: 1798506810}
+  - {fileID: 139484390}
   m_Father: {fileID: 707512808}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -1555,7 +1555,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4440da2e11bd6bc4fbb88b9f41c8eeba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseTrainerSpeedForSpin: 1
+  WorldUnitsPerMeter: 1
   SpeedScale: 0.04
+  MaxAngularVelocity: 80
+  LogRotationDebug: 0
+  RotationLogInterval: 0.75
   EnableJump: 1
   JumpImpulse: 4.5
   AutoJumpFromPower: 1
@@ -1650,7 +1655,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1858,8 +1863,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sphere: {fileID: 2001169021}
+  BackSegments: 4
+  ForwardSegments: 120
+  SegmentWorldLength: 3
+  RoadWidth: 5
+  LookaheadMetresPerSegment: 20
+  GradeVerticalScale: 4
+  VTilesOverRibbon: 8
   GradeSmoothTime: 1.5
-  ElevationScale: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

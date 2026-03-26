@@ -28,12 +28,20 @@ class FitnessMachineControlPointCallbacks;
 class MyServerCallbacks: public BLEServerCallbacks {
   void onConnect(BLEServer* pServer) {
     s_deviceConnected = true;
-    Serial.println("[BLE] Client connected!");
+    Serial.println("");
+    Serial.println("##################################################");
+    Serial.println("##           BLE CLIENT CONNECTED               ##");
+    Serial.println("##################################################");
+    Serial.println("");
   }
 
   void onDisconnect(BLEServer* pServer) {
     s_deviceConnected = false;
-    Serial.println("[BLE] Client disconnected");
+    Serial.println("");
+    Serial.println("##################################################");
+    Serial.println("##          BLE CLIENT DISCONNECTED             ##");
+    Serial.println("##################################################");
+    Serial.println("");
   }
 };
 
@@ -44,7 +52,9 @@ class FitnessMachineControlPointCallbacks: public BLECharacteristicCallbacks {
     
     if (value.length() > 0) {
       uint8_t opCode = (uint8_t)value[0];
-      
+      Serial.printf("[FTMS] >> opCode=0x%02X  connected=%s\n",
+                    opCode, s_deviceConnected ? "YES" : "NO (stale write!)");
+
       // Response buffer
       uint8_t response[20];
       response[0] = 0x80;  // Response code
@@ -288,8 +298,7 @@ void FTMS_HandleConnectionChange() {
   if (!s_deviceConnected && s_oldDeviceConnected) {
     delay(500);  // Give BLE stack time
     s_pServer->startAdvertising();
-    Serial.println("\n[BLE] Client disconnected");
-    Serial.println("[BLE] Restarting advertising...\n");
+    Serial.println("[BLE] Advertising restarted — waiting for next connection");
     s_oldDeviceConnected = s_deviceConnected;
   }
 }

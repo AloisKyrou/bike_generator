@@ -37,6 +37,7 @@ void ControlMode_HandleManual(uint16_t resistanceLevel) {
   s_resistanceLevel = resistanceLevel;
   s_currentMode = MODE_MANUAL;
   Serial.printf("[MODE] Manual - Resistance Level: %d/100\n", resistanceLevel);
+  Resistance_SetFromLevel(resistanceLevel);  // Apply immediately — don't wait for next loop tick
 }
 
 void ControlMode_HandleERG(int16_t targetPower) {

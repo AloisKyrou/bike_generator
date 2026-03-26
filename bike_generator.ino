@@ -178,12 +178,16 @@ void loop() {
   // Log status
   logStatus();
   
-  // Heartbeat when waiting for connection
-  if (!isConnected) {
+  // Heartbeat: print current BLE state so it's always clear in the log
+  {
     static unsigned long lastHeartbeat = 0;
     if (millis() - lastHeartbeat >= HEARTBEAT_INTERVAL_MS) {
       lastHeartbeat = millis();
-      Serial.println("[BLE] Still advertising, waiting for connection...");
+      if (isConnected) {
+        Serial.println("[BLE] << connected — streaming data >>");
+      } else {
+        Serial.println("[BLE] << not connected — advertising >>");
+      }
     }
   }
   

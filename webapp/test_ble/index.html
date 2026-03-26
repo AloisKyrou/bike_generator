@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESP32 Bike Trainer — BLE Test</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      gap: 20px;
+    }
+
+    h1 { font-size: 1.4rem; font-weight: 600; color: #94a3b8; letter-spacing: 0.05em; text-transform: uppercase; }
+
+    /* ── Status bar ── */
+    #status-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #1e2330;
+      border: 1px solid #2d3548;
+      border-radius: 10px;
+      padding: 10px 18px;
+      width: 100%;
+      max-width: 700px;
+    }
+    #status-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: #ef4444;
+      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+    #status-dot.connected { background: #22c55e; box-shadow: 0 0 8px #22c55e88; }
+    #status-dot.connecting { background: #f59e0b; animation: pulse 1s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    #status-text { flex: 1; font-size: 0.9rem; color: #94a3b8; }
+    #log { font-size: 0.75rem; color: #475569; font-family: monospace; text-align: right; flex-shrink: 0; }
+
+    /* ── Connect button ── */
+    #btn-connect {
+      background: #3b82f6;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 32px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      width: 100%;
+      max-width: 700px;
+    }
+    #btn-connect:hover { background: #2563eb; }
+    #btn-connect:active { transform: scale(0.98); }
+    #btn-connect:disabled { background: #334155; color: #64748b; cursor: not-allowed; }
+    #btn-connect.disconnect { background: #ef4444; }
+    #btn-connect.disconnect:hover { background: #dc2626; }
+
+    /* ── Live data cards ── */
+    #data-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      width: 100%;
+      max-width: 700px;
+    }
+    .card {
+      background: #1e2330;
+      border: 1px solid #2d3548;
+      border-radius: 12px;
+      padding: 16px 12px;
+      text-align: center;
+    }
+    .card-label { font-size: 0.7rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .card-value { font-size: 2rem; font-weight: 700; color: #f1f5f9; line-height: 1; }
+    .card-unit  { font-size: 0.8rem; color: #64748b; margin-top: 4px; }
+    .card.speed  .card-value { color: #38bdf8; }
+    .card.cadence .card-value { color: #a78bfa; }
+    .card.power  .card-value { color: #fb923c; }
+
+    /* ── Control panel ── */
+    #control-panel {
+      background: #1e2330;
+      border: 1px solid #2d3548;
+      border-radius: 12px;
+      padding: 20px;
+      width: 100%;
+      max-width: 700px;
+    }
+    #control-panel h2 { font-size: 0.85rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+
+    /* Mode tabs */
+    #mode-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    .tab {
+      flex: 1;
+      padding: 8px;
+      border-radius: 7px;
+      border: 1px solid #2d3548;
+      background: transparent;
+      color: #64748b;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: all 0.15s;
+    }
+    .tab.active { background: #334155; border-color: #475569; color: #e2e8f0; }
+    .tab:hover:not(.active) { border-color: #3b82f6; color: #93c5fd; }
+
+    /* Mode panes */
+    .mode-pane { display: none; flex-direction: column; gap: 14px; }
+    .mode-pane.active { display: flex; }
+
+    .control-row { display: flex; align-items: center; gap: 12px; }
+    .control-row label { font-size: 0.8rem; color: #94a3b8; width: 110px; flex-shrink: 0; }
+
+    input[type=range] {
+      flex: 1;
+      accent-color: #3b82f6;
+      height: 6px;
+      cursor: pointer;
+    }
+    .value-badge {
+      background: #0f1117;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #f1f5f9;
+      min-width: 58px;
+      text-align: center;
+    }
+    .send-btn {
+      background: #1d4ed8;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 9px 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .send-btn:hover { background: #2563eb; }
+    .send-btn:disabled { background: #1e3a5f55; color: #475569; cursor: not-allowed; }
+
+    /* ── Console ── */
+    #console-panel {
+      background: #0d1117;
+      border: 1px solid #2d3548;
+      border-radius: 12px;
+      padding: 14px 16px;
+      width: 100%;
+      max-width: 700px;
+    }
+    #console-panel h2 { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+    #console-output {
+      font-family: 'Consolas', 'Fira Mono', monospace;
+      font-size: 0.72rem;
+      color: #64748b;
+      height: 130px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column-reverse; /* newest on top */
+    }
+    #console-output .line { padding: 1px 0; }
+    #console-output .line.ok  { color: #22c55e; }
+    #console-output .line.err { color: #ef4444; }
+    #console-output .line.tx  { color: #38bdf8; }
+    #console-output .line.rx  { color: #a78bfa; }
+    #console-output .line.inf { color: #94a3b8; }
+
+    /* ── BLE not supported banner ── */
+    #no-ble {
+      display: none;
+      background: #450a0a;
+      border: 1px solid #991b1b;
+      border-radius: 10px;
+      padding: 14px 20px;
+      color: #fca5a5;
+      font-size: 0.9rem;
+      width: 100%;
+      max-width: 700px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<h1>ESP32 Bike Trainer — BLE Test</h1>
+
+<div id="no-ble">
+  ⚠ Web Bluetooth is not available.<br>
+  Use Chrome or Edge on desktop/Android. Requires HTTPS or <code>localhost</code>.
+</div>
+
+<!-- Status -->
+<div id="status-bar">
+  <div id="status-dot"></div>
+  <span id="status-text">Disconnected</span>
+  <span id="log">—</span>
+</div>
+
+<!-- Connect -->
+<button id="btn-connect">Connect to Bike Trainer</button>
+
+<!-- Live data -->
+<div id="data-grid">
+  <div class="card speed">
+    <div class="card-label">Speed</div>
+    <div class="card-value" id="val-speed">—</div>
+    <div class="card-unit">km/h</div>
+  </div>
+  <div class="card cadence">
+    <div class="card-label">Cadence</div>
+    <div class="card-value" id="val-cadence">—</div>
+    <div class="card-unit">rpm</div>
+  </div>
+  <div class="card power">
+    <div class="card-label">Power</div>
+    <div class="card-value" id="val-power">—</div>
+    <div class="card-unit">watts</div>
+  </div>
+</div>
+
+<!-- Controls -->
+<div id="control-panel">
+  <h2>Control</h2>
+  <div id="mode-tabs">
+    <button class="tab active" data-mode="manual">Manual</button>
+    <button class="tab"        data-mode="erg">ERG</button>
+    <button class="tab"        data-mode="sim">Simulation</button>
+  </div>
+
+  <!-- Manual resistance -->
+  <div class="mode-pane active" id="pane-manual">
+    <div class="control-row">
+      <label>Resistance</label>
+      <input type="range" id="sl-resistance" min="0" max="100" value="50" step="1">
+      <span class="value-badge" id="lbl-resistance">50 / 100</span>
+    </div>
+    <div class="control-row" style="justify-content:flex-end">
+      <button class="send-btn" id="btn-resistance" disabled>Send</button>
+    </div>
+  </div>
+
+  <!-- ERG power -->
+  <div class="mode-pane" id="pane-erg">
+    <div class="control-row">
+      <label>Target Power</label>
+      <input type="range" id="sl-power" min="0" max="200" value="100" step="1">
+      <span class="value-badge" id="lbl-power">100 W</span>
+    </div>
+    <div class="control-row" style="justify-content:flex-end">
+      <button class="send-btn" id="btn-power" disabled>Send</button>
+    </div>
+  </div>
+
+  <!-- Simulation grade -->
+  <div class="mode-pane" id="pane-sim">
+    <div class="control-row">
+      <label>Grade</label>
+      <input type="range" id="sl-grade" min="-10" max="15" value="0" step="0.5">
+      <span class="value-badge" id="lbl-grade">0.0 %</span>
+    </div>
+    <div class="control-row" style="justify-content:flex-end">
+      <button class="send-btn" id="btn-grade" disabled>Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- Console -->
+<div id="console-panel">
+  <h2>Console</h2>
+  <div id="console-output"></div>
+</div>
+
+<script>
+'use strict';
+
+// ============================================================
+// BLE UUIDs — must match config.h exactly
+// ============================================================
+const FTMS_SERVICE            = '00001826-0000-1000-8000-00805f9b34fb';
+const CHAR_INDOOR_BIKE_DATA   = '00002ad2-0000-1000-8000-00805f9b34fb';
+const CHAR_CONTROL_POINT      = '00002ad9-0000-1000-8000-00805f9b34fb';
+const DEVICE_NAME             = 'ESP32 Bike Trainer';
+
+// ============================================================
+// BikeTrainerBLE — reusable class (import this into your Phaser game)
+// ============================================================
+class BikeTrainerBLE {
+  constructor() {
+    this.device           = null;
+    this.server           = null;
+    this.service          = null;
+    this.bikeDataChar     = null;
+    this.controlPointChar = null;
+
+    /** Called with { speedKmh, cadenceRpm, powerW } on each BLE notification */
+    this.onData             = null;
+    /** Called with (connected: bool) on connection state changes */
+    this.onConnectionChange = null;
+    /** Called with (line: string, type: 'ok'|'err'|'tx'|'rx'|'inf') for logging */
+    this.onLog              = null;
+  }
+
+  get connected() {
+    return this.device?.gatt?.connected ?? false;
+  }
+
+  async connect() {
+    this._log('Requesting BLE device…', 'inf');
+    this.device = await navigator.bluetooth.requestDevice({
+      filters: [{ name: DEVICE_NAME }],
+      optionalServices: [FTMS_SERVICE],
+    });
+
+    this.device.addEventListener('gattserverdisconnected', () => {
+      this._log('GATT server disconnected', 'err');
+      this.onConnectionChange?.(false);
+    });
+
+    this._log('Connecting to GATT server…', 'inf');
+    this.server  = await this.device.gatt.connect();
+    this.service = await this.server.getPrimaryService(FTMS_SERVICE);
+    this._log('FTMS service found', 'ok');
+
+    // ── Indoor Bike Data (notify) ──
+    this.bikeDataChar = await this.service.getCharacteristic(CHAR_INDOOR_BIKE_DATA);
+    this.bikeDataChar.addEventListener('characteristicvaluechanged', e => this._parseBikeData(e.target.value));
+    await this.bikeDataChar.startNotifications();
+    this._log('Indoor Bike Data: subscribed', 'ok');
+
+    // ── Control Point (write + indicate) ──
+    this.controlPointChar = await this.service.getCharacteristic(CHAR_CONTROL_POINT);
+    this.controlPointChar.addEventListener('characteristicvaluechanged', e => this._parseControlResponse(e.target.value));
+    await this.controlPointChar.startNotifications(); // enables indications
+    this._log('Control Point: ready', 'ok');
+
+    // Request control (opCode 0x00) — required before sending any commands
+    await this._write(new Uint8Array([0x00]));
+    this._log('Control granted', 'ok');
+
+    this.onConnectionChange?.(true);
+  }
+
+  async disconnect() {
+    if (this.connected) {
+      this.device.gatt.disconnect();
+      this._log('Disconnected by user', 'inf');
+    }
+  }
+
+  /** Manual mode: resistance 0–100 */
+  async setResistance(level) {
+    level = Math.max(0, Math.min(100, Math.round(level)));
+    this._log(`TX  opCode=0x04  resistance=${level}/100`, 'tx');
+    await this._write(new Uint8Array([0x04, level, 0x00]));
+  }
+
+  /** ERG mode: target power in watts */
+  async setPower(watts) {
+    watts = Math.max(0, Math.min(1000, Math.round(watts)));
+    const buf = new DataView(new ArrayBuffer(3));
+    buf.setUint8(0, 0x05);
+    buf.setInt16(1, watts, true);
+    this._log(`TX  opCode=0x05  power=${watts}W`, 'tx');
+    await this._write(new Uint8Array(buf.buffer));
+  }
+
+  /** Simulation mode: grade in percent (e.g. -5.0 to +12.5) */
+  async setGrade(gradePercent) {
+    gradePercent = Math.max(-20, Math.min(20, gradePercent));
+    const gradeRaw = Math.round(gradePercent * 100); // int16, unit = 0.01%
+    const buf = new DataView(new ArrayBuffer(7));
+    buf.setUint8(0, 0x11);
+    buf.setInt16(1, 0,        true); // wind speed = 0 m/s (*1000)
+    buf.setInt16(3, gradeRaw, true); // grade in 0.01%
+    buf.setUint8(5, 0);              // CRR
+    buf.setUint8(6, 0);              // CW
+    this._log(`TX  opCode=0x11  grade=${gradePercent.toFixed(2)}%  raw=${gradeRaw}`, 'tx');
+    await this._write(new Uint8Array(buf.buffer));
+  }
+
+  // ── private ──
+
+  async _write(bytes) {
+    if (!this.controlPointChar) throw new Error('Not connected');
+    await this.controlPointChar.writeValueWithResponse(bytes);
+  }
+
+  _parseBikeData(dv) {
+    // Our firmware always sends: flags(2) + speed(2) + cadence(2) + power(2) = 8 bytes
+    // Flags = 0x0024 (firmware-defined: cadence + power present)
+    if (dv.byteLength < 8) return;
+    const speedKmh   = dv.getUint16(2, true) / 100;
+    const cadenceRpm = dv.getUint16(4, true) / 2;
+    const powerW     = dv.getInt16(6, true);
+    this.onData?.({ speedKmh, cadenceRpm, powerW });
+  }
+
+  _parseControlResponse(dv) {
+    if (dv.byteLength < 3 || dv.getUint8(0) !== 0x80) return;
+    const opCode = dv.getUint8(1);
+    const result = dv.getUint8(2);
+    const label  = result === 1 ? 'OK' : `FAIL(${result})`;
+    this._log(`RX  opCode=0x${opCode.toString(16).padStart(2,'0')}  ${label}`, result === 1 ? 'rx' : 'err');
+  }
+
+  _log(msg, type = 'inf') {
+    const ts = new Date().toLocaleTimeString('en-GB', { hour12: false });
+    this.onLog?.(`[${ts}] ${msg}`, type);
+    console.log(`[BikeTrainerBLE] ${msg}`);
+  }
+}
+
+// ============================================================
+// UI glue
+// ============================================================
+const trainer = new BikeTrainerBLE();
+
+const $  = id => document.getElementById(id);
+const dot        = $('status-dot');
+const statusText = $('status-text');
+const logSpan    = $('log');
+const btnConnect = $('btn-connect');
+const consoleOut = $('console-output');
+
+// Check Web BT support
+if (!navigator.bluetooth) {
+  $('no-ble').style.display = 'block';
+  btnConnect.disabled = true;
+}
+
+// ── Console ──
+function consolePrint(line, type) {
+  const el = document.createElement('div');
+  el.className = `line ${type}`;
+  el.textContent = line;
+  consoleOut.prepend(el);
+  // keep max 120 lines
+  while (consoleOut.children.length > 120) consoleOut.removeChild(consoleOut.lastChild);
+}
+trainer.onLog = consolePrint;
+
+// ── Connection state ──
+function setConnected(connected) {
+  dot.className = connected ? 'connected' : '';
+  statusText.textContent = connected ? `Connected to "${DEVICE_NAME}"` : 'Disconnected';
+  btnConnect.textContent = connected ? 'Disconnect' : 'Connect to Bike Trainer';
+  btnConnect.className   = connected ? 'disconnect' : '';
+  ['btn-resistance', 'btn-power', 'btn-grade'].forEach(id => $(id).disabled = !connected);
+}
+trainer.onConnectionChange = setConnected;
+
+// ── Live data ──
+trainer.onData = ({ speedKmh, cadenceRpm, powerW }) => {
+  $('val-speed').textContent   = speedKmh.toFixed(1);
+  $('val-cadence').textContent = Math.round(cadenceRpm);
+  $('val-power').textContent   = powerW;
+  logSpan.textContent = new Date().toLocaleTimeString('en-GB', { hour12: false });
+};
+
+// ── Connect button ──
+btnConnect.addEventListener('click', async () => {
+  if (trainer.connected) {
+    await trainer.disconnect();
+    setConnected(false);
+    return;
+  }
+  btnConnect.disabled = true;
+  dot.className = 'connecting';
+  statusText.textContent = 'Connecting…';
+  try {
+    await trainer.connect();
+  } catch (e) {
+    consolePrint(`[ERROR] ${e.message}`, 'err');
+    setConnected(false);
+  } finally {
+    btnConnect.disabled = false;
+  }
+});
+
+// ── Mode tabs ──
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.mode-pane').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    $('pane-' + tab.dataset.mode).classList.add('active');
+  });
+});
+
+// ── Sliders ──
+$('sl-resistance').addEventListener('input', e => {
+  $('lbl-resistance').textContent = `${e.target.value} / 100`;
+});
+$('sl-power').addEventListener('input', e => {
+  $('lbl-power').textContent = `${e.target.value} W`;
+});
+$('sl-grade').addEventListener('input', e => {
+  $('lbl-grade').textContent = `${parseFloat(e.target.value).toFixed(1)} %`;
+});
+
+// ── Send buttons ──
+$('btn-resistance').addEventListener('click', async () => {
+  try { await trainer.setResistance(parseInt($('sl-resistance').value)); }
+  catch(e) { consolePrint(`[ERROR] ${e.message}`, 'err'); }
+});
+$('btn-power').addEventListener('click', async () => {
+  try { await trainer.setPower(parseInt($('sl-power').value)); }
+  catch(e) { consolePrint(`[ERROR] ${e.message}`, 'err'); }
+});
+$('btn-grade').addEventListener('click', async () => {
+  try { await trainer.setGrade(parseFloat($('sl-grade').value)); }
+  catch(e) { consolePrint(`[ERROR] ${e.message}`, 'err'); }
+});
+</script>
+</body>
+</html>

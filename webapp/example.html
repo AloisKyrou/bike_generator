@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BikeTrainer SDK — Example</title>
+  <style>
+    body { font-family: monospace; background: #111; color: #e2e8f0; padding: 24px; max-width: 600px; }
+    button { padding: 10px 24px; font-size: 1rem; cursor: pointer; border: none; border-radius: 6px; margin: 4px; }
+    #btn-connect  { background: #3b82f6; color: #fff; }
+    #btn-connect.off { background: #ef4444; }
+    #btn-mock     { background: #334155; color: #e2e8f0; }
+    pre { background: #1e2330; padding: 16px; border-radius: 8px; font-size: 0.85rem; line-height: 1.6; }
+    .ok  { color: #22c55e; } .err { color: #ef4444; }
+    .tx  { color: #38bdf8; } .rx  { color: #a78bfa; }
+    .inf { color: #94a3b8; }
+    h2   { color: #64748b; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; margin: 20px 0 6px; }
+    #data { font-size: 1.4rem; letter-spacing: 0.05em; }
+  </style>
+</head>
+<body>
+  <h1 style="font-size:1.1rem;color:#64748b">BikeTrainer SDK — Example</h1>
+
+  <p style="color:#64748b;font-size:0.85rem;margin-bottom:16px">
+    Requires HTTPS + Chrome/Edge on Android, or localhost on desktop.<br>
+    Use <strong>Mock</strong> to develop without the physical bike.
+  </p>
+
+  <button id="btn-connect">Connect (Real BLE)</button>
+  <button id="btn-mock">Connect (Mock)</button>
+
+  <h2>Live Data</h2>
+  <pre id="data">speed: —   cadence: —   power: —</pre>
+
+  <h2>Console</h2>
+  <pre id="log" style="height:200px;overflow-y:auto"></pre>
+
+<script type="module">
+import { BikeTrainerBLE, BikeTrainerMock } from './bike_trainer.js';
+
+// ── Switch between real and mock here ──────────────────────────
+//   const trainer = new BikeTrainerBLE();   // real ESP32
+//   const trainer = new BikeTrainerMock();  // fake data + keyboard
+// ── (buttons below do it dynamically for this demo) ────────────
+
+let trainer = null;
+
+const btnConnect = document.getElementById('btn-connect');
+const btnMock    = document.getElementById('btn-mock');
+const dataEl     = document.getElementById('data');
+const logEl      = document.getElementById('log');
+
+function log(msg, type = 'inf') {
+  const line = document.createElement('div');
+  line.className = type;
+  line.textContent = msg;
+  logEl.prepend(line);
+  while (logEl.children.length > 60) logEl.removeChild(logEl.lastChild);
+}
+
+function setup(t) {
+  trainer = t;
+  trainer.onLog = log;
+  trainer.onConnectionChange = (connected) => {
+    btnConnect.textContent = connected ? 'Disconnect' : 'Connect (Real BLE)';
+    btnConnect.className = connected ? 'off' : '';
+    if (!connected) dataEl.textContent = 'speed: —   cadence: —   power: —';
+  };
+  trainer.onData = ({ speedKmh, cadenceRpm, powerW }) => {
+    dataEl.textContent =
+      `speed: ${speedKmh.toFixed(1)} km/h   cadence: ${Math.round(cadenceRpm)} rpm   power: ${powerW} W`;
+  };
+}
+
+btnConnect.addEventListener('click', async () => {
+  if (trainer?.connected) { await trainer.disconnect(); return; }
+  setup(new BikeTrainerBLE());
+  try { await trainer.connect(); }
+  catch (e) { log(`[ERROR] ${e.message}`, 'err'); }
+});
+
+btnMock.addEventListener('click', async () => {
+  if (trainer?.connected) await trainer.disconnect();
+  setup(new BikeTrainerMock());
+  await trainer.connect();
+  log('Mock keyboard: ↑↓ grade · PgUp/PgDn power · +/- resistance · Space pedal', 'inf');
+});
+</script>
+</body>
+</html>

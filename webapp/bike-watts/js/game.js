@@ -174,6 +174,12 @@ class GameScene extends Phaser.Scene {
         this.shiftKey.on('down', () => this.onPedal());
         this.spaceKey.on('down', () => this.onJump());
 
+        // Touch controls: left half = pedal, right half = jump
+        this.input.on('pointerdown', (ptr) => {
+            if (ptr.x < GAME_WIDTH / 2) this.onPedal();
+            else this.onJump();
+        });
+
         // ---- UI ----
         this.createUI();
 
@@ -853,7 +859,7 @@ class GameOverScene extends Phaser.Scene {
             stroke: '#000000', strokeThickness: 4
         }).setOrigin(0.5);
 
-        const restartText = this.add.text(GAME_WIDTH / 2, 370, '[ Press SHIFT or SPACE to Restart ]', {
+        const restartText = this.add.text(GAME_WIDTH / 2, 370, '[ Tap or press SHIFT / SPACE to Restart ]', {
             fontSize: '22px', fontFamily: 'Arial', color: '#AAFFAA',
             stroke: '#000000', strokeThickness: 3
         }).setOrigin(0.5);
@@ -878,6 +884,7 @@ class GameOverScene extends Phaser.Scene {
         this.time.delayedCall(500, () => {
             this.input.keyboard.once('keydown-SHIFT', () => this.scene.start('GameScene'));
             this.input.keyboard.once('keydown-SPACE', () => this.scene.start('GameScene'));
+            this.input.once('pointerdown', () => this.scene.start('GameScene'));
         });
     }
 }
@@ -890,6 +897,11 @@ const config = {
     width: GAME_WIDTH,
     height: GAME_HEIGHT,
     backgroundColor: '#87CEEB',
+    parent: 'game-container',
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
     scene: [PreloadScene, GameScene, GameOverScene]
 };
 

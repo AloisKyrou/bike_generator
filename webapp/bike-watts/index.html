@@ -5,26 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bike Watts</title>
     <style>
-        * { margin: 0; padding: 0; }
-        body {
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
+        #game-container { position: fixed; inset: 0; }
         canvas { display: block; }
 
-        /* ── Input-source overlay ── */
+        /* ── Toggle tab (always visible) ── */
+        #overlay-toggle {
+            position: fixed; top: 12px; right: 12px; z-index: 10000;
+            background: #000c; backdrop-filter: blur(4px);
+            border: 1px solid #ffffff22; border-radius: 8px;
+            color: #94a3b8; font-size: 18px;
+            width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: border-color .15s, color .15s;
+        }
+        #overlay-toggle:hover { border-color: #3b82f6; color: #e2e8f0; }
+        #overlay-toggle.connected { border-color: #22c55e; color: #22c55e; }
+
+        /* ── Collapsible panel ── */
         #input-overlay {
-            position: fixed; top: 10px; right: 10px; z-index: 9999;
+            position: fixed; top: 56px; right: 12px; z-index: 9999;
             font-family: 'Segoe UI', system-ui, sans-serif;
-            background: #000a; backdrop-filter: blur(4px);
+            background: #000d; backdrop-filter: blur(6px);
             border: 1px solid #ffffff18;
             color: #e2e8f0; padding: 8px 10px;
-            border-radius: 10px; min-width: 180px;
+            border-radius: 10px; min-width: 190px;
             display: flex; flex-direction: column; gap: 4px;
+            transform-origin: top right;
+            transition: opacity .15s, transform .15s;
+        }
+        #input-overlay.hidden {
+            opacity: 0; transform: scale(0.85);
+            pointer-events: none;
         }
         #input-overlay .ov-label {
             font-size: 9px; color: #64748b;
@@ -39,15 +52,21 @@
         .src-btn:hover  { border-color: #3b82f6; color: #e2e8f0; }
         .src-btn.active { border-color: #22c55e; color: #22c55e; background: #052e16; }
         #bike-hud {
-            font-size: 10px; color: #475569; font-family: monospace;
+            font-size: 10px; color: #64748b; font-family: monospace;
             border-top: 1px solid #1e293b; padding-top: 4px; margin-top: 2px;
         }
     </style>
 </head>
 <body>
 
-<!-- Input-source overlay — remove or hide once the game has its own UI for this -->
-<div id="input-overlay">
+<!-- Full-screen Phaser container -->
+<div id="game-container"></div>
+
+<!-- Toggle tab (always visible, top-right corner) -->
+<button id="overlay-toggle" title="Input source">📡</button>
+
+<!-- Collapsible input-source panel -->
+<div id="input-overlay" class="hidden">
     <div class="ov-label">Input source</div>
     <button class="src-btn active" id="btn-ble">📡 Real bike (BLE)</button>
     <button class="src-btn"        id="btn-mock">🚴 Bike simulation (mock)</button>
@@ -68,6 +87,21 @@ window.bikeInput = { speedKmh: 0, cadenceRpm: 0, powerW: 0, connected: false };
 
 let activeTrainer = null;
 
+// ── Overlay toggle ────────────────────────────────────────────────────────────
+const overlayToggle = document.getElementById('overlay-toggle');
+const inputOverlay  = document.getElementById('input-overlay');
+overlayToggle.addEventListener('click', () => {
+    inputOverlay.classList.toggle('hidden');
+});
+// Close panel when clicking outside of it
+document.addEventListener('pointerdown', (e) => {
+    if (!inputOverlay.classList.contains('hidden') &&
+        !inputOverlay.contains(e.target) &&
+        e.target !== overlayToggle) {
+        inputOverlay.classList.add('hidden');
+    }
+});
+
 function setActive(id) {
     document.querySelectorAll('.src-btn').forEach(b => b.classList.remove('active'));
     document.getElementById(id).classList.add('active');
@@ -80,6 +114,7 @@ async function connectTrainer(TrainerClass, opts = {}) {
     activeTrainer.onLog = (msg) => console.debug('[bike]', msg);
     activeTrainer.onConnectionChange = (connected) => {
         window.bikeInput.connected = connected;
+        overlayToggle.classList.toggle('connected', connected);
         if (!connected) document.getElementById('bike-hud').textContent = '—';
     };
     activeTrainer.onData = ({ speedKmh, cadenceRpm, powerW }) => {

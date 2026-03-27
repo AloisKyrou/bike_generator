@@ -591,9 +591,6 @@ class PreloadScene extends Phaser.Scene {
 
         // ---- Load MIDI file as binary ----
         this.load.binary('music_midi', 'assets/darude-sandstorm.mid');
-
-        this.load.image('gauge_fill', 'assets/gauge_fill.png');   // green bars image
-        this.load.image('gauge_frame', 'assets/gauge_frame.png'); // battery outline image
     }
 
     create() {
@@ -1098,6 +1095,11 @@ class GameScene extends Phaser.Scene {
             stroke: '#000000', strokeThickness: 2
         }).setDepth(uiDepth).setScrollFactor(0);
     
+        this.speedBarBg = this.add.rectangle(20, 45, 150, 16, 0x333333)
+            .setOrigin(0).setDepth(uiDepth).setScrollFactor(0);
+        this.speedBarFill = this.add.rectangle(22, 47, 0, 12, 0x00FF00)
+            .setOrigin(0).setDepth(uiDepth).setScrollFactor(0);
+    
         this.pedalIndicator = this.add.text(GAME_WIDTH / 2, 20, 'Press SHIFT to pedal!', {
             fontFamily: 'futural', fontSize: '20px', color: '#FFFF00',
             stroke: '#000000', strokeThickness: 3
@@ -1122,36 +1124,6 @@ class GameScene extends Phaser.Scene {
             fontFamily: 'monospace', fontSize: '13px', color: '#22c55e',
             stroke: '#000000', strokeThickness: 2
         }).setOrigin(0, 1).setDepth(uiDepth).setScrollFactor(0).setAlpha(0);
-
-        // ---- LEVEL GAUGE (battery style, bottom right) ----
-        const gaugeX = GAME_WIDTH - 50;
-        const gaugeY = GAME_HEIGHT - 80;
-        const gaugeScale = 0.03;
-
-        // Green fill — placed behind the frame, anchored at the bottom
-        this.gaugeFill = this.add.image(gaugeX, gaugeY, 'gauge_fill')
-            .setScale(gaugeScale)
-            .setOrigin(0.5, 1)
-            .setDepth(uiDepth)
-            .setScrollFactor(0);
-
-        // Store the full height for clipping later
-        this.gaugeFillFullH = this.gaugeFill.displayHeight;
-
-        // Battery frame overlay on top
-        this.gaugeFrame = this.add.image(gaugeX, gaugeY, 'gauge_frame')
-            .setScale(gaugeScale)
-            .setOrigin(0.5, 1)
-            .setDepth(uiDepth + 1)
-            .setScrollFactor(0);
-
-        // Create a crop rect for the fill image (starts fully hidden)
-        const texW = this.textures.get('gauge_fill').getSourceImage().width;
-        const texH = this.textures.get('gauge_fill').getSourceImage().height;
-        this.gaugeFill.setCrop(0, texH, texW, 0);
-        this.gaugeTexW = texW;
-        this.gaugeTexH = texH;
-        
     }
 
     // --------------------------------------------------------
@@ -1605,15 +1577,21 @@ class GameScene extends Phaser.Scene {
             this.speedText.setText(`Vitesse : ${Math.floor(this.speed/10)} km/h`);
         }
 
+        const speedRatio = this.speed / this.maxSpeed;
+        this.speedBarFill.width = 146 * speedRatio;
+
+        const newColor = speedRatio > 0.7 ? 0xFF4444 : speedRatio > 0.4 ? 0xFFAA00 : 0x00FF00;
+        if (this.speedBarFill.fillColor !== newColor) this.speedBarFill.fillColor = newColor;
+
         if (this.speed < 10) {
             this.pedalIndicator.setText('Il faut pédaler !');
             this.pedalIndicator.setColor('#FFFF00');
             this.pedalIndicator.setAlpha(0.5 + Math.sin(this.time.now * 0.005) * 0.5);
         } else if (this.hillMultiplier > 2) {
-            this.pedalIndicator.setText('ÇA MONTE ! PÉDALE !');
+            this.pedalIndicator.setText('STEEP HILL! Mash SHIFT!');
             this.pedalIndicator.setColor('#FF4444').setAlpha(1);
         } else if (this.hillMultiplier > 1.3) {
-            this.pedalIndicator.setText('Ça va monter, pédale plus fort !');
+            this.pedalIndicator.setText('Hill ahead - pedal faster!');
             this.pedalIndicator.setColor('#FFAA00').setAlpha(1);
         } else {
             this.pedalIndicator.setAlpha(0);
@@ -1622,7 +1600,7 @@ class GameScene extends Phaser.Scene {
         // Re-use cached slope for the look-ahead check (offset by 200 world units)
         const slopeAhead = this.getTerrainSlopeAt(this.worldX + this.playerScreenX + 200);
         if (slopeAhead < -0.15) {
-            this.hillWarning.setText('⚠ Aaahhh, ça va monter !!! ⚠').setAlpha(1);
+            this.hillWarning.setText('⚠ STEEP CLIMB AHEAD ⚠').setAlpha(1);
         } else {
             this.hillWarning.setAlpha(0);
         }
@@ -1638,13 +1616,6 @@ class GameScene extends Phaser.Scene {
         } else {
             this.bikeText.setAlpha(0);
         }
-
-        // ---- Update level gauge (fills slowly with distance) ----
-        this.gaugeMaxDistance = 2500;
-        const distRatio = Phaser.Math.Clamp(this.distance / this.gaugeMaxDistance, 0, 1);
-        const cropH = Math.round(this.gaugeTexH * distRatio);
-        this.gaugeFill.setCrop(0, this.gaugeTexH - cropH, this.gaugeTexW, cropH);
-        
     }
 
     checkGameOver() {
@@ -1721,7 +1692,7 @@ class GameOverScene extends Phaser.Scene {
             stroke: '#000000', strokeThickness: 4
         }).setOrigin(0.5);
 
-        const restartText = this.add.text(GAME_WIDTH / 2, 370, '[ Press SHIFT or SPACE to Restart ]', {
+        const restartText = this.add.text(GAME_WIDTH / 2, 370, '[ Tap or press SHIFT / SPACE to Restart ]', {
             fontFamily: 'futural', fontSize: '22px', color: '#AAFFAA',
             stroke: '#000000', strokeThickness: 3
         }).setOrigin(0.5);

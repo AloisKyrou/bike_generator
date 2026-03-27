@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Watts</title>
+    <style>
+        * { margin: 0; padding: 0; }
+        body {
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        canvas { display: block; }
+
+        /* ── Input-source overlay ── */
+        #input-overlay {
+            position: fixed; top: 10px; right: 10px; z-index: 9999;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #000a; backdrop-filter: blur(4px);
+            border: 1px solid #ffffff18;
+            color: #e2e8f0; padding: 8px 10px;
+            border-radius: 10px; min-width: 180px;
+            display: flex; flex-direction: column; gap: 4px;
+        }
+        #input-overlay .ov-label {
+            font-size: 9px; color: #64748b;
+            text-transform: uppercase; letter-spacing: .1em; margin-bottom: 2px;
+        }
+        .src-btn {
+            padding: 5px 8px; background: #1e293b;
+            border: 1px solid #334155; border-radius: 6px;
+            color: #94a3b8; cursor: pointer; text-align: left; font-size: 11px;
+            transition: border-color .15s, color .15s;
+        }
+        .src-btn:hover  { border-color: #3b82f6; color: #e2e8f0; }
+        .src-btn.active { border-color: #22c55e; color: #22c55e; background: #052e16; }
+        #bike-hud {
+            font-size: 10px; color: #475569; font-family: monospace;
+            border-top: 1px solid #1e293b; padding-top: 4px; margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Input-source overlay — remove or hide once the game has its own UI for this -->
+<div id="input-overlay">
+    <div class="ov-label">Input source</div>
+    <button class="src-btn active" id="btn-ble">📡 Real bike (BLE)</button>
+    <button class="src-btn"        id="btn-mock">🚴 Bike simulation (mock)</button>
+    <button class="src-btn"        id="btn-keyboard">⌨ Keyboard (SHIFT / SPACE)</button>
+    <div id="bike-hud">—</div>
+</div>
+
+<!-- Phaser 3 -->
+<script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+
+<!-- Bike trainer SDK + input bridge (module) -->
+<script type="module">
+import { BikeTrainerBLE, BikeTrainerMock } from '../bike_trainer.js';
+
+// ── Shared bike state (polled by game.js every frame) ────────────────────────
+//   window.bikeInput → { speedKmh, cadenceRpm, powerW, connected }
+window.bikeInput = { speedKmh: 0, cadenceRpm: 0, powerW: 0, connected: false };
+
+let activeTrainer = null;
+
+function setActive(id) {
+    document.querySelectorAll('.src-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+async function connectTrainer(TrainerClass, opts = {}) {
+    if (activeTrainer?.connected) await activeTrainer.disconnect();
+
+    activeTrainer = new TrainerClass(opts);
+    activeTrainer.onLog = (msg) => console.debug('[bike]', msg);
+    activeTrainer.onConnectionChange = (connected) => {
+        window.bikeInput.connected = connected;
+        if (!connected) document.getElementById('bike-hud').textContent = '—';
+    };
+    activeTrainer.onData = ({ speedKmh, cadenceRpm, powerW }) => {
+        Object.assign(window.bikeInput, { speedKmh, cadenceRpm, powerW });
+        document.getElementById('bike-hud').textContent =
+            `${speedKmh.toFixed(1)} km/h · ${Math.round(cadenceRpm)} rpm · ${powerW} W`;
+    };
+
+    try { await activeTrainer.connect(); }
+    catch (e) { console.error('[bike] connect failed:', e); }
+}
+
+document.getElementById('btn-keyboard').addEventListener('click', async () => {
+    if (activeTrainer?.connected) await activeTrainer.disconnect();
+    activeTrainer = null;
+    window.bikeInput = { speedKmh: 0, cadenceRpm: 0, powerW: 0, connected: false };
+    document.getElementById('bike-hud').textContent = '—';
+    setActive('btn-keyboard');
+});
+
+// Mock: disable built-in key shortcuts so they don't conflict with game controls
+document.getElementById('btn-mock').addEventListener('click', () => {
+    setActive('btn-mock');
+    connectTrainer(BikeTrainerMock, { keyboardControl: false });
+});
+
+document.getElementById('btn-ble').addEventListener('click', () => {
+    setActive('btn-ble');
+    connectTrainer(BikeTrainerBLE);
+});
+
+// ── Input source init ───────────────────────────────────────────────────────
+// ?input=ble      → real bike BLE  (default — pre-selected, click the button to connect)
+// ?input=mock     → bike simulation (auto-starts)
+// ?input=keyboard → keyboard only   (auto-starts)
+//
+// Web Bluetooth requires a real user gesture — BLE is never auto-started.
+const inputParam = new URLSearchParams(location.search).get('input') ?? 'ble';
+if (inputParam === 'mock') {
+    setActive('btn-mock');
+    connectTrainer(BikeTrainerMock, { keyboardControl: false });
+} else if (inputParam === 'keyboard') {
+    setActive('btn-keyboard');
+} else {
+    // BLE: just highlight the button — user must click to open the browser picker
+    setActive('btn-ble');
+}
+</script>
+
+<!-- Phaser game (plain script — must load after Phaser CDN) -->
+<script src="js/game.js"></script>
+
+</body>
+</html>

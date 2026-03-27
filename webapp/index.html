@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bike Trainer — Dev Hub</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f1117; color: #e2e8f0;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 32px; padding: 32px 16px;
+    }
+    h1 { font-size: 1.2rem; color: #64748b; text-transform: uppercase; letter-spacing: .12em; }
+    .grid { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+    a {
+      display: flex; flex-direction: column; gap: 6px;
+      background: #1e2330; border: 1px solid #2d3548; border-radius: 14px;
+      padding: 24px 32px; text-decoration: none; color: inherit;
+      min-width: 180px; text-align: center;
+      transition: border-color .15s, background .15s;
+    }
+    a:hover { border-color: #3b82f6; background: #1a2540; }
+    .icon  { font-size: 2rem; }
+    .name  { font-size: 1rem; font-weight: 600; color: #f1f5f9; }
+    .desc  { font-size: 0.75rem; color: #64748b; }
+  </style>
+</head>
+<body>
+  <h1>Bike Trainer — Dev Hub</h1>
+  <div class="grid">
+
+    <a href="/bike-watts/">
+      <span class="icon">🚴</span>
+      <span class="name">Bike Watts</span>
+      <span class="desc">Phaser 3 game</span>
+    </a>
+
+    <a href="/test_ble/">
+      <span class="icon">📡</span>
+      <span class="name">BLE Tester</span>
+      <span class="desc">Hardware diagnostic</span>
+    </a>
+
+    <a href="/example.html">
+      <span class="icon">📖</span>
+      <span class="name">SDK Example</span>
+      <span class="desc">bike_trainer.js demo</span>
+    </a>
+
+  </div>
+</body>
+</html>

@@ -115,6 +115,7 @@ class GameScene extends Phaser.Scene {
         this.wheelAngle = 0;
         this.legAngle = 0;
         this.playerY = GROUND_Y - 30;
+        this._lastBikePedalTime = 0; // ms timestamp of last bike-driven pedal stroke
     }
 
     create() {
@@ -445,6 +446,26 @@ class GameScene extends Phaser.Scene {
     update(time, delta) {
         if (!this.alive) return;
         const dt = delta / 1000;
+
+        // ── Bike trainer input ──────────────────────────────────────────────
+        // When a BikeTrainerBLE or BikeTrainerMock is connected, cadence drives
+        // periodic onPedal() calls and powerW scales the boost magnitude.
+        // SHIFT key still works as a keyboard fallback.
+        const bi = window.bikeInput;
+        if (bi?.connected && bi.cadenceRpm > 15) {
+            // One full crank revolution = 2 pedal strokes. Interval in ms:
+            const strokeIntervalMs = 60000 / (bi.cadenceRpm * 2);
+            if (time - this._lastBikePedalTime >= strokeIntervalMs) {
+                this._lastBikePedalTime = time;
+                // Scale boost by wattage: 100 W = normal, 200 W = 2× boost (capped at 3×)
+                const powerScale = Math.min(3, Math.max(0.5, (bi.powerW || 100) / 100));
+                const saved = this.pedalBoost;
+                this.pedalBoost = saved * powerScale;
+                this.onPedal();
+                this.pedalBoost = saved;
+            }
+        }
+        // ───────────────────────────────────────────────────────────────────
 
         // Cache slope once per frame — reused by physics, visuals, and UI
         this._cachedSlope = this.getTerrainSlopeAt(this.worldX + this.playerScreenX);

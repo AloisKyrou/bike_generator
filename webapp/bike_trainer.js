@@ -224,7 +224,11 @@ export class BikeTrainerBLE {
 // BikeTrainerMock  — same API, no hardware needed
 // ─────────────────────────────────────────────────────────────────────────────
 export class BikeTrainerMock {
-  constructor() {
+  /** @param {{ keyboardControl?: boolean }} [options]
+   *  keyboardControl (default true) — set to false to disable the built-in
+   *  ArrowUp/Down/PageUp/PageDown/+/-/Space shortcuts (e.g. when a game owns those keys)
+   */
+  constructor(options = {}) {
     /** @type {(data: {speedKmh: number, cadenceRpm: number, powerW: number}) => void} */
     this.onData             = null;
     /** @type {(connected: boolean) => void} */
@@ -244,6 +248,7 @@ export class BikeTrainerMock {
     this._connected  = false;
     this._ticker     = null;
     this._keyHandler = null;
+    this._keyboardControl = options.keyboardControl !== false;
   }
 
   get connected() { return this._connected; }
@@ -253,7 +258,7 @@ export class BikeTrainerMock {
     this._log('Mock connected', 'ok');
     this.onConnectionChange?.(true);
     this._startTicker();
-    this._bindKeys();
+    if (this._keyboardControl) this._bindKeys();
   }
 
   async disconnect() {

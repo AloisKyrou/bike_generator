@@ -118,6 +118,10 @@ async function connectTrainer(TrainerClass, opts = {}) {
         window.bikeInput.connected = connected;
         overlayToggle.classList.toggle('connected', connected);
         if (!connected) document.getElementById('bike-hud').textContent = '—';
+        if (connected) {
+            // Reset resistance to 0 on connect so digipot starts at minimum
+            try { activeTrainer.setGrade(0); } catch (e) { console.warn('[bike] setGrade(0) failed:', e); }
+        }
     };
     activeTrainer.onData = ({ speedKmh, cadenceRpm, powerW }) => {
         Object.assign(window.bikeInput, { speedKmh, cadenceRpm, powerW });

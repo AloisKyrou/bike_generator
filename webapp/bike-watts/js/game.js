@@ -8,6 +8,7 @@ const GAME_HEIGHT = 500;
 const GROUND_Y = 400;
 const GRAVITY = 1200;
 const SEGMENT_WIDTH = 4;
+const REAL_MAX_SPEED_KMH = 30; // real bike km/h that maps to full game speed (tune as needed)
 
 // ============================================================
 // SNES-STYLE CHIPTUNE MUSIC ENGINE
@@ -683,6 +684,10 @@ class BlackoutScene extends Phaser.Scene {
         super({ key: 'BlackoutScene' });
     }
 
+    init(data) {
+        this._skipToLaunch = !!(data && data.skipToLaunch);
+    }
+
     create() {
         this._gifEl = null;
         this._waitingForInput = false;
@@ -691,6 +696,19 @@ class BlackoutScene extends Phaser.Scene {
 
         // Black background
         this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000).setOrigin(0);
+
+        if (this._skipToLaunch) {
+            // Coming from Game Over — skip intro cutscene, show final state directly
+            this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'maison')
+                .setDisplaySize(GAME_WIDTH, GAME_HEIGHT).setDepth(15);
+            this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'velo')
+                .setDisplaySize(GAME_WIDTH, GAME_HEIGHT).setDepth(17);
+            // Black overlay already at 0 (house fully revealed)
+            this._blackOverlay = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000)
+                .setOrigin(0).setDepth(18).setAlpha(0);
+            this._goToGame();
+            return;
+        }
 
         // Show intro text cards before the GIF
         this._showIntroCard(0,
@@ -708,8 +726,7 @@ class BlackoutScene extends Phaser.Scene {
         const style = {
             fontFamily: 'monospace', fontSize: '22px', color: '#FFFFFF',
             stroke: '#000000', strokeThickness: 4,
-            align: 'center', wordWrap: { width: GAME_WIDTH - 100 },
-            resolution: 2
+            align: 'center', wordWrap: { width: GAME_WIDTH - 100 }
         };
         const t = this.add.text(Math.round(GAME_WIDTH / 2), Math.round(GAME_HEIGHT / 2), text, style)
             .setOrigin(0.5).setDepth(10).setAlpha(0);
@@ -768,8 +785,7 @@ class BlackoutScene extends Phaser.Scene {
         lines.forEach((line, i) => {
             const t = this.add.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 50 + i * 55, line, {
                 fontFamily: 'monospace', fontSize: '20px', color: '#FFFFFF',
-                stroke: '#000000', strokeThickness: 4, align: 'center',
-                resolution: 2
+                stroke: '#000000', strokeThickness: 4, align: 'center'
             }).setOrigin(0.5).setDepth(20).setAlpha(0);
             this.tweens.add({ targets: t, alpha: 1, duration: 600, delay: i * 900 });
             this._textObjects.push(t);
@@ -839,7 +855,7 @@ class BlackoutScene extends Phaser.Scene {
                 const finalPrompt = this.add.text(Math.round(GAME_WIDTH / 2), GAME_HEIGHT - 40,
                     'ESPACE / Frein avant / cliquez pour aider Sacha \u00e0 recharger son t\u00e9l\u00e9phone', {
                         fontFamily: 'monospace', fontSize: '15px', color: '#CCCCCC',
-                        stroke: '#000000', strokeThickness: 3, resolution: 2
+                        stroke: '#000000', strokeThickness: 3
                     }).setOrigin(0.5).setDepth(30).setAlpha(0);
                 this.tweens.add({ targets: finalPrompt, alpha: 1, duration: 500 });
                 this.tweens.add({ targets: finalPrompt, alpha: 0.3, duration: 600,
@@ -852,9 +868,12 @@ class BlackoutScene extends Phaser.Scene {
                     this.time.delayedCall(1000, () => this.scene.start('GameScene'));
                 };
 
-                this._waitingForLaunch = true;
-                this.input.keyboard.once('keydown-SPACE', launch);
-                this.input.once('pointerdown', launch);
+                // Wait 3s before accepting any input to avoid accidental trigger
+                this.time.delayedCall(3000, () => {
+                    this._waitingForLaunch = true;
+                    this.input.keyboard.once('keydown-SPACE', launch);
+                    this.input.once('pointerdown', launch);
+                });
             });
         });
     }
@@ -865,18 +884,27 @@ class BlackoutScene extends Phaser.Scene {
         if (this._waitingForInput && !this._goingToHouse) {
             if (bi?.connected && bi.cadenceRpm > 25) {
                 this._pedalTime = (this._pedalTime || 0) + this.game.loop.delta / 1000;
-                if (this._pedalTime >= 0.5) {
+                console.log(`[reveal] cadence=${bi.cadenceRpm} pedalTime=${this._pedalTime.toFixed(2)} pressCount=${this._pressCount}`);
+                if (this._pedalTime >= 1.0) {
                     this._pedalTime = 0;
+                    console.log(`[reveal] PRESS triggered, count now ${(this._pressCount || 0) + 1}`);
                     this._onRevealPress();
                 }
             } else {
+                if (this._pedalTime > 0) console.log(`[reveal] cadence stopped (cadence=${bi?.cadenceRpm}, connected=${bi?.connected}), resetting pedalTime`);
                 this._pedalTime = 0;
+            }
+        } else if (!this._waitingForInput && !this._goingToHouse) {
+            // Log why we're not in reveal phase
+            if (bi?.connected && bi.cadenceRpm > 25) {
+                console.log(`[reveal] pedaling but NOT waiting — _waitingForInput=${this._waitingForInput} _goingToHouse=${this._goingToHouse} _revealLocked=${this._revealLocked} _pressCount=${this._pressCount}`);
             }
         }
         // Pedal input during the final launch wait (house fully revealed)
         if (this._waitingForLaunch) {
             if (bi?.connected && bi.cadenceRpm > 25) {
                 this._launchPedalTime = (this._launchPedalTime || 0) + this.game.loop.delta / 1000;
+                console.log(`[launch] cadence=${bi.cadenceRpm} launchPedalTime=${this._launchPedalTime.toFixed(2)}`);
                 if (this._launchPedalTime >= 1) {
                     this._waitingForLaunch = false;
                     this.input.keyboard.off('keydown-SPACE');
@@ -1093,11 +1121,8 @@ class GameScene extends Phaser.Scene {
             stroke: '#000000', strokeThickness: 2
         }).setOrigin(1, 0).setDepth(uiDepth).setScrollFactor(0);
     
-        this.speedText = this.add.text(20, 15, 'Speed: 0', {
-            fontFamily: 'futural', fontSize: '18px', color: '#FFFFFF',
-            stroke: '#000000', strokeThickness: 2
-        }).setDepth(uiDepth).setScrollFactor(0);
-    
+        this.speedText = null; // speed shown by bikeText (BLE) — no duplicate needed
+
         this.pedalIndicator = this.add.text(GAME_WIDTH / 2, 20, 'Press SHIFT to pedal!', {
             fontFamily: 'futural', fontSize: '20px', color: '#FFFF00',
             stroke: '#000000', strokeThickness: 3
@@ -1326,23 +1351,8 @@ class GameScene extends Phaser.Scene {
         const dt = delta / 1000;
 
         // ── Bike trainer input ──────────────────────────────────────────────
-        // When a BikeTrainerBLE or BikeTrainerMock is connected, cadence drives
-        // periodic onPedal() calls and powerW scales the boost magnitude.
-        // SHIFT key still works as a keyboard fallback.
-        const bi = window.bikeInput;
-        if (bi?.connected && bi.cadenceRpm > 15) {
-            // One full crank revolution = 2 pedal strokes. Interval in ms:
-            const strokeIntervalMs = 60000 / (bi.cadenceRpm * 2);
-            if (time - this._lastBikePedalTime >= strokeIntervalMs) {
-                this._lastBikePedalTime = time;
-                // Scale boost by wattage: 100 W = normal, 200 W = 2× boost (capped at 3×)
-                const powerScale = Math.min(3, Math.max(0.5, (bi.powerW || 100) / 100));
-                const saved = this.pedalBoost;
-                this.pedalBoost = saved * powerScale;
-                this.onPedal();
-                this.pedalBoost = saved;
-            }
-        }
+        // Real bike speed drives game speed directly. SHIFT key still works
+        // as a keyboard fallback when no trainer is connected.
         // ───────────────────────────────────────────────────────────────────
 
         // Cache slope once per frame — reused by physics, visuals, and UI
@@ -1365,6 +1375,19 @@ class GameScene extends Phaser.Scene {
 
         const friction = this.baseDeceleration + (this.speed > 200 ? this.speed * 0.05 : 0);
         this.speed -= friction * dt;
+
+        // ── Real bike speed drive ──────────────────────────────────────────
+        // When connected, continuously push game speed toward the real speed
+        // target. The proportional gain (dt * 4) gives ~0.25 s convergence.
+        // Slopes and friction still apply on top for game feel.
+        const bi = window.bikeInput;
+        if (bi?.connected) {
+            const targetSpeed = Math.min(this.maxSpeed,
+                (bi.speedKmh / REAL_MAX_SPEED_KMH) * this.maxSpeed);
+            this.speed += (targetSpeed - this.speed) * Math.min(1, dt * 4);
+        }
+        // ──────────────────────────────────────────────────────────────────
+
         this.speed = Phaser.Math.Clamp(this.speed, 0, this.maxSpeed);
 
         this.worldX += this.speed * dt;
@@ -1602,7 +1625,6 @@ class GameScene extends Phaser.Scene {
         if (this._uiFrame % 2 === 0) {
             this.scoreText.setText(`Score: ${this.score}`);
             this.distText.setText(`Distance: ${this.distance}m`);
-            this.speedText.setText(`Vitesse : ${Math.floor(this.speed/10)} km/h`);
         }
 
         if (this.speed < 10) {
@@ -1744,9 +1766,10 @@ class GameOverScene extends Phaser.Scene {
         }).setOrigin(0.5);
 
         this.time.delayedCall(500, () => {
-            this.input.keyboard.once('keydown-SHIFT', () => this.scene.start('StartScene'));
-            this.input.keyboard.once('keydown-SPACE', () => this.scene.start('StartScene'));
-            this.input.once('pointerdown', () => this.scene.start('StartScene'));
+            const restart = () => this.scene.start('BlackoutScene', { skipToLaunch: true });
+            this.input.keyboard.once('keydown-SHIFT', restart);
+            this.input.keyboard.once('keydown-SPACE', restart);
+            this.input.once('pointerdown', restart);
         });
     }
 }
@@ -1755,7 +1778,7 @@ class GameOverScene extends Phaser.Scene {
 // LAUNCH
 // ============================================================
 const config = {
-    type: Phaser.AUTO,
+    type: Phaser.CANVAS, // Canvas avoids WebGL MAX_TEXTURE_SIZE limit on mobile
     width: GAME_WIDTH,
     height: GAME_HEIGHT,
     backgroundColor: '#87CEEB',

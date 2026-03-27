@@ -9,6 +9,514 @@ const GROUND_Y = 400;
 const GRAVITY = 1200;
 const SEGMENT_WIDTH = 4;
 
+// ============================================================
+// SNES-STYLE CHIPTUNE MUSIC ENGINE
+// ============================================================
+// ============================================================
+// SNES-STYLE CHIPTUNE SYNTH - Plays .mid files
+// ============================================================
+// ============================================================
+// SNES-STYLE CHIPTUNE SYNTH - Plays .mid files
+// ============================================================
+class ChiptunePlayer {
+    constructor() {
+        this.audioCtx = null;
+        this.masterGain = null;
+        this.isPlaying = false;
+        this.midiPlayer = null;
+        this.volume = 0.3;
+
+        // Channel voices (MIDI channels 0-15)
+        this.channels = {};
+
+        // SNES-style voice config per channel
+        this.channelConfig = {
+            0:  { type: 'square',   gain: 0.12 },  // Melody
+            1:  { type: 'square',   gain: 0.08 },  // Harmony
+            2:  { type: 'square',   gain: 0.06 },  // Arpeggio
+            3:  { type: 'triangle', gain: 0.15 },  // Bass
+            4:  { type: 'sawtooth', gain: 0.06 },  // Pad
+            5:  { type: 'square',   gain: 0.05 },  // Extra
+            6:  { type: 'triangle', gain: 0.10 },  // Extra
+            7:  { type: 'square',   gain: 0.05 },  // Extra
+            8:  { type: 'square',   gain: 0.05 },  // Extra
+            9:  { type: 'noise',    gain: 0.10 },  // Drums (GM channel 10)
+            10: { type: 'square',   gain: 0.05 },
+            11: { type: 'square',   gain: 0.05 },
+            12: { type: 'triangle', gain: 0.08 },
+            13: { type: 'square',   gain: 0.05 },
+            14: { type: 'sawtooth', gain: 0.05 },
+            15: { type: 'square',   gain: 0.05 },
+        };
+
+        // Active note voices for note-off tracking
+        this.activeNotes = {};
+    }
+
+    init() {
+        if (this.audioCtx) return;
+        this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        this.masterGain = this.audioCtx.createGain();
+        this.masterGain.gain.value = this.volume;
+        this.masterGain.connect(this.audioCtx.destination);
+
+        // Create a compressor for better mix (SNES-like)
+        this.compressor = this.audioCtx.createDynamicsCompressor();
+        this.compressor.threshold.value = -20;
+        this.compressor.knee.value = 10;
+        this.compressor.ratio.value = 4;
+        this.compressor.attack.value = 0.005;
+        this.compressor.release.value = 0.1;
+        this.compressor.connect(this.masterGain);
+
+        // Bitcrusher effect for SNES character
+        this.createBitcrusher();
+    }
+
+    createBitcrusher() {
+        // Simple sample-rate reduction via WaveShaperNode for lo-fi SNES feel
+        const ctx = this.audioCtx;
+        this.crusherGain = ctx.createGain();
+        this.crusherGain.gain.value = 1.0;
+        this.crusherGain.connect(this.compressor);
+
+        // Subtle waveshaper for warmth
+        const curve = new Float32Array(256);
+        for (let i = 0; i < 256; i++) {
+            const x = (i / 128) - 1;
+            curve[i] = Math.tanh(x * 1.5);
+        }
+        this.waveshaper = ctx.createWaveShaper();
+        this.waveshaper.curve = curve;
+        this.waveshaper.oversample = 'none';
+        this.waveshaper.connect(this.crusherGain);
+    }
+
+    getOutputNode() {
+        return this.waveshaper || this.compressor;
+    }
+
+    noteToFreq(note) {
+        return 440 * Math.pow(2, (note - 69) / 12);
+    }
+
+    // Create a channel voice with SNES-style oscillator
+    getChannelVoice(channel) {
+        if (this.channels[channel]) return this.channels[channel];
+
+        const config = this.channelConfig[channel] || { type: 'square', gain: 0.05 };
+        const ctx = this.audioCtx;
+
+        if (channel === 9) {
+            // Drum channel - no persistent oscillator, handled per-note
+            this.channels[channel] = { isDrum: true, config };
+            return this.channels[channel];
+        }
+
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const envelope = ctx.createGain();
+
+        osc.type = config.type;
+        gain.gain.value = config.gain;
+        envelope.gain.value = 0;
+
+        osc.connect(envelope);
+        envelope.connect(gain);
+        gain.connect(this.getOutputNode());
+        osc.start();
+
+        this.channels[channel] = {
+            osc,
+            gain,
+            envelope,
+            config,
+            isDrum: false
+        };
+
+        return this.channels[channel];
+    }
+
+    // SNES-style note on
+    noteOn(channel, note, velocity) {
+        if (!this.audioCtx || !this.isPlaying) return;
+
+        const vel = (velocity || 127) / 127;
+        const now = this.audioCtx.currentTime;
+
+        if (channel === 9) {
+            this.playDrum(note, vel, now);
+            return;
+        }
+
+        const voice = this.getChannelVoice(channel);
+        if (voice.isDrum) return;
+
+        const freq = this.noteToFreq(note);
+        const peak = vel;
+        const attack = 0.008;
+        const decay = 0.04;
+        const sustain = 0.7;
+
+        voice.osc.frequency.setValueAtTime(freq, now);
+        voice.envelope.gain.cancelScheduledValues(now);
+        voice.envelope.gain.setValueAtTime(0, now);
+        voice.envelope.gain.linearRampToValueAtTime(peak, now + attack);
+        voice.envelope.gain.linearRampToValueAtTime(peak * sustain, now + attack + decay);
+
+        // Track active note for note-off
+        const key = `${channel}-${note}`;
+        this.activeNotes[key] = { channel, note, startTime: now };
+    }
+
+    // SNES-style note off
+    noteOff(channel, note) {
+        if (!this.audioCtx || !this.isPlaying) return;
+        if (channel === 9) return; // drums don't need note-off
+
+        const key = `${channel}-${note}`;
+        if (!this.activeNotes[key]) return;
+
+        const voice = this.getChannelVoice(channel);
+        if (voice.isDrum) return;
+
+        const now = this.audioCtx.currentTime;
+        const release = 0.06;
+
+        voice.envelope.gain.cancelScheduledValues(now);
+        voice.envelope.gain.setValueAtTime(voice.envelope.gain.value, now);
+        voice.envelope.gain.linearRampToValueAtTime(0, now + release);
+
+        delete this.activeNotes[key];
+    }
+
+    // SNES-style drum sounds
+    playDrum(note, velocity, startTime) {
+        const ctx = this.audioCtx;
+        const vol = velocity * 0.15;
+
+        // Map GM drum notes to sounds
+        if (note === 36 || note === 35) {
+            // Bass drum
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(160, startTime);
+            osc.frequency.exponentialRampToValueAtTime(30, startTime + 0.1);
+            gain.gain.setValueAtTime(vol * 2, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.15);
+            osc.connect(gain);
+            gain.connect(this.getOutputNode());
+            osc.start(startTime);
+            osc.stop(startTime + 0.15);
+        } else if (note === 38 || note === 40) {
+            // Snare
+            const bufSize = ctx.sampleRate * 0.1;
+            const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+            const data = buf.getChannelData(0);
+            for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
+
+            const noise = ctx.createBufferSource();
+            noise.buffer = buf;
+            const gain = ctx.createGain();
+            gain.gain.setValueAtTime(vol, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.1);
+            const filter = ctx.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.frequency.value = 3500;
+            filter.Q.value = 1;
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(this.getOutputNode());
+            noise.start(startTime);
+            noise.stop(startTime + 0.1);
+
+            // Body tone
+            const osc = ctx.createOscillator();
+            const oscGain = ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(200, startTime);
+            osc.frequency.exponentialRampToValueAtTime(80, startTime + 0.05);
+            oscGain.gain.setValueAtTime(vol * 0.8, startTime);
+            oscGain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.08);
+            osc.connect(oscGain);
+            oscGain.connect(this.getOutputNode());
+            osc.start(startTime);
+            osc.stop(startTime + 0.08);
+        } else if (note === 42 || note === 44) {
+            // Closed hi-hat
+            const bufSize = ctx.sampleRate * 0.04;
+            const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+            const data = buf.getChannelData(0);
+            for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
+
+            const noise = ctx.createBufferSource();
+            noise.buffer = buf;
+            const gain = ctx.createGain();
+            gain.gain.setValueAtTime(vol * 0.4, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.03);
+            const filter = ctx.createBiquadFilter();
+            filter.type = 'highpass';
+            filter.frequency.value = 9000;
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(this.getOutputNode());
+            noise.start(startTime);
+            noise.stop(startTime + 0.04);
+        } else if (note === 46) {
+            // Open hi-hat
+            const bufSize = ctx.sampleRate * 0.15;
+            const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+            const data = buf.getChannelData(0);
+            for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
+
+            const noise = ctx.createBufferSource();
+            noise.buffer = buf;
+            const gain = ctx.createGain();
+            gain.gain.setValueAtTime(vol * 0.5, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.12);
+            const filter = ctx.createBiquadFilter();
+            filter.type = 'highpass';
+            filter.frequency.value = 7000;
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(this.getOutputNode());
+            noise.start(startTime);
+            noise.stop(startTime + 0.15);
+        } else if (note === 49 || note === 51 || note === 57) {
+            // Crash / ride cymbal
+            const bufSize = ctx.sampleRate * 0.4;
+            const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+            const data = buf.getChannelData(0);
+            for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
+
+            const noise = ctx.createBufferSource();
+            noise.buffer = buf;
+            const gain = ctx.createGain();
+            gain.gain.setValueAtTime(vol * 0.3, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.35);
+            const filter = ctx.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.frequency.value = 6000;
+            filter.Q.value = 0.5;
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(this.getOutputNode());
+            noise.start(startTime);
+            noise.stop(startTime + 0.4);
+        } else {
+            // Generic percussion - short noise burst
+            const bufSize = ctx.sampleRate * 0.06;
+            const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+            const data = buf.getChannelData(0);
+            for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
+
+            const noise = ctx.createBufferSource();
+            noise.buffer = buf;
+            const gain = ctx.createGain();
+            gain.gain.setValueAtTime(vol * 0.3, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.05);
+            noise.connect(gain);
+            gain.connect(this.getOutputNode());
+            noise.start(startTime);
+            noise.stop(startTime + 0.06);
+        }
+    }
+
+    // Load a MIDI file from a URL (arraybuffer)
+    loadMidi(url) {
+        return fetch(url)
+            .then(response => {
+                if (!response.ok) throw new Error(`Failed to load MIDI: ${response.statusText}`);
+                return response.arrayBuffer();
+            })
+            .then(buffer => {
+                const uint8 = new Uint8Array(buffer);
+                // Convert to base64 for MidiPlayer.js
+                let binary = '';
+                for (let i = 0; i < uint8.length; i++) {
+                    binary += String.fromCharCode(uint8[i]);
+                }
+                const base64 = btoa(binary);
+                this.midiData = base64;
+                console.log('MIDI file loaded successfully');
+                return true;
+            })
+            .catch(err => {
+                console.error('MIDI load error:', err);
+                return false;
+            });
+    }
+
+    // Start playback
+    play() {
+        if (!this.midiData) {
+            console.warn('No MIDI data loaded');
+            return;
+        }
+
+        this.init();
+        if (this.isPlaying) this.stop();
+        this.isPlaying = true;
+
+        // Resume audio context (browser autoplay policy)
+        if (this.audioCtx.state === 'suspended') {
+            this.audioCtx.resume();
+        }
+
+        // Create MIDI player
+        this.midiPlayer = new MidiPlayer.Player((event) => {
+            this.handleMidiEvent(event);
+        });
+
+        // Loop the song
+        this.midiPlayer.on('endOfFile', () => {
+            if (this.isPlaying) {
+                // Restart for seamless loop
+                this.allNotesOff();
+                this.midiPlayer.stop();
+                this.midiPlayer.loadDataUri('data:audio/midi;base64,' + this.midiData);
+                this.midiPlayer.play();
+            }
+        });
+
+        this.midiPlayer.loadDataUri('data:audio/midi;base64,' + this.midiData);
+        this.midiPlayer.play();
+    }
+
+    // Handle MIDI events from the player
+    handleMidiEvent(event) {
+        if (!this.isPlaying) return;
+
+        const channel = (event.channel || 1) - 1; // MidiPlayer uses 1-based channels
+
+        if (event.name === 'Note on') {
+            if (event.velocity === 0) {
+                this.noteOff(channel, event.noteNumber);
+            } else {
+                this.noteOn(channel, event.noteNumber, event.velocity);
+            }
+        } else if (event.name === 'Note off') {
+            this.noteOff(channel, event.noteNumber);
+        } else if (event.name === 'Set Tempo') {
+            // MidiPlayer handles tempo internally
+        } else if (event.name === 'Program Change') {
+            // Optionally remap voice type based on GM program
+            this.handleProgramChange(channel, event.value);
+        }
+    }
+
+    // Remap oscillator type based on GM program number
+    handleProgramChange(channel, program) {
+        if (channel === 9) return; // don't change drum channel
+
+        let type = 'square';
+        let gain = 0.08;
+
+        if (program >= 0 && program <= 7) {
+            // Piano family -> square
+            type = 'square'; gain = 0.10;
+        } else if (program >= 8 && program <= 15) {
+            // Chromatic percussion -> triangle
+            type = 'triangle'; gain = 0.08;
+        } else if (program >= 16 && program <= 23) {
+            // Organ -> square
+            type = 'square'; gain = 0.07;
+        } else if (program >= 24 && program <= 31) {
+            // Guitar -> sawtooth
+            type = 'sawtooth'; gain = 0.06;
+        } else if (program >= 32 && program <= 39) {
+            // Bass -> triangle
+            type = 'triangle'; gain = 0.14;
+        } else if (program >= 40 && program <= 47) {
+            // Strings -> sawtooth
+            type = 'sawtooth'; gain = 0.06;
+        } else if (program >= 48 && program <= 55) {
+            // Ensemble -> sawtooth
+            type = 'sawtooth'; gain = 0.05;
+        } else if (program >= 56 && program <= 63) {
+            // Brass -> sawtooth
+            type = 'sawtooth'; gain = 0.08;
+        } else if (program >= 64 && program <= 71) {
+            // Reed -> square
+            type = 'square'; gain = 0.07;
+        } else if (program >= 72 && program <= 79) {
+            // Pipe -> sine
+            type = 'sine'; gain = 0.09;
+        } else if (program >= 80 && program <= 87) {
+            // Synth lead -> square
+            type = 'square'; gain = 0.10;
+        } else if (program >= 88 && program <= 95) {
+            // Synth pad -> sawtooth
+            type = 'sawtooth'; gain = 0.05;
+        } else {
+            type = 'square'; gain = 0.06;
+        }
+
+        // If voice already exists, update it
+        if (this.channels[channel] && !this.channels[channel].isDrum) {
+            this.channels[channel].osc.type = type;
+            this.channels[channel].gain.gain.value = gain;
+            this.channels[channel].config = { type, gain };
+        } else {
+            // Update config for when voice is created
+            this.channelConfig[channel] = { type, gain };
+        }
+    }
+
+    // Turn off all notes (used when looping/stopping)
+    allNotesOff() {
+        if (!this.audioCtx) return;
+        const now = this.audioCtx.currentTime;
+
+        for (const key in this.activeNotes) {
+            const info = this.activeNotes[key];
+            const voice = this.channels[info.channel];
+            if (voice && !voice.isDrum && voice.envelope) {
+                voice.envelope.gain.cancelScheduledValues(now);
+                voice.envelope.gain.setValueAtTime(0, now);
+            }
+        }
+        this.activeNotes = {};
+    }
+
+    stop() {
+        this.isPlaying = false;
+
+        if (this.midiPlayer) {
+            this.midiPlayer.stop();
+            this.midiPlayer = null;
+        }
+
+        this.allNotesOff();
+
+        // Destroy channel oscillators
+        for (const ch in this.channels) {
+            const voice = this.channels[ch];
+            if (!voice.isDrum && voice.osc) {
+                try {
+                    voice.osc.stop();
+                    voice.osc.disconnect();
+                    voice.envelope.disconnect();
+                    voice.gain.disconnect();
+                } catch (e) { /* already stopped */ }
+            }
+        }
+        this.channels = {};
+    }
+
+    setVolume(vol) {
+        this.volume = vol;
+        if (this.masterGain) {
+            this.masterGain.gain.setValueAtTime(vol, this.audioCtx.currentTime);
+        }
+    }
+}
+
+// Global instance
+const chiptunePlayer = new ChiptunePlayer();
+
 // Helper: draw a star path on graphics
 function drawStarPath(graphics, cx, cy, points, innerRadius, outerRadius) {
     const step = Math.PI / points;
@@ -41,7 +549,6 @@ class PreloadScene extends Phaser.Scene {
         const progressBox = this.add.graphics();
         progressBox.fillStyle(0x333333);
         progressBox.fillRect(barX, barY, barW, barH);
-
         const progressBar = this.add.graphics();
 
         this.load.on('progress', (value) => {
@@ -57,6 +564,14 @@ class PreloadScene extends Phaser.Scene {
             if (loadingEl) loadingEl.style.display = 'none';
         });
 
+        // Load the font via FontFace API
+        const font = new FontFace('futural', 'url(assets/BBB-Herthey-Futural-95.otf)');
+        font.load().then((loadedFont) => {
+            document.fonts.add(loadedFont);
+        }).catch((err) => {
+            console.warn('Font load failed:', err);
+        });
+
         // ---- Load images ----
         this.load.image('bike', 'assets/bike.png');
         this.load.image('rider', 'assets/rider.png');
@@ -68,19 +583,39 @@ class PreloadScene extends Phaser.Scene {
         this.load.image('coin', 'assets/coin.png');
         this.load.image('star', 'assets/star.png');
         this.load.image('cloud', 'assets/cloud.png');
+
+        // ---- Load MIDI file as binary ----
+        this.load.binary('music_midi', 'assets/darude-sandstorm.mid');
     }
 
     create() {
-        // Generate a small particle texture programmatically (too small for an image file)
+        // Generate particle texture
         const pg = this.add.graphics();
         pg.fillStyle(0xFFFFFF);
         pg.fillCircle(4, 4, 4);
         pg.generateTexture('particle', 8, 8);
         pg.destroy();
 
+        // Load MIDI data into chiptune player
+        const midiData = this.cache.binary.get('music_midi');
+        if (midiData) {
+            // Convert ArrayBuffer to base64
+            const uint8 = new Uint8Array(midiData);
+            let binary = '';
+            for (let i = 0; i < uint8.length; i++) {
+                binary += String.fromCharCode(uint8[i]);
+            }
+            chiptunePlayer.midiData = btoa(binary);
+            console.log('MIDI loaded via Phaser binary loader');
+        } else {
+            console.warn('MIDI file not found in cache, trying fetch...');
+            chiptunePlayer.loadMidi('assets/music.mid');
+        }
+
         this.scene.start('GameScene');
     }
 }
+
 
 // ============================================================
 // MAIN GAME SCENE
@@ -126,7 +661,7 @@ class GameScene extends Phaser.Scene {
             .setDepth(0);
 
         // ---- MOUNTAINS (parallax mid layer) ----
-        this.bgMountains = this.add.tileSprite(0, GAME_HEIGHT - 300, GAME_WIDTH, 300, 'mountains')
+        this.bgMountains = this.add.tileSprite(0, GAME_HEIGHT - 400, GAME_WIDTH, 400, 'mountains')
             .setOrigin(0, 0)
             .setScrollFactor(0)
             .setDepth(0.5);
@@ -195,6 +730,38 @@ class GameScene extends Phaser.Scene {
             tint: 0xFFFF00,
             emitting: false
         }).setDepth(3);
+
+                // ---- CHIPTUNE MUSIC ----
+                this.musicStarted = false;
+                this.musicMuted = false;
+        
+                // Start music (delayed slightly for audio context)
+                this.time.delayedCall(200, () => {
+                    chiptunePlayer.play();
+                    this.musicStarted = true;
+                });
+        
+                // Fallback: start on first input if autoplay blocked
+                this.input.keyboard.on('keydown', () => {
+                    if (!this.musicStarted) {
+                        chiptunePlayer.play();
+                        this.musicStarted = true;
+                    }
+                });
+        
+                // Mute toggle with M key
+                this.muteKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
+                this.muteKey.on('down', () => {
+                    this.musicMuted = !this.musicMuted;
+                    chiptunePlayer.setVolume(this.musicMuted ? 0 : 0.3);
+                    this.muteText.setText(this.musicMuted ? '♪ M=Unmute' : '♪ M=Mute');
+                });
+        
+                this.muteText = this.add.text(GAME_WIDTH - 10, GAME_HEIGHT - 15, '♪ M=Mute', {
+                    fontFamily: 'futural', fontSize: '12px', color: '#FFFFFF',
+                    stroke: '#000000', strokeThickness: 2
+                }).setOrigin(1, 0.5).setDepth(100).setScrollFactor(0);
+        
     }
 
     // --------------------------------------------------------
@@ -229,57 +796,47 @@ class GameScene extends Phaser.Scene {
     // --------------------------------------------------------
     createUI() {
         const uiDepth = 10;
-
+    
         this.scoreText = this.add.text(GAME_WIDTH - 20, 15, 'Score: 0', {
-            fontSize: '22px', fontFamily: 'Arial', color: '#FFFFFF',
+            fontFamily: 'futural', fontSize: '18px', color: '#FFFFFF',
             stroke: '#000000', strokeThickness: 3
         }).setOrigin(1, 0).setDepth(uiDepth).setScrollFactor(0);
-
+    
         this.distText = this.add.text(GAME_WIDTH - 20, 45, 'Distance: 0m', {
-            fontSize: '16px', fontFamily: 'Arial', color: '#FFFFFF',
+            fontFamily: 'futural', fontSize: '16px', color: '#FFFFFF',
             stroke: '#000000', strokeThickness: 2
         }).setOrigin(1, 0).setDepth(uiDepth).setScrollFactor(0);
-
+    
         this.speedText = this.add.text(20, 15, 'Speed: 0', {
-            fontSize: '18px', fontFamily: 'Arial', color: '#FFFFFF',
+            fontFamily: 'futural', fontSize: '18px', color: '#FFFFFF',
             stroke: '#000000', strokeThickness: 2
         }).setDepth(uiDepth).setScrollFactor(0);
-
+    
         this.speedBarBg = this.add.rectangle(20, 45, 150, 16, 0x333333)
             .setOrigin(0).setDepth(uiDepth).setScrollFactor(0);
         this.speedBarFill = this.add.rectangle(22, 47, 0, 12, 0x00FF00)
             .setOrigin(0).setDepth(uiDepth).setScrollFactor(0);
-
+    
         this.pedalIndicator = this.add.text(GAME_WIDTH / 2, 20, 'Press SHIFT to pedal!', {
-            fontSize: '20px', fontFamily: 'Arial', color: '#FFFF00',
+            fontFamily: 'futural', fontSize: '20px', color: '#FFFF00',
             stroke: '#000000', strokeThickness: 3
         }).setOrigin(0.5).setDepth(uiDepth).setScrollFactor(0);
-
+    
         this.hillWarning = this.add.text(GAME_WIDTH / 2, 50, '', {
-            fontSize: '16px', fontFamily: 'Arial', color: '#FF4444',
+            fontFamily: 'futural', fontSize: '16px', color: '#FF4444',
             stroke: '#000000', strokeThickness: 2
         }).setOrigin(0.5).setDepth(uiDepth).setScrollFactor(0);
-
+    
         this.comboText = this.add.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 50, '', {
-            fontSize: '30px', fontFamily: 'Arial', color: '#FF00FF',
+            fontFamily: 'futural', fontSize: '30px', color: '#FF00FF',
             stroke: '#000000', strokeThickness: 4
         }).setOrigin(0.5).setDepth(uiDepth).setScrollFactor(0).setAlpha(0);
-
+    
         this.instructions = this.add.text(GAME_WIDTH / 2, GAME_HEIGHT - 40,
-            'SHIFT = Pedal Faster  |  SPACE = Jump  |  Pedal harder on hills!', {
-                fontSize: '14px', fontFamily: 'Arial', color: '#FFFFFF',
+            'SHIFT = Pédaler plus vite | ESPACE = Sauter | Pédaler plus fort en montée !', {
+                fontFamily: 'futural', fontSize: '14px', color: '#FFFFFF',
                 stroke: '#000000', strokeThickness: 2
             }).setOrigin(0.5).setDepth(uiDepth).setScrollFactor(0);
-
-        this.time.delayedCall(5000, () => {
-            this.tweens.add({ targets: this.instructions, alpha: 0, duration: 1000 });
-        });
-
-        // Bike trainer live data indicator (bottom-left, hidden when no trainer)
-        this.bikeText = this.add.text(20, GAME_HEIGHT - 18, '', {
-            fontSize: '11px', fontFamily: 'monospace', color: '#22c55e',
-            stroke: '#000000', strokeThickness: 2
-        }).setOrigin(0, 1).setDepth(uiDepth).setScrollFactor(0).setAlpha(0);
     }
 
     // --------------------------------------------------------
@@ -621,10 +1178,9 @@ class GameScene extends Phaser.Scene {
     showCollectText(x, y, value, combo) {
         const color = combo > 2 ? '#FF00FF' : '#FFD700';
         const text = combo > 1 ? `+${value} x${combo}!` : `+${value}`;
-
+    
         const floatText = this.add.text(x, y, text, {
-            fontSize: combo > 2 ? '24px' : '18px',
-            fontFamily: 'Arial', color: color,
+            fontFamily: 'futural', fontSize: combo > 2 ? '24px' : '18px', color: color,
             stroke: '#000000', strokeThickness: 3
         }).setOrigin(0.5).setDepth(8);
 
@@ -698,6 +1254,7 @@ class GameScene extends Phaser.Scene {
         if (this.isOnGround && this.speed > 50) {
             if (Math.random() < this.speed / 500) {
                 this.dustParticles.emitParticleAt(this.playerScreenX + 15, this.playerY + 15);
+                this.dustParticles.emitParticleAt(this.playerScreenX - 15, this.playerY + 15);
             }
         }
     
@@ -730,7 +1287,7 @@ class GameScene extends Phaser.Scene {
         if (this._uiFrame % 2 === 0) {
             this.scoreText.setText(`Score: ${this.score}`);
             this.distText.setText(`Distance: ${this.distance}m`);
-            this.speedText.setText(`Speed: ${Math.floor(this.speed/10)} km/h`);
+            this.speedText.setText(`Vitesse : ${Math.floor(this.speed/10)} km/h`);
         }
 
         const speedRatio = this.speed / this.maxSpeed;
@@ -739,32 +1296,12 @@ class GameScene extends Phaser.Scene {
         const newColor = speedRatio > 0.7 ? 0xFF4444 : speedRatio > 0.4 ? 0xFFAA00 : 0x00FF00;
         if (this.speedBarFill.fillColor !== newColor) this.speedBarFill.fillColor = newColor;
 
-        // Bike trainer data (shown bottom-left when connected)
-        const bi = window.bikeInput;
-        if (bi?.connected) {
-            this.bikeText.setText(
-                `🚴 ${bi.speedKmh.toFixed(1)} km/h  •  ${Math.round(bi.cadenceRpm)} rpm  •  ${bi.powerW} W`
-            ).setAlpha(1);
-        } else {
-            this.bikeText.setAlpha(0);
-        }
-
         if (this.speed < 10) {
-            const bi = window.bikeInput;
-            if (bi?.connected) {
-                this.pedalIndicator.setText('Pedal to move!');
-            } else {
-                this.pedalIndicator.setText('Press SHIFT to pedal!');
-            }
+            this.pedalIndicator.setText('Il faut pédaler !');
             this.pedalIndicator.setColor('#FFFF00');
             this.pedalIndicator.setAlpha(0.5 + Math.sin(this.time.now * 0.005) * 0.5);
         } else if (this.hillMultiplier > 2) {
-            const bi = window.bikeInput;
-            if (bi?.connected) {
-                this.pedalIndicator.setText('STEEP HILL! Pedal harder!');
-            } else {
-                this.pedalIndicator.setText('STEEP HILL! Mash SHIFT!');
-            }
+            this.pedalIndicator.setText('STEEP HILL! Mash SHIFT!');
             this.pedalIndicator.setColor('#FF4444').setAlpha(1);
         } else if (this.hillMultiplier > 1.3) {
             this.pedalIndicator.setText('Hill ahead - pedal faster!');
@@ -798,6 +1335,9 @@ class GameScene extends Phaser.Scene {
     gameOver() {
         this.alive = false;
         this.cameras.main.flash(500, 255, 0, 0);
+
+        // Stop the chiptune music
+        chiptunePlayer.stop();
 
         this.time.delayedCall(1000, () => {
             this.scene.start('GameOverScene', {
@@ -835,26 +1375,26 @@ class GameOverScene extends Phaser.Scene {
         this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x000000, 0.6);
 
         this.add.text(GAME_WIDTH / 2, 80, 'GAME OVER', {
-            fontSize: '52px', fontFamily: 'Arial', color: '#FF4444',
+            fontFamily: 'futural', fontSize: '52px', color: '#FF4444',
             stroke: '#000000', strokeThickness: 6
         }).setOrigin(0.5);
 
         this.add.text(GAME_WIDTH / 2, 150, 'Your bicycle ran out of steam!', {
-            fontSize: '18px', fontFamily: 'Arial', color: '#AAAAAA'
+            fontFamily: 'futural', fontSize: '18px', color: '#AAAAAA'
         }).setOrigin(0.5);
 
         this.add.text(GAME_WIDTH / 2, 220, `Distance: ${this.finalDistance}m`, {
-            fontSize: '28px', fontFamily: 'Arial', color: '#FFFFFF',
+            fontFamily: 'futural', fontSize: '28px', color: '#FFFFFF',
             stroke: '#000000', strokeThickness: 3
         }).setOrigin(0.5);
 
         this.add.text(GAME_WIDTH / 2, 270, `Score: ${this.finalScore}`, {
-            fontSize: '34px', fontFamily: 'Arial', color: '#FFD700',
+            fontFamily: 'futural', fontSize: '34px', color: '#FFD700',
             stroke: '#000000', strokeThickness: 4
         }).setOrigin(0.5);
 
         const restartText = this.add.text(GAME_WIDTH / 2, 370, '[ Press SHIFT or SPACE to Restart ]', {
-            fontSize: '22px', fontFamily: 'Arial', color: '#AAFFAA',
+            fontFamily: 'futural', fontSize: '22px', color: '#AAFFAA',
             stroke: '#000000', strokeThickness: 3
         }).setOrigin(0.5);
 
@@ -871,14 +1411,9 @@ class GameOverScene extends Phaser.Scene {
         ];
 
         this.add.text(GAME_WIDTH / 2, 430, Phaser.Utils.Array.GetRandom(tips), {
-            fontSize: '15px', fontFamily: 'Arial', color: '#8888CC',
+            fontFamily: 'futural', fontSize: '15px', color: '#8888CC',
             stroke: '#000000', strokeThickness: 2
         }).setOrigin(0.5);
-
-        this.time.delayedCall(500, () => {
-            this.input.keyboard.once('keydown-SHIFT', () => this.scene.start('GameScene'));
-            this.input.keyboard.once('keydown-SPACE', () => this.scene.start('GameScene'));
-        });
     }
 }
 

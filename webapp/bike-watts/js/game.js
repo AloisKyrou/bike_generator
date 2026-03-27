@@ -843,6 +843,10 @@ class GameScene extends Phaser.Scene {
                 fontFamily: 'futural', fontSize: '14px', color: '#FFFFFF',
                 stroke: '#000000', strokeThickness: 2
             }).setOrigin(0.5).setDepth(uiDepth).setScrollFactor(0);
+        this.bikeText = this.add.text(10, GAME_HEIGHT - 20, '', {
+            fontFamily: 'monospace', fontSize: '13px', color: '#22c55e',
+            stroke: '#000000', strokeThickness: 2
+        }).setOrigin(0, 1).setDepth(uiDepth).setScrollFactor(0).setAlpha(0);
     }
 
     // --------------------------------------------------------
@@ -1323,6 +1327,18 @@ class GameScene extends Phaser.Scene {
         } else {
             this.hillWarning.setAlpha(0);
         }
+
+        // Bike trainer HUD — bottom left
+        const bi = window.bikeInput;
+        if (bi?.connected) {
+            const g = window.bikeInput.gradePercent ?? 0;
+            const gStr = (g >= 0 ? '+' : '') + g + '%';
+            this.bikeText
+                .setText(`🚴 ${bi.speedKmh.toFixed(1)} km/h  •  ${Math.round(bi.cadenceRpm)} rpm  •  ${bi.powerW} W  •  ${gStr}`)
+                .setAlpha(1);
+        } else {
+            this.bikeText.setAlpha(0);
+        }
     }
 
     checkGameOver() {
@@ -1399,13 +1415,8 @@ class GameOverScene extends Phaser.Scene {
             stroke: '#000000', strokeThickness: 4
         }).setOrigin(0.5);
 
-<<<<<<< HEAD
         const restartText = this.add.text(GAME_WIDTH / 2, 370, '[ Tap or press SHIFT / SPACE to Restart ]', {
-            fontSize: '22px', fontFamily: 'Arial', color: '#AAFFAA',
-=======
-        const restartText = this.add.text(GAME_WIDTH / 2, 370, '[ Press SHIFT or SPACE to Restart ]', {
             fontFamily: 'futural', fontSize: '22px', color: '#AAFFAA',
->>>>>>> 7599619895c882dbd05195dc67bcb1a58ba24a20
             stroke: '#000000', strokeThickness: 3
         }).setOrigin(0.5);
 
@@ -1425,15 +1436,12 @@ class GameOverScene extends Phaser.Scene {
             fontFamily: 'futural', fontSize: '15px', color: '#8888CC',
             stroke: '#000000', strokeThickness: 2
         }).setOrigin(0.5);
-<<<<<<< HEAD
 
         this.time.delayedCall(500, () => {
             this.input.keyboard.once('keydown-SHIFT', () => this.scene.start('GameScene'));
             this.input.keyboard.once('keydown-SPACE', () => this.scene.start('GameScene'));
             this.input.once('pointerdown', () => this.scene.start('GameScene'));
         });
-=======
->>>>>>> 7599619895c882dbd05195dc67bcb1a58ba24a20
     }
 }
 

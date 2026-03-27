@@ -126,7 +126,7 @@ class GameScene extends Phaser.Scene {
             .setDepth(0);
 
         // ---- MOUNTAINS (parallax mid layer) ----
-        this.bgMountains = this.add.tileSprite(0, GAME_HEIGHT - 300, GAME_WIDTH, 300, 'mountains')
+        this.bgMountains = this.add.tileSprite(0, GAME_HEIGHT - 400, GAME_WIDTH, 400, 'mountains')
             .setOrigin(0, 0)
             .setScrollFactor(0)
             .setDepth(0.5);
@@ -231,7 +231,7 @@ class GameScene extends Phaser.Scene {
         const uiDepth = 10;
 
         this.scoreText = this.add.text(GAME_WIDTH - 20, 15, 'Score: 0', {
-            fontSize: '22px', fontFamily: 'Arial', color: '#FFFFFF',
+                
             stroke: '#000000', strokeThickness: 3
         }).setOrigin(1, 0).setDepth(uiDepth).setScrollFactor(0);
 
@@ -692,6 +692,7 @@ class GameScene extends Phaser.Scene {
         if (this.isOnGround && this.speed > 50) {
             if (Math.random() < this.speed / 500) {
                 this.dustParticles.emitParticleAt(this.playerScreenX + 15, this.playerY + 15);
+                this.dustParticles.emitParticleAt(this.playerScreenX - 15, this.playerY + 15);
             }
         }
     

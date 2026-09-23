@@ -172,3 +172,40 @@ Pour chaque sous-circuit :
 Pour l'INA228AIDGSR et le shunt, le brochage et l'empreinte ne seront acceptés
 qu'après constitution d'une table reliant chaque broche de la fiche technique,
 chaque broche du symbole et chaque pastille de l'empreinte.
+
+## Valider un composant avant de le placer
+
+La validation de l'INA228 sert de modèle pour les prochains composants :
+
+1. relever la référence commandable complète, y compris le suffixe de boîtier ;
+2. télécharger la fiche constructeur et la conserver dans
+   `electrical/components/<composant>/` ;
+3. noter la référence du document, sa révision, les pages consultées, la date
+   de récupération et son hash SHA-256 ;
+4. relever toutes les broches dans la vue précisée par le constructeur
+   (`top view` ou `bottom view`) ;
+5. rechercher le symbole et l'empreinte dans les bibliothèques KiCad ;
+6. relire leurs données avec Konnect et construire un tableau reliant chaque
+   broche physique à une pin du symbole et à un pad de l'empreinte ;
+7. réconcilier séparément le nombre de broches, de pins et de pads, en
+   expliquant tout pad exposé ou mécanique ;
+8. comparer dimensions, pas, orientation et repère de pin 1 au dessin du
+   fabricant ;
+9. placer le symbole dans un schéma jetable, le relire et inspecter un rendu ;
+10. inspecter aussi un rendu de l'empreinte avant de l'utiliser dans le vrai
+    projet ;
+11. conserver la conclusion dans le `README.md` du composant ;
+12. seulement ensuite, placer le composant dans la feuille fonctionnelle.
+
+Pour l'INA228, la fiche de preuve se trouve dans
+[`../components/ina228/README.md`](../components/ina228/README.md). Elle
+documente notamment l'écart de 0,10 mm entre l'entraxe des rangées de pads de
+l'empreinte KiCad et l'exemple de land pattern TI, ainsi que la raison pour
+laquelle l'empreinte standard reste retenue.
+
+Après cette validation, `U1` a été placé seul dans `ina228_sense.kicad_sch`.
+Konnect a relu une occurrence unique, ses dix pins et l'empreinte attendue. Un
+rendu de la vraie feuille a ensuite été inspecté. Les résistances de filtre,
+les condensateurs, straps d'adresse, pull-up et labels ne sont pas encore
+placés : cette étape isolée fixe seulement le composant central avant le
+câblage du sous-circuit.

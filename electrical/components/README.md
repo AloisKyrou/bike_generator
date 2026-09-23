@@ -4,11 +4,17 @@ Store the authoritative documentation for every electrical component here.
 Prefer manufacturer datasheets over reseller descriptions. Keep the original
 PDF filename when practical and record its revision/date in this index.
 
+Toute documentation utilisée pour confirmer un brochage, un boîtier, une
+empreinte ou une limite électrique doit être copiée dans le dossier du
+composant concerné. Chaque composant validé reçoit aussi un `README.md` qui
+indique la source, la révision, les pages utilisées, le hash du fichier et la
+correspondance broche physique → pin du symbole → pad du PCB.
+
 ## Prepared folders
 
 | Folder | Component | Current status | Documents to add |
 |---|---|---|---|
-| `ina228/` | Texas Instruments INA228AIDGSR | selected for PCB V1 | datasheet, package drawing, land pattern, errata |
+| [`ina228/`](./ina228/) | Texas Instruments INA228AIDGSR | pinout and footprint accepted for PCB V1 | TI datasheet archived; errata to add if published |
 | `current-shunt/` | 2 mΩ four-terminal shunt | preliminary, exact MPN not selected | datasheet, derating curve, recommended footprint |
 | `esp32-c3-beetle-dfr0868/` | DFRobot Beetle ESP32-C3 | probable physical board | schematic, pinout, mechanical dimensions |
 | `dfr0520-mcp42100/` | DFR0520 / MCP42100 | present on prototype | module schematic, MCP42100 datasheet, dimensions |

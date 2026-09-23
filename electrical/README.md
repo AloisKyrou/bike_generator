@@ -5,9 +5,9 @@ the bike generator. It is kept separate from the firmware, web application and
 public build documentation at the repository root.
 
 The KiCad 10 project has been created through Konnect under
-[`kicad/bike-generator-controller/`](kicad/bike-generator-controller/). It is
-still an empty design: the electrical architecture and components have not yet
-been placed.
+[`kicad/bike-generator-controller/`](kicad/bike-generator-controller/). Its
+five-sheet functional hierarchy is in place; the component-level design is now
+being built and validated one block at a time.
 
 ## Directory map
 

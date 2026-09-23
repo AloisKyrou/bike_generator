@@ -44,8 +44,9 @@ The initial schematic hierarchy has been created:
 4. `CC_CONTROL`
 5. `CONNECTORS`
 
-The root schematic contains these five empty sheets on pages 2 to 6. No sheet
-pins or electrical components have been added yet. See the
+The root schematic contains these five sheets on pages 2 to 6. The first
+validated component, `U1` (`INA228AIDGSR`), is now placed on `INA228_SENSE`;
+the other sheets and all inter-sheet ports are still empty. See the
 [KiCad workflow and troubleshooting guide](WORKFLOW.md) for the creation steps,
 their manual equivalent and the verification process.
 

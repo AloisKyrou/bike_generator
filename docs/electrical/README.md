@@ -3,6 +3,9 @@
 Ce dossier rassemble l'état des connaissances électriques du vélo générateur et
 prépare une première carte électronique sous KiCad.
 
+Les fichiers de travail, datasheets, mesures et le futur projet KiCad sont
+rangés dans l'[espace d'ingénierie électrique](../../electrical/).
+
 Il distingue volontairement :
 
 - le prototype actuellement assemblé sur breadboard ;

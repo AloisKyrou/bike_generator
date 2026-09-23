@@ -149,6 +149,7 @@ Full procedure: **[docs/hardware.md](docs/hardware.md)**
 | Document | Contents |
 |----------|---------|
 | **[docs/build-tutorial.md](docs/build-tutorial.md)** | **Full step-by-step build guide — start here** |
+| **[electrical/](electrical/)** | **Electrical engineering workspace, component files and future KiCad project** |
 | [docs/ble-api.md](docs/ble-api.md) | BLE API reference for app/game developers |
 | [docs/hardware.md](docs/hardware.md) | Power path, wiring, pinout, calibration |
 | [docs/electrical/](docs/electrical/) | Electrical analysis and INA228 PCB V1 design dossier |

@@ -1,627 +1,434 @@
 // ============================================================
-// BICYCLE RUNNER - Phaser 3 (Image-based version)
+// BICYCLE RUNNER — Phaser 3 (Image-based version)
 // Controls: SHIFT = Pedal/Accelerate | SPACE = Jump
 // ============================================================
 
-const GAME_WIDTH = 900;
+// ── Game constants ──────────────────────────────────────────
+const GAME_WIDTH  = 900;
 const GAME_HEIGHT = 500;
-const GROUND_Y = 400;
-const GRAVITY = 1200;
+const GROUND_Y    = 400;
+const GRAVITY     = 1200;
 const SEGMENT_WIDTH = 4;
-const REAL_MAX_SPEED_KMH = 30; // real bike km/h that maps to full game speed (tune as needed)
+
+// ── Gameplay tuning ─────────────────────────────────────────
+const MAX_SPEED           = 400;
+const BASE_DECELERATION   = 30;
+const PEDAL_BOOST         = 25;
+const JUMP_VELOCITY       = -500;
+const RAPID_PEDAL_WINDOW  = 300;   // ms — fast-pedal bonus window
+const RAPID_PEDAL_MIN     = 50;    // ms — debounce
+const GAME_OVER_DELAY     = 3000;  // ms stopped before game over
+const LEVEL_DISTANCE      = 2500;  // distance units to complete level
+
+// ── Bike trainer ────────────────────────────────────────────
+const REAL_MAX_SPEED_KMH  = 30;
+const BIKE_SPEED_CONVERGENCE = 4;  // proportional gain for speed tracking
+
+// ── Terrain generation ──────────────────────────────────────
+const TERRAIN_LOOK_AHEAD  = 500;
+const TERRAIN_PRUNE_BEHIND = 200;
+const COIN_SPACING_MIN    = 80;
+const COIN_SPACING_RANGE  = 121;   // 80–200 range
+const COIN_AIR_HEIGHT_MIN = 60;
+const COIN_AIR_HEIGHT_RANGE = 71;
+const STAR_CHANCE         = 0.15;
+const COIN_VALUE          = 10;
+const STAR_VALUE          = 50;
+
+// ── Visual / UI ─────────────────────────────────────────────
+const PLAYER_SCREEN_X     = 200;
+const CLOUD_COUNT         = 5;
+const GAUGE_SCALE         = 0.15;
+const UI_DEPTH            = 10;
+
+// ── Blackout scene ──────────────────────────────────────────
+const BLACKOUT_GIF_LOOP_MS = 2000;
+const BLACKOUT_GIF_LOOPS   = 3;
+const REVEAL_TAP_COUNT     = 5;
+
+// ── Common text styles ──────────────────────────────────────
+const FONT_FUTURAL = 'futural';
+const FONT_MONO    = 'monospace';
+
+function textStyle(overrides = {}) {
+    return {
+        fontFamily: FONT_FUTURAL,
+        fontSize: '18px',
+        color: '#FFFFFF',
+        stroke: '#000000',
+        strokeThickness: 3,
+        ...overrides,
+    };
+}
+
 
 // ============================================================
-// SNES-STYLE CHIPTUNE MUSIC ENGINE
-// ============================================================
-// ============================================================
-// SNES-STYLE CHIPTUNE SYNTH - Plays .mid files
-// ============================================================
-// ============================================================
-// SNES-STYLE CHIPTUNE SYNTH - Plays .mid files
+// CHIPTUNE MUSIC ENGINE  (SNES-style synth — plays .mid files)
 // ============================================================
 class ChiptunePlayer {
     constructor() {
-        this.audioCtx = null;
-        this.masterGain = null;
-        this.isPlaying = false;
-        this.midiPlayer = null;
-        this.volume = 0.3;
+        this.audioCtx    = null;
+        this.masterGain  = null;
+        this.isPlaying   = false;
+        this.midiPlayer  = null;
+        this.volume      = 0.6;
+        this.midiData    = null;
 
-        // Channel voices (MIDI channels 0-15)
-        this.channels = {};
+        this.channelConfig = this._defaultChannelConfig();
+        this.activeNotes   = {};   // keyed by "ch-note"
+        this._voiceMax     = 24;
+    }
 
-        // SNES-style voice config per channel
-        this.channelConfig = {
-            0:  { type: 'square',   gain: 0.12 },  // Melody
-            1:  { type: 'square',   gain: 0.08 },  // Harmony
-            2:  { type: 'square',   gain: 0.06 },  // Arpeggio
-            3:  { type: 'triangle', gain: 0.15 },  // Bass
-            4:  { type: 'sawtooth', gain: 0.06 },  // Pad
-            5:  { type: 'square',   gain: 0.05 },  // Extra
-            6:  { type: 'triangle', gain: 0.10 },  // Extra
-            7:  { type: 'square',   gain: 0.05 },  // Extra
-            8:  { type: 'square',   gain: 0.05 },  // Extra
-            9:  { type: 'noise',    gain: 0.10 },  // Drums (GM channel 10)
-            10: { type: 'square',   gain: 0.05 },
-            11: { type: 'square',   gain: 0.05 },
-            12: { type: 'triangle', gain: 0.08 },
-            13: { type: 'square',   gain: 0.05 },
-            14: { type: 'sawtooth', gain: 0.05 },
-            15: { type: 'square',   gain: 0.05 },
+    // ── Public API ──────────────────────────────────────────
+
+    /** Call from a user-gesture handler before play(). */
+    preinit() {
+        if (this.audioCtx) {
+            if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
+            return;
+        }
+        this._buildGraph();
+        this.audioCtx.resume().catch(() => {});
+    }
+
+    play() {
+        if (!this.midiData) { console.warn('No MIDI data loaded'); return; }
+        if (!this.audioCtx) this._buildGraph();
+        if (this.isPlaying) this.stop();
+        this.isPlaying = true;
+
+        const startMidi = () => {
+            if (!this.isPlaying) return;
+            this.midiPlayer = new MidiPlayer.Player((event) => this._handleMidiEvent(event));
+            this.midiPlayer.on('endOfFile', () => {
+                if (this.isPlaying) { this.allNotesOff(); this.midiPlayer.stop(); this._startFromData(); }
+            });
+            this._startFromData();
         };
 
-        // Active note voices for note-off tracking
+        if (this.audioCtx.state === 'suspended') {
+            this.audioCtx.resume().then(startMidi).catch(() => startMidi());
+        } else {
+            startMidi();
+        }
+    }
+
+    stop() {
+        this.isPlaying = false;
+        if (this.midiPlayer) { this.midiPlayer.stop(); this.midiPlayer = null; }
+        for (const key of Object.keys(this.activeNotes)) {
+            const v = this.activeNotes[key];
+            try { v.osc.stop(); v.osc.disconnect(); v.env.disconnect(); } catch (_) {}
+        }
         this.activeNotes = {};
     }
 
-    init() {
-        if (this.audioCtx) return;
+    allNotesOff() {
+        for (const key of Object.keys(this.activeNotes)) this._releaseNote(key, false);
+    }
+
+    setVolume(vol) {
+        this.volume = vol;
+        if (this.masterGain) this.masterGain.gain.setValueAtTime(vol, this.audioCtx.currentTime);
+    }
+
+    loadMidi(url) {
+        return fetch(url)
+            .then(r => { if (!r.ok) throw new Error(r.statusText); return r.arrayBuffer(); })
+            .then(buf => { this.midiData = this._arrayBufferToBase64(buf); })
+            .catch(e => console.error('MIDI load error:', e));
+    }
+
+    // ── Audio graph ─────────────────────────────────────────
+
+    _buildGraph() {
         this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
         this.masterGain = this.audioCtx.createGain();
         this.masterGain.gain.value = this.volume;
         this.masterGain.connect(this.audioCtx.destination);
 
-        // Create a compressor for better mix (SNES-like)
         this.compressor = this.audioCtx.createDynamicsCompressor();
         this.compressor.threshold.value = -20;
-        this.compressor.knee.value = 10;
-        this.compressor.ratio.value = 4;
-        this.compressor.attack.value = 0.005;
-        this.compressor.release.value = 0.1;
+        this.compressor.knee.value      = 10;
+        this.compressor.ratio.value     = 4;
+        this.compressor.attack.value    = 0.005;
+        this.compressor.release.value   = 0.1;
         this.compressor.connect(this.masterGain);
 
-        // Bitcrusher effect for SNES character
-        this.createBitcrusher();
-    }
-
-    createBitcrusher() {
-        // Simple sample-rate reduction via WaveShaperNode for lo-fi SNES feel
-        const ctx = this.audioCtx;
-        this.crusherGain = ctx.createGain();
-        this.crusherGain.gain.value = 1.0;
-        this.crusherGain.connect(this.compressor);
-
-        // Subtle waveshaper for warmth
         const curve = new Float32Array(256);
-        for (let i = 0; i < 256; i++) {
-            const x = (i / 128) - 1;
-            curve[i] = Math.tanh(x * 1.5);
-        }
-        this.waveshaper = ctx.createWaveShaper();
+        for (let i = 0; i < 256; i++) curve[i] = Math.tanh(((i / 128) - 1) * 1.5);
+        this.waveshaper = this.audioCtx.createWaveShaper();
         this.waveshaper.curve = curve;
         this.waveshaper.oversample = 'none';
-        this.waveshaper.connect(this.crusherGain);
-    }
+        this.waveshaper.connect(this.compressor);
 
-    getOutputNode() {
-        return this.waveshaper || this.compressor;
-    }
-
-    noteToFreq(note) {
-        return 440 * Math.pow(2, (note - 69) / 12);
-    }
-
-    // Create a channel voice with SNES-style oscillator
-    getChannelVoice(channel) {
-        if (this.channels[channel]) return this.channels[channel];
-
-        const config = this.channelConfig[channel] || { type: 'square', gain: 0.05 };
-        const ctx = this.audioCtx;
-
-        if (channel === 9) {
-            // Drum channel - no persistent oscillator, handled per-note
-            this.channels[channel] = { isDrum: true, config };
-            return this.channels[channel];
-        }
-
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        const envelope = ctx.createGain();
-
-        osc.type = config.type;
-        gain.gain.value = config.gain;
-        envelope.gain.value = 0;
-
-        osc.connect(envelope);
-        envelope.connect(gain);
-        gain.connect(this.getOutputNode());
-        osc.start();
-
-        this.channels[channel] = {
-            osc,
-            gain,
-            envelope,
-            config,
-            isDrum: false
-        };
-
-        return this.channels[channel];
-    }
-
-    // SNES-style note on
-    noteOn(channel, note, velocity) {
-        if (!this.audioCtx || !this.isPlaying) return;
-
-        const vel = (velocity || 127) / 127;
-        const now = this.audioCtx.currentTime;
-
-        if (channel === 9) {
-            this.playDrum(note, vel, now);
-            return;
-        }
-
-        const voice = this.getChannelVoice(channel);
-        if (voice.isDrum) return;
-
-        const freq = this.noteToFreq(note);
-        const peak = vel;
-        const attack = 0.008;
-        const decay = 0.04;
-        const sustain = 0.7;
-
-        voice.osc.frequency.setValueAtTime(freq, now);
-        voice.envelope.gain.cancelScheduledValues(now);
-        voice.envelope.gain.setValueAtTime(0, now);
-        voice.envelope.gain.linearRampToValueAtTime(peak, now + attack);
-        voice.envelope.gain.linearRampToValueAtTime(peak * sustain, now + attack + decay);
-
-        // Track active note for note-off
-        const key = `${channel}-${note}`;
-        this.activeNotes[key] = { channel, note, startTime: now };
-    }
-
-    // SNES-style note off
-    noteOff(channel, note) {
-        if (!this.audioCtx || !this.isPlaying) return;
-        if (channel === 9) return; // drums don't need note-off
-
-        const key = `${channel}-${note}`;
-        if (!this.activeNotes[key]) return;
-
-        const voice = this.getChannelVoice(channel);
-        if (voice.isDrum) return;
-
-        const now = this.audioCtx.currentTime;
-        const release = 0.06;
-
-        voice.envelope.gain.cancelScheduledValues(now);
-        voice.envelope.gain.setValueAtTime(voice.envelope.gain.value, now);
-        voice.envelope.gain.linearRampToValueAtTime(0, now + release);
-
-        delete this.activeNotes[key];
-    }
-
-    // SNES-style drum sounds
-    playDrum(note, velocity, startTime) {
-        const ctx = this.audioCtx;
-        const vol = velocity * 0.15;
-
-        // Map GM drum notes to sounds
-        if (note === 36 || note === 35) {
-            // Bass drum
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(160, startTime);
-            osc.frequency.exponentialRampToValueAtTime(30, startTime + 0.1);
-            gain.gain.setValueAtTime(vol * 2, startTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.15);
-            osc.connect(gain);
-            gain.connect(this.getOutputNode());
-            osc.start(startTime);
-            osc.stop(startTime + 0.15);
-        } else if (note === 38 || note === 40) {
-            // Snare
-            const bufSize = ctx.sampleRate * 0.1;
-            const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
-            const data = buf.getChannelData(0);
-            for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
-
-            const noise = ctx.createBufferSource();
-            noise.buffer = buf;
-            const gain = ctx.createGain();
-            gain.gain.setValueAtTime(vol, startTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.1);
-            const filter = ctx.createBiquadFilter();
-            filter.type = 'bandpass';
-            filter.frequency.value = 3500;
-            filter.Q.value = 1;
-            noise.connect(filter);
-            filter.connect(gain);
-            gain.connect(this.getOutputNode());
-            noise.start(startTime);
-            noise.stop(startTime + 0.1);
-
-            // Body tone
-            const osc = ctx.createOscillator();
-            const oscGain = ctx.createGain();
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(200, startTime);
-            osc.frequency.exponentialRampToValueAtTime(80, startTime + 0.05);
-            oscGain.gain.setValueAtTime(vol * 0.8, startTime);
-            oscGain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.08);
-            osc.connect(oscGain);
-            oscGain.connect(this.getOutputNode());
-            osc.start(startTime);
-            osc.stop(startTime + 0.08);
-        } else if (note === 42 || note === 44) {
-            // Closed hi-hat
-            const bufSize = ctx.sampleRate * 0.04;
-            const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
-            const data = buf.getChannelData(0);
-            for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
-
-            const noise = ctx.createBufferSource();
-            noise.buffer = buf;
-            const gain = ctx.createGain();
-            gain.gain.setValueAtTime(vol * 0.4, startTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.03);
-            const filter = ctx.createBiquadFilter();
-            filter.type = 'highpass';
-            filter.frequency.value = 9000;
-            noise.connect(filter);
-            filter.connect(gain);
-            gain.connect(this.getOutputNode());
-            noise.start(startTime);
-            noise.stop(startTime + 0.04);
-        } else if (note === 46) {
-            // Open hi-hat
-            const bufSize = ctx.sampleRate * 0.15;
-            const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
-            const data = buf.getChannelData(0);
-            for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
-
-            const noise = ctx.createBufferSource();
-            noise.buffer = buf;
-            const gain = ctx.createGain();
-            gain.gain.setValueAtTime(vol * 0.5, startTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.12);
-            const filter = ctx.createBiquadFilter();
-            filter.type = 'highpass';
-            filter.frequency.value = 7000;
-            noise.connect(filter);
-            filter.connect(gain);
-            gain.connect(this.getOutputNode());
-            noise.start(startTime);
-            noise.stop(startTime + 0.15);
-        } else if (note === 49 || note === 51 || note === 57) {
-            // Crash / ride cymbal
-            const bufSize = ctx.sampleRate * 0.4;
-            const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
-            const data = buf.getChannelData(0);
-            for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
-
-            const noise = ctx.createBufferSource();
-            noise.buffer = buf;
-            const gain = ctx.createGain();
-            gain.gain.setValueAtTime(vol * 0.3, startTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.35);
-            const filter = ctx.createBiquadFilter();
-            filter.type = 'bandpass';
-            filter.frequency.value = 6000;
-            filter.Q.value = 0.5;
-            noise.connect(filter);
-            filter.connect(gain);
-            gain.connect(this.getOutputNode());
-            noise.start(startTime);
-            noise.stop(startTime + 0.4);
-        } else {
-            // Generic percussion - short noise burst
-            const bufSize = ctx.sampleRate * 0.06;
-            const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
-            const data = buf.getChannelData(0);
-            for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
-
-            const noise = ctx.createBufferSource();
-            noise.buffer = buf;
-            const gain = ctx.createGain();
-            gain.gain.setValueAtTime(vol * 0.3, startTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.05);
-            noise.connect(gain);
-            gain.connect(this.getOutputNode());
-            noise.start(startTime);
-            noise.stop(startTime + 0.06);
-        }
-    }
-
-    // Load a MIDI file from a URL (arraybuffer)
-    loadMidi(url) {
-        return fetch(url)
-            .then(response => {
-                if (!response.ok) throw new Error(`Failed to load MIDI: ${response.statusText}`);
-                return response.arrayBuffer();
-            })
-            .then(buffer => {
-                const uint8 = new Uint8Array(buffer);
-                // Convert to base64 for MidiPlayer.js
-                let binary = '';
-                for (let i = 0; i < uint8.length; i++) {
-                    binary += String.fromCharCode(uint8[i]);
-                }
-                const base64 = btoa(binary);
-                this.midiData = base64;
-                console.log('MIDI file loaded successfully');
-                return true;
-            })
-            .catch(err => {
-                console.error('MIDI load error:', err);
-                return false;
-            });
-    }
-
-    // Start playback
-    play() {
-        if (!this.midiData) {
-            console.warn('No MIDI data loaded');
-            return;
-        }
-
-        this.init();
-        if (this.isPlaying) this.stop();
-        this.isPlaying = true;
-
-        // Resume audio context (browser autoplay policy)
-        if (this.audioCtx.state === 'suspended') {
-            this.audioCtx.resume();
-        }
-
-        // Create MIDI player
-        this.midiPlayer = new MidiPlayer.Player((event) => {
-            this.handleMidiEvent(event);
-        });
-
-        // Loop the song
-        this.midiPlayer.on('endOfFile', () => {
-            if (this.isPlaying) {
-                // Restart for seamless loop
-                this.allNotesOff();
-                this.midiPlayer.stop();
-                this.midiPlayer.loadDataUri('data:audio/midi;base64,' + this.midiData);
-                this.midiPlayer.play();
+        this.audioCtx.onstatechange = () => {
+            if (this.audioCtx.state === 'suspended' && this.isPlaying) {
+                this.audioCtx.resume().catch(() => {});
             }
-        });
+        };
+    }
 
+    _outputNode() { return this.waveshaper || this.compressor; }
+
+    // ── MIDI playback ───────────────────────────────────────
+
+    _startFromData() {
         this.midiPlayer.loadDataUri('data:audio/midi;base64,' + this.midiData);
+        // Pre-scan for Set Tempo meta event (FF 51 03 tt tt tt)
+        try {
+            const raw = atob(this.midiData);
+            for (let i = 0; i < raw.length - 5; i++) {
+                if (raw.charCodeAt(i) === 0xFF && raw.charCodeAt(i+1) === 0x51 && raw.charCodeAt(i+2) === 0x03) {
+                    const uspb = (raw.charCodeAt(i+3) << 16) | (raw.charCodeAt(i+4) << 8) | raw.charCodeAt(i+5);
+                    if (uspb > 0) this.midiPlayer.tempo = Math.round(60000000 / uspb);
+                    break;
+                }
+            }
+        } catch (_) { /* use player default */ }
         this.midiPlayer.play();
     }
 
-    // Handle MIDI events from the player
-    handleMidiEvent(event) {
+    _handleMidiEvent(event) {
         if (!this.isPlaying) return;
-
-        const channel = (event.channel || 1) - 1; // MidiPlayer uses 1-based channels
+        const ch = (event.channel || 1) - 1;
 
         if (event.name === 'Note on') {
-            if (event.velocity === 0) {
-                this.noteOff(channel, event.noteNumber);
-            } else {
-                this.noteOn(channel, event.noteNumber, event.velocity);
-            }
+            event.velocity === 0 ? this.noteOff(ch, event.noteNumber) : this.noteOn(ch, event.noteNumber, event.velocity);
         } else if (event.name === 'Note off') {
-            this.noteOff(channel, event.noteNumber);
-        } else if (event.name === 'Set Tempo') {
-            // MidiPlayer handles tempo internally
+            this.noteOff(ch, event.noteNumber);
         } else if (event.name === 'Program Change') {
-            // Optionally remap voice type based on GM program
-            this.handleProgramChange(channel, event.value);
+            this._handleProgramChange(ch, event.value);
         }
     }
 
-    // Remap oscillator type based on GM program number
-    handleProgramChange(channel, program) {
-        if (channel === 9) return; // don't change drum channel
+    // ── Polyphonic voices ───────────────────────────────────
 
-        let type = 'square';
-        let gain = 0.08;
+    noteOn(channel, note, velocity) {
+        if (!this.audioCtx || !this.isPlaying) return;
+        if (channel === 9) { this._playDrum(note, (velocity || 127) / 127); return; }
 
-        if (program >= 0 && program <= 7) {
-            // Piano family -> square
-            type = 'square'; gain = 0.10;
-        } else if (program >= 8 && program <= 15) {
-            // Chromatic percussion -> triangle
-            type = 'triangle'; gain = 0.08;
-        } else if (program >= 16 && program <= 23) {
-            // Organ -> square
-            type = 'square'; gain = 0.07;
-        } else if (program >= 24 && program <= 31) {
-            // Guitar -> sawtooth
-            type = 'sawtooth'; gain = 0.06;
-        } else if (program >= 32 && program <= 39) {
-            // Bass -> triangle
-            type = 'triangle'; gain = 0.14;
-        } else if (program >= 40 && program <= 47) {
-            // Strings -> sawtooth
-            type = 'sawtooth'; gain = 0.06;
-        } else if (program >= 48 && program <= 55) {
-            // Ensemble -> sawtooth
-            type = 'sawtooth'; gain = 0.05;
-        } else if (program >= 56 && program <= 63) {
-            // Brass -> sawtooth
-            type = 'sawtooth'; gain = 0.08;
-        } else if (program >= 64 && program <= 71) {
-            // Reed -> square
-            type = 'square'; gain = 0.07;
-        } else if (program >= 72 && program <= 79) {
-            // Pipe -> sine
-            type = 'sine'; gain = 0.09;
-        } else if (program >= 80 && program <= 87) {
-            // Synth lead -> square
-            type = 'square'; gain = 0.10;
-        } else if (program >= 88 && program <= 95) {
-            // Synth pad -> sawtooth
-            type = 'sawtooth'; gain = 0.05;
+        const key = `${channel}-${note}`;
+        if (this.activeNotes[key]) this._releaseNote(key, true);
+
+        const keys = Object.keys(this.activeNotes);
+        if (keys.length >= this._voiceMax) this._releaseNote(keys[0], true);
+
+        const cfg = this.channelConfig[channel] || { type: 'square', gain: 0.07 };
+        const ctx = this.audioCtx;
+        const now = ctx.currentTime;
+        const vel = (velocity || 127) / 127;
+
+        const osc = ctx.createOscillator();
+        const env = ctx.createGain();
+        osc.type = cfg.type;
+        osc.frequency.value = 440 * Math.pow(2, (note - 69) / 12);
+        env.gain.setValueAtTime(0, now);
+        env.gain.linearRampToValueAtTime(vel * cfg.gain, now + 0.008);
+        env.gain.linearRampToValueAtTime(vel * cfg.gain * 0.7, now + 0.05);
+        osc.connect(env);
+        env.connect(this._outputNode());
+        osc.start(now);
+
+        this.activeNotes[key] = { osc, env, startTime: now };
+    }
+
+    noteOff(channel, note) {
+        if (!this.audioCtx || !this.isPlaying || channel === 9) return;
+        this._releaseNote(`${channel}-${note}`, false);
+    }
+
+    _releaseNote(key, immediate) {
+        const voice = this.activeNotes[key];
+        if (!voice) return;
+        delete this.activeNotes[key];
+
+        const now     = this.audioCtx.currentTime;
+        const release = immediate ? 0.01 : 0.06;
+        voice.env.gain.cancelScheduledValues(now);
+        voice.env.gain.setValueAtTime(voice.env.gain.value, now);
+        voice.env.gain.linearRampToValueAtTime(0, now + release);
+
+        const { osc, env } = voice;
+        setTimeout(() => { try { osc.stop(); osc.disconnect(); env.disconnect(); } catch (_) {} },
+            (release + 0.05) * 1000);
+    }
+
+    // ── Drum synthesis ──────────────────────────────────────
+
+    _playDrum(note, velocity) {
+        const ctx = this.audioCtx;
+        const now = ctx.currentTime;
+        const vol = velocity * 0.15;
+        const out = this._outputNode();
+
+        if (note === 36 || note === 35) {
+            this._drumTone(ctx, now, out, vol, { freq: 160, freqEnd: 30, dur: 0.15, gain: 2, type: 'sine' });
+        } else if (note === 38 || note === 40) {
+            this._drumNoise(ctx, now, out, vol, { dur: 0.1, gain: 1, filterType: 'bandpass', filterFreq: 3500, filterQ: 1 });
+            this._drumTone(ctx, now, out, vol, { freq: 200, freqEnd: 80, dur: 0.08, gain: 0.8, type: 'triangle' });
+        } else if (note === 42 || note === 44) {
+            this._drumNoise(ctx, now, out, vol, { dur: 0.04, gain: 0.4, filterType: 'highpass', filterFreq: 9000 });
+        } else if (note === 46) {
+            this._drumNoise(ctx, now, out, vol, { dur: 0.15, gain: 0.5, filterType: 'highpass', filterFreq: 7000 });
+        } else if (note === 49 || note === 51 || note === 57) {
+            this._drumNoise(ctx, now, out, vol, { dur: 0.4, gain: 0.3, filterType: 'bandpass', filterFreq: 6000, filterQ: 0.5 });
         } else {
-            type = 'square'; gain = 0.06;
+            this._drumNoise(ctx, now, out, vol, { dur: 0.06, gain: 0.3 });
         }
+    }
 
-        // If voice already exists, update it
-        if (this.channels[channel] && !this.channels[channel].isDrum) {
-            this.channels[channel].osc.type = type;
-            this.channels[channel].gain.gain.value = gain;
-            this.channels[channel].config = { type, gain };
+    _drumTone(ctx, now, out, vol, p) {
+        const osc  = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = p.type;
+        osc.frequency.setValueAtTime(p.freq, now);
+        osc.frequency.exponentialRampToValueAtTime(p.freqEnd, now + p.dur);
+        gain.gain.setValueAtTime(vol * p.gain, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + p.dur);
+        osc.connect(gain); gain.connect(out);
+        osc.start(now); osc.stop(now + p.dur);
+    }
+
+    _drumNoise(ctx, now, out, vol, p) {
+        const bufSize = ctx.sampleRate * p.dur;
+        const buf     = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+        const data    = buf.getChannelData(0);
+        for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
+
+        const src  = ctx.createBufferSource(); src.buffer = buf;
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(vol * p.gain, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + p.dur);
+
+        if (p.filterType) {
+            const flt = ctx.createBiquadFilter();
+            flt.type = p.filterType;
+            flt.frequency.value = p.filterFreq;
+            if (p.filterQ) flt.Q.value = p.filterQ;
+            src.connect(flt); flt.connect(gain);
         } else {
-            // Update config for when voice is created
-            this.channelConfig[channel] = { type, gain };
+            src.connect(gain);
         }
+        gain.connect(out);
+        src.start(now); src.stop(now + p.dur);
     }
 
-    // Turn off all notes (used when looping/stopping)
-    allNotesOff() {
-        if (!this.audioCtx) return;
-        const now = this.audioCtx.currentTime;
+    // ── GM program to oscillator type mapping ───────────────
 
-        for (const key in this.activeNotes) {
-            const info = this.activeNotes[key];
-            const voice = this.channels[info.channel];
-            if (voice && !voice.isDrum && voice.envelope) {
-                voice.envelope.gain.cancelScheduledValues(now);
-                voice.envelope.gain.setValueAtTime(0, now);
-            }
+    _handleProgramChange(channel, program) {
+        if (channel === 9) return;
+        const map = [
+            [0,  'square',   0.10], [8,  'triangle', 0.08], [16, 'square',   0.07],
+            [24, 'sawtooth', 0.06], [32, 'triangle', 0.14], [40, 'sawtooth', 0.06],
+            [48, 'sawtooth', 0.05], [56, 'sawtooth', 0.08], [64, 'square',   0.07],
+            [72, 'sine',     0.09], [80, 'square',   0.10], [88, 'sawtooth', 0.05],
+        ];
+        let type = 'square', gain = 0.06;
+        for (const [start, t, g] of map) {
+            if (program >= start && program < start + 8) { type = t; gain = g; break; }
         }
-        this.activeNotes = {};
+        this.channelConfig[channel] = { type, gain };
     }
 
-    stop() {
-        this.isPlaying = false;
+    // ── Helpers ──────────────────────────────────────────────
 
-        if (this.midiPlayer) {
-            this.midiPlayer.stop();
-            this.midiPlayer = null;
-        }
-
-        this.allNotesOff();
-
-        // Destroy channel oscillators
-        for (const ch in this.channels) {
-            const voice = this.channels[ch];
-            if (!voice.isDrum && voice.osc) {
-                try {
-                    voice.osc.stop();
-                    voice.osc.disconnect();
-                    voice.envelope.disconnect();
-                    voice.gain.disconnect();
-                } catch (e) { /* already stopped */ }
-            }
-        }
-        this.channels = {};
+    _defaultChannelConfig() {
+        const cfg = {};
+        const defaults = [
+            [0, 'square', 0.12], [1, 'square', 0.08], [2, 'square', 0.06], [3, 'triangle', 0.15],
+            [4, 'sawtooth', 0.06], [5, 'square', 0.05], [6, 'triangle', 0.10], [7, 'square', 0.05],
+            [8, 'square', 0.05], [9, 'noise', 0.10], [10, 'square', 0.05], [11, 'square', 0.05],
+            [12, 'triangle', 0.08], [13, 'square', 0.05], [14, 'sawtooth', 0.05], [15, 'square', 0.05],
+        ];
+        for (const [ch, type, gain] of defaults) cfg[ch] = { type, gain };
+        return cfg;
     }
 
-    setVolume(vol) {
-        this.volume = vol;
-        if (this.masterGain) {
-            this.masterGain.gain.setValueAtTime(vol, this.audioCtx.currentTime);
-        }
+    _arrayBufferToBase64(buffer) {
+        const bytes = new Uint8Array(buffer);
+        let binary = '';
+        for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+        return btoa(binary);
     }
 }
 
-// Global instance
 const chiptunePlayer = new ChiptunePlayer();
 
-// Helper: draw a star path on graphics
-function drawStarPath(graphics, cx, cy, points, innerRadius, outerRadius) {
-    const step = Math.PI / points;
-    graphics.beginPath();
-    for (let i = 0; i < points * 2; i++) {
-        const angle = i * step - Math.PI / 2;
-        const radius = i % 2 === 0 ? outerRadius : innerRadius;
-        const x = cx + Math.cos(angle) * radius;
-        const y = cy + Math.sin(angle) * radius;
-        if (i === 0) graphics.moveTo(x, y);
-        else graphics.lineTo(x, y);
-    }
-    graphics.closePath();
-}
 
 // ============================================================
-// PRELOAD SCENE - Load all image assets
+// PRELOAD SCENE
 // ============================================================
 class PreloadScene extends Phaser.Scene {
-    constructor() {
-        super({ key: 'PreloadScene' });
-    }
+    constructor() { super({ key: 'PreloadScene' }); }
 
     preload() {
-        // Progress bar
+        this._createProgressBar();
+        this._loadFont();
+        this._loadAssets();
+    }
+
+    create() {
+        this._generateParticleTexture();
+        this._loadMidiIntoPlayer();
+        this.scene.start('StartScene');
+    }
+
+    _createProgressBar() {
         const barW = 400, barH = 30;
         const barX = (GAME_WIDTH - barW) / 2;
         const barY = GAME_HEIGHT / 2;
 
-        const progressBox = this.add.graphics();
-        progressBox.fillStyle(0x333333);
-        progressBox.fillRect(barX, barY, barW, barH);
-        const progressBar = this.add.graphics();
+        const box = this.add.graphics();
+        box.fillStyle(0x333333);
+        box.fillRect(barX, barY, barW, barH);
+        const bar = this.add.graphics();
 
-        this.load.on('progress', (value) => {
-            progressBar.clear();
-            progressBar.fillStyle(0x00ff00);
-            progressBar.fillRect(barX + 4, barY + 4, (barW - 8) * value, barH - 8);
+        this.load.on('progress', (v) => {
+            bar.clear();
+            bar.fillStyle(0x00ff00);
+            bar.fillRect(barX + 4, barY + 4, (barW - 8) * v, barH - 8);
         });
-
         this.load.on('complete', () => {
-            progressBar.destroy();
-            progressBox.destroy();
-            const loadingEl = document.getElementById('loading');
-            if (loadingEl) loadingEl.style.display = 'none';
+            bar.destroy(); box.destroy();
+            const el = document.getElementById('loading');
+            if (el) el.style.display = 'none';
         });
-
-        // Load the font via FontFace API
-        const font = new FontFace('futural', 'url(assets/BBB-Herthey-Futural-95.otf)');
-        font.load().then((loadedFont) => {
-            document.fonts.add(loadedFont);
-        }).catch((err) => {
-            console.warn('Font load failed:', err);
-        });
-
-        // ---- Load images ----
-        this.load.image('welcome_screen', 'assets/welcome_screen.png');
-        this.load.image('maison', 'assets/maison.png');
-        this.load.image('velo', 'assets/velo.png');
-        this.load.image('light_on', 'assets/light_on.png');
-        this.load.image('phone_off', 'assets/phone_off.png');
-        this.load.image('bike', 'assets/bike.png');
-        this.load.image('rider', 'assets/rider.png');
-        this.load.image('wheel', 'assets/wheel.png');
-        this.load.image('background', 'assets/background.png');
-        this.load.image('mountains', 'assets/mountains.png');
-        this.load.image('ground_top', 'assets/ground_top.png');
-        this.load.image('ground_fill', 'assets/ground_fill.png');
-        this.load.image('coin', 'assets/coin.png');
-        this.load.image('star', 'assets/star.png');
-        this.load.image('cloud', 'assets/cloud.png');
-
-        // ---- Load MIDI file as binary ----
-        this.load.binary('music_midi', 'assets/darude-sandstorm.mid');
-
-        this.load.image('gauge_fill', 'assets/gauge_fill.png');   // green bars image
-        this.load.image('gauge_frame', 'assets/gauge_frame.png'); // battery outline image
     }
 
-    create() {
-        // Generate particle texture
-        const pg = this.add.graphics();
-        pg.fillStyle(0xFFFFFF);
-        pg.fillCircle(4, 4, 4);
-        pg.generateTexture('particle', 8, 8);
-        pg.destroy();
+    _loadFont() {
+        const font = new FontFace(FONT_FUTURAL, 'url(assets/BBB-Herthey-Futural-95.otf)');
+        font.load().then(f => document.fonts.add(f)).catch(e => console.warn('Font load failed:', e));
+    }
 
-        // Load MIDI data into chiptune player
-        const midiData = this.cache.binary.get('music_midi');
-        if (midiData) {
-            // Convert ArrayBuffer to base64
-            const uint8 = new Uint8Array(midiData);
-            let binary = '';
-            for (let i = 0; i < uint8.length; i++) {
-                binary += String.fromCharCode(uint8[i]);
-            }
-            chiptunePlayer.midiData = btoa(binary);
-            console.log('MIDI loaded via Phaser binary loader');
+    _loadAssets() {
+        const images = [
+            'welcome_screen', 'maison', 'velo', 'light_on', 'phone_off', 'phone_on',
+            'bike', 'rider', 'wheel', 'background', 'mountains',
+            'ground_top', 'ground_fill', 'coin', 'star', 'cloud',
+            'gauge_fill', 'gauge_frame',
+        ];
+        for (const name of images) this.load.image(name, `assets/${name}.png`);
+        this.load.binary('music_midi', 'assets/darude-sandstorm.mid');
+    }
+
+    _generateParticleTexture() {
+        const g = this.add.graphics();
+        g.fillStyle(0xFFFFFF);
+        g.fillCircle(4, 4, 4);
+        g.generateTexture('particle', 8, 8);
+        g.destroy();
+    }
+
+    _loadMidiIntoPlayer() {
+        const data = this.cache.binary.get('music_midi');
+        if (data) {
+            chiptunePlayer.midiData = chiptunePlayer._arrayBufferToBase64(data);
         } else {
-            console.warn('MIDI file not found in cache, trying fetch...');
+            console.warn('MIDI not in cache, fetching fallback');
             chiptunePlayer.loadMidi('assets/music.mid');
         }
-
-        this.scene.start('StartScene');
     }
 }
 
@@ -630,35 +437,26 @@ class PreloadScene extends Phaser.Scene {
 // START SCENE
 // ============================================================
 class StartScene extends Phaser.Scene {
-    constructor() {
-        super({ key: 'StartScene' });
-    }
+    constructor() { super({ key: 'StartScene' }); }
 
     create() {
-        // Full-canvas welcome image
         this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'welcome_screen')
             .setDisplaySize(GAME_WIDTH, GAME_HEIGHT);
 
-        // Blinking prompt
         const prompt = this.add.text(GAME_WIDTH / 2, GAME_HEIGHT - 50,
-            'Pédalez, appuyez sur ESPACE ou touchez l\'écran pour commencer', {
-                fontFamily: 'futural', fontSize: '18px', color: '#FFFFFF',
-                stroke: '#000000', strokeThickness: 3
-            }).setOrigin(0.5).setDepth(10);
+            'Pédalez, appuyez sur ESPACE ou touchez l\'écran pour commencer',
+            textStyle()
+        ).setOrigin(0.5).setDepth(10);
 
         this.tweens.add({ targets: prompt, alpha: 0.1, duration: 700, yoyo: true, repeat: -1 });
 
-        // ── Input triggers ────────────────────────────────────────────────
         const go = () => this.scene.start('BlackoutScene');
 
-        // Keyboard
         this.input.keyboard.once('keydown-SPACE', go);
         this.input.keyboard.once('keydown-ENTER', go);
+        this.input.once('pointerdown', () => { chiptunePlayer.preinit(); go(); });
+        this.input.keyboard.once('keydown', () => chiptunePlayer.preinit());
 
-        // Touch / click
-        this.input.once('pointerdown', go);
-
-        // Pedalling (checked every frame via update)
         this._gone = false;
     }
 
@@ -674,201 +472,233 @@ class StartScene extends Phaser.Scene {
 
 
 // ============================================================
-// BLACKOUT SCENE
+// BLACKOUT SCENE  (intro cutscene → house reveal → game launch)
 // ============================================================
-const BLACKOUT_LOOP_DURATION_MS = 2000; // adjust to match one eyes.gif loop
-const BLACKOUT_LOOPS = 3;
-
 class BlackoutScene extends Phaser.Scene {
-    constructor() {
-        super({ key: 'BlackoutScene' });
-    }
+    constructor() { super({ key: 'BlackoutScene' }); }
 
     init(data) {
-        this._skipToLaunch = !!(data && data.skipToLaunch);
+        this._skipToLaunch = !!(data?.skipToLaunch);
+        this._phoneOn      = !!(data?.phoneOn);
     }
 
     create() {
-        this._gifEl = null;
+        this._gifEl           = null;
         this._waitingForInput = false;
-        this._goingToHouse = false;
-        this._pedalTime = 0;
+        this._goingToHouse    = false;
+        this._pedalTime       = 0;
+        this._revealLocked    = false;
+        this._pressCount      = 0;
+        this._skipFn          = null;
+        this._promptInterval  = null;
+        this._revealTimeout   = null;
+        this._waitingForLaunch = false;
+        this._launchPedalTime = 0;
 
-        // Black background
         this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000).setOrigin(0);
 
+        // Persistent tap handler — delegates to current phase callback
+        this.input.on('pointerdown', () => {
+            if (this._skipFn) { const fn = this._skipFn; this._skipFn = null; fn(); }
+        });
+
         if (this._skipToLaunch) {
-            // Coming from Game Over — skip intro cutscene, show final state directly
-            this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'maison')
-                .setDisplaySize(GAME_WIDTH, GAME_HEIGHT).setDepth(15);
-            this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'velo')
-                .setDisplaySize(GAME_WIDTH, GAME_HEIGHT).setDepth(17);
-            // Black overlay already at 0 (house fully revealed)
-            this._blackOverlay = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000)
-                .setOrigin(0).setDepth(18).setAlpha(0);
-            this._goToGame();
+            this._setupHouseImages();
+            this._blackOverlay.setAlpha(0);
+            this._goToGame(this._phoneOn);
             return;
         }
 
-        // Show intro text cards before the GIF
         this._showIntroCard(0,
-            "Sacha vit dans une maison o\u00f9 tout est g\u00e9r\u00e9 par un assistant \u00e9lectrique.\nSuite \u00e0 une panne g\u00e9n\u00e9rale de la centrale,tout s'\u00e9teint, plus rien ne fonctionne.",
-            () => {
-                this._showIntroCard(1,
-                    "Heureusement, Martine, le cousin de Sacha a un jour cr\u00e9\u00e9 un super v\u00e9lo qui g\u00e9n\u00e8re de l'\u00e9lectricit\u00e9.\nCa tombe bien, Sacha avait en plus besoin de faire du sport.\nAide le \u00e0 recharger sa maison !",
-                    () => this._startGif()
-                );
-            }
+            "Sacha vit dans une maison où tout est géré par un assistant électrique.\n" +
+            "Suite à une panne générale de la centrale, tout s'éteint, plus rien ne fonctionne.",
+            () => this._showIntroCard(1,
+                "Heureusement, Martine, le cousin de Sacha a un jour créé un super vélo " +
+                "qui génère de l'électricité.\nÇa tombe bien, Sacha avait en plus besoin de faire du sport.\n" +
+                "Aide le à recharger sa maison !",
+                () => this._startGif()
+            )
         );
     }
 
-    _showIntroCard(cardIndex, text, onDone) {
-        const style = {
-            fontFamily: 'monospace', fontSize: '22px', color: '#FFFFFF',
-            stroke: '#000000', strokeThickness: 4,
-            align: 'center', wordWrap: { width: GAME_WIDTH - 100 }
-        };
-        const t = this.add.text(Math.round(GAME_WIDTH / 2), Math.round(GAME_HEIGHT / 2), text, style)
-            .setOrigin(0.5).setDepth(10).setAlpha(0);
+    // ── Intro text cards ────────────────────────────────────
 
-        // Fade in over 1s, hold for 5s, fade out over 1s, then call onDone
-        this.tweens.add({ targets: t, alpha: 1, duration: 1000, onComplete: () => {
-            this.time.delayedCall(5000, () => {
-                this.tweens.add({ targets: t, alpha: 0, duration: 1000, onComplete: onDone });
+    _showIntroCard(_index, text, onDone) {
+        const t = this.add.text(Math.round(GAME_WIDTH / 2), Math.round(GAME_HEIGHT / 2), text,
+            textStyle({ fontFamily: FONT_MONO, fontSize: '22px', strokeThickness: 4, align: 'center',
+                wordWrap: { width: GAME_WIDTH - 100 } })
+        ).setOrigin(0.5).setDepth(10).setAlpha(0);
+
+        let holdTimer = null, activeTween = null;
+
+        const doSkip = () => {
+            if (activeTween) { this.tweens.remove(activeTween); activeTween = null; }
+            if (holdTimer)   { holdTimer.remove(); holdTimer = null; }
+            t.destroy();
+            onDone();
+        };
+        this._skipFn = doSkip;
+
+        activeTween = this.tweens.add({ targets: t, alpha: 1, duration: 1000, onComplete: () => {
+            activeTween = null;
+            holdTimer = this.time.delayedCall(5000, () => {
+                holdTimer = null;
+                activeTween = this.tweens.add({ targets: t, alpha: 0, duration: 1000, onComplete: () => {
+                    activeTween = null; this._skipFn = null; onDone();
+                }});
             });
         }});
     }
 
+    // ── GIF overlay ─────────────────────────────────────────
+
     _startGif() {
-        // GIF overlay via DOM element (Phaser doesn't animate GIFs natively)
         this._gifEl = document.createElement('img');
         this._gifEl.src = 'assets/eyes.gif';
-        this._gifEl.style.cssText = [
-            'position:absolute',
-            'left:50%',
-            'top:50%',
-            'transform:translate(-50%,-50%)',
-            'max-width:100%',
-            'max-height:100%',
-            'pointer-events:none',
-            'z-index:100',
-        ].join(';');
+        this._gifEl.style.cssText =
+            'position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);' +
+            'max-width:100%;max-height:100%;pointer-events:none;z-index:100';
 
         const container = document.getElementById('game-container');
         container.style.position = 'relative';
         container.appendChild(this._gifEl);
 
-        // After N loops, remove GIF and show narrative text
-        this.time.delayedCall(BLACKOUT_LOOP_DURATION_MS * BLACKOUT_LOOPS, () => {
-            this._gifEl.remove();
-            this._gifEl = null;
+        const gifTimer = this.time.delayedCall(BLACKOUT_GIF_LOOP_MS * BLACKOUT_GIF_LOOPS, () => {
+            this._removeGif();
+            this._skipFn = null;
             this._showText();
         });
+
+        this._skipFn = () => { gifTimer.remove(); this._removeGif(); this._showText(); };
     }
+
+    _removeGif() {
+        if (this._gifEl) { this._gifEl.remove(); this._gifEl = null; }
+    }
+
+    // ── Narrative text + reveal ──────────────────────────────
 
     _showText() {
         const lines = [
             "Panne de courant...",
-            "Je dois retrouver le v\u00e9lo qui fait de la lumi\u00e8re !",
-            "P\u00e9dalez pour y voir plus clair.",
+            "Je dois retrouver le vélo qui fait de la lumière !",
+            "Pédalez pour y voir plus clair.",
         ];
 
-        // Place house image, velo overlay, and black overlay NOW, ready for the reveal
-        this._houseImg = this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'maison')
+        this._setupHouseImages();
+
+        this._textObjects = [];
+        lines.forEach((line, i) => {
+            const t = this.add.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 50 + i * 55, line,
+                textStyle({ fontFamily: FONT_MONO, fontSize: '20px', strokeThickness: 4, align: 'center' })
+            ).setOrigin(0.5).setDepth(20);
+            this._textObjects.push(t);
+        });
+
+        this._skipFn = null;
+
+        this._promptText = this.add.text(
+            Math.round(GAME_WIDTH / 2), Math.round(GAME_HEIGHT * 0.80),
+            'Tapez l\'écran pour révéler  ✨',
+            textStyle({ fontFamily: FONT_MONO, strokeThickness: 4, align: 'center' })
+        ).setOrigin(0.5).setDepth(25);
+
+        let blink = true;
+        this._promptInterval = setInterval(() => {
+            if (this._promptText?.scene) {
+                this._promptText.setAlpha(blink ? 1 : 0.3);
+                blink = !blink;
+            } else {
+                clearInterval(this._promptInterval);
+            }
+        }, 500);
+
+        this._revealClickHandler = () => this._onRevealPress();
+        this.input.keyboard.on('keydown-SPACE', this._revealClickHandler);
+
+        this._revealTimeout = setTimeout(() => {
+            this._pressCount = 0;
+            this._waitingForInput = true;
+            document.addEventListener('click', this._revealClickHandler);
+        }, 600);
+    }
+
+    _setupHouseImages() {
+        this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'maison')
             .setDisplaySize(GAME_WIDTH, GAME_HEIGHT).setDepth(15);
         this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'velo')
             .setDisplaySize(GAME_WIDTH, GAME_HEIGHT).setDepth(17);
         this._blackOverlay = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000)
             .setOrigin(0).setDepth(18).setAlpha(1);
+    }
 
-        this._textObjects = [];
-        lines.forEach((line, i) => {
-            const t = this.add.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 50 + i * 55, line, {
-                fontFamily: 'monospace', fontSize: '20px', color: '#FFFFFF',
-                stroke: '#000000', strokeThickness: 4, align: 'center'
-            }).setOrigin(0.5).setDepth(20).setAlpha(0);
-            this.tweens.add({ targets: t, alpha: 1, duration: 600, delay: i * 900 });
-            this._textObjects.push(t);
-        });
-
-        // Enable press-counting after all lines are visible
-        const readyDelay = (lines.length - 1) * 900 + 700;
-        this.time.delayedCall(readyDelay, () => {
-            this._pressCount = 0;
-            this._waitingForInput = true;
-            this._promptText = null; // no bottom text during the 10-hit phase
-
-            // Register repeatable SPACE/click handler
-            this._spaceKey = this.input.keyboard.on('keydown-SPACE', () => this._onRevealPress());
-            this.input.on('pointerdown', () => this._onRevealPress());
-        });
+    _removeRevealListeners() {
+        if (this._revealClickHandler) {
+            document.removeEventListener('click', this._revealClickHandler);
+            this._revealClickHandler = null;
+        }
+        this.input.keyboard.off('keydown-SPACE');
     }
 
     _onRevealPress() {
         if (!this._waitingForInput || this._goingToHouse) return;
         this._pressCount++;
-        const alpha = Math.max(0, 1 - this._pressCount / 10);
-        this.tweens.add({ targets: this._blackOverlay, alpha, duration: 200 });
-        // Fade narrative text at the same rate as the black overlay
-        if (this._textObjects) {
-            this.tweens.add({ targets: this._textObjects, alpha, duration: 200 });
-        }
+
+        const alpha = Math.max(0, 1 - this._pressCount / REVEAL_TAP_COUNT);
+        this._blackOverlay.setAlpha(alpha);
+        if (this._textObjects) this._textObjects.forEach(t => t.setAlpha(alpha));
+
         if (this._promptText) {
-            this._promptText.setText(
-                `ESPACE / frein avant / cliquez  (${this._pressCount} / 10)`
-            );
-        }
-        if (this._pressCount >= 10 && !this._revealLocked) {
-            // Black overlay fully gone — call _goToGame immediately
-            this._revealLocked = true;
-            this._waitingForInput = false;
-            if (this._promptText) {
-                this.tweens.killTweensOf(this._promptText);
+            if (this._pressCount < REVEAL_TAP_COUNT) {
+                this._promptText.setText(`Encore ${REVEAL_TAP_COUNT - this._pressCount} fois... ✨`);
+            } else {
+                if (this._promptInterval) { clearInterval(this._promptInterval); this._promptInterval = null; }
                 this._promptText.setAlpha(0);
             }
+        }
+
+        if (this._pressCount >= REVEAL_TAP_COUNT && !this._revealLocked) {
+            this._revealLocked    = true;
+            this._waitingForInput = false;
+            this._removeRevealListeners();
+            if (this._promptInterval) { clearInterval(this._promptInterval); this._promptInterval = null; }
+            if (this._revealTimeout)  { clearTimeout(this._revealTimeout);   this._revealTimeout = null; }
             this._goToGame();
         }
     }
 
-    _goToGame() {
+    // ── Launch into game ────────────────────────────────────
+
+    _goToGame(phoneOn = false) {
         if (this._goingToHouse) return;
-        this._goingToHouse = true;
+        this._goingToHouse    = true;
         this._waitingForInput = false;
+        this._removeRevealListeners();
 
-        // Remove repeating reveal listeners
-        this.input.keyboard.off('keydown-SPACE');
-        this.input.off('pointerdown');
-
-        // Immediately start fading in light_on overlay over 2s
         const lightImg = this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'light_on')
             .setDisplaySize(GAME_WIDTH, GAME_HEIGHT).setDepth(25).setAlpha(0);
         this.tweens.add({ targets: lightImg, alpha: 1, duration: 2000 });
 
-        // After light has faded in: fade in phone_off overlay over 2s
         this.time.delayedCall(2000, () => {
-            const phoneImg = this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'phone_off')
+            const phoneImg = this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, phoneOn ? 'phone_on' : 'phone_off')
                 .setDisplaySize(GAME_WIDTH, GAME_HEIGHT).setDepth(26).setAlpha(0);
             this.tweens.add({ targets: phoneImg, alpha: 1, duration: 2000 });
 
-            // After phone has faded in, show prompt
             this.time.delayedCall(2000, () => {
-                const finalPrompt = this.add.text(Math.round(GAME_WIDTH / 2), GAME_HEIGHT - 40,
-                    'ESPACE / Frein avant / cliquez pour aider Sacha \u00e0 recharger son t\u00e9l\u00e9phone', {
-                        fontFamily: 'monospace', fontSize: '15px', color: '#CCCCCC',
-                        stroke: '#000000', strokeThickness: 3
-                    }).setOrigin(0.5).setDepth(30).setAlpha(0);
-                this.tweens.add({ targets: finalPrompt, alpha: 1, duration: 500 });
-                this.tweens.add({ targets: finalPrompt, alpha: 0.3, duration: 600,
-                    yoyo: true, repeat: -1, delay: 600 });
+                const prompt = this.add.text(Math.round(GAME_WIDTH / 2), GAME_HEIGHT - 40,
+                    'ESPACE / Frein avant / cliquez pour aider Sacha à recharger son téléphone',
+                    textStyle({ fontFamily: FONT_MONO, fontSize: '15px', color: '#CCCCCC' })
+                ).setOrigin(0.5).setDepth(30).setAlpha(0);
+                this.tweens.add({ targets: prompt, alpha: 1, duration: 500 });
+                this.tweens.add({ targets: prompt, alpha: 0.3, duration: 600, yoyo: true, repeat: -1, delay: 600 });
 
                 const launch = () => {
-                    this.tweens.killTweensOf(finalPrompt);
-                    finalPrompt.setAlpha(0);
+                    this.tweens.killTweensOf(prompt);
+                    prompt.setAlpha(0);
                     this.cameras.main.fade(1000, 0, 0, 0);
                     this.time.delayedCall(1000, () => this.scene.start('GameScene'));
                 };
 
-                // Wait 3s before accepting any input to avoid accidental trigger
                 this.time.delayedCall(3000, () => {
                     this._waitingForLaunch = true;
                     this.input.keyboard.once('keydown-SPACE', launch);
@@ -878,138 +708,129 @@ class BlackoutScene extends Phaser.Scene {
         });
     }
 
+    // ── Update (bike trainer input) ─────────────────────────
+
     update() {
         const bi = window.bikeInput;
-        // Pedal input during the reveal phase (10-press opacity reduction)
-        if (this._waitingForInput && !this._goingToHouse) {
-            if (bi?.connected && bi.cadenceRpm > 25) {
-                this._pedalTime = (this._pedalTime || 0) + this.game.loop.delta / 1000;
-                console.log(`[reveal] cadence=${bi.cadenceRpm} pedalTime=${this._pedalTime.toFixed(2)} pressCount=${this._pressCount}`);
-                if (this._pedalTime >= 1.0) {
-                    this._pedalTime = 0;
-                    console.log(`[reveal] PRESS triggered, count now ${(this._pressCount || 0) + 1}`);
-                    this._onRevealPress();
-                }
-            } else {
-                if (this._pedalTime > 0) console.log(`[reveal] cadence stopped (cadence=${bi?.cadenceRpm}, connected=${bi?.connected}), resetting pedalTime`);
-                this._pedalTime = 0;
-            }
-        } else if (!this._waitingForInput && !this._goingToHouse) {
-            // Log why we're not in reveal phase
-            if (bi?.connected && bi.cadenceRpm > 25) {
-                console.log(`[reveal] pedaling but NOT waiting — _waitingForInput=${this._waitingForInput} _goingToHouse=${this._goingToHouse} _revealLocked=${this._revealLocked} _pressCount=${this._pressCount}`);
-            }
+        if (!bi?.connected || bi.cadenceRpm <= 25) {
+            this._pedalTime = 0;
+            this._launchPedalTime = 0;
+            return;
         }
-        // Pedal input during the final launch wait (house fully revealed)
+
+        const dt = this.game.loop.delta / 1000;
+
+        if (this._waitingForInput && !this._goingToHouse) {
+            this._pedalTime = (this._pedalTime || 0) + dt;
+            if (this._pedalTime >= 1.0) { this._pedalTime = 0; this._onRevealPress(); }
+        }
+
         if (this._waitingForLaunch) {
-            if (bi?.connected && bi.cadenceRpm > 25) {
-                this._launchPedalTime = (this._launchPedalTime || 0) + this.game.loop.delta / 1000;
-                console.log(`[launch] cadence=${bi.cadenceRpm} launchPedalTime=${this._launchPedalTime.toFixed(2)}`);
-                if (this._launchPedalTime >= 1) {
-                    this._waitingForLaunch = false;
-                    this.input.keyboard.off('keydown-SPACE');
-                    this.input.off('pointerdown');
-                    this.cameras.main.fade(1000, 0, 0, 0);
-                    this.time.delayedCall(1000, () => this.scene.start('GameScene'));
-                }
-            } else {
-                this._launchPedalTime = 0;
+            this._launchPedalTime = (this._launchPedalTime || 0) + dt;
+            if (this._launchPedalTime >= 1) {
+                this._waitingForLaunch = false;
+                this.input.keyboard.off('keydown-SPACE');
+                this.input.off('pointerdown');
+                this.cameras.main.fade(1000, 0, 0, 0);
+                this.time.delayedCall(1000, () => this.scene.start('GameScene'));
             }
         }
     }
 
     shutdown() {
-        this._gifEl?.remove();
-        this._gifEl = null;
+        this._removeGif();
+        this._removeRevealListeners();
+        if (this._promptInterval) { clearInterval(this._promptInterval); this._promptInterval = null; }
+        if (this._revealTimeout)  { clearTimeout(this._revealTimeout);   this._revealTimeout = null; }
     }
 }
 
 
 // ============================================================
-// MAIN GAME SCENE
+// GAME SCENE
 // ============================================================
 class GameScene extends Phaser.Scene {
-    constructor() {
-        super({ key: 'GameScene' });
-    }
+    constructor() { super({ key: 'GameScene' }); }
 
     init() {
-        this.worldX = 0;
-        this.speed = 0;
-        this.maxSpeed = 400;
-        this.baseDeceleration = 30;
-        this.pedalBoost = 25;
-        this.isOnGround = true;
-        this.score = 0;
-        this.distance = 0;
-        this.terrainPoints = [];
+        this.worldX          = 0;
+        this.speed           = 0;
+        this.isOnGround      = true;
+        this.score           = 0;
+        this.distance        = 0;
+        this.terrainPoints   = [];
         this.terrainGenerated = 0;
-        this.coinWorldData = [];
-        this.coinSprites = [];
-        this.pedalCooldown = 0;
-        this.lastShiftTime = 0;
-        this.pedalIntensity = 0;
-        this.alive = true;
-        this.hillMultiplier = 1;
-        this.comboTimer = 0;
-        this.comboCount = 0;
-        this.stoppedTime = null;
-        this.playerVelY = 0;
-        this.wheelAngle = 0;
-        this.legAngle = 0;
-        this.playerY = GROUND_Y - 30;
-        this._lastBikePedalTime = 0; // ms timestamp of last bike-driven pedal stroke
+        this.coinWorldData   = [];
+        this.lastShiftTime   = 0;
+        this.pedalIntensity  = 0;
+        this.alive           = true;
+        this.hillMultiplier  = 1;
+        this.comboTimer      = 0;
+        this.comboCount      = 0;
+        this.stoppedTime     = null;
+        this.playerVelY      = 0;
+        this.wheelAngle      = 0;
+        this.legAngle        = 0;
+        this.playerY         = GROUND_Y - 30;
+        this._lastBikePedalTime = 0;
+        this._levelComplete  = false;
+        this._uiFrame        = 0;
     }
 
     create() {
-        // ---- BACKGROUND (parallax sky) ----
+        this._createBackground();
+        this._createTerrain();
+        this._createPlayer();
+        this._createInput();
+        this._createUI();
+        this._createParticles();
+        this._createMusic();
+    }
+
+    // ── Setup helpers ───────────────────────────────────────
+
+    _createBackground() {
         this.bgSky = this.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'background')
-            .setOrigin(0, 0)
-            .setScrollFactor(0)
-            .setDepth(0);
+            .setOrigin(0, 0).setScrollFactor(0).setDepth(0);
 
-        // ---- MOUNTAINS (parallax mid layer) ----
         this.bgMountains = this.add.tileSprite(0, GAME_HEIGHT - 400, GAME_WIDTH, 400, 'mountains')
-            .setOrigin(0, 0)
-            .setScrollFactor(0)
-            .setDepth(0.5);
+            .setOrigin(0, 0).setScrollFactor(0).setDepth(0.5);
 
-        // ---- CLOUDS ----
         this.clouds = [];
-        for (let i = 0; i < 5; i++) {
-            const cloud = this.add.image(
+        for (let i = 0; i < CLOUD_COUNT; i++) {
+            const sprite = this.add.image(
                 Phaser.Math.Between(0, GAME_WIDTH),
                 Phaser.Math.Between(20, 130),
                 'cloud'
-            );
-            cloud.setAlpha(Phaser.Math.FloatBetween(0.5, 0.9));
-            const s = Phaser.Math.FloatBetween(0.4, 1.0);
-            cloud.setScale(s);
-            cloud.setDepth(0.3);
-            cloud.setScrollFactor(0);
-            this.clouds.push({
-                sprite: cloud,
-                speed: Phaser.Math.FloatBetween(0.1, 0.4)
-            });
+            ).setAlpha(Phaser.Math.FloatBetween(0.5, 0.9))
+             .setScale(Phaser.Math.FloatBetween(0.4, 1.0))
+             .setDepth(0.3)
+             .setScrollFactor(0);
+
+            this.clouds.push({ sprite, speed: Phaser.Math.FloatBetween(0.1, 0.4) });
         }
+    }
 
-        // ---- TERRAIN ----
-        // We will use a RenderTexture for the ground and a Graphics overlay
-        this.groundRT = this.add.renderTexture(400, 313, GAME_WIDTH, GAME_HEIGHT).setDepth(2).setScrollFactor(0);
-        this.terrainMask = this.add.graphics().setDepth(2).setScrollFactor(0);
+    _createTerrain() {
+        this.groundRT = this.add.renderTexture(
+            GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT
+        ).setDepth(2).setScrollFactor(0);
 
-        this.generateTerrain(0, GAME_WIDTH + 500);
+        this.generateTerrain(0, GAME_WIDTH + TERRAIN_LOOK_AHEAD);
+        this.generateCoins(100, GAME_WIDTH + TERRAIN_LOOK_AHEAD);
+    }
 
-        // ---- COIN CONTAINER (for coin/star image sprites) ----
-        this.coinContainer = this.add.container(0, 0).setDepth(4);
+    _createPlayer() {
+        const px = PLAYER_SCREEN_X;
+        const py = this.playerY;
 
-        this.generateCoins(100, GAME_WIDTH + 500);
+        this.rearWheel  = this.add.image(px + 16, py + 6, 'wheel').setDepth(5).setScale(0.8);
+        this.frontWheel = this.add.image(px - 16, py + 6, 'wheel').setDepth(5).setScale(0.8);
+        this.bikeSprite = this.add.image(px + 10, py, 'bike').setOrigin(0.5, 0.7).setDepth(6).setScale(0.7);
+        this.riderSprite = this.add.image(px + 2, py - 20, 'rider').setOrigin(0.5, 0.5).setDepth(7).setScale(0.6);
+    }
 
-        // ---- PLAYER ----
-        this.playerScreenX = 200;
-        this.createPlayer();
-
-        // ---- INPUT ----
+    _createInput() {
         this.shiftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
         this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.input.keyboard.addCapture(['SHIFT', 'SPACE']);
@@ -1017,189 +838,106 @@ class GameScene extends Phaser.Scene {
         this.shiftKey.on('down', () => this.onPedal());
         this.spaceKey.on('down', () => this.onJump());
 
-        // Touch controls: left half = pedal, right half = jump
+        // Touch: left half = pedal, right half = jump
         this.input.on('pointerdown', (ptr) => {
-            if (ptr.x < GAME_WIDTH / 2) this.onPedal();
-            else this.onJump();
+            if (ptr.x < GAME_WIDTH / 2) this.onPedal(); else this.onJump();
         });
+    }
 
-        // ---- UI ----
-        this.createUI();
+    _createUI() {
+        this.scoreText = this.add.text(GAME_WIDTH - 20, 15, 'Score: 0',
+            textStyle({ fontSize: '18px' })).setOrigin(1, 0).setDepth(UI_DEPTH).setScrollFactor(0);
 
-        // ---- PARTICLES ----
+        this.distText = this.add.text(GAME_WIDTH - 20, 45, 'Distance: 0m',
+            textStyle({ fontSize: '16px', strokeThickness: 2 })).setOrigin(1, 0).setDepth(UI_DEPTH).setScrollFactor(0);
+
+        this.pedalIndicator = this.add.text(GAME_WIDTH / 2, 20, 'Il faut pédaler !',
+            textStyle({ fontSize: '20px', color: '#FFFF00' })).setOrigin(0.5).setDepth(UI_DEPTH).setScrollFactor(0);
+
+        this.hillWarning = this.add.text(GAME_WIDTH / 2, 50, '',
+            textStyle({ fontSize: '16px', color: '#FF4444', strokeThickness: 2 }))
+            .setOrigin(0.5).setDepth(UI_DEPTH).setScrollFactor(0);
+
+        this.comboText = this.add.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 50, '',
+            textStyle({ fontSize: '30px', color: '#FF00FF', strokeThickness: 4 }))
+            .setOrigin(0.5).setDepth(UI_DEPTH).setScrollFactor(0).setAlpha(0);
+
+        this.instructions = this.add.text(GAME_WIDTH / 2, GAME_HEIGHT - 40,
+            'SHIFT = Pédaler plus vite | ESPACE = Sauter | Pédaler plus fort en montée !',
+            textStyle({ fontSize: '14px', strokeThickness: 2 }))
+            .setOrigin(0.5).setDepth(UI_DEPTH).setScrollFactor(0);
+
+        this.bikeText = this.add.text(10, GAME_HEIGHT - 20, '',
+            textStyle({ fontFamily: FONT_MONO, fontSize: '13px', color: '#22c55e', strokeThickness: 2 }))
+            .setOrigin(0, 1).setDepth(UI_DEPTH).setScrollFactor(0).setAlpha(0);
+
+        this._createGauge();
+    }
+
+    _createGauge() {
+        const gaugeX = GAME_WIDTH - 50;
+        const gaugeY = GAME_HEIGHT - 80;
+
+        this.gaugeFill = this.add.image(gaugeX, gaugeY, 'gauge_fill')
+            .setScale(GAUGE_SCALE).setOrigin(0.5, 1).setDepth(UI_DEPTH).setScrollFactor(0);
+        this.gaugeFillFullH = this.gaugeFill.displayHeight;
+
+        this.gaugeFrame = this.add.image(gaugeX, gaugeY, 'gauge_frame')
+            .setScale(GAUGE_SCALE).setOrigin(0.5, 1).setDepth(UI_DEPTH + 1).setScrollFactor(0);
+
+        const src = this.textures.get('gauge_fill').getSourceImage();
+        this.gaugeTexW = src.width;
+        this.gaugeTexH = src.height;
+        this.gaugeFill.setCrop(0, this.gaugeTexH, this.gaugeTexW, 0);
+    }
+
+    _createParticles() {
         this.dustParticles = this.add.particles(0, 0, 'particle', {
-            speed: { min: 20, max: 60 },
-            angle: { min: 160, max: 200 },
-            scale: { start: 0.8, end: 0 },
-            lifespan: 400,
-            tint: 0xCCAA77,
-            emitting: false
+            speed: { min: 20, max: 60 }, angle: { min: 160, max: 200 },
+            scale: { start: 0.8, end: 0 }, lifespan: 400, tint: 0xCCAA77, emitting: false,
         }).setDepth(3);
 
         this.pedalParticles = this.add.particles(0, 0, 'particle', {
-            speed: { min: 50, max: 120 },
-            angle: { min: 120, max: 240 },
-            scale: { start: 0.5, end: 0 },
-            lifespan: 300,
-            tint: 0xFFFF00,
-            emitting: false
+            speed: { min: 50, max: 120 }, angle: { min: 120, max: 240 },
+            scale: { start: 0.5, end: 0 }, lifespan: 300, tint: 0xFFFF00, emitting: false,
         }).setDepth(3);
-
-                // ---- CHIPTUNE MUSIC ----
-                this.musicStarted = false;
-                this.musicMuted = false;
-        
-                // Start music (delayed slightly for audio context)
-                this.time.delayedCall(200, () => {
-                    chiptunePlayer.play();
-                    this.musicStarted = true;
-                });
-        
-                // Fallback: start on first input if autoplay blocked
-                this.input.keyboard.on('keydown', () => {
-                    if (!this.musicStarted) {
-                        chiptunePlayer.play();
-                        this.musicStarted = true;
-                    }
-                });
-        
-                // Mute toggle with M key
-                this.muteKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
-                this.muteKey.on('down', () => {
-                    this.musicMuted = !this.musicMuted;
-                    chiptunePlayer.setVolume(this.musicMuted ? 0 : 0.3);
-                    this.muteText.setText(this.musicMuted ? '♪ M=Unmute' : '♪ M=Mute');
-                });
-        
-                this.muteText = this.add.text(GAME_WIDTH - 10, GAME_HEIGHT - 15, '♪ M=Mute', {
-                    fontFamily: 'futural', fontSize: '12px', color: '#FFFFFF',
-                    stroke: '#000000', strokeThickness: 2
-                }).setOrigin(1, 0.5).setDepth(100).setScrollFactor(0);
-        
     }
 
-    // --------------------------------------------------------
-    // PLAYER CREATION
-    // --------------------------------------------------------
-    createPlayer() {
-        // Rear wheel
-        this.rearWheel = this.add.image(this.playerScreenX + 16, this.playerY + 6, 'wheel')
-            .setDepth(5)
-            .setScale(0.8);
-    
-        // Front wheel
-        this.frontWheel = this.add.image(this.playerScreenX - 16, this.playerY + 6, 'wheel')
-            .setDepth(5)
-            .setScale(0.8);
-    
-        // Bike frame
-        this.bikeSprite = this.add.image(this.playerScreenX+10, this.playerY, 'bike')
-            .setOrigin(0.5, 0.7)
-            .setDepth(6)
-            .setScale(0.7);
-    
-        // Rider on top - adjusted position
-        this.riderSprite = this.add.image(this.playerScreenX + 2, this.playerY - 20, 'rider')
-            .setOrigin(0.5, 0.5)
-            .setDepth(7)
-            .setScale(0.6);
+    _createMusic() {
+        this.musicMuted = false;
+        chiptunePlayer.play();
+
+        const startOnInput = () => { if (!chiptunePlayer.isPlaying) chiptunePlayer.play(); };
+        this.input.keyboard.once('keydown', startOnInput);
+        this.input.once('pointerdown', startOnInput);
+
+        this.muteKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
+        this.muteKey.on('down', () => {
+            this.musicMuted = !this.musicMuted;
+            chiptunePlayer.setVolume(this.musicMuted ? 0 : 0.6);
+            this.muteText.setText(this.musicMuted ? '♪ M=Unmute' : '♪ M=Mute');
+        });
+
+        this.muteText = this.add.text(GAME_WIDTH - 10, GAME_HEIGHT - 15, '♪ M=Mute',
+            textStyle({ fontSize: '12px', strokeThickness: 2 }))
+            .setOrigin(1, 0.5).setDepth(100).setScrollFactor(0);
     }
 
-    // --------------------------------------------------------
-    // UI
-    // --------------------------------------------------------
-    createUI() {
-        const uiDepth = 10;
-    
-        this.scoreText = this.add.text(GAME_WIDTH - 20, 15, 'Score: 0', {
-            fontFamily: 'futural', fontSize: '18px', color: '#FFFFFF',
-            stroke: '#000000', strokeThickness: 3
-        }).setOrigin(1, 0).setDepth(uiDepth).setScrollFactor(0);
-    
-        this.distText = this.add.text(GAME_WIDTH - 20, 45, 'Distance: 0m', {
-            fontFamily: 'futural', fontSize: '16px', color: '#FFFFFF',
-            stroke: '#000000', strokeThickness: 2
-        }).setOrigin(1, 0).setDepth(uiDepth).setScrollFactor(0);
-    
-        this.speedText = null; // speed shown by bikeText (BLE) — no duplicate needed
+    // ── Terrain ─────────────────────────────────────────────
 
-        this.pedalIndicator = this.add.text(GAME_WIDTH / 2, 20, 'Press SHIFT to pedal!', {
-            fontFamily: 'futural', fontSize: '20px', color: '#FFFF00',
-            stroke: '#000000', strokeThickness: 3
-        }).setOrigin(0.5).setDepth(uiDepth).setScrollFactor(0);
-    
-        this.hillWarning = this.add.text(GAME_WIDTH / 2, 50, '', {
-            fontFamily: 'futural', fontSize: '16px', color: '#FF4444',
-            stroke: '#000000', strokeThickness: 2
-        }).setOrigin(0.5).setDepth(uiDepth).setScrollFactor(0);
-    
-        this.comboText = this.add.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 50, '', {
-            fontFamily: 'futural', fontSize: '30px', color: '#FF00FF',
-            stroke: '#000000', strokeThickness: 4
-        }).setOrigin(0.5).setDepth(uiDepth).setScrollFactor(0).setAlpha(0);
-    
-        this.instructions = this.add.text(GAME_WIDTH / 2, GAME_HEIGHT - 40,
-            'SHIFT = Pédaler plus vite | ESPACE = Sauter | Pédaler plus fort en montée !', {
-                fontFamily: 'futural', fontSize: '14px', color: '#FFFFFF',
-                stroke: '#000000', strokeThickness: 2
-            }).setOrigin(0.5).setDepth(uiDepth).setScrollFactor(0);
-        this.bikeText = this.add.text(10, GAME_HEIGHT - 20, '', {
-            fontFamily: 'monospace', fontSize: '13px', color: '#22c55e',
-            stroke: '#000000', strokeThickness: 2
-        }).setOrigin(0, 1).setDepth(uiDepth).setScrollFactor(0).setAlpha(0);
-
-        // ---- LEVEL GAUGE (battery style, bottom right) ----
-        const gaugeX = GAME_WIDTH - 50;
-        const gaugeY = GAME_HEIGHT - 80;
-        const gaugeScale = 0.03;
-
-        // Green fill — placed behind the frame, anchored at the bottom
-        this.gaugeFill = this.add.image(gaugeX, gaugeY, 'gauge_fill')
-            .setScale(gaugeScale)
-            .setOrigin(0.5, 1)
-            .setDepth(uiDepth)
-            .setScrollFactor(0);
-
-        // Store the full height for clipping later
-        this.gaugeFillFullH = this.gaugeFill.displayHeight;
-
-        // Battery frame overlay on top
-        this.gaugeFrame = this.add.image(gaugeX, gaugeY, 'gauge_frame')
-            .setScale(gaugeScale)
-            .setOrigin(0.5, 1)
-            .setDepth(uiDepth + 1)
-            .setScrollFactor(0);
-
-        // Create a crop rect for the fill image (starts fully hidden)
-        const texW = this.textures.get('gauge_fill').getSourceImage().width;
-        const texH = this.textures.get('gauge_fill').getSourceImage().height;
-        this.gaugeFill.setCrop(0, texH, texW, 0);
-        this.gaugeTexW = texW;
-        this.gaugeTexH = texH;
-        
-    }
-
-    // --------------------------------------------------------
-    // TERRAIN
-    // --------------------------------------------------------
     generateTerrain(fromX, toX) {
         let x = this.terrainGenerated || fromX;
         if (this.terrainPoints.length === 0) {
-            this.terrainPoints.push({ x: x, y: GROUND_Y });
+            this.terrainPoints.push({ x, y: GROUND_Y });
             x += SEGMENT_WIDTH;
         }
-
         while (x <= toX) {
             const noise1 = Math.sin(x * 0.003) * 40;
             const noise2 = Math.sin(x * 0.008 + 1.5) * 25;
             const noise3 = Math.sin(x * 0.001) * 60;
-            const worldProgress = x / 1000;
-            const hillWave = Math.sin(x * 0.002) * (50 + worldProgress * 15);
-
-            let y = GROUND_Y + noise1 + noise2 + noise3 + hillWave;
-            y = Phaser.Math.Clamp(y, GROUND_Y - 150, GROUND_Y + 50);
-
-            this.terrainPoints.push({ x: x, y: y });
+            const hillWave = Math.sin(x * 0.002) * (50 + (x / 1000) * 15);
+            const y = Phaser.Math.Clamp(GROUND_Y + noise1 + noise2 + noise3 + hillWave, GROUND_Y - 150, GROUND_Y + 50);
+            this.terrainPoints.push({ x, y });
             x += SEGMENT_WIDTH;
         }
         this.terrainGenerated = x;
@@ -1208,192 +946,226 @@ class GameScene extends Phaser.Scene {
     getTerrainYAt(worldX) {
         if (this.terrainPoints.length < 2) return GROUND_Y;
         const firstX = this.terrainPoints[0].x;
-        const index = Math.floor((worldX - firstX) / SEGMENT_WIDTH);
-        if (index < 0) return GROUND_Y;
-        if (index >= this.terrainPoints.length - 1) {
-            return this.terrainPoints[this.terrainPoints.length - 1].y;
-        }
-        const p1 = this.terrainPoints[index];
-        const p2 = this.terrainPoints[index + 1];
-        const t = (worldX - p1.x) / SEGMENT_WIDTH;
-        return p1.y + (p2.y - p1.y) * t;
+        const idx = Math.floor((worldX - firstX) / SEGMENT_WIDTH);
+        if (idx < 0) return GROUND_Y;
+        if (idx >= this.terrainPoints.length - 1) return this.terrainPoints[this.terrainPoints.length - 1].y;
+        const p1 = this.terrainPoints[idx];
+        const p2 = this.terrainPoints[idx + 1];
+        return p1.y + (p2.y - p1.y) * ((worldX - p1.x) / SEGMENT_WIDTH);
     }
 
     getTerrainSlopeAt(worldX) {
-        const y1 = this.getTerrainYAt(worldX - 10);
-        const y2 = this.getTerrainYAt(worldX + 10);
-        return (y2 - y1) / 20;
+        return (this.getTerrainYAt(worldX + 10) - this.getTerrainYAt(worldX - 10)) / 20;
     }
 
     drawTerrain() {
-        // Only redraw when the world has scrolled enough to need an update
         const scrollDelta = Math.abs(this.worldX - (this._lastDrawnWorldX || 0));
-        if (scrollDelta < 2 && this._terrainDrawn) return;
+        if (scrollDelta < 1 && this._terrainDrawn) return;
         this._lastDrawnWorldX = this.worldX;
         this._terrainDrawn = true;
 
         this.groundRT.clear();
 
-        // Cache tile dimensions once
         if (!this._tileMetrics) {
-            const groundTopImg = this.textures.get('ground_top').getSourceImage();
-            const fillImg      = this.textures.get('ground_fill').getSourceImage();
+            const topImg  = this.textures.get('ground_top').getSourceImage();
+            const fillImg = this.textures.get('ground_fill').getSourceImage();
             this._tileMetrics = {
-                tw: groundTopImg.width  || 64,
-                th: groundTopImg.height || 32,
-                fw: fillImg.width       || 64,
-                fh: fillImg.height      || 64
+                tw: topImg.width || 64, th: topImg.height || 32,
+                fw: fillImg.width || 64, fh: fillImg.height || 64,
             };
         }
         const { tw, th, fw, fh } = this._tileMetrics;
-
-        // How many pixels the world has scrolled within the current tile — this is the
-        // sub-tile offset we subtract so tiles stay locked to the world, not the screen.
         const tileOffsetX = this.worldX % tw;
         const fillOffsetX = this.worldX % fw;
 
-        // Draw one extra tile on each side to cover the sub-tile scroll gap.
-        // screenX is always in [0, GAME_WIDTH] range after the offset is applied.
-
-        // --- Grass-top strip ---
         for (let col = -1; col * tw < GAME_WIDTH + tw; col++) {
-            const screenX  = col * tw - tileOffsetX;
-            // Sample terrain at the world position this screen column corresponds to
-            const wx       = this.worldX + screenX;
-            const terrainY = this.getTerrainYAt(wx);
-            // Place tile so its bottom edge sits on the terrain surface
+            const screenX = col * tw - tileOffsetX;
+            const terrainY = this.getTerrainYAt(this.worldX + screenX);
             this.groundRT.drawFrame('ground_top', undefined, screenX, terrainY - th);
         }
 
-        // --- Fill dirt below the grass ---
         for (let col = -1; col * fw < GAME_WIDTH + fw; col++) {
-            const screenX  = col * fw - fillOffsetX;
-            const wx       = this.worldX + screenX;
-            const terrainY = this.getTerrainYAt(wx);
+            const screenX = col * fw - fillOffsetX;
+            const terrainY = this.getTerrainYAt(this.worldX + screenX);
             for (let fy = terrainY; fy < GAME_HEIGHT + fh; fy += fh) {
                 this.groundRT.drawFrame('ground_fill', undefined, screenX, fy);
             }
         }
     }
 
-    // --------------------------------------------------------
-    // COINS
-    // --------------------------------------------------------
-    generateCoins(fromX, toX) {
-        // Use a seeded step so coins are deterministic and don't overlap previous runs
-        let x = fromX;
-        const step = 140; // average spacing — avoids Phaser.Math.Between overhead in bulk gen
-        while (x < toX) {
-            x += 80 + Math.floor(Math.random() * 121); // 80-200 range
-            const terrainY = this.getTerrainYAt(x);
-            const isAirCoin = Math.random() > 0.5;
-            const coinY = isAirCoin ? terrainY - (60 + Math.floor(Math.random() * 71)) : terrainY - 30;
-            const isStar = Math.random() > 0.85;
+    // ── Coins ───────────────────────────────────────────────
 
-            // Defer sprite creation until the coin is near the viewport (see updateCoins)
+    generateCoins(fromX, toX) {
+        let x = fromX;
+        while (x < toX) {
+            x += COIN_SPACING_MIN + Math.floor(Math.random() * COIN_SPACING_RANGE);
+            const terrainY = this.getTerrainYAt(x);
+            const isAir    = Math.random() > 0.5;
+            const coinY    = isAir
+                ? terrainY - (COIN_AIR_HEIGHT_MIN + Math.floor(Math.random() * COIN_AIR_HEIGHT_RANGE))
+                : terrainY - 30;
+            const isStar   = Math.random() > (1 - STAR_CHANCE);
+
             this.coinWorldData.push({
-                worldX: x,
-                baseY: coinY,
-                collected: false,
+                worldX: x, baseY: coinY, collected: false,
                 type: isStar ? 'star' : 'coin',
-                value: isStar ? 50 : 10,
-                sprite: null   // created lazily
+                value: isStar ? STAR_VALUE : COIN_VALUE,
+                sprite: null,
             });
         }
     }
 
-    // --------------------------------------------------------
-    // INPUT
-    // --------------------------------------------------------
-    onPedal() {
-        if (!this.alive) return;
-
+    updateCoins(dt) {
         const now = this.time.now;
-        const timeSinceLast = now - this.lastShiftTime;
-        this.lastShiftTime = now;
+        const spawnWindow   = GAME_WIDTH + 200;
+        const destroyBehind = -150;
 
-        const slope = this.getTerrainSlopeAt(this.worldX + this.playerScreenX);
-        let slopeResistance = 1;
-        if (slope < -0.1) {
-            slopeResistance = 1 + Math.abs(slope) * 5;
-        } else if (slope > 0.1) {
-            slopeResistance = 0.5;
+        for (let i = this.coinWorldData.length - 1; i >= 0; i--) {
+            const coin = this.coinWorldData[i];
+            if (coin.collected) continue;
+
+            const screenX = coin.worldX - this.worldX;
+
+            if (screenX < destroyBehind) {
+                if (coin.sprite) { coin.sprite.destroy(); coin.sprite = null; }
+                this.coinWorldData.splice(i, 1);
+                continue;
+            }
+            if (screenX > spawnWindow) continue;
+
+            if (!coin.sprite) {
+                coin.sprite = this.add.image(0, 0, coin.type).setScale(0.8).setDepth(4);
+            }
+
+            const bobY = coin.baseY + Math.sin(now * 0.005 + coin.worldX) * 5;
+            coin.sprite.setPosition(screenX, bobY);
+
+            if (screenX > -30 && screenX < GAME_WIDTH + 30) {
+                coin.sprite.setVisible(true);
+                if (coin.type === 'coin') {
+                    coin.sprite.setScale(Math.abs(Math.cos(now * 0.004 + coin.worldX)) * 0.8 + 0.1, 1);
+                } else {
+                    coin.sprite.setRotation(now * 0.003);
+                }
+            } else {
+                coin.sprite.setVisible(false);
+            }
+
+            // Collection check
+            if (screenX > PLAYER_SCREEN_X - 25 && screenX < PLAYER_SCREEN_X + 25 &&
+                Math.abs(bobY - this.playerY) < 35) {
+                coin.collected = true;
+                this.score += coin.value;
+
+                if (this.comboTimer > 0) { this.comboCount++; this.score += this.comboCount * 5; }
+                else { this.comboCount = 1; }
+                this.comboTimer = 2;
+
+                this.tweens.add({
+                    targets: coin.sprite, y: bobY - 50, alpha: 0, scaleX: 1.5, scaleY: 1.5,
+                    duration: 400,
+                    onComplete: () => { if (coin.sprite) { coin.sprite.destroy(); coin.sprite = null; } },
+                });
+                this._showCollectText(screenX, bobY, coin.value, this.comboCount);
+            }
         }
 
-        const boost = this.pedalBoost / slopeResistance;
-        this.speed = Math.min(this.maxSpeed, this.speed + boost);
+        if (this.comboTimer > 0) {
+            this.comboTimer -= dt;
+            if (this.comboTimer <= 0) this.comboCount = 0;
+        }
+    }
 
-        if (timeSinceLast < 300 && timeSinceLast > 50) {
-            this.speed = Math.min(this.maxSpeed, this.speed + boost * 0.5);
+    _showCollectText(x, y, value, combo) {
+        const color = combo > 2 ? '#FF00FF' : '#FFD700';
+        const text  = combo > 1 ? `+${value} x${combo}!` : `+${value}`;
+
+        const ft = this.add.text(x, y, text,
+            textStyle({ fontSize: combo > 2 ? '24px' : '18px', color, strokeThickness: 3 })
+        ).setOrigin(0.5).setDepth(8);
+
+        this.tweens.add({
+            targets: ft, y: y - 60, alpha: 0, scaleX: 1.5, scaleY: 1.5,
+            duration: 800, onComplete: () => ft.destroy(),
+        });
+
+        if (combo > 2) {
+            this.comboText.setText(`COMBO x${combo}!`).setAlpha(1).setScale(1);
+            this.tweens.add({ targets: this.comboText, alpha: 0, scaleX: 1.5, scaleY: 1.5, duration: 1000 });
+        }
+    }
+
+    // ── Input handlers ──────────────────────────────────────
+
+    onPedal() {
+        if (!this.alive) return;
+        const now  = this.time.now;
+        const dt   = now - this.lastShiftTime;
+        this.lastShiftTime = now;
+
+        const slope = this.getTerrainSlopeAt(this.worldX + PLAYER_SCREEN_X);
+        let resist = 1;
+        if (slope < -0.1)     resist = 1 + Math.abs(slope) * 5;
+        else if (slope > 0.1) resist = 0.5;
+
+        const boost = PEDAL_BOOST / resist;
+        this.speed = Math.min(MAX_SPEED, this.speed + boost);
+
+        if (dt < RAPID_PEDAL_WINDOW && dt > RAPID_PEDAL_MIN) {
+            this.speed = Math.min(MAX_SPEED, this.speed + boost * 0.5);
             this.pedalIntensity = Math.min(1, this.pedalIntensity + 0.2);
         }
 
-        this.pedalParticles.emitParticleAt(this.playerScreenX, this.playerY);
+        this.pedalParticles.emitParticleAt(PLAYER_SCREEN_X, this.playerY);
         this.legAngle += 0.8;
 
-        if (slopeResistance > 2) {
-            this.cameras.main.shake(50, 0.002);
-        }
+        if (resist > 2) this.cameras.main.shake(50, 0.002);
     }
 
     onJump() {
         if (!this.alive || !this.isOnGround) return;
-        this.playerVelY = -500;
+        this.playerVelY = JUMP_VELOCITY;
         this.isOnGround = false;
-        this.dustParticles.emitParticleAt(this.playerScreenX, this.playerY, 8);
+        this.dustParticles.emitParticleAt(PLAYER_SCREEN_X, this.playerY, 8);
     }
 
-    // --------------------------------------------------------
-    // UPDATE
-    // --------------------------------------------------------
-    update(time, delta) {
+    // ── Main update loop ────────────────────────────────────
+
+    update(_time, delta) {
         if (!this.alive) return;
         const dt = delta / 1000;
 
-        // ── Bike trainer input ──────────────────────────────────────────────
-        // Real bike speed drives game speed directly. SHIFT key still works
-        // as a keyboard fallback when no trainer is connected.
-        // ───────────────────────────────────────────────────────────────────
+        this._cachedSlope = this.getTerrainSlopeAt(this.worldX + PLAYER_SCREEN_X);
 
-        // Cache slope once per frame — reused by physics, visuals, and UI
-        this._cachedSlope = this.getTerrainSlopeAt(this.worldX + this.playerScreenX);
-
-        this.updatePhysics(dt);
-        this.updateTerrainGeneration();
+        this._updatePhysics(dt);
+        this._updateTerrainGeneration();
         this.drawTerrain();
         this.updateCoins(dt);
-        this.updateVisuals(dt);
-        this.updateParallax(dt);
-        this.updateUI();
-        this.checkGameOver();
+        this._updateVisuals(dt);
+        this._updateParallax(dt);
+        this._updateUI();
+        this._checkGameOver();
     }
 
-    updatePhysics(dt) {
-        const slope = this._cachedSlope !== undefined ? this._cachedSlope : this.getTerrainSlopeAt(this.worldX + this.playerScreenX);
-        const slopeForce = slope * 300;
-        this.speed += slopeForce * dt;
+    _updatePhysics(dt) {
+        const slope = this._cachedSlope;
+        this.speed += slope * 300 * dt;
 
-        const friction = this.baseDeceleration + (this.speed > 200 ? this.speed * 0.05 : 0);
+        const friction = BASE_DECELERATION + (this.speed > 200 ? this.speed * 0.05 : 0);
         this.speed -= friction * dt;
 
-        // ── Real bike speed drive ──────────────────────────────────────────
-        // When connected, continuously push game speed toward the real speed
-        // target. The proportional gain (dt * 4) gives ~0.25 s convergence.
-        // Slopes and friction still apply on top for game feel.
+        // Real bike speed tracking
         const bi = window.bikeInput;
         if (bi?.connected) {
-            const targetSpeed = Math.min(this.maxSpeed,
-                (bi.speedKmh / REAL_MAX_SPEED_KMH) * this.maxSpeed);
-            this.speed += (targetSpeed - this.speed) * Math.min(1, dt * 4);
+            const target = Math.min(MAX_SPEED, (bi.speedKmh / REAL_MAX_SPEED_KMH) * MAX_SPEED);
+            this.speed += (target - this.speed) * Math.min(1, dt * BIKE_SPEED_CONVERGENCE);
         }
-        // ──────────────────────────────────────────────────────────────────
 
-        this.speed = Phaser.Math.Clamp(this.speed, 0, this.maxSpeed);
-
+        this.speed = Phaser.Math.Clamp(this.speed, 0, MAX_SPEED);
         this.worldX += this.speed * dt;
         this.distance = Math.floor(this.worldX / 10);
 
-        const terrainY = this.getTerrainYAt(this.worldX + this.playerScreenX);
+        const terrainY = this.getTerrainYAt(this.worldX + PLAYER_SCREEN_X);
 
         if (this.isOnGround) {
             this.playerY = terrainY - 20;
@@ -1405,197 +1177,60 @@ class GameScene extends Phaser.Scene {
                 this.playerY = terrainY - 20;
                 this.playerVelY = 0;
                 this.isOnGround = true;
-                this.dustParticles.emitParticleAt(this.playerScreenX, this.playerY + 15, 5);
+                this.dustParticles.emitParticleAt(PLAYER_SCREEN_X, this.playerY + 15, 5);
             }
         }
 
         this.pedalIntensity = Math.max(0, this.pedalIntensity - dt * 2);
-
-        if (slope < -0.1) {
-            this.hillMultiplier = 1 + Math.abs(slope) * 5;
-        } else {
-            this.hillMultiplier = 1;
-        }
+        this.hillMultiplier = slope < -0.1 ? 1 + Math.abs(slope) * 5 : 1;
     }
 
-    updateTerrainGeneration() {
-        const lookAhead = this.worldX + GAME_WIDTH + 500;
+    _updateTerrainGeneration() {
+        const lookAhead = this.worldX + GAME_WIDTH + TERRAIN_LOOK_AHEAD;
         if (lookAhead > this.terrainGenerated - 200) {
-            this.generateTerrain(this.terrainGenerated, lookAhead + 500);
-            this.generateCoins(this.terrainGenerated - 500, lookAhead + 300);
+            this.generateTerrain(this.terrainGenerated, lookAhead + TERRAIN_LOOK_AHEAD);
+            this.generateCoins(this.terrainGenerated - TERRAIN_LOOK_AHEAD, lookAhead + 300);
         }
-
-        // Prune old terrain points
-        while (this.terrainPoints.length > 2 && this.terrainPoints[0].x < this.worldX - 200) {
+        while (this.terrainPoints.length > 2 && this.terrainPoints[0].x < this.worldX - TERRAIN_PRUNE_BEHIND) {
             this.terrainPoints.shift();
         }
     }
 
-    updateCoins(dt) {
-        const now = this.time.now;
-        const spawnWindow  = GAME_WIDTH + 200;  // create sprite when within this range ahead
-        const destroyBehind = -150;
-
-        for (let i = this.coinWorldData.length - 1; i >= 0; i--) {
-            const coin = this.coinWorldData[i];
-            if (coin.collected) continue;
-
-            const screenX = coin.worldX - this.worldX;
-
-            // Remove coins well behind the camera
-            if (screenX < destroyBehind) {
-                if (coin.sprite) { coin.sprite.destroy(); coin.sprite = null; }
-                this.coinWorldData.splice(i, 1);
-                continue;
-            }
-
-            // Skip coins far ahead — don't create sprites yet
-            if (screenX > spawnWindow) continue;
-
-            // Lazy-create sprite only when entering the visible window
-            if (!coin.sprite) {
-                coin.sprite = this.add.image(0, 0, coin.type)
-                    .setScale(0.8)
-                    .setDepth(4);
-            }
-
-            // Position and bob
-            const bobY = coin.baseY + Math.sin(now * 0.005 + coin.worldX) * 5;
-            coin.sprite.setPosition(screenX, bobY);
-
-            // Animate only when truly on-screen
-            if (screenX > -30 && screenX < GAME_WIDTH + 30) {
-                coin.sprite.setVisible(true);
-                if (coin.type === 'coin') {
-                    const sx = Math.abs(Math.cos(now * 0.004 + coin.worldX)) * 0.8 + 0.1;
-                    coin.sprite.setScale(sx, 1);
-                } else {
-                    coin.sprite.setRotation(now * 0.003);
-                }
-            } else {
-                coin.sprite.setVisible(false);
-            }
-
-            // Collection check (only coins near the player)
-            if (screenX > this.playerScreenX - 25 && screenX < this.playerScreenX + 25) {
-                const dy = Math.abs(bobY - this.playerY);
-                if (dy < 35) {
-                    coin.collected = true;
-                    this.score += coin.value;
-
-                    if (this.comboTimer > 0) {
-                        this.comboCount++;
-                        this.score += this.comboCount * 5;
-                    } else {
-                        this.comboCount = 1;
-                    }
-                    this.comboTimer = 2;
-
-                    this.tweens.add({
-                        targets: coin.sprite,
-                        y: bobY - 50,
-                        alpha: 0,
-                        scaleX: 1.5,
-                        scaleY: 1.5,
-                        duration: 400,
-                        onComplete: () => { if (coin.sprite) { coin.sprite.destroy(); coin.sprite = null; } }
-                    });
-
-                    this.showCollectText(screenX, bobY, coin.value, this.comboCount);
-                }
-            }
-        }
-
-        // Combo decay
-        if (this.comboTimer > 0) {
-            this.comboTimer -= dt;
-            if (this.comboTimer <= 0) this.comboCount = 0;
-        }
-    }
-
-    showCollectText(x, y, value, combo) {
-        const color = combo > 2 ? '#FF00FF' : '#FFD700';
-        const text = combo > 1 ? `+${value} x${combo}!` : `+${value}`;
-    
-        const floatText = this.add.text(x, y, text, {
-            fontFamily: 'futural', fontSize: combo > 2 ? '24px' : '18px', color: color,
-            stroke: '#000000', strokeThickness: 3
-        }).setOrigin(0.5).setDepth(8);
-
-        this.tweens.add({
-            targets: floatText,
-            y: y - 60, alpha: 0, scaleX: 1.5, scaleY: 1.5,
-            duration: 800,
-            onComplete: () => floatText.destroy()
-        });
-
-        if (combo > 2) {
-            this.comboText.setText(`COMBO x${combo}!`);
-            this.comboText.setAlpha(1).setScale(1);
-            this.tweens.add({
-                targets: this.comboText,
-                alpha: 0, scaleX: 1.5, scaleY: 1.5,
-                duration: 1000
-            });
-        }
-    }
-
-    updateVisuals(dt) {
-        const slope = this._cachedSlope;
+    _updateVisuals(dt) {
+        const slope     = this._cachedSlope;
         const tiltAngle = Math.atan(slope) * 0.5;
-    
-        // Bike frame
-        this.bikeSprite.setPosition(this.playerScreenX, this.playerY);
-        this.bikeSprite.setRotation(tiltAngle);
-    
-        // Rider - adjusted position
-        this.riderSprite.setPosition(
-            this.playerScreenX,
-            this.playerY - 10
-        );
-        this.riderSprite.setRotation(tiltAngle * 0.6);
-    
-        // Rider lean on uphill
-        if (slope < -0.1) {
-            this.riderSprite.setRotation(tiltAngle * 0.6 - 0.15);
-        }
-    
-        // Wheels
-        const wheelDist = 18;
-        this.frontWheel.setPosition(
-            this.playerScreenX - wheelDist * Math.cos(tiltAngle),
-            this.playerY + 8 - wheelDist * Math.sin(tiltAngle)
-        );
-        this.rearWheel.setPosition(
-            this.playerScreenX + wheelDist * Math.cos(tiltAngle),
-            this.playerY + 8 + wheelDist * Math.sin(tiltAngle)
-        );
-    
+        const px        = PLAYER_SCREEN_X;
+        const py        = this.playerY;
+
+        this.bikeSprite.setPosition(px, py).setRotation(tiltAngle);
+        this.riderSprite.setPosition(px, py - 10)
+            .setRotation(slope < -0.1 ? tiltAngle * 0.6 - 0.15 : tiltAngle * 0.6);
+
+        const wd = 18;
+        this.frontWheel.setPosition(px - wd * Math.cos(tiltAngle), py + 8 - wd * Math.sin(tiltAngle));
+        this.rearWheel.setPosition(px + wd * Math.cos(tiltAngle), py + 8 + wd * Math.sin(tiltAngle));
+
         this.wheelAngle += this.speed * dt * 0.03;
         this.frontWheel.setRotation(this.wheelAngle);
         this.rearWheel.setRotation(this.wheelAngle);
-    
-        // Pedal intensity visual feedback
+
+        // Pedal intensity tint
         if (this.pedalIntensity > 0.5) {
-            const tint = Phaser.Display.Color.GetColor(
-                255, 255 - Math.floor(this.pedalIntensity * 50),
-                255 - Math.floor(this.pedalIntensity * 50)
-            );
+            const c = Math.floor(this.pedalIntensity * 50);
+            const tint = Phaser.Display.Color.GetColor(255, 255 - c, 255 - c);
             this.bikeSprite.setTint(tint);
             this.riderSprite.setTint(tint);
         } else {
             this.bikeSprite.clearTint();
             this.riderSprite.clearTint();
         }
-    
-        // Dust when moving on ground
-        if (this.isOnGround && this.speed > 50) {
-            if (Math.random() < this.speed / 500) {
-                this.dustParticles.emitParticleAt(this.playerScreenX + 15, this.playerY + 15);
-                this.dustParticles.emitParticleAt(this.playerScreenX - 15, this.playerY + 15);
-            }
+
+        // Dust particles
+        if (this.isOnGround && this.speed > 50 && Math.random() < this.speed / 500) {
+            this.dustParticles.emitParticleAt(px + 15, py + 15);
+            this.dustParticles.emitParticleAt(px - 15, py + 15);
         }
-    
+
         // Speed bobbing
         if (this.isOnGround && this.speed > 100) {
             const bob = Math.sin(this.time.now * 0.015) * (this.speed / 400) * 2;
@@ -1604,12 +1239,10 @@ class GameScene extends Phaser.Scene {
         }
     }
 
-    updateParallax(dt) {
-        // Scroll background layers at different rates
+    _updateParallax(dt) {
         this.bgSky.tilePositionX += this.speed * dt * 0.02;
         this.bgMountains.tilePositionX += this.speed * dt * 0.08;
 
-        // Clouds
         for (const cloud of this.clouds) {
             cloud.sprite.x -= cloud.speed + this.speed * 0.02 * dt;
             if (cloud.sprite.x < -100) {
@@ -1619,151 +1252,170 @@ class GameScene extends Phaser.Scene {
         }
     }
 
-    updateUI() {
-        // Throttle text updates to every other frame to cut setText overhead
-        this._uiFrame = (this._uiFrame || 0) + 1;
+    _updateUI() {
+        this._uiFrame++;
         if (this._uiFrame % 2 === 0) {
             this.scoreText.setText(`Score: ${this.score}`);
             this.distText.setText(`Distance: ${this.distance}m`);
         }
 
         if (this.speed < 10) {
-            this.pedalIndicator.setText('Il faut pédaler !');
-            this.pedalIndicator.setColor('#FFFF00');
-            this.pedalIndicator.setAlpha(0.5 + Math.sin(this.time.now * 0.005) * 0.5);
+            this.pedalIndicator.setText('Il faut pédaler !').setColor('#FFFF00')
+                .setAlpha(0.5 + Math.sin(this.time.now * 0.005) * 0.5);
         } else if (this.hillMultiplier > 2) {
-            this.pedalIndicator.setText('ÇA MONTE ! PÉDALE !');
-            this.pedalIndicator.setColor('#FF4444').setAlpha(1);
+            this.pedalIndicator.setText('ÇA MONTE ! PÉDALE !').setColor('#FF4444').setAlpha(1);
         } else if (this.hillMultiplier > 1.3) {
-            this.pedalIndicator.setText('Ça va monter, pédale plus fort !');
-            this.pedalIndicator.setColor('#FFAA00').setAlpha(1);
+            this.pedalIndicator.setText('Ça va monter, pédale plus fort !').setColor('#FFAA00').setAlpha(1);
         } else {
             this.pedalIndicator.setAlpha(0);
         }
 
-        // Re-use cached slope for the look-ahead check (offset by 200 world units)
-        const slopeAhead = this.getTerrainSlopeAt(this.worldX + this.playerScreenX + 200);
+        const slopeAhead = this.getTerrainSlopeAt(this.worldX + PLAYER_SCREEN_X + 200);
         if (slopeAhead < -0.15) {
             this.hillWarning.setText('⚠ Aaahhh, ça va monter !!! ⚠').setAlpha(1);
         } else {
             this.hillWarning.setAlpha(0);
         }
 
-        // Bike trainer HUD — bottom left
+        // Bike trainer HUD
         const bi = window.bikeInput;
         if (bi?.connected) {
-            const g = window.bikeInput.gradePercent ?? 0;
-            const gStr = (g >= 0 ? '+' : '') + g + '%';
+            const g  = bi.gradePercent ?? 0;
+            const gS = (g >= 0 ? '+' : '') + g + '%';
             this.bikeText
-                .setText(`🚴 ${bi.speedKmh.toFixed(1)} km/h  •  ${Math.round(bi.cadenceRpm)} rpm  •  ${bi.powerW} W  •  ${gStr}`)
+                .setText(`🚴 ${bi.speedKmh.toFixed(1)} km/h  •  ${Math.round(bi.cadenceRpm)} rpm  •  ${bi.powerW} W  •  ${gS}`)
                 .setAlpha(1);
         } else {
             this.bikeText.setAlpha(0);
         }
 
-        // ---- Update level gauge (fills slowly with distance) ----
-        this.gaugeMaxDistance = 2500;
-        const distRatio = Phaser.Math.Clamp(this.distance / this.gaugeMaxDistance, 0, 1);
+        // Level gauge
+        const distRatio = Phaser.Math.Clamp(this.distance / LEVEL_DISTANCE, 0, 1);
         const cropH = Math.round(this.gaugeTexH * distRatio);
         this.gaugeFill.setCrop(0, this.gaugeTexH - cropH, this.gaugeTexW, cropH);
-        
+
+        if (distRatio >= 1 && !this._levelComplete) {
+            this._levelComplete = true;
+            this._triggerLevelComplete();
+        }
     }
 
-    checkGameOver() {
+    _checkGameOver() {
         if (this.speed <= 0 && this.distance > 10) {
             this.speed = 0;
             if (!this.stoppedTime) {
                 this.stoppedTime = this.time.now;
-            } else if (this.time.now - this.stoppedTime > 3000) {
-                this.gameOver();
+            } else if (this.time.now - this.stoppedTime > GAME_OVER_DELAY) {
+                this._gameOver();
             }
         } else {
             this.stoppedTime = null;
         }
     }
 
-    gameOver() {
+    _gameOver() {
         this.alive = false;
         this.cameras.main.flash(500, 255, 0, 0);
-
-        // Stop the chiptune music
         chiptunePlayer.stop();
-
         this.time.delayedCall(1000, () => {
-            this.scene.start('GameOverScene', {
-                score: this.score,
-                distance: this.distance
-            });
+            this.scene.start('GameOverScene', { score: this.score, distance: this.distance });
+        });
+    }
+
+    _triggerLevelComplete() {
+        this.alive = false;
+        chiptunePlayer.stop();
+        this.cameras.main.flash(600, 255, 215, 0);
+        this.time.delayedCall(800, () => {
+            this.scene.start('LevelCompleteScene', { score: this.score, distance: this.distance });
         });
     }
 }
+
+
+// ============================================================
+// LEVEL COMPLETE SCENE
+// ============================================================
+class LevelCompleteScene extends Phaser.Scene {
+    constructor() { super({ key: 'LevelCompleteScene' }); }
+
+    init(data) {
+        this.finalScore    = data.score || 0;
+        this.finalDistance  = data.distance || 0;
+    }
+
+    create() {
+        if (this.textures.exists('light_on')) {
+            this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'light_on').setDisplaySize(GAME_WIDTH, GAME_HEIGHT);
+        }
+        this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x000000, 0.45);
+
+        this.add.text(GAME_WIDTH / 2, 75, 'BRAVO !',
+            textStyle({ fontSize: '60px', color: '#FFD700', strokeThickness: 6 })).setOrigin(0.5);
+        this.add.text(GAME_WIDTH / 2, 155, 'La maison de Sacha est rechargée !',
+            textStyle({ fontSize: '20px', color: '#AAFFAA' })).setOrigin(0.5);
+        this.add.text(GAME_WIDTH / 2, 225, `Distance : ${this.finalDistance} m`,
+            textStyle({ fontSize: '26px' })).setOrigin(0.5);
+        this.add.text(GAME_WIDTH / 2, 275, `Score : ${this.finalScore}`,
+            textStyle({ fontSize: '34px', color: '#FFD700', strokeThickness: 4 })).setOrigin(0.5);
+
+        const ct = this.add.text(GAME_WIDTH / 2, 375,
+            '[ Appuyez sur ESPACE ou touchez l\'écran pour continuer ]',
+            textStyle({ color: '#AAFFAA' })).setOrigin(0.5);
+        this.tweens.add({ targets: ct, alpha: 0.2, duration: 650, yoyo: true, repeat: -1 });
+
+        this.time.delayedCall(600, () => {
+            const next = () => this.scene.start('BlackoutScene', { skipToLaunch: true, phoneOn: true });
+            this.input.keyboard.once('keydown-SHIFT', next);
+            this.input.keyboard.once('keydown-SPACE', next);
+            this.input.once('pointerdown', next);
+        });
+    }
+}
+
 
 // ============================================================
 // GAME OVER SCENE
 // ============================================================
 class GameOverScene extends Phaser.Scene {
-    constructor() {
-        super({ key: 'GameOverScene' });
-    }
+    constructor() { super({ key: 'GameOverScene' }); }
 
     init(data) {
-        this.finalScore = data.score || 0;
+        this.finalScore   = data.score || 0;
         this.finalDistance = data.distance || 0;
     }
 
     create() {
-        // Use background image if available
         if (this.textures.exists('background')) {
             this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'background')
-                .setDisplaySize(GAME_WIDTH, GAME_HEIGHT)
-                .setTint(0x333355);
+                .setDisplaySize(GAME_WIDTH, GAME_HEIGHT).setTint(0x333355);
         } else {
             this.cameras.main.setBackgroundColor('#1a1a2e');
         }
 
-        // Dark overlay
         this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x000000, 0.6);
 
-        this.add.text(GAME_WIDTH / 2, 80, 'GAME OVER', {
-            fontFamily: 'futural', fontSize: '52px', color: '#FF4444',
-            stroke: '#000000', strokeThickness: 6
-        }).setOrigin(0.5);
+        this.add.text(GAME_WIDTH / 2, 80, 'GAME OVER',
+            textStyle({ fontSize: '52px', color: '#FF4444', strokeThickness: 6 })).setOrigin(0.5);
+        this.add.text(GAME_WIDTH / 2, 150, 'Le vélo de Sacha s\'est arrêté !',
+            textStyle({ color: '#AAAAAA' })).setOrigin(0.5);
+        this.add.text(GAME_WIDTH / 2, 220, `Distance : ${this.finalDistance} m`,
+            textStyle({ fontSize: '28px' })).setOrigin(0.5);
+        this.add.text(GAME_WIDTH / 2, 270, `Score : ${this.finalScore}`,
+            textStyle({ fontSize: '34px', color: '#FFD700', strokeThickness: 4 })).setOrigin(0.5);
 
-        this.add.text(GAME_WIDTH / 2, 150, 'Your bicycle ran out of steam!', {
-            fontFamily: 'futural', fontSize: '18px', color: '#AAAAAA'
-        }).setOrigin(0.5);
-
-        this.add.text(GAME_WIDTH / 2, 220, `Distance: ${this.finalDistance}m`, {
-            fontFamily: 'futural', fontSize: '28px', color: '#FFFFFF',
-            stroke: '#000000', strokeThickness: 3
-        }).setOrigin(0.5);
-
-        this.add.text(GAME_WIDTH / 2, 270, `Score: ${this.finalScore}`, {
-            fontFamily: 'futural', fontSize: '34px', color: '#FFD700',
-            stroke: '#000000', strokeThickness: 4
-        }).setOrigin(0.5);
-
-        const restartText = this.add.text(GAME_WIDTH / 2, 370, '[ Press SHIFT or SPACE to Restart ]', {
-            fontFamily: 'futural', fontSize: '22px', color: '#AAFFAA',
-            stroke: '#000000', strokeThickness: 3
-        }).setOrigin(0.5);
-
-        this.tweens.add({
-            targets: restartText,
-            alpha: 0.3, duration: 600, yoyo: true, repeat: -1
-        });
+        const rt = this.add.text(GAME_WIDTH / 2, 370, '[ Appuyez sur SHIFT ou ESPACE pour recommencer ]',
+            textStyle({ fontSize: '22px', color: '#AAFFAA' })).setOrigin(0.5);
+        this.tweens.add({ targets: rt, alpha: 0.3, duration: 600, yoyo: true, repeat: -1 });
 
         const tips = [
-            'Tip: Mash SHIFT rapidly to climb steep hills!',
-            'Tip: Jump with SPACE to collect airborne items!',
-            'Tip: Collect items in quick succession for combo bonuses!',
-            'Tip: Downhill sections give you free speed!',
+            'Astuce : Appuie vite sur SHIFT pour grimper les côtes !',
+            'Astuce : Saute avec ESPACE pour attraper les objets en l\'air !',
+            'Astuce : Ramasse vite les objets pour des bonus combo !',
+            'Astuce : Les descentes donnent de la vitesse gratuite !',
         ];
-
-        this.add.text(GAME_WIDTH / 2, 430, Phaser.Utils.Array.GetRandom(tips), {
-            fontFamily: 'futural', fontSize: '15px', color: '#8888CC',
-            stroke: '#000000', strokeThickness: 2
-        }).setOrigin(0.5);
+        this.add.text(GAME_WIDTH / 2, 430, Phaser.Utils.Array.GetRandom(tips),
+            textStyle({ fontSize: '15px', color: '#8888CC', strokeThickness: 2 })).setOrigin(0.5);
 
         this.time.delayedCall(500, () => {
             const restart = () => this.scene.start('BlackoutScene', { skipToLaunch: true });
@@ -1774,20 +1426,26 @@ class GameOverScene extends Phaser.Scene {
     }
 }
 
+
 // ============================================================
 // LAUNCH
 // ============================================================
 const config = {
-    type: Phaser.CANVAS, // Canvas avoids WebGL MAX_TEXTURE_SIZE limit on mobile
+    type: Phaser.AUTO,
     width: GAME_WIDTH,
     height: GAME_HEIGHT,
     backgroundColor: '#87CEEB',
     parent: 'game-container',
+    render: {
+        powerPreference: 'high-performance',
+        antialias: false,
+        roundPixels: true,
+    },
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    scene: [PreloadScene, StartScene, BlackoutScene, GameScene, GameOverScene]
+    scene: [PreloadScene, StartScene, BlackoutScene, GameScene, LevelCompleteScene, GameOverScene],
 };
 
 const game = new Phaser.Game(config);

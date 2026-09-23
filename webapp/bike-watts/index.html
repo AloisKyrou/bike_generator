@@ -10,6 +10,19 @@
         #game-container { position: fixed; inset: 0; }
         canvas { display: block; }
 
+        /* ── Back to portfolio (top-left) ── */
+        #back-btn {
+            position: fixed; top: 12px; left: 12px; z-index: 10000;
+            background: #000c; backdrop-filter: blur(4px);
+            border: 1px solid #ffffff22; border-radius: 8px;
+            color: #94a3b8; font-size: 12px; font-family: 'Segoe UI', system-ui, sans-serif;
+            padding: 0 12px; height: 36px;
+            display: flex; align-items: center; gap: 6px;
+            text-decoration: none;
+            transition: border-color .15s, color .15s;
+        }
+        #back-btn:hover { border-color: #3b82f6; color: #e2e8f0; }
+
         /* ── Toggle tab (always visible) ── */
         #overlay-toggle {
             position: fixed; top: 12px; right: 12px; z-index: 10000;
@@ -61,6 +74,9 @@
 
 <!-- Full-screen Phaser container -->
 <div id="game-container"></div>
+
+<!-- Back to portfolio -->
+<a id="back-btn" href="/portfolio/bike_watts" title="Retour au portfolio">← Portfolio</a>
 
 <!-- Toggle tab (always visible, top-right corner) -->
 <button id="overlay-toggle" title="Input source">📡</button>
@@ -153,25 +169,34 @@ document.getElementById('btn-ble').addEventListener('click', () => {
 });
 
 // ── Input source init ───────────────────────────────────────────────────────
-// ?input=ble      → real bike BLE  (default — pre-selected, click the button to connect)
-// ?input=mock     → bike simulation (auto-starts)
+// ?input=mock     → bike simulation (default — auto-starts)
+// ?input=ble      → real bike BLE  (click the button to connect)
 // ?input=keyboard → keyboard only   (auto-starts)
 //
 // Web Bluetooth requires a real user gesture — BLE is never auto-started.
-const inputParam = new URLSearchParams(location.search).get('input') ?? 'ble';
-if (inputParam === 'mock') {
-    setActive('btn-mock');
-    connectTrainer(BikeTrainerMock, { keyboardControl: false });
+const inputParam = new URLSearchParams(location.search).get('input') ?? 'mock';
+if (inputParam === 'ble') {
+    // BLE: just highlight the button — user must click to open the browser picker
+    setActive('btn-ble');
 } else if (inputParam === 'keyboard') {
     setActive('btn-keyboard');
 } else {
-    // BLE: just highlight the button — user must click to open the browser picker
-    setActive('btn-ble');
+    // Mock (default): auto-start bike simulation
+    setActive('btn-mock');
+    connectTrainer(BikeTrainerMock, { keyboardControl: false });
 }
 </script>
 
-<!-- Phaser game (plain script — must load after Phaser CDN) -->
-<script src="js/game.js"></script>
+<!-- Phaser game (plain scripts — load order matters) -->
+<script src="js/constants.js"></script>
+<script src="js/chiptune.js"></script>
+<script src="js/scenes/PreloadScene.js"></script>
+<script src="js/scenes/StartScene.js"></script>
+<script src="js/scenes/BlackoutScene.js"></script>
+<script src="js/scenes/GameScene.js"></script>
+<script src="js/scenes/LevelCompleteScene.js"></script>
+<script src="js/scenes/GameOverScene.js"></script>
+<script src="js/main.js"></script>
 
 </body>
 </html>

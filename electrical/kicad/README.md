@@ -36,7 +36,7 @@ Manufacturer PDFs do not belong here; store them under
 
 ## Planned schematic sheets
 
-The initial structure discussed for the controller is:
+The initial schematic hierarchy has been created:
 
 1. `POWER_PATH`
 2. `INA228_SENSE`
@@ -44,8 +44,10 @@ The initial structure discussed for the controller is:
 4. `CC_CONTROL`
 5. `CONNECTORS`
 
-These are planned names, not yet-created hierarchical sheets. Their final
-hierarchy will be confirmed when the schematic work begins.
+The root schematic contains these five empty sheets on pages 2 to 6. No sheet
+pins or electrical components have been added yet. See the
+[KiCad workflow and troubleshooting guide](WORKFLOW.md) for the creation steps,
+their manual equivalent and the verification process.
 
 ## Source and generated files
 

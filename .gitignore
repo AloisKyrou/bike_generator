@@ -26,6 +26,7 @@ desktop.ini
 _autosave-*
 *.lck
 ~*.lck
+*.kicad_prl
 electrical/kicad/exports/*
 !electrical/kicad/exports/README.md
 

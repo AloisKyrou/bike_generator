@@ -1,6 +1,6 @@
 # KiCad workspace
 
-The future KiCad 10 project will live at:
+The KiCad 10 project lives at:
 
 ```text
 electrical/kicad/bike-generator-controller/
@@ -12,8 +12,12 @@ The planned project basename is:
 bike-generator-controller
 ```
 
-No `.kicad_*` source has been created yet. Project creation will be performed
-through Konnect in a separate step.
+The project was created through Konnect. It currently contains the initial
+empty project, root schematic and PCB files generated for KiCad 10.0:
+
+- `bike-generator-controller.kicad_pro`
+- `bike-generator-controller.kicad_sch`
+- `bike-generator-controller.kicad_pcb`
 
 ## Layout
 
@@ -40,8 +44,8 @@ The initial structure discussed for the controller is:
 4. `CC_CONTROL`
 5. `CONNECTORS`
 
-These are planned names, not yet-created KiCad sheets. Their final hierarchy
-will be confirmed when the schematic work begins.
+These are planned names, not yet-created hierarchical sheets. Their final
+hierarchy will be confirmed when the schematic work begins.
 
 ## Source and generated files
 

@@ -4,8 +4,10 @@ This directory contains the engineering workspace for the electrical part of
 the bike generator. It is kept separate from the firmware, web application and
 public build documentation at the repository root.
 
-No KiCad project has been created yet. The future project location is prepared
-under [`kicad/bike-generator-controller/`](kicad/bike-generator-controller/).
+The KiCad 10 project has been created through Konnect under
+[`kicad/bike-generator-controller/`](kicad/bike-generator-controller/). It is
+still an empty design: the electrical architecture and components have not yet
+been placed.
 
 ## Directory map
 
@@ -15,7 +17,7 @@ electrical/
 ├── measurements/               Raw measurements, photos and processed results
 ├── bom/                        Working bills of materials and sourcing notes
 └── kicad/
-    ├── bike-generator-controller/  Future KiCad project
+    ├── bike-generator-controller/  KiCad project sources
     ├── libraries/                  Project-owned symbols, footprints and 3D models
     └── exports/                    Generated review/fabrication outputs
 ```

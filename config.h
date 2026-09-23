@@ -33,9 +33,10 @@
 // Circuit:  V_BUS ──[R1]──┬──[R2]── GND
 //                         └──► GPIO1 (ADC)
 //
-// Choose R1/R2 so that V_BUS_MAX maps to ≤ ADC_VREF:
+// Choose R1/R2 so that V_BUS_MAX maps to <= ADC_VREF:
 //   V_ADC = V_BUS * R2 / (R1 + R2)
-//   → R1=100kΩ, R2=12kΩ  → ratio=0.1071 → V_ADC_MAX = 30V * 0.1071 = 3.21V  ✅ < 3.3V
+//   R1=100kOhm, R2=7.5kOhm -> ratio=0.0698
+//   V_ADC at 40V bus = 2.79V, safely below 3.3V.
 //
 // To change resistors: update only R1_OHMS and R2_OHMS below.
 // All scaling is derived automatically.

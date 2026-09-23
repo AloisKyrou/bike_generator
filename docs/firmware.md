@@ -8,7 +8,7 @@ The firmware runs on an **ESP32-C3** using the Arduino framework. It is split in
 
 ```
 bike_generator/
-├── bike_esp32.ino          Main entry point (setup / loop)
+├── bike_generator.ino      Main entry point (setup / loop)
 ├── config.h                All constants, pins, calibration values
 │
 ├── hardware.cpp/h          ADC + SPI peripheral setup
@@ -93,10 +93,10 @@ wiper = target_power × (POT_CAL_VALUE / POT_CAL_POWER)
 ### `physics.cpp`
 Computes simulated speed and cadence from measured power. These values are sent to the cycling app via BLE — the app uses them to animate the rider and compute gradient effects on screen.
 
-- **Speed:** `speed = SPEED_POWER_COEFF × ∛power − grade_penalty`
-- **Cadence:** piecewise linear target + exponential smoothing + ±2 RPM noise (intentional, for realism)
+- **Speed:** solves `P = (Crr·m·g + m·g·grade + ½·ρ·CdA·v²)·v` with Newton's method, capped at 70 km/h
+- **Cadence:** piecewise linear target derived from power, with exponential smoothing and ±2 RPM noise
 
-> These are *simulated* values — there is no actual wheel speed or crank sensor. The physics are tuned for a plausible feel, not strict accuracy.
+> These are *simulated* values — there is no actual wheel speed or crank sensor. The speed equation is physically motivated, but its input power is electrical bus output rather than measured crank power. Cadence is heuristic. Neither value should be presented as a sensor measurement.
 
 ---
 
@@ -114,7 +114,7 @@ State machine with three modes, set by the connected app (or physical button whe
 ---
 
 ### `ble_ftms.cpp`
-Implements the **Bluetooth FTMS (Fitness Machine Service, UUID 0x1826)** GATT server. This makes the device visible and controllable in **Zwift, GoldenCheetah, TrainerRoad, Rouvy**, and any other FTMS-compatible app.
+Implements the **Bluetooth FTMS (Fitness Machine Service, UUID 0x1826)** GATT server. The device has been recognised and controlled by **Zwift and TrainerDay**. The standard is intended to enable other FTMS clients as well, but compatibility should be recorded as tested rather than assumed for each application.
 
 **Characteristics exposed:**
 

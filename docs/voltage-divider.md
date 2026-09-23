@@ -56,9 +56,9 @@ At 40V: V_GPIO = 2.79V ✅. No zener clamp required.
 
 ### 2. Total resistance — limits current draw
 
-R1 + R2 = 112kΩ means the divider draws:
+R1 + R2 = 107.5kΩ means the divider draws:
 
-    I = 24V / 112kΩ ≈ 0.21 mA
+    I = 24V / 107.5kΩ ≈ 0.22 mA
 
 Negligible on the bus. Using much lower values (e.g. 1kΩ + 120Ω) would work
 electrically but waste power continuously.
@@ -86,7 +86,7 @@ The scale factor and maximum measurable voltage are derived automatically:
 Component tolerance (typically ±1–5%) will introduce a small offset. After wiring:
 
 1. Measure actual bus voltage with a multimeter → note the value
-2. Read serial output: `ADC volt: Vpin=2.57V → bus=24.0V`
+2. Read serial output: `ADC volt: Vpin=1.67V → bus=24.0V`
 3. If they differ, adjust `VDIV_OFFSET_V` in `config.h` by the difference
 
 ```c

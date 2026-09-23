@@ -1,7 +1,8 @@
 ﻿# Build Your Own Power-Generating Smart Trainer
 
-> Turn a scooter motor and a stationary bike into a real electricity-generating
-> smart trainer, compatible with Zwift, GoldenCheetah, TrainerRoad and Rouvy.
+> Turn a scooter motor and a stationary bike into an electricity-generating
+> trainer using the standard Bluetooth FTMS interface. Zwift and TrainerDay
+> control have been verified; other clients should be tested individually.
 
 This guide walks you through the full build — from sourcing parts to your first
 Zwift ride — designed for anyone with basic soldering skills.
@@ -24,8 +25,9 @@ meaningfully charge a 500Wh battery station.
 
 At the same time, a small microcontroller (ESP32-C3) measures power in real time,
 controls resistance electronically, and talks to cycling apps over Bluetooth using
-the standard FTMS protocol. From the app's perspective it looks and behaves exactly
-like a professional smart trainer.
+the standard FTMS protocol. From the app's perspective it exposes the same core
+service and control commands as a commercial smart trainer, while its sensing and
+resistance behaviour remain those documented for this prototype.
 
 Surplus power beyond what the battery can absorb is safely burned off by halogen
 lamps — which also provide a useful baseline braking force.
@@ -46,7 +48,7 @@ lamps — which also provide a useful baseline braking force.
 | **ESP32-C3 Beetle** (DFRobot) | Microcontroller | AliExpress, DFRobot | €8–12 |
 | **DFR0520** (MCP42100 digipot breakout) | Programmable resistance | DFRobot | €8 |
 | **ACS712 30A** module | Current sensor | AliExpress | €2–3 |
-| Resistors **100kΩ + 12kΩ** (¼W) | Voltage divider | Any electronics shop | <€1 |
+| Resistors **100kΩ + 7.5kΩ** (¼W) | Voltage divider | Any electronics shop | <€1 |
 | **G4 12V/20W halogen capsules** × 4+ | Dump load | Amazon, hardware store | €5–8/pack |
 | G4 lamp holders (ceramic) | Lamp mounting | AliExpress | €3–5 |
 | **EnOcean PTM215B** BLE button *(optional)* | Wireless resistance control | EnOcean distributors | €25 |
@@ -265,13 +267,13 @@ Two resistors scale 24V down to ≤3.3V for the ADC. See
 [voltage-divider.md](voltage-divider.md) for the full explanation.
 
 ```
-Bus (+) --[R1 = 100kΩ]--+--[R2 = 12kΩ]-- GND
+Bus (+) --[R1 = 100kΩ]--+--[R2 = 7.5kΩ]-- GND
                          |
                        GPIO1 (ESP32)
 ```
 
-- At 24V → GPIO1 = 2.57V ✅
-- At 30V → GPIO1 = 3.21V ✅ (safe margin)
+- At 24V → GPIO1 = 1.67V ✅
+- At 40V → GPIO1 = 2.79V ✅ (safe across the BLUETTI input range)
 
 Build on a small perfboard strip inside the electronics box.
 
@@ -361,7 +363,7 @@ Reflash after editing.
 
 With bus powered, compare Serial Monitor vs multimeter:
 ```
-ADC volt: Vpin=2.57V  bus=24.0V
+ADC volt: Vpin=1.67V  bus=24.0V
 ```
 If they differ by more than 0.5V, adjust `VDIV_OFFSET_V` in `config.h`.
 
@@ -384,8 +386,8 @@ If they differ by more than 0.5V, adjust `VDIV_OFFSET_V` in `config.h`.
 **Zwift:** Pair Devices → search "ESP32 Bike Trainer" → pair as Power Source
 and Controllable Trainer.
 
-**GoldenCheetah / TrainerRoad / Rouvy:** all support FTMS natively — pair the
-same way.
+**Other FTMS applications:** pair the same way, but record each application and
+version as tested before advertising compatibility.
 
 **Without an app:** bike stays in Manual mode. Use the EnOcean button to step
 resistance up/down. Status is logged every 10 seconds on Serial Monitor.
@@ -419,7 +421,7 @@ resistance up/down. Status is logged every 10 seconds on Serial Monitor.
 - **Always fuse the bus at 10A**
 - **Halogen lamps run at ~250°C** — ceramic holders, metal panels, ventilation
 - **ACS712 must have no current at boot** for auto-calibration
-- **GPIO pins: 3.3V absolute maximum** — the voltage divider is sized for 30V max
+- **GPIO pins: 3.3V absolute maximum** — the 100kΩ/7.5kΩ divider remains below 3.3V up to approximately 47V
 - **BLUETTI DC input: check polarity** — no reverse polarity protection
 - **24V bus is not mains-isolated** — do not touch bus wiring and mains simultaneously
 

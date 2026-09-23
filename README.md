@@ -1,6 +1,6 @@
 ﻿# Bike Generator — Smart Trainer
 
-> Turn a scooter motor and a stationary bike into a real power-generating smart trainer, compatible with Zwift, GoldenCheetah, TrainerRoad and Rouvy.
+> Turn a scooter motor and a stationary bike into a power-generating trainer that speaks the standard Bluetooth FTMS protocol. Control has been verified with Zwift and TrainerDay; other FTMS applications remain to be tested explicitly.
 
 ![Project overview placeholder](docs/images/overview.jpg)
 *Photo placeholder — full system: bike, generator, electronics box, BLUETTI*
@@ -43,13 +43,13 @@ Surplus power that the BLUETTI cannot absorb is burned off by halogen lamp dump 
 ## Features
 
 - **Real power generation** — energy goes into a real battery (BLUETTI AC50S, 500Wh)
-- **Smart trainer compatible** — Zwift, GoldenCheetah, TrainerRoad, Rouvy via standard Bluetooth FTMS
+- **Standard smart-trainer interface** — verified with Zwift and TrainerDay; designed for other Bluetooth FTMS clients
 - **Three control modes:**
   - **Manual** — set resistance level with a physical BLE button or from the app
-  - **ERG** — app sets a target wattage, system holds it
+  - **ERG** — app sets a target wattage, mapped to a calibrated resistance setting (open loop)
   - **Simulation** — app sends road gradient, system adjusts resistance accordingly
 - **Live telemetry** — voltage, current, power streamed over BLE at 2 Hz
-- **Dump load management** — halogen lamps absorb surplus power and maintain safe bus voltage
+- **Passive dump load** — permanently connected halogen lamps absorb surplus power and add baseline braking torque
 - **Wireless button** — EnOcean PTM215B BLE button for standalone control (no phone needed)
 
 ---
@@ -64,7 +64,7 @@ Surplus power that the BLUETTI cannot absorb is burned off by halogen lamp dump 
 | **ESP32-C3** (Beetle) | MCU: sensors, BLE, digipot control |
 | **DFR0520** (MCP42100) | Digital potentiometer, sets buck current limit via SPI |
 | **ACS712 30A** | Hall-effect current sensor |
-| Resistive voltage divider (100k + 12k) | Bus voltage measurement |
+| Resistive voltage divider (100k + 7.5k) | Bus voltage measurement, safe across the BLUETTI's 12–40V input range |
 | **BLUETTI AC50S** | 500Wh power station, primary load |
 | G4 12V/20W halogen bulbs (pairs in series) | Dump load (~40W per pair) |
 | EnOcean PTM215B | BLE pushbutton for manual resistance control |
@@ -90,7 +90,7 @@ Follow the wiring guide in **[docs/hardware.md](docs/hardware.md)**.
 
 Key points:
 - Wire the ACS712 in-line with the bus current path
-- Wire the resistive divider (100k + 12k) from the bus to GPIO1
+- Wire the resistive divider (100k + 7.5k) from the bus to GPIO1
 - Wire the DFR0520 to the ESP32-C3 SPI pins and into the buck CC trim pot network
 - Wire halogen pairs (2x G4 12V/20W in series) across the 24V bus
 
@@ -106,12 +106,12 @@ Open `config.h` and confirm your values:
 #define POT_CAL_POWER       120.0f  // measured watts at that wiper position
 
 #define VDIV_R1_OHMS        100000.0f
-#define VDIV_R2_OHMS        12000.0f
+#define VDIV_R2_OHMS         7500.0f
 ```
 
 ### 3. Flash the firmware
 
-- Open `bike_esp32.ino` in the **Arduino IDE**
+- Open `bike_generator.ino` in the **Arduino IDE**
 - Select board: **ESP32C3 Dev Module**
 - Upload and open Serial Monitor at **115200 baud**
 
@@ -153,6 +153,8 @@ Full procedure: **[docs/hardware.md](docs/hardware.md)**
 | [docs/hardware.md](docs/hardware.md) | Power path, wiring, pinout, calibration |
 | [docs/firmware.md](docs/firmware.md) | Code architecture, BLE FTMS, control modes |
 | [docs/components/README.md](docs/components/README.md) | Datasheets and product links |
+| [docs/pedaling-resistance-physics.md](docs/pedaling-resistance-physics.md) | Why electrical loading creates braking torque, operating regions, and measurement plan |
+| [docs/related-projects.md](docs/related-projects.md) | Comparison with ble-ftms, SmartSpin2k, and Gymnasticon |
 
 ---
 
@@ -178,4 +180,4 @@ Full procedure: **[docs/hardware.md](docs/hardware.md)**
 
 ## License
 
-MIT
+[MIT](LICENSE)

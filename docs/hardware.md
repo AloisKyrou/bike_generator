@@ -78,17 +78,18 @@ To measure the ~24V bus with the 3.3V ADC, a resistive divider scales the voltag
 
 **Circuit:**
 ```
-V_BUS ──[R1 = 100kΩ]──┬──[R2 = 12kΩ]── GND
+V_BUS ──[R1 = 100kΩ]──┬──[R2 = 7.5kΩ]── GND
                        └──► GPIO1 (ADC)
 ```
 
 **Scaling:**
 ```
 V_ADC = V_BUS × R2 / (R1 + R2)
-      = V_BUS × 12k / 112k
-      = V_BUS × 0.1071
+      = V_BUS × 7.5k / 107.5k
+      = V_BUS × 0.0698
 
-V_BUS (max measurable) = 3.3V / 0.1071 ≈ 30.8V  ✅ covers 24V bus with margin
+V_BUS (theoretical ADC limit) = 3.3V / 0.0698 ≈ 47.3V
+At the BLUETTI 40V input ceiling, the ADC sees about 2.79V.
 ```
 
 **To change resistor values:** only edit `VDIV_R1_OHMS` and `VDIV_R2_OHMS` in `config.h`. The scale factor and max voltage are derived automatically.
@@ -176,7 +177,7 @@ At 24V, the BLUETTI will absorb up to ~5A. If the generator produces more than 1
 4. Connect the voltage divider to a known reference (e.g. bench PSU at 24.0V).
 5. Observe the serial log:
    ```
-   ADC volt: Vpin=2.571V → bus=24.0V (divider x9.33)
+   ADC volt: Vpin=1.674V → bus=24.0V (divider x14.33)
    ```
    If the bus reading differs from your multimeter, adjust `VDIV_OFFSET_V` in `config.h`.
 6. Connect the full system and verify power readings at a steady pedaling effort.

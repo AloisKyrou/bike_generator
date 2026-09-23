@@ -142,7 +142,9 @@ func parse_bike_data(data: PackedByteArray) -> Dictionary:
 ```
 [0x05, watts_low, watts_high]
 ```
-`watts`: int16 little-endian. The bike adjusts resistance to hold this wattage.
+`watts`: int16 little-endian. The current firmware maps this target to a calibrated
+digipot position. This is open-loop control: it does not yet correct the setting
+from the difference between requested and measured power.
 
 #### Set Indoor Bike Simulation — gradient mode
 ```

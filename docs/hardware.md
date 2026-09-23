@@ -2,6 +2,10 @@
 
 This document covers the full power path, wiring, pinout and calibration procedure for the bike generator system.
 
+> This page describes the current ACS712-based prototype. The planned KiCad PCB
+> V1 replaces the ACS712 and voltage-divider measurement chain with an INA228 and
+> a shunt placed before the buck. See the [electrical and PCB dossier](electrical/).
+
 ---
 
 ## 1. Power Path Overview

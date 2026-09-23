@@ -151,6 +151,7 @@ Full procedure: **[docs/hardware.md](docs/hardware.md)**
 | **[docs/build-tutorial.md](docs/build-tutorial.md)** | **Full step-by-step build guide — start here** |
 | [docs/ble-api.md](docs/ble-api.md) | BLE API reference for app/game developers |
 | [docs/hardware.md](docs/hardware.md) | Power path, wiring, pinout, calibration |
+| [docs/electrical/](docs/electrical/) | Electrical analysis and INA228 PCB V1 design dossier |
 | [docs/firmware.md](docs/firmware.md) | Code architecture, BLE FTMS, control modes |
 | [docs/components/README.md](docs/components/README.md) | Datasheets and product links |
 | [docs/pedaling-resistance-physics.md](docs/pedaling-resistance-physics.md) | Why electrical loading creates braking torque, operating regions, and measurement plan |

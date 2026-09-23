@@ -16,6 +16,13 @@ Quick-access links to all datasheets and product pages for every component used 
 |-----------|-----------|
 | **ACS712 30A** Hall-effect current sensor | [Datasheet PDF](https://www.allegromicro.com/~/media/Files/Datasheets/ACS712-Datasheet.ashx) · [Allegro product page](https://www.allegromicro.com/en/products/sense/current-sensor-ics/zero-to-fifty-amp-integrated-conductor-sensor-ics/acs712) |
 
+The ACS712 belongs to the current breadboard prototype. PCB V1 instead plans an
+**INA228AIDGSR + external shunt** measurement stage before the buck:
+
+| Component | References |
+|---|---|
+| **INA228** 85V I2C power monitor | [TI product page](https://www.ti.com/product/INA228) · [Datasheet PDF](https://www.ti.com/lit/ds/symlink/ina228.pdf) · [PCB V1 notes](../electrical/pcb-v1-ina228.md) |
+
 ## Digital Potentiometer
 
 | Component | Reference |

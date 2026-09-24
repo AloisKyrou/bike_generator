@@ -35,7 +35,7 @@ Il référence cinq feuilles fonctionnelles :
 
 | Page | Feuille | Fichier | Rôle prévu |
 |---:|---|---|---|
-| 2 | `POWER_PATH` | `power_path.kicad_sch` | trajet de puissance, fusible, shunt et liaisons vers le buck |
+| 2 | `POWER_PATH` | `power_path.kicad_sch` | trajet 400 W, fusible, shunt, départ buck et branche auxiliaire LM5164 vers 5 V |
 | 3 | `INA228_SENSE` | `ina228_sense.kicad_sch` | INA228, filtrage Kelvin, adresse, alertes et découplage |
 | 4 | `CONNECTORS` | `connectors.kicad_sch` | écran, debug et interfaces auxiliaires externes |
 | 5 | `MCU` | `mcu.kicad_sch` | Beetle ESP32-C3, alimentation logique et bus numériques |
@@ -44,6 +44,9 @@ Il référence cinq feuilles fonctionnelles :
 Les connecteurs qui transportent le fort courant resteront probablement dans
 `POWER_PATH`, même si les connecteurs de commande sont regroupés dans
 `CONNECTORS`. Cela garde le chemin de puissance lisible sur une seule feuille.
+Le LM5164 et sa branche depuis `BUS_PROTECTED` resteront également dans cette
+feuille : cette alimentation est de faible puissance, mais son entrée appartient
+au domaine de tension du bus redressé.
 
 Les ports hiérarchiques des quatre feuilles logiques sont créés et reliés.
 Seuls `SHUNT_HI_K`, `SHUNT_LO_K` et `VBUS_SENSE` attendent encore la feuille

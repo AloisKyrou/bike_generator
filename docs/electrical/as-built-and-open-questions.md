@@ -41,6 +41,22 @@ Références communiquées :
 
 ## Conclusions tirées du montage
 
+### Architecture d'alimentation décidée pour le PCB V1
+
+La carte de contrôle ne sera pas alimentée depuis la sortie 24 V du buck
+principal. Une branche auxiliaire sera prélevée après le fusible et le shunt,
+avant ce buck. Le LM5164 est retenu comme candidat 100 V / 1 A pour produire
+5 V à partir d'une entrée fonctionnelle de 10 à 60 V.
+
+Le Beetle pourra ainsi démarrer dès que la génératrice produit une tension
+suffisante, indépendamment de la batterie ou de la charge raccordée après le
+buck principal. Une batterie Li-ion/LiPo 1S protégée de 400 à 500 mAh assurera
+la continuité à l'arrêt et sera déconnectable pour éviter la décharge entre les
+usages. `JP_GEN_5V` isolera la branche générateur pendant la programmation USB.
+
+La sortie du buck principal reste configurée manuellement à 24 V et appartient
+au système externe de stockage ou de charge, pas au PCB contrôleur.
+
 ### ACS712
 
 L'ACS712 n'est pas une simple résistance shunt amplifiée. Le courant traverse un
@@ -99,18 +115,24 @@ consigne plus haute déplace ce point vers un effort supérieur. Les protections
 du buck, le comportement d'entrée de la BLUETTI et l'échauffement des lampes
 peuvent rendre la transition plus brutale.
 
-## Inconnues bloquantes
+## Inconnues bloquantes pour la fabrication V1
 
 1. Référence exacte et version de la Beetle ESP32-C3.
-2. Variante exacte du module ACS712, pour documenter correctement l'ancien montage.
-3. Valeurs réellement montées dans le pont diviseur.
-4. Continuité entre négatif redressé, IN-, OUT- et masse de contrôle.
-5. Tension maximale à vide après redressement, à la cadence maximale plausible.
-6. Courant continu maximal réellement visé : 10 A, 15 A ou autre.
-7. Fonction des potentiomètres du buck et identification certaine du réglage CC.
-8. Bornes du DFR0520 employées et tensions présentes sur ces bornes.
-9. État du buck si l'ESP32 ou le DFR0520 est débranché.
-10. Nombre, raccordement et mode de commande actuels des lampes de dissipation.
+2. Continuité entre négatif redressé, IN-, OUT- et masse de contrôle.
+3. Tension maximale à vide après redressement, à la cadence maximale plausible.
+4. Validation thermique de la cible 20 A continus / 25 A transitoires.
+5. Fonction des potentiomètres du buck et identification certaine du réglage CC.
+6. Bornes du DFR0520 employées et tensions présentes sur ces bornes.
+7. État du buck si l'ESP32 ou le DFR0520 est débranché.
+8. Référence exacte de la batterie 400–500 mAh et courant de charge admissible.
+9. Référence commandable, valeurs et protection d'entrée du LM5164.
+10. Relation exacte entre `VIN_5V`, `VUSB`, TP4057 et `BAT` sur la révision
+    physique du Beetle.
+11. Absence de retour de courant entre la branche générateur et un hôte USB.
+
+La variante de l'ancien ACS712, les valeurs de l'ancien pont diviseur et la
+configuration détaillée des lampes restent utiles pour documenter le prototype,
+mais ne bloquent plus le schéma de mesure et d'alimentation du PCB V1.
 
 ## Sources techniques
 
@@ -118,3 +140,4 @@ peuvent rendre la transition plus brutale.
 - [DFR0520, documentation DFRobot](https://wiki.dfrobot.com/dfr0520/)
 - [ESP32-C3, documentation ADC Espressif](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/api-reference/peripherals/adc/index.html)
 - [Physique détaillée de la résistance](../pedaling-resistance-physics.md)
+- [LM5164, Texas Instruments](https://www.ti.com/product/LM5164)

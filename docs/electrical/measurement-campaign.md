@@ -37,6 +37,30 @@ ne sont pas confirmées.
 - [ ] comportement de la commande CC si le DFR0520 est débranché ;
 - [ ] comportement au reset et à la mise sous tension de l'ESP32.
 
+## Validation de l'alimentation auxiliaire
+
+Ces essais seront réalisés sur alimentation de laboratoire limitée en courant,
+avant toute connexion à la génératrice ou à un ordinateur :
+
+- [ ] démarrage du convertisseur auxiliaire à 10 V et établissement du 5 V ;
+- [ ] régulation du 5 V aux tensions d'entrée représentatives jusqu'à 60 V ;
+- [ ] consommation à vide et rendement à 100, 400 et 600 mA ;
+- [ ] courant d'appel permettant de sélectionner `F_AUX` sans déclenchement
+      intempestif ;
+- [ ] température du LM5164, de l'inductance et des condensateurs ;
+- [ ] seuils `EN/UVLO` et comportement de `PGOOD` ;
+- [ ] tension résiduelle côté générateur lorsque seul l'USB alimente le Beetle ;
+- [ ] absence de retour de courant avec `JP_GEN_5V` ouvert ;
+- [ ] comportement avec `JP_GEN_5V` fermé et USB volontairement absent ;
+- [ ] bascule générateur vers batterie lorsque l'entrée auxiliaire disparaît ;
+- [ ] courant de charge réel et température de la batterie 400–500 mAh ;
+- [ ] démarrage automatique en pédalant avec batterie déconnectée ;
+- [ ] état de la commande CC avant, pendant et après l'initialisation du MCU.
+
+Ne pas réaliser un essai générateur + USB simultané avant validation de
+l'isolation. La batterie utilisée devra posséder une protection intégrée et une
+fiche autorisant le courant de charge mesuré.
+
 ## Mesures en fonctionnement
 
 Pour chaque point, noter la cadence ou la vitesse de génératrice, la position du
@@ -68,7 +92,7 @@ La campagne doit permettre de figer :
 3. la valeur, la puissance et le boîtier du shunt ;
 4. la stratégie de masse ;
 5. la protection de l'INA228 contre les transitoires ;
-6. l'alimentation de la carte ;
+6. les valeurs et références de l'alimentation auxiliaire 5 V ;
 7. le brochage de `J_CC_CTRL` ;
 8. la valeur de repli sûre de la résistance ;
 9. les limites logicielles de tension, courant, puissance et température.

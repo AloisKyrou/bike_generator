@@ -27,7 +27,19 @@ Décisions retenues :
 - shunt préliminaire : 2 mΩ, quatre bornes, 1 W minimum et 2 W préféré ;
 - emplacement : conducteur positif, après le redresseur et avant le buck ;
 - grandeur mesurée : puissance électrique envoyée par la génératrice au buck ;
+- enveloppe de puissance : 400 W, avec 20 A continus et 25 A transitoires comme
+  base préliminaire de dimensionnement du chemin cuivre ;
 - convertisseur 400 W : conservé comme module externe ;
+- sortie du convertisseur principal : 24 V réglé manuellement ; batterie ou
+  charge aval laissée hors du périmètre du PCB contrôleur ;
+- alimentation autonome : branche auxiliaire prélevée après fusible et shunt,
+  avant le buck principal ;
+- convertisseur auxiliaire : LM5164 retenu comme candidat 100 V / 1 A pour une
+  sortie 5 V, valeurs périphériques encore à calculer ;
+- batterie contrôleur : Li-ion/LiPo 1S protégée, 400 à 500 mAh, raccordée à la
+  broche `BAT` du Beetle ;
+- sélection de source : interrupteur batterie et cavalier `JP_GEN_5V` pour
+  isoler l'alimentation générateur pendant l'usage USB ;
 - commande CC : DFR0520 conservé comme module pour la V1, après caractérisation ;
 - interface principale : BLE ;
 - interface locale : voyants et connecteur I2C pour un écran optionnel ;
@@ -42,6 +54,7 @@ puissance livrée à la batterie après conversion.
 
 - recréer le convertisseur CV/CC 400 W sur le PCB ;
 - intégrer les composants de puissance du buck ;
+- intégrer ou gérer la batterie principale située après la sortie 24 V ;
 - réaliser un compteur certifié d'énergie ;
 - garantir une estimation exacte de la puissance mécanique du cycliste ;
 - intégrer immédiatement un écran couleur ;

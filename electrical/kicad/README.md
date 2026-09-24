@@ -46,9 +46,11 @@ The initial schematic hierarchy has been created:
 
 The root schematic contains these five sheets on pages 2 to 6. `INA228_SENSE`,
 `MCU`, `CC_CONTROL` and `CONNECTORS` are populated and linked. `POWER_PATH`
-remains empty while the shunt, protection, maximum current and connector
-ratings are unresolved. The global ERC consequently reports exactly three
-intentional unconnected inputs: `SHUNT_HI_K`, `SHUNT_LO_K` and `VBUS_SENSE`.
+remains empty while the shunt, protection, maximum current, connector ratings
+and LM5164 auxiliary power stage are unresolved. The future sheet will contain
+both the short 400 W path and the low-power branch from `BUS_PROTECTED` to 5 V.
+The global ERC consequently reports exactly three intentional unconnected
+inputs: `SHUNT_HI_K`, `SHUNT_LO_K` and `VBUS_SENSE`.
 
 Project-owned library items currently include:
 

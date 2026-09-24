@@ -45,7 +45,15 @@ position mécanique de l'USB-C.
 | `UART_TX` | 21 |
 | `INA_ALERT` | 2 |
 
-La V1 est alimentée par l'USB-C du Beetle. Sa sortie 3,3 V alimente l'INA228,
-le DFR0520 et les petits connecteurs logiques. `BAT`, `VIN_5V`, `GPIO8` et
-`GPIO9_BOOT` sont explicitement non connectés. Un `PWR_FLAG` sur la masse
-indique à l'ERC que l'alimentation arrive par le module USB.
+Le schéma KiCad actuellement enregistré est encore alimenté par l'USB-C du
+Beetle. Sa sortie 3,3 V alimente l'INA228, le DFR0520 et les petits connecteurs
+logiques. `BAT`, `VIN_5V`, `GPIO8` et `GPIO9_BOOT` y sont encore explicitement
+non connectés, et un `PWR_FLAG` sur la masse indique à l'ERC que l'alimentation
+arrive par le module USB.
+
+La cible V1 décidée depuis est différente : `VIN_5V` recevra le 5 V d'une
+branche LM5164 prélevée avant le buck principal, et `BAT` recevra une batterie
+Li-ion/LiPo 1S protégée de 400 à 500 mAh à travers un interrupteur. La relation
+exacte entre `VIN_5V`, `VUSB`, le TP4057 et `BAT` doit être vérifiée sur la
+révision physique avant modification du schéma. Voir
+[`../lm5164-aux-supply/README.md`](../lm5164-aux-supply/README.md).

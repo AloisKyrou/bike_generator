@@ -72,7 +72,8 @@ La meilleure approche pour ce projet combine B, C et D :
 ### Jalon 2 — schéma fonctionnel KiCad
 
 - créer les feuilles `POWER_PATH`, `INA228_SENSE`, `MCU`, `CC_CONTROL` et
-  `CONNECTORS` ;
+  `CONNECTORS` ; le bloc auxiliaire LM5164 reste dans `POWER_PATH` pour garder
+  l'origine de son énergie et les protections de bus sur une même feuille ;
 - représenter le buck et le redresseur comme blocs externes connectés ;
 - inscrire sur le schéma les limites de tension et courant de chaque liaison.
 
@@ -89,7 +90,8 @@ La meilleure approche pour ce projet combine B, C et D :
 
 ### Jalon 4 — schéma électrique complet
 
-- intégrer alimentation, protections, INA228, Beetle, DFR0520 et connecteurs ;
+- intégrer l'alimentation auxiliaire LM5164, la batterie contrôleur,
+  `JP_GEN_5V`, les protections, INA228, Beetle, DFR0520 et connecteurs ;
 - définir l'état sûr au reset ;
 - exécuter l'ERC et justifier explicitement chaque exception.
 
@@ -110,9 +112,11 @@ La meilleure approche pour ce projet combine B, C et D :
 1. vérifier les courts-circuits sans composants de puissance connectés ;
 2. alimenter la logique avec une alimentation limitée en courant ;
 3. vérifier 3,3 V et communication I2C ;
-4. injecter une tension de bus faible et connue ;
-5. tester avec une charge limitée ;
-6. intégrer progressivement redresseur, buck, charges puis BLUETTI.
+4. injecter 10 V sur l'entrée auxiliaire, vérifier 5 V, `PGOOD` et l'absence de
+   retour de courant ;
+5. valider la bascule entre alimentation générateur et batterie ;
+6. tester avec une charge limitée ;
+7. intégrer progressivement redresseur, buck, charges puis stockage externe.
 
 **Sortie :** rapport de bring-up et liste des corrections pour V1.1.
 

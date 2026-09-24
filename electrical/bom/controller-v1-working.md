@@ -2,8 +2,8 @@
 
 Statut : **schéma logique en cours, non prêt à commander**. Cette liste décrit
 les feuilles `INA228_SENSE`, `MCU`, `CC_CONTROL` et `CONNECTORS`. Le chemin de
-puissance, le shunt, les protections et les connecteurs de fort courant ne sont
-pas encore dimensionnés.
+puissance, le shunt, les protections, l'alimentation auxiliaire et les
+connecteurs de fort courant ne sont pas encore dimensionnés.
 
 | Références | Qté | Valeur / référence | Empreinte ou état |
 |---|---:|---|---|
@@ -20,6 +20,26 @@ pas encore dimensionnés.
 | J2 | 1 | `J_DISPLAY_I2C`, 1×4, 2,54 mm | empreinte générique provisoire |
 | J3 | 1 | `J_DEBUG_UART`, 1×4, 2,54 mm | empreinte générique provisoire |
 | TP1–TP11 | 11 | points de test | empreinte à revoir avant placement PCB |
+
+## Alimentation auxiliaire planifiée, pas encore placée dans KiCad
+
+| Référence provisoire | Qté | Valeur / référence | État |
+|---|---:|---|---|
+| U4 | 1 | LM5164, 6–100 V, 1 A | candidat retenu ; code commandable à choisir |
+| L1 | 1 | inductance du buck auxiliaire | valeur, pertes et courant de saturation à calculer |
+| C_IN_AUX | plusieurs | céramique 100 V | valeur et boîtier après calcul et déclassement DC |
+| C_OUT_AUX | plusieurs | sortie 5 V | valeur et boîtier après calcul |
+| R_FB, R_RON, R_UVLO | plusieurs | réseaux LM5164 | valeurs à calculer pour 5 V et 10–60 V |
+| D_AUX | 1 | blocage du courant inverse | technologie et référence à choisir |
+| F_AUX | 1 | protection locale de la dérivation | calibre et pouvoir de coupure DC à choisir |
+| JP_GEN_5V | 1 | cavalier d'isolation générateur / USB | ouvert en mode USB/service |
+| J_BAT_CTRL | 1 | connecteur batterie 1S détrompé | modèle lié à la batterie exacte |
+| S_BAT | 1 | interrupteur batterie | courant faible, mécanique à choisir |
+| BAT_CTRL | 1 | Li-ion/LiPo 1S protégée, 400–500 mAh | doit autoriser une charge de 400 mA |
+
+La nomenclature d'application 12 V / 1 A publiée par TI n'est pas directement
+la nomenclature 5 V du projet. Aucun de ces passifs ne doit être commandé avant
+le calcul et la vérification du schéma de référence adapté.
 
 ## Affectation des résistances
 
@@ -38,3 +58,6 @@ pas encore dimensionnés.
    buck ;
 6. tension nominale et diélectrique exact des condensateurs ;
 7. disponibilité et références fabricant de chaque passif.
+8. tension à vide et transitoires permettant de figer le LM5164 et sa protection ;
+9. batterie exacte et courant de charge autorisé ;
+10. stratégie d'isolation entre alimentation générateur et USB.

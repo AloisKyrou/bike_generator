@@ -9,20 +9,15 @@ mesure la puissance électrique produite avant le buck et conserve les modules
 éprouvés pour les autres fonctions.
 
 ```text
-               zone de mesure du PCB
-                         |
-Redresseur + -> fusible -> shunt 2 mΩ -> entrée + du buck
-                              | |
-                         pistes Kelvin
-                              | |
-                            INA228
-                         V, I, P, énergie
-                              |
-                             I2C
-                              |
-                     Beetle ESP32-C3
+Redresseur + -> fusible -> shunt 2 mΩ -> BUS_PROTECTED
+                              | |             +-> entrée + du buck 400 W
+                         pistes Kelvin        +-> LM5164 -> 5 V logique
+                              |                                |
+                            INA228                         Beetle ESP32-C3
+                         V, I, P, énergie                       |
+                              +------------- I2C ---------------+
 
-Redresseur - ------------------------- masse de référence à confirmer
+Redresseur - -------------------------------- retour de puissance à confirmer
 ```
 
 La mesure est placée en **high-side**, dans le conducteur positif, afin de ne pas
@@ -67,6 +62,52 @@ Choix de départ :
 Ce choix couvre donc jusqu'à environ 20 A dans la plage la plus sensible. Il ne
 fixe pas pour autant le calibre du fusible ni le courant admissible du PCB.
 
+La cible système est fixée à **400 W**. Le courant ne découle toutefois pas de
+la puissance seule : 400 W correspondent à 20 A sous 20 V et 16,7 A sous 24 V.
+La base de dimensionnement retenue est donc 20 A continus et 25 A transitoires,
+sous réserve de la tension réelle de la génératrice et de la validation
+thermique du PCB.
+
+## Alimentation autonome du contrôleur
+
+Le contrôleur ne dépendra pas de la sortie 24 V du buck principal. Une branche
+auxiliaire part de `BUS_PROTECTED`, après le fusible et le shunt :
+
+```text
+BUS_PROTECTED -> F_AUX -> buck auxiliaire -> 5 V -> VIN_5V du Beetle
+                                      +-> chargeur TP4057 du Beetle
+BAT_CTRL 1S protégée -> interrupteur -> BAT du Beetle
+```
+
+Décisions V1 :
+
+- plage fonctionnelle d'entrée : 10 à 60 V DC ;
+- circuit candidat : LM5164, capable de 6 à 100 V et 1 A ;
+- sortie : 5 V ;
+- charge continue à garantir : au moins 600 mA ;
+- batterie : Li-ion/LiPo 1S protégée, 400 à 500 mAh ;
+- recharge : TP4057 déjà présent sur le Beetle, 400 mA maximum annoncé ;
+- démarrage automatique possible sur l'énergie du générateur même lorsque la
+  batterie contrôleur est déconnectée ;
+- cavalier `JP_GEN_5V` ouvert pour isoler la source générateur lors d'une
+  alimentation ou programmation USB ;
+- blocage du courant inverse à prévoir sur la branche 5 V générateur.
+
+`F_AUX` est une protection locale obligatoire : le fusible principal prévu
+pour le chemin 20 A laisserait une énergie excessive dans une piste auxiliaire
+en cas de court-circuit. Son calibre, son pouvoir de coupure DC et son éventuel
+remplacement par une résistance fusible restent à sélectionner.
+
+La référence commandable exacte du LM5164, son inductance, sa fréquence, son
+réseau de retour, ses condensateurs et sa protection transitoire restent à
+calculer depuis la fiche TI. Les valeurs du circuit d'application 12 V / 1 A ne
+seront pas recopiées sans recalcul pour 5 V.
+
+Le signal `PGOOD` du convertisseur et un état `MCU_READY` pourront verrouiller
+la commande CC jusqu'à ce que les alimentations soient stables et qu'une valeur
+sûre ait été écrite. La sécurité au démarrage devra aussi avoir un repli
+matériel indépendant du firmware.
+
 ## Sous-circuits attendus
 
 ### Mesure INA228
@@ -86,9 +127,13 @@ fixe pas pour autant le calibre du fusible ni le courant admissible du PCB.
 - empreinte ou connecteurs pour la Beetle ESP32-C3 ;
 - empreinte ou connecteurs pour le module DFR0520 ;
 - connecteur documenté vers la commande CC du buck ;
-- entrée d'alimentation basse tension protégée ;
+- alimentation auxiliaire 10–60 V vers 5 V autour du LM5164 ;
+- batterie contrôleur 1S protégée de 400 à 500 mAh ;
+- interrupteur de déconnexion de la batterie ;
+- cavalier d'isolation `JP_GEN_5V` ;
 - prévention du retour de courant lorsque l'USB-C et l'alimentation externe sont
   présents simultanément ;
+- verrouillage matériel de la commande CC pendant le démarrage ;
 - points de test SPI et I2C.
 
 ### Interface locale
@@ -107,12 +152,13 @@ instantanées et au diagnostic : puissance produite, énergie de session, consig
 
 | Nom | Fonction | Remarque |
 |---|---|---|
-| J_PWR_IN | alimentation de la commande | tension à décider après relevé du montage |
+| J_BAT_CTRL | batterie Li-ion/LiPo 1S protégée | 400–500 mAh, polarité détrompée |
 | J_RECTIFIED_IN | arrivée positive/négative après redressement | zone puissance |
 | J_BUCK_IN | départ vers IN+/IN- du buck | zone puissance |
 | J_CC_CTRL | interface vers potentiomètre CC | brochage bloqué par les mesures |
 | J_DISPLAY | 3V3, GND, SDA, SCL | écran optionnel |
 | J_DEBUG | UART et signaux utiles | débogage et bring-up |
+| JP_GEN_5V | isolement alimentation générateur / USB | ouvert en mode USB/service |
 
 Des connecteurs de puissance traversants, vissés ou câblés peuvent être préférés
 à de petits borniers PCB selon le courant final.
@@ -128,7 +174,9 @@ La V1 demandera :
 4. la lecture de tension, courant, puissance, énergie et alertes ;
 5. la détection d'une absence ou erreur du capteur ;
 6. un état sûr si la mesure n'est plus fiable ;
-7. une couche `Sensors` conservant autant que possible l'API actuelle.
+7. une séquence de démarrage qui initialise une consigne CC sûre avant
+   d'autoriser la commande ;
+8. une couche `Sensors` conservant autant que possible l'API actuelle.
 
 Les GPIO0 et GPIO1 pourront rester disponibles comme entrées analogiques de test
 ou de secours, mais la puissance publiée par BLE viendra de l'INA228.
@@ -153,13 +201,18 @@ révision ultérieure.
 ## Vérifications avant fabrication
 
 - [ ] tension maximale à vide et en charge mesurée avant le buck ;
-- [ ] courant continu et courant de pointe cibles fixés ;
+- [x] cible système fixée à 400 W ;
+- [x] base préliminaire fixée à 20 A continus et 25 A transitoires ;
 - [ ] fusible et section des conducteurs justifiés ;
 - [ ] continuité ou isolation des masses confirmée ;
 - [ ] shunt exact sélectionné avec empreinte issue de sa fiche technique ;
 - [ ] calcul thermique du shunt, des pistes et des connecteurs effectué ;
 - [ ] interface CC caractérisée ;
-- [ ] alimentation 3,3/5 V décidée ;
+- [x] architecture d'alimentation décidée : branche avant buck principal,
+      LM5164 candidat, 5 V puis 3,3 V via le Beetle ;
+- [ ] calcul et références exactes du convertisseur auxiliaire validés ;
+- [ ] batterie 400–500 mAh exacte choisie avec charge 400 mA autorisée ;
+- [ ] absence de retour de courant entre générateur, USB et batterie vérifiée ;
 - [ ] état de sécurité au démarrage et en panne défini ;
 - [ ] schéma revu puis ERC sans erreur non justifiée ;
 - [ ] empreintes imprimées à l'échelle 1:1 et vérifiées avec les composants.
@@ -169,3 +222,5 @@ révision ultérieure.
 - [INA228 chez Texas Instruments](https://www.ti.com/product/INA228)
 - [Fiche technique INA228](https://www.ti.com/lit/ds/symlink/ina228.pdf)
 - [INA228AIDGSR chez Mouser](https://www.mouser.fr/en/ProductDetail/Texas-Instruments/INA228AIDGSR)
+- [LM5164 chez Texas Instruments](https://www.ti.com/product/LM5164)
+- [Fiche technique LM5164](https://www.ti.com/lit/ds/symlink/lm5164.pdf)

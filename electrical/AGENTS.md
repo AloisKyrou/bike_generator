@@ -160,6 +160,31 @@ Une commande numérique de `CV` peut être étudiée pour plusieurs appareils de
 sortie, un véritable profil de charge ou un algorithme MPPT. Elle ne doit pas
 être utilisée par défaut pour régler la résistance au pédalage.
 
+## Décision actuelle concernant l'alimentation autonome
+
+- prélever l'énergie auxiliaire sur `BUS_PROTECTED`, après le fusible et le
+  shunt, avant le buck principal ;
+- ne pas dépendre de la sortie 24 V du buck principal pour démarrer la logique ;
+- utiliser le LM5164 comme **candidat**, pas encore comme référence commandable
+  définitive, pour convertir une entrée fonctionnelle de 10 à 60 V en 5 V ;
+- viser au moins 600 mA continus et utiliser la capacité 1 A du candidat pour
+  la marge de recharge et les transitoires de charge ;
+- utiliser une batterie Li-ion/LiPo 1S protégée de 400 à 500 mAh, dont la fiche
+  autorise explicitement le courant de charge réel du TP4057 ;
+- prévoir un interrupteur mécanique de batterie et `JP_GEN_5V` pour isoler la
+  branche générateur lors de l'usage USB ;
+- protéger localement la dérivation auxiliaire : le fusible principal 20 A ne
+  suffit pas à protéger ses pistes et composants de faible courant ;
+- ne jamais sélectionner une source en court-circuitant l'USB ou une
+  alimentation à la masse ;
+- vérifier l'absence de retour de courant avant tout essai générateur + USB ;
+- faire dépendre l'autorisation CC de rails stables, d'une valeur de repli sûre
+  et d'une condition matérielle, pas seulement du démarrage du firmware.
+
+Les valeurs du circuit d'application LM5164 de la fiche TI ne sont pas des
+valeurs projet par défaut. Recalculer inductance, fréquence, retour 5 V,
+condensateurs et `EN/UVLO`, puis valider avec l'outil et les équations TI.
+
 ## DFR0520 et MCP42100
 
 Le module DFR0520 a été modélisé initialement pour reproduire le prototype.

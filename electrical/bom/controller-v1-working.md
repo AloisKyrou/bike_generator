@@ -1,9 +1,8 @@
 # Nomenclature de travail — contrôleur V1
 
-Statut : **schéma logique en cours, non prêt à commander**. Cette liste décrit
-les feuilles `INA228_SENSE`, `MCU`, `CC_CONTROL` et `CONNECTORS`. Le chemin de
-puissance, le shunt, les protections, l'alimentation auxiliaire et les
-connecteurs de fort courant ne sont pas encore dimensionnés.
+Statut : **schéma en cours, non prêt à commander**. Le squelette de puissance
+est représenté, mais le shunt, les protections, l'alimentation auxiliaire et
+les connecteurs de fort courant ne sont pas encore sélectionnés physiquement.
 
 | Références | Qté | Valeur / référence | Empreinte ou état |
 |---|---:|---|---|
@@ -21,15 +20,30 @@ connecteurs de fort courant ne sont pas encore dimensionnés.
 | J3 | 1 | `J_DEBUG_UART`, 1×4, 2,54 mm | empreinte générique provisoire |
 | TP1–TP11 | 11 | points de test | empreinte à revoir avant placement PCB |
 
+## Chemin de puissance placé à titre provisoire
+
+| Référence | Qté | Valeur / rôle | État |
+|---|---:|---|---|
+| J4 | 1 | entrée redressée | connecteur et footprint à choisir |
+| F1 | 1 | fusible principal, hypothèse 20 A DC | calibre et pouvoir de coupure à confirmer |
+| R7 | 1 | shunt quatre bornes, hypothèse 2 mΩ | MPN, puissance et footprint à choisir |
+| J5 | 1 | départ vers buck CV/CC externe 400 W | connecteur et footprint à choisir |
+| F2 | 1 | `F_AUX` | calibre et pouvoir de coupure DC à choisir |
+
 ## Alimentation auxiliaire planifiée, pas encore placée dans KiCad
 
 | Référence provisoire | Qté | Valeur / référence | État |
 |---|---:|---|---|
-| U4 | 1 | LM5164DDAT, 6–100 V, 1 A | MPN et footprint standard DDA0008B retenus ; relecture Konnect restante |
-| L1 | 1 | inductance du buck auxiliaire | valeur, pertes et courant de saturation à calculer |
-| C_IN_AUX | plusieurs | céramique 100 V | valeur et boîtier après calcul et déclassement DC |
-| C_OUT_AUX | plusieurs | sortie 5 V | valeur et boîtier après calcul |
-| R_FB, R_RON, R_UVLO | plusieurs | réseaux LM5164 | valeurs à calculer pour 5 V et 10–60 V |
+| U4 | 1 | LM5164DDAT, 6–100 V, 1 A | symbole rendu ; footprint standard DDA0008B relu, rendu PCB restant |
+| L1 | 1 | 47 µH candidate | `Isat` > 1,75 A, pertes et MPN à vérifier |
+| C_IN_AUX | 2 + bulk | 2 × 2,2 µF / 100 V X7R + environ 10 µF électrolytique | capacité effective, tension et MPN à vérifier |
+| C_OUT_AUX | 2 | 2 × 22 µF / 10 ou 16 V X7R | capacité effective et MPN à vérifier |
+| R_RON | 1 | 41,2 kΩ, 1 % | candidat pour environ 303 kHz |
+| R_FB1 / R_FB2 | 2 | 316 kΩ / 100 kΩ, 0,1 % | candidat pour 4,992 V nominal |
+| R_UV1 / R_UV2 | 2 | 1 MΩ / 200 kΩ, 1 % | candidat pour démarrage nominal à 9,0 V |
+| R_A / C_A / C_B | 3 | 200 kΩ / 3,3 nF / 82 pF C0G | réseau d'ondulation type 3 candidat |
+| C_BST | 1 | 2,2 nF / 50 V X7R | valeur imposée par TI |
+| R_PGOOD | 1 | 47 kΩ vers 3,3 V | candidat |
 | D_AUX | 1 | blocage du courant inverse | technologie et référence à choisir |
 | F_AUX | 1 | protection locale de la dérivation | calibre et pouvoir de coupure DC à choisir |
 | JP_GEN_5V | 1 | cavalier d'isolation générateur / USB | ouvert en mode USB/service |
@@ -38,8 +52,11 @@ connecteurs de fort courant ne sont pas encore dimensionnés.
 | BAT_CTRL | 1 | Li-ion/LiPo 1S protégée, 400–500 mAh | doit autoriser une charge de 400 mA |
 
 La nomenclature d'application 12 V / 1 A publiée par TI n'est pas directement
-la nomenclature 5 V du projet. Aucun de ces passifs ne doit être commandé avant
-le calcul et la vérification du schéma de référence adapté.
+la nomenclature 5 V du projet. Les valeurs candidates ci-dessus proviennent du
+pré-dimensionnement documenté dans
+[`../components/lm5164-aux-supply/design-calculation.md`](../components/lm5164-aux-supply/design-calculation.md).
+Aucun de ces passifs ne doit être commandé avant vérification avec le
+calculateur TI et sélection d'une référence fabricant.
 
 ## Affectation des résistances
 

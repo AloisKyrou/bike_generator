@@ -2,7 +2,8 @@
 
 Statut : **LM5164DDAT retenu ; symbole et footprint standards KiCad retenus ;
 paquet Ultra Librarian audité et rejeté pour les données électriques ; relecture
-structurée Konnect effectuée ; rendu jetable encore requis**.
+structurée Konnect et rendu jetable du symbole effectués ; rendu PCB du
+footprint encore requis**.
 
 ## Sources
 
@@ -221,9 +222,21 @@ d'un cache Ultra Librarian ou d'une bibliothèque projet.
 
 ## Validation encore requise dans KiCad
 
+Un projet jetable a été créé dans :
+
+```text
+electrical/kicad/exports/lm5164-validation/
+```
+
+Le symbole y a été placé avec `Value = LM5164DDAT` et le footprint standard
+retenu. La relecture de l'instance confirme les neuf pins et le rendu montre la
+vue fonctionnelle attendue : VIN, EN/UVLO et RON à gauche ; BST, SW, FB et
+PGOOD à droite ; GND et EP en bas. Cette étape ne remplace pas l'inspection du
+cuivre.
+
 L'acceptation visuelle finale exige encore :
 
-- placement jetable du symbole et du footprint ;
+- placement du footprint dans le PCB jetable ;
 - rendu et contrôle du repère 1, du sens de numérotation, de `F.Fab`,
   `F.SilkS`, `F.CrtYd`, du masque et de la pâte ;
 - confirmation qu'aucune donnée ne provient d'un cache ou d'un autre boîtier.

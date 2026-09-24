@@ -39,8 +39,9 @@ le symbole et le footprint avant de placer le régulateur.
   plus longs et pâte segmentée ;
 - [x] relire avec Konnect les 9 pins du symbole et les pads 1 à 9 du footprint
   standard retenu ; les huit vias thermiques portent bien le numéro 9 ;
-- [ ] faire l'inspection rendue du symbole et du footprint dans un projet
-  jetable avant placement définitif sur le PCB.
+- [x] placer, relire et rendre le symbole dans un projet jetable ;
+- [ ] placer et rendre le footprint dans le PCB jetable avant placement
+  définitif sur la carte du contrôleur.
 
 Critère de sortie : la table fabricant → symbole → footprint est entièrement
 validée, sans ambiguïté de vue ni de pad thermique.
@@ -72,8 +73,12 @@ reste indispensable avant tout PCB commandable.
 ### 3. Concevoir le buck auxiliaire 10–60 V vers 5 V
 
 - placer le LM5164 validé ;
-- calculer `RON`, le pont `EN/UVLO`, le pont de retour 5 V, l'inductance et les
-  condensateurs pour 600 mA continus avec marge jusqu'à 1 A ;
+- [x] effectuer un premier calcul sourcé de `RON`, `EN/UVLO`, retour 5 V,
+  inductance, réseau d'ondulation et condensateurs pour 600 mA continus avec
+  marge jusqu'à 1 A ;
+- [ ] rejouer ce calcul dans le calculateur officiel TI/WEBENCH ;
+- [ ] sélectionner les références commandables et vérifier leurs courbes de
+  déclassement, saturation et pertes ;
 - choisir `F_AUX`, TVS et filtrage après les mesures du générateur ;
 - ajouter les points de test `AUX_IN`, `AUX_5V`, `PGOOD` et `GND` ;
 - prévoir le blocage de retour de courant et `JP_GEN_5V`.

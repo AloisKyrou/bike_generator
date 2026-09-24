@@ -63,6 +63,11 @@ retenu et a été relu avec Konnect. L'inspection visuelle jetable reste à fair
 La comparaison complète est documentée dans
 [`kicad-validation.md`](./kicad-validation.md).
 
+Le pré-dimensionnement 10–60 V vers 5 V est détaillé dans
+[`design-calculation.md`](./design-calculation.md). Les valeurs proposées y sont
+explicitement marquées comme candidates jusqu'à validation par le calculateur
+TI et sélection de références commandables.
+
 ## Composants périphériques attendus
 
 Le circuit intégré seul ne constitue pas l'alimentation. Le schéma final devra

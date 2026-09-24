@@ -16,8 +16,9 @@ fabrication.
 | `AUX_PGOOD` | sortie | Indication power-good du LM5164 |
 
 La branche d'entrée porte un `PWR_FLAG` parce que la source est externe à la
-feuille. Les sorties ne sont volontairement pas marquées comme alimentant une
-charge tant que le bloc USB/batterie n'existe pas.
+feuille. `AUX_5V` est maintenant raccordé à la feuille `MCU` ; `AUX_PGOOD`
+reste volontairement sans consommateur jusqu'à la conception du verrouillage
+matériel de la commande CC.
 
 ## Brochage de U4 relu dans la netlist
 
@@ -78,12 +79,12 @@ SW -- R13 -- RIPPLE -- C10 -- AUX_5V
 - zéro chevauchement de symboles détecté ;
 - une seule alerte de net à une broche dans la feuille : `+3V3`, classée
   `cross_sheet_unverified`, ce qui est normal pour le pull-up global de R14 ;
-- ERC global : zéro avertissement et deux erreurs intentionnelles,
-  `AUX_5V` et `AUX_PGOOD` non raccordés sur la feuille racine.
+- ERC global après raccordement MCU : zéro avertissement et une erreur
+  intentionnelle, `AUX_PGOOD` non raccordé sur la feuille racine.
 
-Ces deux erreurs restent visibles jusqu'à la conception du bloc
-USB/batterie/sélection de source. Elles ne doivent pas être supprimées avec des
-marqueurs d'exclusion ou des connexions factices.
+Cette erreur reste visible jusqu'à la conception du verrouillage matériel de
+la commande CC. Elle ne doit pas être supprimée avec un marqueur d'exclusion
+ou une connexion factice.
 
 ## Travail restant avant assignation des footprints
 
@@ -93,7 +94,7 @@ marqueurs d'exclusion ou des connexions factices.
 4. Vérifier le courant de saturation et les pertes de L1.
 5. Fixer fréquence, courant cible et comportement à faible charge.
 6. Décider le fabricant et le traitement des vias thermiques de 0,20 mm.
-7. Concevoir le raccordement de `AUX_5V` et `AUX_PGOOD` au bloc contrôleur.
+7. Concevoir l'utilisation matérielle de `AUX_PGOOD`.
 
 Source de topologie et de brochage :
 [Texas Instruments, fiche LM5164 SNVSAU4D](https://www.ti.com/lit/ds/symlink/lm5164.pdf).

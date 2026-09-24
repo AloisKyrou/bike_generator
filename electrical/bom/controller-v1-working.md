@@ -30,11 +30,11 @@ les connecteurs de fort courant ne sont pas encore sélectionnés physiquement.
 | J5 | 1 | départ vers buck CV/CC externe 400 W | connecteur et footprint à choisir |
 | F2 | 1 | `F_AUX` | calibre et pouvoir de coupure DC à choisir |
 
-## Alimentation auxiliaire planifiée, pas encore placée dans KiCad
+## Alimentation auxiliaire — première passe placée dans KiCad
 
 | Référence provisoire | Qté | Valeur / référence | État |
 |---|---:|---|---|
-| U4 | 1 | LM5164DDAT, 6–100 V, 1 A | symbole rendu ; footprint standard DDA0008B relu, rendu PCB restant |
+| U4 | 1 | LM5164DDAT, 6–100 V, 1 A | symbole et footprint standard DDA0008B placés au schéma ; DFM des vias à décider |
 | L1 | 1 | 47 µH candidate | `Isat` > 1,75 A, pertes et MPN à vérifier |
 | C_IN_AUX | 2 + bulk | 2 × 2,2 µF / 100 V X7R + environ 10 µF électrolytique | capacité effective, tension et MPN à vérifier |
 | C_OUT_AUX | 2 | 2 × 22 µF / 10 ou 16 V X7R | capacité effective et MPN à vérifier |
@@ -50,6 +50,11 @@ les connecteurs de fort courant ne sont pas encore sélectionnés physiquement.
 | J_BAT_CTRL | 1 | connecteur batterie 1S détrompé | modèle lié à la batterie exacte |
 | S_BAT | 1 | interrupteur batterie | courant faible, mécanique à choisir |
 | BAT_CTRL | 1 | Li-ion/LiPo 1S protégée, 400–500 mAh | doit autoriser une charge de 400 mA |
+
+Références réellement utilisées dans la première passe KiCad : `JP3` pour
+`JP_GEN_5V`, `J6` pour `J_BAT_CTRL`, `S1` pour `S_BAT`, et `TP12` à `TP15` pour
+les points de test de l'alimentation auxiliaire. Leurs footprints restent non
+assignés tant que les composants mécaniques et la batterie ne sont pas choisis.
 
 La nomenclature d'application 12 V / 1 A publiée par TI n'est pas directement
 la nomenclature 5 V du projet. Les valeurs candidates ci-dessus proviennent du

@@ -56,9 +56,10 @@ auxiliary branch. Its Kelvin and bus outputs feed `INA228_SENSE`, while
 LM5164, including UVLO, feedback, Type-3 ripple network, input/output
 capacitors, `PGOOD`, a power flag and four test points. Its component values are
 still candidates until TI/WEBENCH verification and physical part selection.
-The global ERC currently reports exactly two intentional errors: the root-sheet
-outputs `AUX_5V` and `AUX_PGOOD` are not yet connected to the forthcoming
-USB/battery/source-selection block. They must not be waived or hidden.
+`AUX_5V` is now connected to the MCU sheet through the manual `JP3`
+generator/USB interlock. The global ERC reports exactly one intentional error:
+the root-sheet output `AUX_PGOOD` is not yet connected to the future hardware
+enable logic. It must not be waived or hidden.
 
 Project-owned library items currently include:
 

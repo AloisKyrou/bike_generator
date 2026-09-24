@@ -89,13 +89,14 @@ reste indispensable avant tout PCB commandable.
 - [ ] sélectionner les références commandables et vérifier leurs courbes de
   déclassement, saturation et pertes ;
 - [ ] choisir `F_AUX`, TVS et filtrage après les mesures du générateur ;
-- [ ] raccorder `AUX_5V` et `AUX_PGOOD` au bloc d'alimentation du contrôleur ;
-- [ ] prévoir le blocage de retour de courant et `JP_GEN_5V`.
+- [x] raccorder `AUX_5V` au bloc d'alimentation du contrôleur ;
+- [x] placer l'interverrouillage manuel `JP_GEN_5V` ;
+- [ ] raccorder `AUX_PGOOD` à une fonction matérielle justifiée ;
+- [ ] valider physiquement l'absence de retour de courant dans tous les états.
 
-Le contrôle du 24 septembre 2026 laisse volontairement deux erreurs ERC sur la
-feuille racine : `AUX_5V` et `AUX_PGOOD` ne sont pas encore consommés. Elles
-disparaîtront par un raccordement réel au bloc USB/batterie, pas par une
-exclusion ERC.
+Le contrôle du 24 septembre 2026 laisse volontairement une erreur ERC sur la
+feuille racine : `AUX_PGOOD` n'est pas encore consommé. Elle disparaîtra par un
+raccordement réel au verrouillage matériel, pas par une exclusion ERC.
 
 Critère de sortie : calculs sourcés, composants commandables et démarrage sûr
 sur toute l'enveloppe 10–60 V.
@@ -103,8 +104,13 @@ sur toute l'enveloppe 10–60 V.
 ### 4. Finaliser les sources du Beetle et de la batterie
 
 - confirmer la révision physique exacte du DFR0868 ;
-- relever les relations réelles entre USB-C, `VIN_5V`, TP4057, `BAT` et 3,3 V ;
-- ajouter le connecteur LiPo 1S protégée 400–500 mAh et son interrupteur ;
+- [x] relever sur le schéma officiel V2.0 les relations entre USB-C, `VIN_5V`,
+  TP4057, `BAT` et 3,3 V ;
+- [x] documenter que `VIN_5V` et le VBUS USB-C partagent le net `VUSB` ;
+- [x] ajouter au schéma le connecteur LiPo 1S protégée 400–500 mAh et son
+  interrupteur ;
+- [x] documenter la matrice générateur/USB/batterie et l'état interdit
+  `JP3 fermé + USB branché` ;
 - vérifier le courant de charge admissible de la batterie ;
 - garantir l'absence de retour vers le PC dans tous les états de `JP_GEN_5V`.
 

@@ -752,14 +752,491 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Jumper:Jumper_2_Open"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "JP"
+				(at 0 2.794 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Jumper_2_Open"
+				(at 0 -2.286 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Jumper, 2-pole, open"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "Jumper SPST"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "Jumper* TestPoint*2Pads* TestPoint*Bridge*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "Jumper_2_Open_0_0"
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Jumper_2_Open_0_1"
+				(arc
+					(start -1.524 1.27)
+					(mid 0 1.778)
+					(end 1.524 1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Jumper_2_Open_1_1"
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Connector_Generic:Conn_01x02"
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x02"
+				(at 0 -5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "Conn_01x02_1_1"
+				(rectangle
+					(start -1.27 1.27)
+					(end 1.27 -3.81)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(rectangle
+					(start -1.27 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Switch:SW_SPST"
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "SW"
+				(at 0 3.175 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SW_SPST"
+				(at 0 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Single Pole Single Throw (SPST) switch"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "switch lever"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "SW_SPST_0_0"
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 0.254)
+						(xy 1.524 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SW_SPST_1_1"
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
-	(no_connect
-		(at 134.62 99.06)
-		(uuid "8cf35079-1422-4c0a-8618-8329c10ea069")
+	(junction
+		(at 172.72 93.98)
+		(diameter 0)
+		(uuid "218d0993-893e-4f55-9d40-330e33c2ea46")
 	)
-	(no_connect
-		(at 134.62 93.98)
-		(uuid "0e5affe2-6c46-4d88-9fe6-218a99eb17bb")
+	(junction
+		(at 190.5 111.76)
+		(diameter 0)
+		(uuid "1167e12e-db25-4e0b-95eb-1f4c17f9559e")
 	)
 	(no_connect
 		(at 134.62 86.36)
@@ -776,8 +1253,92 @@
 		)
 		(uuid "582bc353-4b5f-44a2-a788-ca010454fb6a")
 	)
-	(text "AFFECTATION V1 — GPIO0/1: I²C INA228; GPIO4/5/6/7: SPI DFR0520; GPIO2: ALERT."
-		(at 76.2 116.84 0)
+	(wire
+		(pts
+			(xy 152.4 93.98)
+			(xy 160.02 93.98)
+		)
+		(uuid "ad026c54-b414-4eec-b624-77c4a05863f2")
+	)
+	(wire
+		(pts
+			(xy 170.18 93.98)
+			(xy 175.26 93.98)
+		)
+		(uuid "3cf0f2e2-d756-4d3e-95b2-531734441122")
+	)
+	(wire
+		(pts
+			(xy 134.62 93.98)
+			(xy 142.24 93.98)
+		)
+		(uuid "6e8c8aea-eb02-4b86-b7f0-2330a2b54238")
+	)
+	(wire
+		(pts
+			(xy 172.72 88.9)
+			(xy 172.72 93.98)
+		)
+		(uuid "a4aa8eb8-9803-4a01-b7f0-d1a704d29b15")
+	)
+	(wire
+		(pts
+			(xy 160.02 111.76)
+			(xy 177.8 111.76)
+		)
+		(uuid "acd7129a-b09e-43d7-97c9-b52cd4fdc815")
+	)
+	(wire
+		(pts
+			(xy 187.96 111.76)
+			(xy 193.04 111.76)
+		)
+		(uuid "81001088-a255-4d85-acfc-2fc6cb58f162")
+	)
+	(wire
+		(pts
+			(xy 134.62 99.06)
+			(xy 142.24 99.06)
+		)
+		(uuid "f126ab3f-5843-4641-80ea-7c53fc10741a")
+	)
+	(wire
+		(pts
+			(xy 190.5 106.68)
+			(xy 190.5 111.76)
+		)
+		(uuid "c6085961-5468-4b21-87d5-3f4aefe213aa")
+	)
+	(wire
+		(pts
+			(xy 154.94 114.3)
+			(xy 160.02 114.3)
+		)
+		(uuid "c1f34671-846a-454c-a17b-3dc8611add3c")
+	)
+	(wire
+		(pts
+			(xy 93.98 99.06)
+			(xy 99.06 99.06)
+		)
+		(uuid "0c83fb77-8d9c-430f-bea2-59052f076885")
+	)
+	(wire
+		(pts
+			(xy 99.06 96.52)
+			(xy 104.14 96.52)
+		)
+		(uuid "c0260800-2484-4a78-8346-863816391b23")
+	)
+	(wire
+		(pts
+			(xy 134.62 96.52)
+			(xy 139.7 96.52)
+		)
+		(uuid "cf3cb61a-eb35-43af-a57d-11aca41d5452")
+	)
+	(text "DFR0868 V2.0: VIN_5V est directement le rail VUSB."
+		(at 149.86 81.28 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -785,17 +1346,108 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "cd4c6d22-69bd-40a0-a3ee-4f5ee6aeb7d4")
+		(uuid "c4a7b8c5-2375-4506-a212-8d13b9665b07")
 	)
-	(text "Alimentation V1 par USB-C. BAT, VIN, GPIO8 et GPIO9 non câblés.\nEmpreinte du module MCU volontairement non affectée avant vérification physique du DFR0868."
-		(at 76.2 121.92 0)
+	(text "JP3 FERME: alimentation generateur, USB-C debranche. JP3 OUVERT avant toute connexion USB."
+		(at 149.86 83.82 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "8bcc5acf-5005-4749-b6e6-df7eb84279dc")
+		(uuid "ac22260d-0fdc-434e-864d-552b8d528625")
+	)
+	(text "AFFECTATION V1 - GPIO0/1: I2C INA228; GPIO4/5/6/7: SPI DFR0520; GPIO2: ALERT."
+		(at 76.2 121.92 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "fdb85dde-7049-4dae-9581-9829e9f7a604")
+	)
+	(text "ALIMENTATION: AUX_5V -> JP3 -> VIN_5V/VUSB. OUVRIR JP3 avant USB-C."
+		(at 76.2 125.73 0)
+		(effects
+			(font
+				(size 1 1)
+			)
+			(justify left bottom)
+		)
+		(uuid "7b1236a7-c6e3-43e3-a65b-21a60aef07d7")
+	)
+	(text "BAT: LiPo 1S protegee 400-500 mAh; charge max DFR0868: 400 mA."
+		(at 76.2 128.27 0)
+		(effects
+			(font
+				(size 1 1)
+			)
+			(justify left bottom)
+		)
+		(uuid "bdce89b1-972c-430f-85bd-4dcac541370d")
+	)
+	(text "S1 coupe charge et decharge. Empreinte MCU a confirmer sur la carte physique."
+		(at 76.2 130.81 0)
+		(effects
+			(font
+				(size 1 1)
+			)
+			(justify left bottom)
+		)
+		(uuid "c3743094-b229-4cb6-8cd1-924cb48c1ce0")
+	)
+	(label "VIN_5V"
+		(at 175.26 93.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "876de315-4b50-45a5-a614-9bafe37b9b79")
+	)
+	(label "VIN_5V"
+		(at 142.24 93.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "697d82b1-52ef-41c4-9888-ce5f5edd704f")
+	)
+	(label "BAT_CTRL"
+		(at 193.04 111.76 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7bd95e48-92a4-42ae-8f46-ee9304e41b63")
+	)
+	(label "BAT_CTRL"
+		(at 142.24 99.06 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e0a3bd5f-a968-4f7a-bc45-72a27d6b3230")
+	)
+	(label "BAT_RAW"
+		(at 168.91 111.76 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d94e1263-2fd9-4768-9406-8c6bcabe7bf7")
 	)
 	(hierarchical_label "I2C_SDA"
 		(shape bidirectional)
@@ -896,6 +1548,17 @@
 		)
 		(uuid "693d7345-51d8-4eb8-9f66-9d8732549607")
 	)
+	(hierarchical_label "AUX_5V"
+		(shape input)
+		(at 152.4 93.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "f80e6dea-cad6-4b60-bdab-b595dc05751f")
+	)
 	(symbol
 		(lib_id "BikeGenerator:DFR0868_Beetle_ESP32-C3")
 		(at 119.38 90.17 0)
@@ -958,14 +1621,14 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 104.14 99.06 0)
+		(at 93.98 99.06 0)
 		(unit 1)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "fab88e20-55fa-4132-a3cd-bfb68de7d9dc")
 		(property "Reference" "#PWR001"
-			(at 104.14 105.41 0)
+			(at 93.98 105.41 0)
 			(hide yes)
 			(effects
 				(font
@@ -974,7 +1637,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 104.14 102.87 0)
+			(at 93.98 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -982,7 +1645,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 104.14 99.06 0)
+			(at 93.98 99.06 0)
 			(hide yes)
 			(effects
 				(font
@@ -991,7 +1654,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 104.14 99.06 0)
+			(at 93.98 99.06 0)
 			(hide yes)
 			(effects
 				(font
@@ -1000,7 +1663,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 104.14 99.06 0)
+			(at 93.98 99.06 0)
 			(hide yes)
 			(effects
 				(font
@@ -1019,14 +1682,14 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 104.14 96.52 0)
+		(at 99.06 96.52 0)
 		(unit 1)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "189a74b2-6d75-4cb6-82dc-bf655ce510a3")
 		(property "Reference" "#PWR002"
-			(at 104.14 100.33 0)
+			(at 99.06 100.33 0)
 			(hide yes)
 			(effects
 				(font
@@ -1035,7 +1698,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 104.14 92.964 0)
+			(at 99.06 92.964 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1043,7 +1706,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 104.14 96.52 0)
+			(at 99.06 96.52 0)
 			(hide yes)
 			(effects
 				(font
@@ -1052,7 +1715,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 104.14 96.52 0)
+			(at 99.06 96.52 0)
 			(hide yes)
 			(effects
 				(font
@@ -1061,7 +1724,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 104.14 96.52 0)
+			(at 99.06 96.52 0)
 			(hide yes)
 			(effects
 				(font
@@ -1080,14 +1743,14 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 134.62 96.52 0)
+		(at 139.7 96.52 0)
 		(unit 1)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "488ae20f-b0d5-47c3-9ad0-082775950ae7")
 		(property "Reference" "#PWR003"
-			(at 134.62 102.87 0)
+			(at 139.7 102.87 0)
 			(hide yes)
 			(effects
 				(font
@@ -1096,7 +1759,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 134.62 100.33 0)
+			(at 139.7 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1104,7 +1767,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 134.62 96.52 0)
+			(at 139.7 96.52 0)
 			(hide yes)
 			(effects
 				(font
@@ -1113,7 +1776,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 134.62 96.52 0)
+			(at 139.7 96.52 0)
 			(hide yes)
 			(effects
 				(font
@@ -1122,7 +1785,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 134.62 96.52 0)
+			(at 139.7 96.52 0)
 			(hide yes)
 			(effects
 				(font
@@ -1195,6 +1858,369 @@
 			(project "bike-generator-controller"
 				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/3ea255a8-4db3-46df-a7e3-bbbf26e474d6"
 					(reference "#PWR004")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Jumper:Jumper_2_Open")
+		(at 165.1 93.98 0)
+		(unit 1)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d13b2c89-1194-438c-8cd1-53ac9e7c3f0d")
+		(property "Reference" "JP3"
+			(at 165.1 91.186 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GEN 5V / USB INTERLOCK"
+			(at 165.1 96.266 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 165.1 93.98 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 165.1 93.98 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Jumper, 2-pole, open"
+			(at 165.1 93.98 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/3ea255a8-4db3-46df-a7e3-bbbf26e474d6"
+					(reference "JP3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x02")
+		(at 165.1 111.76 0)
+		(unit 1)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3033a7eb-c53d-4f47-9c10-1f403d8220ab")
+		(property "Reference" "J6"
+			(at 165.1 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LiPo 1S PROTECTED"
+			(at 165.1 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 165.1 111.76 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 165.1 111.76 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 165.1 111.76 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/3ea255a8-4db3-46df-a7e3-bbbf26e474d6"
+					(reference "J6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPST")
+		(at 182.88 111.76 0)
+		(unit 1)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "401f9c34-7efb-4d94-b41b-48baaadc072b")
+		(property "Reference" "S1"
+			(at 182.88 108.585 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "BAT ON/OFF"
+			(at 182.88 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 182.88 111.76 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 182.88 111.76 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Single Pole Single Throw (SPST) switch"
+			(at 182.88 111.76 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/3ea255a8-4db3-46df-a7e3-bbbf26e474d6"
+					(reference "S1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 172.72 88.9 0)
+		(unit 1)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "304774af-dad9-4a89-82de-1a5940b535c4")
+		(property "Reference" "#PWR005"
+			(at 172.72 86.995 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 172.72 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 172.72 88.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 172.72 88.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 172.72 88.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/3ea255a8-4db3-46df-a7e3-bbbf26e474d6"
+					(reference "#PWR005")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 154.94 114.3 0)
+		(unit 1)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "14c414d0-fbf2-4403-83d1-1bcf4850653e")
+		(property "Reference" "#PWR006"
+			(at 154.94 120.65 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 154.94 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 154.94 114.3 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 154.94 114.3 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 154.94 114.3 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/3ea255a8-4db3-46df-a7e3-bbbf26e474d6"
+					(reference "#PWR006")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 190.5 106.68 0)
+		(unit 1)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4e118df6-97a9-48f7-9437-4f6f70b1e2a8")
+		(property "Reference" "#PWR007"
+			(at 190.5 104.775 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 190.5 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 190.5 106.68 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 190.5 106.68 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 190.5 106.68 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/3ea255a8-4db3-46df-a7e3-bbbf26e474d6"
+					(reference "#PWR007")
 					(unit 1)
 				)
 			)

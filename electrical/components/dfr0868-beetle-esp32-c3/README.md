@@ -45,15 +45,24 @@ position mécanique de l'USB-C.
 | `UART_TX` | 21 |
 | `INA_ALERT` | 2 |
 
-Le schéma KiCad actuellement enregistré est encore alimenté par l'USB-C du
-Beetle. Sa sortie 3,3 V alimente l'INA228, le DFR0520 et les petits connecteurs
-logiques. `BAT`, `VIN_5V`, `GPIO8` et `GPIO9_BOOT` y sont encore explicitement
-non connectés, et un `PWR_FLAG` sur la masse indique à l'ERC que l'alimentation
-arrive par le module USB.
+La feuille KiCad `MCU` raccorde maintenant :
 
-La cible V1 décidée depuis est différente : `VIN_5V` recevra le 5 V d'une
-branche LM5164 prélevée avant le buck principal, et `BAT` recevra une batterie
-Li-ion/LiPo 1S protégée de 400 à 500 mAh à travers un interrupteur. La relation
-exacte entre `VIN_5V`, `VUSB`, le TP4057 et `BAT` doit être vérifiée sur la
-révision physique avant modification du schéma. Voir
-[`../lm5164-aux-supply/README.md`](../lm5164-aux-supply/README.md).
+- `AUX_5V` à `VIN_5V` par le cavalier amovible `JP3` ;
+- une batterie Li-ion/LiPo 1S protégée de 400 à 500 mAh à `BAT` par `S1` ;
+- la sortie 3,3 V du Beetle à l'INA228, au DFR0520 et aux interfaces logiques.
+
+Le schéma officiel V2.0 montre que la broche externe `VIN_5V` est le même net
+que `VUSB`, donc que le VBUS du connecteur USB-C. `VUSB` alimente à la fois le
+chargeur TP4057 et, par D1, le régulateur 3,3 V. La batterie rejoint ce même
+régulateur par le PMOS Q1. Ce point est détaillé dans
+[`power-input-analysis.md`](./power-input-analysis.md).
+
+Conséquence : `JP3` doit être **ouvert avant de connecter un PC en USB-C**. Une
+diode ajoutée uniquement en série entre le LM5164 et `VIN_5V` ne supprimerait
+pas le retour vers le connecteur USB, puisque le 5 V générateur continuerait à
+élever le rail `VUSB` partagé. La V1 utilise donc un interverrouillage manuel
+explicite, à valider physiquement avant tout essai simultané.
+
+DFRobot annonce une charge maximale de 400 mA. La batterie choisie devra
+autoriser explicitement ce courant : 400 mA représente 1 C pour 400 mAh et
+0,8 C pour 500 mAh.

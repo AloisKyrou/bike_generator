@@ -82,6 +82,13 @@
 		)
 		(uuid "59291ce0-7d4d-4723-a9eb-421665c1091a")
 	)
+	(wire
+		(pts
+			(xy 88.9 127)
+			(xy 101.6 127)
+		)
+		(uuid "d75ca346-6b81-4ec3-8a0e-1624b6e74be6")
+	)
 	(text "POWER_PATH reste volontairement ouvert : choisir le shunt, les protections et les connecteurs apres validation tension/courant."
 		(at 25.4 81.28 0)
 		(effects
@@ -480,6 +487,10 @@
 			(at 101.6 119.38 180)
 			(uuid "fb95bb29-2233-42ce-832e-a80add8e1f5f")
 		)
+		(pin "AUX_5V" input
+			(at 101.6 127 180)
+			(uuid "f8d880b9-484b-463f-80e4-e8e94e97532b")
+		)
 		(instances
 			(project "bike-generator-controller"
 				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c"
@@ -593,11 +604,11 @@
 			(uuid "f83f72c8-8f8e-4357-a146-79a1b665fb75")
 		)
 		(pin "AUX_5V" output
-			(at 25.4 114.3 0)
+			(at 88.9 127 0)
 			(uuid "d600b486-8917-4c14-bf0c-8cfcb4cee84b")
 		)
 		(pin "AUX_PGOOD" output
-			(at 25.4 119.38 0)
+			(at 88.9 132.08 0)
 			(uuid "975c2c27-8832-47a5-b727-e339c9405bb3")
 		)
 		(instances

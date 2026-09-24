@@ -73,8 +73,9 @@ TI et sélection de références commandables.
 ## Première implémentation KiCad
 
 La feuille `AUX_SUPPLY` est maintenant présente dans le projet principal et
-reçoit `AUX_IN_PROTECTED` depuis `POWER_PATH`. Elle fournit deux sorties
-hiérarchiques encore non consommées : `AUX_5V` et `AUX_PGOOD`.
+reçoit `AUX_IN_PROTECTED` depuis `POWER_PATH`. `AUX_5V` alimente désormais la
+feuille `MCU` à travers `JP3`. `AUX_PGOOD` reste la seule sortie hiérarchique
+non consommée.
 
 Cette première passe comprend :
 
@@ -130,10 +131,12 @@ sortie 5 V et la charge réelle.
 - `JP_GEN_5V` est ouvert avant de brancher l'USB au poste de développement ;
 - aucune source ne doit être court-circuitée à la masse pour la sélectionner.
 
-Le détail électrique entre `VIN_5V`, `VUSB`, le TP4057 et `BAT` doit encore être
-relevé sur le schéma officiel de la révision physique du Beetle. Le circuit
-d'isolation ne sera figé qu'après cette vérification et un essai d'absence de
-retour de courant.
+Le schéma officiel du Beetle V2.0 confirme que `VIN_5V` et le VBUS USB-C sont
+un même net `VUSB`. Une diode uniquement placée sur l'arrivée du LM5164 ne peut
+donc pas empêcher le générateur d'élever le VBUS du connecteur. La V1 emploie
+un interverrouillage manuel `JP3`, obligatoirement ouvert avant USB. Le détail,
+la matrice d'états et les mesures requises sont documentés dans
+[`../dfr0868-beetle-esp32-c3/power-input-analysis.md`](../dfr0868-beetle-esp32-c3/power-input-analysis.md).
 
 ## Séquence de démarrage et commande CC
 

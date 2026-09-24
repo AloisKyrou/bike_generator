@@ -57,8 +57,10 @@ même silicium et le même boîtier DDA que `LM5164DDAR`, mais en petite bande d
 KiCad 10 contient déjà le symbole `Regulator_Switching:LM5164DDA`. Son brochage
 concorde avec la fiche TI ; aucun symbole personnalisé n'est nécessaire. Son
 footprint associé par défaut présente toutefois un pad thermique plus petit que
-le land pattern TI révisé en 2026 et cite un autre composant comme source. Il
-n'est donc pas encore accepté. La comparaison complète est documentée dans
+le land pattern TI révisé en 2026 et cite un autre composant comme source. Un
+autre footprint standard KiCad, explicitement basé sur `DDA0008B`, est donc
+retenu et a été relu avec Konnect. L'inspection visuelle jetable reste à faire.
+La comparaison complète est documentée dans
 [`kicad-validation.md`](./kicad-validation.md).
 
 ## Composants périphériques attendus
@@ -135,8 +137,7 @@ Sources officielles :
 ## Points restant à figer
 
 - tension maximale et transitoires mesurés sur le bus redressé ;
-- relecture structurée Konnect et rendu jetable du symbole et du footprint
-  standards retenus ;
+- rendu jetable du symbole et du footprint standards retenus ;
 - calcul 5 V / 600 mA à 1 A et fréquence de découpage ;
 - inductance, condensateurs, TVS et protection de branche exacts ;
 - calibre et pouvoir de coupure DC de `F_AUX` ;

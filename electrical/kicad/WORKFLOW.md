@@ -48,10 +48,11 @@ Le LM5164 et sa branche depuis `BUS_PROTECTED` resteront également dans cette
 feuille : cette alimentation est de faible puissance, mais son entrée appartient
 au domaine de tension du bus redressé.
 
-Les ports hiérarchiques des quatre feuilles logiques sont créés et reliés.
-Seuls `SHUNT_HI_K`, `SHUNT_LO_K` et `VBUS_SENSE` attendent encore la feuille
-`POWER_PATH`. Cette attente est volontaire : leurs connexions dépendent du
-shunt, des protections et de la stratégie de masse encore à dimensionner.
+Les ports hiérarchiques des cinq feuilles sont maintenant créés et reliés.
+`POWER_PATH` fournit `SHUNT_HI_K`, `SHUNT_LO_K` et `BUS_PROTECTED` ; la feuille
+INA228 les reçoit respectivement comme `SHUNT_HI_K`, `SHUNT_LO_K` et
+`VBUS_SENSE`. Les références mécaniques du shunt, des fusibles et des
+connecteurs restent provisoires.
 
 ## Ce que l'automatisation a réalisé
 
@@ -72,9 +73,11 @@ La séquence employée pour créer la hiérarchie est la suivante :
 11. Exécuter l'ERC KiCad sur toute la hiérarchie.
 
 Résultat initial de cette étape : cinq feuilles relues aux pages 2 à 6, aucun
-port incohérent et un rendu contenu dans le cadre A4. Depuis, quatre feuilles
-ont été peuplées. L'ERC global ne contient plus que trois erreurs attendues,
-correspondant aux trois entrées de mesure laissées en attente de `POWER_PATH`.
+port incohérent et un rendu contenu dans le cadre A4. Les cinq feuilles sont
+maintenant peuplées au moins par leur squelette fonctionnel. Après raccordement
+de `POWER_PATH`, les trois erreurs de mesure ont disparu ; l'ERC global ne
+contient plus qu'un avertissement attendu sur `AUX_IN_PROTECTED`, encore sans
+LM5164.
 
 ## Refaire la même opération manuellement
 
@@ -261,19 +264,49 @@ orientation interne. Visuellement le port semble bien placé, mais l'ERC voit
 alors le fil comme non connecté. La réparation consiste à supprimer seulement
 ce port, le réimporter sur le bon côté, puis le repositionner verticalement.
 
+## Construction du squelette `POWER_PATH`
+
+La première révision de cette feuille a été réalisée dans cet ordre :
+
+1. chercher dans les bibliothèques KiCad les symboles génériques existants ;
+2. relire leurs pins avant placement : `Conn_01x02`, `Fuse` et `R_Shunt` ;
+3. placer `J4`, `F1`, `R7`, `J5` et `F2` sur la grille de 1,27 mm ;
+4. laisser les footprints vides et marquer les valeurs `PROVISOIRE`, car les
+   références mécaniques ne sont pas encore choisies ;
+5. câbler le trajet principal `J4 → F1 → R7 → J5` ;
+6. relier les retours des deux connecteurs au GND système ;
+7. sortir séparément les deux prises Kelvin du shunt, sans les faire suivre par
+   le trajet de fort courant ;
+8. nommer le nœud post-shunt `BUS_PROTECTED` et y raccorder `F_AUX` ;
+9. importer les trois ports de mesure sur le bloc `POWER_PATH` de la racine ;
+10. les aligner et les relier aux trois entrées de la feuille INA228 ;
+11. relire fils, pins, labels et ports, lancer l'ERC, puis inspecter un rendu.
+
+Dans l'interface KiCad, l'équivalent consiste à placer les composants avec
+**Placer > Ajouter un symbole**, à câbler avec l'outil fil, puis à utiliser des
+labels hiérarchiques de type sortie dans `POWER_PATH`. Sur la racine, utiliser
+**Importer les ports de feuille**, placer les trois ports sur le bord droit du
+bloc et tracer les trois fils vers `INA228_SENSE`.
+
+Le schéma représente l'architecture, pas encore une nomenclature fabricable :
+`20 A`, `2 mΩ` et les connecteurs sont des hypothèses de dimensionnement. Aucun
+footprint ne doit leur être attribué avant choix d'une référence commandable et
+comparaison à sa fiche fabricant.
+
 ## État vérifié du contrôleur logique
 
 - correspondance labels enfants / ports parents : aucune incohérence ;
 - pins de composants non traitées : aucune ;
 - extrémités de fils flottantes : aucune ;
 - courts-circuits logiques détectés : aucun ;
-- ERC global : trois erreurs, toutes attendues sur les entrées de mesure de la
-  feuille de puissance encore vide ;
+- ERC global : zéro erreur et un avertissement attendu sur
+  `AUX_IN_PROTECTED`, qui attend le bloc LM5164 ;
 - `MCU`, `CC_CONTROL` et `CONNECTORS` : connectés entre eux par I²C, SPI, UART
   et `INA_ALERT` ;
 - alimentation logique : USB-C du DFR0868, 3,3 V distribué aux modules, masse
   déclarée comme source par un `PWR_FLAG` pour l'ERC.
 
-Il ne faut pas ajouter d'exclusions ERC pour les trois erreurs restantes. Elles
-constituent un rappel visible que le schéma n'est pas encore prêt pour une
-fabrication tant que `POWER_PATH` n'est pas conçu.
+Il ne faut pas exclure l'avertissement `AUX_IN_PROTECTED`. Il constitue un
+rappel visible que l'alimentation auxiliaire n'est pas encore conçue. Le schéma
+reste non fabricable tant que les références physiques, protections et calculs
+du LM5164 ne sont pas finalisés.

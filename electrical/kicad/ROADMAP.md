@@ -21,7 +21,7 @@ en choix de fabrication.
 
 ## Ordre de réalisation
 
-### 1. Valider le LM5164 et ses modèles KiCad — en cours
+### 1. Valider le LM5164 et ses modèles KiCad — presque terminé
 
 Objectif : disposer d'une correspondance prouvée entre le composant physique,
 le symbole et le footprint avant de placer le régulateur.
@@ -37,24 +37,37 @@ le symbole et le footprint avant de placer le régulateur.
   le conditionnement en grande bobine) ;
 - [x] confirmer le footprint standard KiCad basé sur `DDA0008B`, avec pads IPC
   plus longs et pâte segmentée ;
-- [ ] faire la relecture Konnect et une inspection rendue dans un projet jetable.
+- [x] relire avec Konnect les 9 pins du symbole et les pads 1 à 9 du footprint
+  standard retenu ; les huit vias thermiques portent bien le numéro 9 ;
+- [ ] faire l'inspection rendue du symbole et du footprint dans un projet
+  jetable avant placement définitif sur le PCB.
 
 Critère de sortie : la table fabricant → symbole → footprint est entièrement
 validée, sans ambiguïté de vue ni de pad thermique.
 
-### 2. Construire le trajet de puissance dans `POWER_PATH`
+### 2. Construire le trajet de puissance dans `POWER_PATH` — squelette validé
 
-- connecteur d'entrée redressée ;
-- fusible principal et protection contre inversion/transitoires à préciser ;
-- shunt 2 mΩ avec séparation stricte des pistes Kelvin ;
-- création de `BUS_PROTECTED` ;
-- départ court vers le buck CV/CC externe ;
-- raccordement des signaux `SHUNT_HI_K`, `SHUNT_LO_K` et `VBUS_SENSE` à la
-  feuille INA228 ;
-- départ auxiliaire protégé par `F_AUX`.
+- [x] placer un connecteur d'entrée redressée provisoire ;
+- [x] placer le fusible principal provisoire ;
+- [x] placer un shunt quatre bornes 2 mΩ provisoire avec sorties Kelvin
+  distinctes ;
+- [x] créer `BUS_PROTECTED` après le shunt ;
+- [x] créer le départ court vers le buck CV/CC externe ;
+- [x] raccorder `SHUNT_HI_K`, `SHUNT_LO_K` et `BUS_PROTECTED` aux entrées
+  `SHUNT_HI_K`, `SHUNT_LO_K` et `VBUS_SENSE` de la feuille INA228 ;
+- [x] créer le départ auxiliaire protégé par `F_AUX` ;
+- [ ] choisir les références physiques et footprints du shunt, des fusibles et
+  des connecteurs ;
+- [ ] dimensionner la protection contre inversion et transitoires après les
+  mesures de la génératrice.
 
-Critère de sortie : le chemin 20 A est lisible, distinct des mesures Kelvin et
-les trois erreurs ERC actuellement attendues ont une vraie contrepartie.
+Le contrôle Konnect du 24 septembre 2026 donne zéro fil flottant, zéro pin non
+connectée, zéro élément orphelin et zéro court-circuit de nets. L'ERC global ne
+signale plus qu'un avertissement attendu : `AUX_IN_PROTECTED` n'alimente encore
+aucun LM5164.
+
+Critère de sortie du squelette : atteint. La sélection physique des composants
+reste indispensable avant tout PCB commandable.
 
 ### 3. Concevoir le buck auxiliaire 10–60 V vers 5 V
 
@@ -130,7 +143,8 @@ destinée à la fabrication.
 - pics réels de tension du générateur non mesurés ;
 - références exactes du shunt, des fusibles, de la TVS et des connecteurs non
   figées ;
-- empreinte LM5164 à accepter après comparaison du modèle TI/Ultra Librarian ;
+- inspection rendue du symbole et du footprint LM5164 standard encore à faire
+  dans un projet jetable ;
 - alimentation interne du Beetle et retour USB non validés sur la révision
   physique ;
 - interface du potentiomètre CC encore à caractériser ;

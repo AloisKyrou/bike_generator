@@ -54,6 +54,27 @@
 		)
 		(uuid "82d5ce32-309b-43c3-af22-d7102e3cf0b8")
 	)
+	(wire
+		(pts
+			(xy 88.9 45.72)
+			(xy 101.6 45.72)
+		)
+		(uuid "e7542ee3-8a4a-4cf2-98c8-11416ffd10de")
+	)
+	(wire
+		(pts
+			(xy 88.9 50.8)
+			(xy 101.6 50.8)
+		)
+		(uuid "2e34f929-b493-447c-a8df-6514f59313e1")
+	)
+	(wire
+		(pts
+			(xy 88.9 55.88)
+			(xy 101.6 55.88)
+		)
+		(uuid "8588c5c2-32a7-43fb-b2b6-398e6517fc97")
+	)
 	(text "POWER_PATH reste volontairement ouvert : choisir le shunt, les protections et les connecteurs apres validation tension/courant."
 		(at 25.4 81.28 0)
 		(effects
@@ -221,6 +242,18 @@
 				)
 				(justify left top)
 			)
+		)
+		(pin "SHUNT_HI_K" output
+			(at 88.9 45.72 0)
+			(uuid "4a8b0ab7-10d0-43fc-ab46-6f14bc5b0fe8")
+		)
+		(pin "SHUNT_LO_K" output
+			(at 88.9 50.8 0)
+			(uuid "4dc6fe3e-b3d0-4df0-ae37-27ee404f12b0")
+		)
+		(pin "BUS_PROTECTED" output
+			(at 88.9 55.88 0)
+			(uuid "09ce07aa-b1c7-4387-86c6-8314f0664a3c")
 		)
 		(instances
 			(project "bike-generator-controller"

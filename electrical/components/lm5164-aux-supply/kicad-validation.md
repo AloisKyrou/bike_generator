@@ -2,7 +2,7 @@
 
 Statut : **LM5164DDAT retenu ; symbole et footprint standards KiCad retenus ;
 paquet Ultra Librarian audité et rejeté pour les données électriques ; relecture
-structurée Konnect et rendu jetable encore requis**.
+structurée Konnect effectuée ; rendu jetable encore requis**.
 
 ## Sources
 
@@ -200,15 +200,30 @@ pads ; le modèle 3D reste une vérification visuelle optionnelle à compléter.
 6. Conserver le STEP Ultra Librarian pour la vue 3D, sans l'utiliser comme
    preuve dimensionnelle.
 
+## Relecture structurée Konnect
+
+La relecture du 24 septembre 2026 confirme directement dans les bibliothèques
+KiCad 10 installées :
+
+- symbole `Regulator_Switching:LM5164DDA` : 9 pins, numérotées 1 à 9, avec les
+  noms et types attendus (`GND`, `VIN`, `EN/UVLO`, `RON`, `FB`, `PGOOD`, `BST`,
+  `SW`, `EP`) ;
+- footprint retenu : 8 pads latéraux de 1,775 × 0,60 mm au pas de 1,27 mm ;
+- pad 9 frontal de 2,95 × 4,90 mm, masque dédié de 2,71 × 3,40 mm et cuivre
+  arrière de 1,80 × 4,40 mm ;
+- huit vias thermiques traversants de perçage 0,20 mm, tous numérotés 9 ;
+- présence de `F.Fab`, `F.SilkS`, `F.CrtYd`, du repère de pin 1 et d'un modèle
+  3D déclaré par la bibliothèque.
+
+Cette relecture provient du fichier standard résolu sous
+`C:\Program Files\KiCad\10.0\share\kicad\footprints\Package_SO.pretty\` et non
+d'un cache Ultra Librarian ou d'une bibliothèque projet.
+
 ## Validation encore requise dans KiCad
 
-La session Konnect charge les toolsets de bibliothèque, mais le client courant
-n'expose pas les appels dynamiques `get_symbol_info` et `get_footprint_info`.
-L'inspection ci-dessus repose donc sur les bibliothèques KiCad 10 installées, en
-lecture seule. L'acceptation finale exige encore :
+L'acceptation visuelle finale exige encore :
 
-- relecture structurée du symbole et du footprint par Konnect ;
-- placement jetable ;
+- placement jetable du symbole et du footprint ;
 - rendu et contrôle du repère 1, du sens de numérotation, de `F.Fab`,
   `F.SilkS`, `F.CrtYd`, du masque et de la pâte ;
 - confirmation qu'aucune donnée ne provient d'un cache ou d'un autre boîtier.

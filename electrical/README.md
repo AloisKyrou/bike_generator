@@ -7,7 +7,8 @@ public build documentation at the repository root.
 The KiCad 10 project has been created through Konnect under
 [`kicad/bike-generator-controller/`](kicad/bike-generator-controller/). Its
 five-sheet functional hierarchy is in place; the component-level design is now
-being built and validated one block at a time.
+implemented for measurement, control, MCU and low-voltage connectors. The
+power path remains deliberately open until its electrical limits are measured.
 
 ## Directory map
 
@@ -32,6 +33,8 @@ stays visible from the main project documentation:
 - [INA228 PCB V1 specification](../docs/electrical/pcb-v1-ina228.md)
 - [Measurement campaign](../docs/electrical/measurement-campaign.md)
 - [Design methodologies](../docs/electrical/design-methodologies.md)
+- [KiCad workflow and troubleshooting](kicad/WORKFLOW.md)
+- [Controller V1 working BOM](bom/controller-v1-working.md)
 
 ## Working rules
 

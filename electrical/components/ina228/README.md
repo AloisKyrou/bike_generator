@@ -104,3 +104,21 @@ Les rendus et le schéma jetable sont placés dans
   circuler le courant de puissance dans les pistes de mesure.
 - `VBUS` mesure la tension du bus ; sa protection et son filtrage seront
   dimensionnés contre les transitoires réels du générateur.
+
+## Circuit implémenté dans `INA228_SENSE`
+
+La feuille V1 contient désormais le circuit complet autour de `U1` :
+
+- `R1` et `R2` : 10 Ω en série dans les deux prises Kelvin ;
+- `C3` : 100 nF différentiel entre `IN+` et `IN−` ;
+- `C1` : 100 nF et `C2` : 1 µF entre 3,3 V et GND ;
+- `R3` et `R4` : rappels I²C de 4,7 kΩ ;
+- `R5` : rappel de 10 kΩ sur `ALERT` ;
+- `JP1` et `JP2` : cavaliers d'adresse 3 pads, position 1–2 fermée vers GND
+  par défaut ;
+- `TP1` à `TP8` : points de test sur Kelvin, VBUS, alimentations et bus.
+
+Les trois interfaces `SHUNT_HI_K`, `SHUNT_LO_K` et `VBUS_SENSE` restent
+volontairement non raccordées sur la feuille racine tant que le shunt et le
+chemin de puissance ne sont pas dimensionnés. L'ERC global signale donc trois
+erreurs attendues et explicites ; aucune autre erreur ou alerte n'est masquée.

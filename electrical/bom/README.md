@@ -13,3 +13,8 @@ bom-v1-working.csv
 sourcing-notes.md
 alternatives.csv
 ```
+
+Current working snapshot:
+
+- [`controller-v1-working.md`](./controller-v1-working.md) — logical controller
+  sheets, known values and the decisions still blocking an order.

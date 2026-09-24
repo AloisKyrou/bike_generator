@@ -12,8 +12,8 @@ The planned project basename is:
 bike-generator-controller
 ```
 
-The project was created through Konnect. It currently contains the initial
-empty project, root schematic and PCB files generated for KiCad 10.0:
+The project was created and edited through Konnect. It contains the root
+schematic, five hierarchical sheets and the initial PCB file for KiCad 10.0:
 
 - `bike-generator-controller.kicad_pro`
 - `bike-generator-controller.kicad_sch`
@@ -34,7 +34,7 @@ kicad/
 Manufacturer PDFs do not belong here; store them under
 [`../components/`](../components/).
 
-## Planned schematic sheets
+## Schematic sheets
 
 The initial schematic hierarchy has been created:
 
@@ -44,11 +44,20 @@ The initial schematic hierarchy has been created:
 4. `CC_CONTROL`
 5. `CONNECTORS`
 
-The root schematic contains these five sheets on pages 2 to 6. The first
-validated component, `U1` (`INA228AIDGSR`), is now placed on `INA228_SENSE`;
-the other sheets and all inter-sheet ports are still empty. See the
-[KiCad workflow and troubleshooting guide](WORKFLOW.md) for the creation steps,
-their manual equivalent and the verification process.
+The root schematic contains these five sheets on pages 2 to 6. `INA228_SENSE`,
+`MCU`, `CC_CONTROL` and `CONNECTORS` are populated and linked. `POWER_PATH`
+remains empty while the shunt, protection, maximum current and connector
+ratings are unresolved. The global ERC consequently reports exactly three
+intentional unconnected inputs: `SHUNT_HI_K`, `SHUNT_LO_K` and `VBUS_SENSE`.
+
+Project-owned library items currently include:
+
+- `BikeGenerator:DFR0868_Beetle_ESP32-C3` — schematic symbol only;
+- `BikeGenerator:DFR0520_Dual_Digital_Pot` — symbol and through-hole module
+  footprint.
+
+See the [KiCad workflow and troubleshooting guide](WORKFLOW.md) for the
+creation steps, their manual equivalent and the verification process.
 
 ## Source and generated files
 

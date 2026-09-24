@@ -16,8 +16,8 @@ correspondance broche physique → pin du symbole → pad du PCB.
 |---|---|---|---|
 | [`ina228/`](./ina228/) | Texas Instruments INA228AIDGSR | pinout and footprint accepted for PCB V1 | TI datasheet archived; errata to add if published |
 | `current-shunt/` | 2 mΩ four-terminal shunt | preliminary, exact MPN not selected | datasheet, derating curve, recommended footprint |
-| `esp32-c3-beetle-dfr0868/` | DFRobot Beetle ESP32-C3 | probable physical board | schematic, pinout, mechanical dimensions |
-| `dfr0520-mcp42100/` | DFR0520 / MCP42100 | present on prototype | module schematic, MCP42100 datasheet, dimensions |
+| [`dfr0868-beetle-esp32-c3/`](./dfr0868-beetle-esp32-c3/) | DFRobot Beetle ESP32-C3 | V2.0 strongly supported; footprint pending physical verification | official schematic, pinout, module datasheet and dimensions archived |
+| [`dfr0520-mcp42100/`](./dfr0520-mcp42100/) | DFR0520 / MCP42100 | symbol and custom module footprint accepted for V1 | official module schematic, dimensions and MCP42100 datasheet archived |
 | `buck-b0blg7tn1c/` | generic CV/CC buck, Amazon B0BLG7TN1C | present, exact controller unknown | listing copy, board photos, controller datasheet when identified |
 | `acs712-legacy/` | ACS712 module | legacy prototype measurement | Allegro datasheet, module schematic, exact variant photo |
 | `rectifier/` | three-phase bridge rectifier | exact reference to confirm | datasheet, pinout, thermal data |

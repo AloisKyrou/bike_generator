@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+
+  (lib (name "BikeGenerator") (type "KiCad") (uri "${KIPRJMOD}/../libraries/footprints/BikeGenerator.pretty") (options "") (descr "")))

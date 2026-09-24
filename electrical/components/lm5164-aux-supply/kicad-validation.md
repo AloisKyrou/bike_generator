@@ -132,6 +132,19 @@ Hashes SHA-256 des fichiers électriques reçus :
 Le paquet Ultra Librarian est donc une preuve que des modèles sont proposés,
 mais il ne doit pas être importé dans le projet.
 
+Un second export a été effectué en choisissant explicitement le symbole
+séquentiel, les unités métriques et `DDA0008E-MFG`. Malgré ces choix, le contenu
+électrique obtenu est **strictement identique octet pour octet** au premier
+paquet :
+
+- le symbole conserve `DDA0008E-IPC_A` dans son champ footprint ;
+- les quatre footprints conservent le nom interne `DDA0008E-IPC_A` ;
+- les vias de la variante `MFG` restent numérotés 10 à 15 ;
+- aucun STEP n'est inclus.
+
+Ce résultat rend le défaut reproductible et exclut une simple erreur de
+sélection lors du premier téléchargement.
+
 ## Meilleur footprint existant dans KiCad 10
 
 Une seconde recherche dans les bibliothèques installées a trouvé une empreinte

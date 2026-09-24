@@ -50,10 +50,17 @@ Le LM5164 est un buck synchrone Texas Instruments :
 - pas de compensation de boucle externe ;
 - faible consommation à vide.
 
-La référence commandable exacte (`LM5164DDAT`, `LM5164DDAR` ou variante Q1)
-n'est pas encore figée. Aucun symbole, footprint ou modèle 3D ne doit être créé
-avant la recherche prescrite par [`../../AGENTS.md`](../../AGENTS.md) et
-l'approbation du composant exact.
+La référence `LM5164DDAT` est proposée pour le prototypage : elle utilise le
+même silicium et le même boîtier DDA que `LM5164DDAR`, mais en petite bande de
+250 pièces au lieu d'une bobine de 2500. Ce choix doit encore être confirmé
+avant d'être figé dans la BOM.
+
+KiCad 10 contient déjà le symbole `Regulator_Switching:LM5164DDA`. Son brochage
+concorde avec la fiche TI ; aucun symbole personnalisé n'est nécessaire. Son
+footprint associé par défaut présente toutefois un pad thermique plus petit que
+le land pattern TI révisé en 2026 et cite un autre composant comme source. Il
+n'est donc pas encore accepté. La comparaison complète est documentée dans
+[`kicad-validation.md`](./kicad-validation.md).
 
 ## Composants périphériques attendus
 
@@ -129,7 +136,9 @@ Sources officielles :
 ## Points restant à figer
 
 - tension maximale et transitoires mesurés sur le bus redressé ;
-- référence commandable exacte du LM5164 ;
+- confirmation de la référence commandable `LM5164DDAT` proposée ;
+- validation du footprint TI/Ultra Librarian ou autorisation d'une empreinte
+  projet conforme au dessin `DDA0008B` ;
 - calcul 5 V / 600 mA à 1 A et fréquence de découpage ;
 - inductance, condensateurs, TVS et protection de branche exacts ;
 - calibre et pouvoir de coupure DC de `F_AUX` ;

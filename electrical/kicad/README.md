@@ -60,6 +60,8 @@ Project-owned library items currently include:
 
 See the [KiCad workflow and troubleshooting guide](WORKFLOW.md) for the
 creation steps, their manual equivalent and the verification process.
+The implementation order and completion gates are tracked in the
+[KiCad roadmap](ROADMAP.md).
 
 ## Source and generated files
 

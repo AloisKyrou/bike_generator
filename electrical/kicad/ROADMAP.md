@@ -31,11 +31,12 @@ le symbole et le footprint avant de placer le régulateur.
 - [x] vérifier la présence du symbole KiCad `Regulator_Switching:LM5164DDA` ;
 - [x] comparer son brochage avec la fiche TI ;
 - [x] comparer le footprint associé par défaut au land pattern TI révisé ;
-- [ ] examiner le modèle KiCad v6+ proposé par TI/Ultra Librarian ;
+- [x] examiner le modèle KiCad v6+ proposé par TI/Ultra Librarian : paquet
+  rejeté pour incohérences de noms, vias et géométrie ;
 - [ ] choisir définitivement la référence commandable (`LM5164DDAT` proposée
   pour le prototypage, `LM5164DDAR` pour une bobine de production) ;
-- [ ] accepter un footprint existant ou autoriser explicitement une empreinte
-  projet corrigée ;
+- [ ] confirmer le footprint standard KiCad basé sur `DDA0008B`, avec pads IPC
+  plus longs et pâte segmentée ;
 - [ ] faire la relecture Konnect et une inspection rendue dans un projet jetable.
 
 Critère de sortie : la table fabricant → symbole → footprint est entièrement

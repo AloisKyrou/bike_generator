@@ -1,7 +1,8 @@
 # Validation KiCad du LM5164 DDA
 
-Statut : **symbole standard trouvé et brochage concordant ; footprint non encore
-accepté pour fabrication**.
+Statut : **symbole standard trouvé et brochage concordant ; paquet Ultra
+Librarian audité et rejeté ; footprint standard KiCad recommandé, en attente de
+confirmation et de la relecture structurée Konnect**.
 
 ## Sources
 
@@ -92,33 +93,92 @@ Le footprint historique `Package_SO:TI_SO-PowerPAD-8_ThermalVias` est également
 présent, mais sa géométrie vient d'une autre fiche TI et ne doit pas être retenue
 sans la même comparaison détaillée.
 
-## Modèle proposé par TI
+## Audit du paquet proposé par TI
 
-La page produit TI renvoie bien vers un modèle Ultra Librarian du
-`LM5164DDAR`, comprenant symbole, footprint et modèle 3D, avec export KiCad v6+.
-Le téléchargement requiert l'acceptation des conditions Ultra Librarian et une
-inscription ; il ne doit donc pas être automatisé silencieusement.
+Le paquet téléchargé le 24 septembre 2026 est conservé localement dans :
 
-Ce modèle est un candidat à vérifier, pas une autorité. Après téléchargement,
-il faudra comparer chaque pad au dessin `DDA0008B` de février 2026 : le modèle
-peut avoir été généré à partir d'une révision antérieure.
+```text
+electrical/kicad/download/ul_LM5164DDAR/
+```
 
-## Décision provisoire et prochaine action
+Il contient un symbole et quatre footprints, mais aucun fichier STEP. Son
+symbole reprend correctement les neuf pins. Il n'apporte toutefois aucun
+avantage sur le symbole standard KiCad et utilise plusieurs types de pins
+`unspecified` moins utiles à l'ERC.
+
+Les footprints ne sont pas acceptables tels quels :
+
+- les fichiers `IPC_B`, `IPC_C` et `MFG` déclarent tous en interne le nom
+  `DDA0008E-IPC_A`, ce qui créerait des collisions ou une sélection trompeuse ;
+- les variantes IPC n'ont ni `F.CrtYd` ni vias thermiques ;
+- leur pad exposé mesure seulement 2,025 × 3,10 mm ;
+- la variante `MFG` numérote les six vias thermiques de 10 à 15 au lieu de leur
+  donner le numéro électrique 9 : ils ne seraient donc pas automatiquement
+  reliés au pad exposé et à GND ;
+- la variante `MFG` utilise un pad cuivre 2,95 × 4,90 mm, mais sans la définition
+  de masque 2,71 × 3,40 mm du land pattern TI actuel ;
+- aucun des quatre footprints ne contient de modèle 3D.
+
+Hashes SHA-256 des fichiers électriques reçus :
+
+| Fichier | SHA-256 |
+|---|---|
+| `2026-09-24_14-56-52.kicad_sym` | `2A9FCCB3A7269095B1B9E39BD30CCF5EA773A0BA56808F4D4674823EBB784E28` |
+| `DDA0008E-IPC_A.kicad_mod` | `B306C296C3673E55C947E3D49E2407647C8E338BAB3256AE5C468799E03203C1` |
+| `DDA0008E-IPC_B.kicad_mod` | `371293F031BC82E934DC4BF0D780C38C5DE6EAF29AA1560158404C9E6B022E0C` |
+| `DDA0008E-IPC_C.kicad_mod` | `798B07EF89449A4D70C94E934DDA374FDE0EE1782EF097807F0BE11347BA237B` |
+| `DDA0008E-MFG.kicad_mod` | `39319E2B87051C480B49AB5E38548F64EDF46428BC036736BE3C421C3C6E7D8C` |
+
+Le paquet Ultra Librarian est donc une preuve que des modèles sont proposés,
+mais il ne doit pas être importé dans le projet.
+
+## Meilleur footprint existant dans KiCad 10
+
+Une seconde recherche dans les bibliothèques installées a trouvé une empreinte
+plus récente et explicitement dérivée du dessin TI `DDA0008B` :
+
+```text
+Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.71x3.4mm_ThermalVias
+```
+
+Elle présente :
+
+- pads 1 à 8 au pas de 1,27 mm, largeur 0,60 mm ;
+- extrémité extérieure des pads à ±3,45 mm, comme le land pattern TI ;
+- cuivre frontal du pad 9 de 2,95 × 4,90 mm ;
+- ouverture de masque dédiée de 2,71 × 3,40 mm ;
+- huit vias thermiques de perçage 0,20 mm, tous numérotés 9 ;
+- cuivre arrière de dissipation relié au pad 9 ;
+- `F.Fab`, `F.SilkS`, repère de pin 1 et `F.CrtYd` complets ;
+- quatre ouvertures de pâte segmentées plutôt qu'une ouverture pleine.
+
+Les pads latéraux sont calculés selon une règle IPC et mesurent 1,775 mm de long
+au lieu des 1,55 mm de l'exemple TI. Leur bord externe est identique ; ils
+s'étendent davantage vers le boîtier. Cette différence facilite la soudure et
+reste cohérente avec l'enveloppe mécanique, mais doit être acceptée comme choix
+de conception et non présentée comme une copie exacte du dessin fabricant.
+
+Le footprint référence un STEP portant le même nom, mais ce fichier 3D n'est pas
+présent dans l'installation locale actuelle. Cela ne remet pas en cause les
+pads ; le modèle 3D reste une vérification visuelle optionnelle à compléter.
+
+## Décision proposée et prochaine action
 
 1. Conserver le symbole standard `Regulator_Switching:LM5164DDA`.
-2. Ne placer aucun footprint définitif tant que le modèle Ultra Librarian n'a
-   pas été importé et comparé.
-3. Si ce modèle correspond au land pattern 2026, l'utiliser dans une bibliothèque
-   projet après validation et relecture Konnect.
-4. S'il ne correspond pas, présenter l'écart et demander l'autorisation avant
-   de créer un footprint projet `DDA0008B` conforme à la fiche TI.
+2. Rejeter les modèles Ultra Librarian reçus sans les importer.
+3. Utiliser le footprint standard KiCad explicitement basé sur `DDA0008B`, sous
+   réserve de l'accord utilisateur sur les pads IPC plus longs et la pâte
+   segmentée.
+4. Ne créer aucun symbole ni footprint projet personnalisé.
+5. Télécharger éventuellement le STEP Ultra Librarian séparément pour la vue
+   3D, sans l'utiliser comme preuve dimensionnelle.
 
 ## Validation encore requise dans KiCad
 
-La session Konnect a chargé les toolsets de bibliothèque, mais le client courant
-n'expose pas encore les appels dynamiques `get_symbol_info` et
-`get_footprint_info`. L'inspection ci-dessus repose donc sur les bibliothèques
-KiCad 10 installées, en lecture seule. L'acceptation finale exige encore :
+La session Konnect charge les toolsets de bibliothèque, mais le client courant
+n'expose pas les appels dynamiques `get_symbol_info` et `get_footprint_info`.
+L'inspection ci-dessus repose donc sur les bibliothèques KiCad 10 installées, en
+lecture seule. L'acceptation finale exige encore :
 
 - relecture structurée du symbole et du footprint par Konnect ;
 - placement jetable ;

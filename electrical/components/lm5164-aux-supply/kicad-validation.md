@@ -1,9 +1,8 @@
 # Validation KiCad du LM5164 DDA
 
-Statut : **LM5164DDAT retenu ; symbole et footprint standards KiCad retenus ;
-paquet Ultra Librarian audité et rejeté pour les données électriques ; relecture
-structurée Konnect et rendu jetable du symbole effectués ; rendu PCB du
-footprint encore requis**.
+Statut : **LM5164DDAT retenu ; symbole standard KiCad validé ; géométrie du
+footprint standard relue et rendue dans un PCB jetable ; décision de fabrication
+encore requise pour ses vias thermiques de 0,20 mm**.
 
 ## Sources
 
@@ -189,15 +188,18 @@ Le footprint référence un STEP portant le même nom, mais ce fichier 3D n'est 
 présent dans l'installation locale actuelle. Cela ne remet pas en cause les
 pads ; le modèle 3D reste une vérification visuelle optionnelle à compléter.
 
-## Décision retenue
+## Décision de CAO retenue
 
 1. Utiliser la référence commandable `LM5164DDAT`.
 2. Conserver le symbole standard `Regulator_Switching:LM5164DDA` et affecter
    `LM5164DDAT` à son champ `Value`.
 3. Rejeter les symboles et footprints Ultra Librarian reçus sans les importer.
-4. Utiliser le footprint standard KiCad explicitement basé sur `DDA0008B` :
+4. Utiliser comme référence géométrique le footprint standard KiCad
+   explicitement basé sur `DDA0008B` :
    `Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.71x3.4mm_ThermalVias`.
-5. Ne créer aucun symbole ni footprint projet personnalisé.
+5. Ne pas encore créer de footprint projet personnalisé. Une variante projet ne
+   sera créée qu'après choix explicite entre une fabrication acceptant les
+   perçages de 0,20 mm et des vias thermiques redimensionnés.
 6. Conserver le STEP Ultra Librarian pour la vue 3D, sans l'utiliser comme
    preuve dimensionnelle.
 
@@ -220,7 +222,7 @@ Cette relecture provient du fichier standard résolu sous
 `C:\Program Files\KiCad\10.0\share\kicad\footprints\Package_SO.pretty\` et non
 d'un cache Ultra Librarian ou d'une bibliothèque projet.
 
-## Validation encore requise dans KiCad
+## Validation dans le PCB jetable
 
 Un projet jetable a été créé dans :
 
@@ -229,14 +231,34 @@ electrical/kicad/exports/lm5164-validation/
 ```
 
 Le symbole y a été placé avec `Value = LM5164DDAT` et le footprint standard
-retenu. La relecture de l'instance confirme les neuf pins et le rendu montre la
-vue fonctionnelle attendue : VIN, EN/UVLO et RON à gauche ; BST, SW, FB et
-PGOOD à droite ; GND et EP en bas. Cette étape ne remplace pas l'inspection du
-cuivre.
+retenu comme référence géométrique. La relecture de l'instance confirme les
+neuf pins et le rendu du symbole montre la vue fonctionnelle attendue : VIN,
+EN/UVLO et RON à gauche ; BST, SW, FB et PGOOD à droite ; GND et EP en bas.
 
-L'acceptation visuelle finale exige encore :
+Le footprint a ensuite été placé à `(100 mm, 100 mm)` dans le PCB jetable et
+entouré d'un contour temporaire de 20 × 20 mm. La relecture du fichier fermé par
+Konnect confirme :
 
-- placement du footprint dans le PCB jetable ;
-- rendu et contrôle du repère 1, du sens de numérotation, de `F.Fab`,
-  `F.SilkS`, `F.CrtYd`, du masque et de la pâte ;
-- confirmation qu'aucune donnée ne provient d'un cache ou d'un autre boîtier.
+- huit pads latéraux 1 à 8 au pas de 1,27 mm ;
+- pad exposé 9, ouverture de masque dédiée, cuivre arrière et huit vias tous
+  affectés au même numéro 9 ;
+- quatre fenêtres de pâte segmentées ;
+- repère de broche 1, `F.SilkS`, `F.Fab` et `F.CrtYd` présents.
+
+Le rendu supérieur généré par KiCad confirme visuellement le repère de broche 1,
+le sens des deux rangées, la segmentation de pâte et les vias thermiques. Il ne
+montre aucun corps 3D : le footprint déclare un STEP standard absent de
+l'installation locale. Le STEP Ultra Librarian reste donc une aide visuelle
+optionnelle, sans effet sur la validation du cuivre.
+
+Le DRC du PCB jetable donne huit erreurs identiques : chaque via thermique a un
+perçage de 0,20 mm, inférieur au minimum de 0,30 mm défini par les contraintes
+actuelles. Les autres avertissements proviennent du caractère volontairement
+isolé du test : le footprint a été placé directement pour l'inspection et n'a
+pas été synchronisé avec le symbole ni raccordé à des nets.
+
+Conclusion : la correspondance boîtier, pins, pads, masque et pâte est validée.
+Le footprint n'est toutefois **pas encore validé pour fabrication**. Avant son
+placement définitif, il faut soit confirmer qu'un fabricant accepté prend en
+charge les trous finis de 0,20 mm, soit autoriser la création d'une variante de
+projet avec des vias compatibles avec ses règles, puis refaire le DRC.

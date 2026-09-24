@@ -168,7 +168,9 @@ cycles marche/arrêt gênants.
 - inductance collée au nœud SW, avec surface SW minimale ;
 - `RRON`, diviseur FB et réseau type 3 proches du circuit ;
 - masse analogique des réseaux FB, RON et UVLO ramenée sans courant commuté ;
-- pad exposé 9 relié à GND avec les huit vias thermiques du footprint retenu ;
+- pad exposé 9 relié à GND avec les huit vias thermiques de la géométrie de
+  référence ; leur perçage de 0,20 mm reste à accepter chez le fabricant ou à
+  redimensionner dans une variante projet explicitement autorisée ;
 - éloigner les pistes Kelvin INA228, l'antenne ESP32 et les signaux numériques
   du nœud SW.
 

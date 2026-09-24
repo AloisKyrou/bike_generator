@@ -21,7 +21,7 @@ en choix de fabrication.
 
 ## Ordre de réalisation
 
-### 1. Valider le LM5164 et ses modèles KiCad — presque terminé
+### 1. Valider le LM5164 et ses modèles KiCad — CAO validée, DFM à décider
 
 Objectif : disposer d'une correspondance prouvée entre le composant physique,
 le symbole et le footprint avant de placer le régulateur.
@@ -40,11 +40,14 @@ le symbole et le footprint avant de placer le régulateur.
 - [x] relire avec Konnect les 9 pins du symbole et les pads 1 à 9 du footprint
   standard retenu ; les huit vias thermiques portent bien le numéro 9 ;
 - [x] placer, relire et rendre le symbole dans un projet jetable ;
-- [ ] placer et rendre le footprint dans le PCB jetable avant placement
-  définitif sur la carte du contrôleur.
+- [x] placer, relire et rendre le footprint dans le PCB jetable ; contrôler le
+  repère 1, les pads, le masque, la pâte et les huit vias thermiques ;
+- [ ] confirmer qu'un fabricant accepté autorise les perçages de 0,20 mm, ou
+  autoriser une variante de footprint projet à vias redimensionnés, puis refaire
+  le DRC.
 
-Critère de sortie : la table fabricant → symbole → footprint est entièrement
-validée, sans ambiguïté de vue ni de pad thermique.
+Critère de sortie CAO : atteint. Critère de sortie fabrication : diamètre des
+vias thermiques compatible avec les règles du fabricant et DRC sans erreur.
 
 ### 2. Construire le trajet de puissance dans `POWER_PATH` — squelette validé
 
@@ -148,8 +151,8 @@ destinée à la fabrication.
 - pics réels de tension du générateur non mesurés ;
 - références exactes du shunt, des fusibles, de la TVS et des connecteurs non
   figées ;
-- inspection rendue du symbole et du footprint LM5164 standard encore à faire
-  dans un projet jetable ;
+- diamètre 0,20 mm des vias thermiques du footprint LM5164 à accepter auprès du
+  fabricant ou à redimensionner dans une variante projet autorisée ;
 - alimentation interne du Beetle et retour USB non validés sur la révision
   physique ;
 - interface du potentiomètre CC encore à caractériser ;

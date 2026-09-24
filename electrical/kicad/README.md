@@ -13,7 +13,7 @@ bike-generator-controller
 ```
 
 The project was created and edited through Konnect. It contains the root
-schematic, five hierarchical sheets and the initial PCB file for KiCad 10.0:
+schematic, six hierarchical sheets and the initial PCB file for KiCad 10.0:
 
 - `bike-generator-controller.kicad_pro`
 - `bike-generator-controller.kicad_sch`
@@ -43,14 +43,22 @@ The initial schematic hierarchy has been created:
 3. `MCU`
 4. `CC_CONTROL`
 5. `CONNECTORS`
+6. `AUX_SUPPLY`
 
-The root schematic contains these five sheets on pages 2 to 6. `INA228_SENSE`,
-`MCU`, `CC_CONTROL`, `CONNECTORS` and the provisional `POWER_PATH` are populated
-and linked. `POWER_PATH` now contains the 400 W path, the provisional four-wire
+The root schematic contains these six sheets on pages 2 to 7. `INA228_SENSE`,
+`MCU`, `CC_CONTROL`, `CONNECTORS`, `POWER_PATH` and `AUX_SUPPLY` are populated
+and linked. `POWER_PATH` contains the 400 W path, the provisional four-wire
 shunt, `BUS_PROTECTED`, the external buck connection and the separately fused
-auxiliary branch. Its Kelvin and bus outputs feed `INA228_SENSE`. The global ERC
-reports no error and one expected warning: `AUX_IN_PROTECTED` does not yet feed
-an LM5164 because the auxiliary converter sheet is the next design stage.
+auxiliary branch. Its Kelvin and bus outputs feed `INA228_SENSE`, while
+`AUX_IN_PROTECTED` feeds the LM5164 sheet.
+
+`AUX_SUPPLY` implements the first sourced 10–60 V to 5 V schematic around the
+LM5164, including UVLO, feedback, Type-3 ripple network, input/output
+capacitors, `PGOOD`, a power flag and four test points. Its component values are
+still candidates until TI/WEBENCH verification and physical part selection.
+The global ERC currently reports exactly two intentional errors: the root-sheet
+outputs `AUX_5V` and `AUX_PGOOD` are not yet connected to the forthcoming
+USB/battery/source-selection block. They must not be waived or hidden.
 
 Project-owned library items currently include:
 

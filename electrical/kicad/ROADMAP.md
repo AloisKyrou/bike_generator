@@ -66,25 +66,36 @@ vias thermiques compatible avec les règles du fabricant et DRC sans erreur.
   mesures de la génératrice.
 
 Le contrôle Konnect du 24 septembre 2026 donne zéro fil flottant, zéro pin non
-connectée, zéro élément orphelin et zéro court-circuit de nets. L'ERC global ne
-signale plus qu'un avertissement attendu : `AUX_IN_PROTECTED` n'alimente encore
-aucun LM5164.
+connectée, zéro élément orphelin et zéro court-circuit de nets. Depuis l'ajout
+de `AUX_SUPPLY`, `AUX_IN_PROTECTED` alimente bien le LM5164.
 
 Critère de sortie du squelette : atteint. La sélection physique des composants
 reste indispensable avant tout PCB commandable.
 
 ### 3. Concevoir le buck auxiliaire 10–60 V vers 5 V
 
-- placer le LM5164 validé ;
+- [x] créer la feuille hiérarchique `AUX_SUPPLY` et la relier à
+  `AUX_IN_PROTECTED` ;
+- [x] placer le LM5164 validé avec le footprint standard DDA0008B retenu ;
 - [x] effectuer un premier calcul sourcé de `RON`, `EN/UVLO`, retour 5 V,
   inductance, réseau d'ondulation et condensateurs pour 600 mA continus avec
   marge jusqu'à 1 A ;
+- [x] traduire ce calcul en un premier schéma : UVLO, `RON`, pont de retour,
+  bootstrap, inductance, condensateurs et réseau Type-3 ;
+- [x] ajouter les points de test `AUX_IN`, `AUX_5V`, `AUX_PGOOD` et `GND` ;
+- [x] relire les neuf nets de U4 et vérifier zéro orphelin, zéro court-circuit
+  de nets et zéro chevauchement de symboles ;
 - [ ] rejouer ce calcul dans le calculateur officiel TI/WEBENCH ;
 - [ ] sélectionner les références commandables et vérifier leurs courbes de
   déclassement, saturation et pertes ;
-- choisir `F_AUX`, TVS et filtrage après les mesures du générateur ;
-- ajouter les points de test `AUX_IN`, `AUX_5V`, `PGOOD` et `GND` ;
-- prévoir le blocage de retour de courant et `JP_GEN_5V`.
+- [ ] choisir `F_AUX`, TVS et filtrage après les mesures du générateur ;
+- [ ] raccorder `AUX_5V` et `AUX_PGOOD` au bloc d'alimentation du contrôleur ;
+- [ ] prévoir le blocage de retour de courant et `JP_GEN_5V`.
+
+Le contrôle du 24 septembre 2026 laisse volontairement deux erreurs ERC sur la
+feuille racine : `AUX_5V` et `AUX_PGOOD` ne sont pas encore consommés. Elles
+disparaîtront par un raccordement réel au bloc USB/batterie, pas par une
+exclusion ERC.
 
 Critère de sortie : calculs sourcés, composants commandables et démarrage sûr
 sur toute l'enveloppe 10–60 V.

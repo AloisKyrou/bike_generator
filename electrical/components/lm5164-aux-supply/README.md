@@ -1,7 +1,7 @@
 # LM5164 — alimentation auxiliaire du contrôleur
 
-Statut : **candidat d'architecture retenu, référence commandable et valeurs de
-puissance à valider avant schéma définitif**.
+Statut : **première passe schématique réalisée ; valeurs de puissance,
+références physiques et DFM à valider avant schéma définitif**.
 
 ## Rôle dans le système
 
@@ -69,6 +69,29 @@ Le pré-dimensionnement 10–60 V vers 5 V est détaillé dans
 [`design-calculation.md`](./design-calculation.md). Les valeurs proposées y sont
 explicitement marquées comme candidates jusqu'à validation par le calculateur
 TI et sélection de références commandables.
+
+## Première implémentation KiCad
+
+La feuille `AUX_SUPPLY` est maintenant présente dans le projet principal et
+reçoit `AUX_IN_PROTECTED` depuis `POWER_PATH`. Elle fournit deux sorties
+hiérarchiques encore non consommées : `AUX_5V` et `AUX_PGOOD`.
+
+Cette première passe comprend :
+
+- U4 `LM5164DDAT` et son pad exposé relié à `GND` ;
+- le pont UVLO 1 MΩ / 200 kΩ ;
+- `RON` 41,2 kΩ ;
+- l'inductance candidate de 47 µH ;
+- le pont de retour 316 kΩ / 100 kΩ pour la cible 5 V ;
+- le bootstrap 2,2 nF ;
+- le réseau d'injection Type-3 200 kΩ / 3,3 nF / 82 pF ;
+- les capacités d'entrée et de sortie candidates ;
+- le pull-up de `PGOOD` vers 3,3 V ;
+- les points de test `AUX_IN`, `AUX_5V`, `AUX_PGOOD` et `GND`.
+
+La topologie suit la fiche TI, notamment le réseau Type-3 placé entre `SW`,
+`AUX_5V` et `FB`. Le détail des références, des nets et des contrôles est dans
+[`schematic-implementation.md`](./schematic-implementation.md).
 
 ## Composants périphériques attendus
 

@@ -755,16 +755,6 @@
 		)
 		(uuid "0a7a6b70-fd87-4b9e-8c24-04ff319b4f4b")
 	)
-	(label "AUX_IN_PROTECTED"
-		(at 143.51 101.6 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "b440b805-d9af-47c5-b963-9b1446108b2b")
-	)
 	(hierarchical_label "SHUNT_HI_K"
 		(shape output)
 		(at 99.06 60.96 90)
@@ -797,6 +787,17 @@
 			(justify left)
 		)
 		(uuid "9c0bd560-4759-450a-94a3-d0ec765c9632")
+	)
+	(hierarchical_label "AUX_IN_PROTECTED"
+		(shape output)
+		(at 143.51 101.6 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "6ce2963d-bfde-4c22-bbed-743521715607")
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x02")

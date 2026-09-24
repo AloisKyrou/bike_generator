@@ -1,8 +1,8 @@
 # Validation KiCad du LM5164 DDA
 
-Statut : **symbole standard trouvé et brochage concordant ; paquet Ultra
-Librarian audité et rejeté ; footprint standard KiCad recommandé, en attente de
-confirmation et de la relecture structurée Konnect**.
+Statut : **LM5164DDAT retenu ; symbole et footprint standards KiCad retenus ;
+paquet Ultra Librarian audité et rejeté pour les données électriques ; relecture
+structurée Konnect et rendu jetable encore requis**.
 
 ## Sources
 
@@ -145,6 +145,19 @@ paquet :
 Ce résultat rend le défaut reproductible et exclut une simple erreur de
 sélection lors du premier téléchargement.
 
+Un troisième téléchargement, cette fois pour `LM5164DDAT`, contient le modèle
+3D `DDA0008E.stp`. Il est conservé comme aide visuelle uniquement :
+
+| Fichier | SHA-256 | Usage |
+|---|---|---|
+| `DDA0008E.stp` | `61303330D3383C2A1001C5C56C8834EB66A39135D1D5EF496A460EE145437484` | contrôle 3D, pas preuve des pads |
+
+Le fichier indique une génération Creo datée du 10 juin 2024. Il pourra être
+associé plus tard à une empreinte projet si la vue 3D est nécessaire. Le symbole
+Ultra Librarian `LM5164DDAT` n'est pas importé : son brochage n'apporte rien au
+symbole standard, plusieurs types de pins sont moins précis et son champ
+footprint pointe encore vers `DDA0008E-IPC_A`.
+
 ## Meilleur footprint existant dans KiCad 10
 
 Une seconde recherche dans les bibliothèques installées a trouvé une empreinte
@@ -175,16 +188,17 @@ Le footprint référence un STEP portant le même nom, mais ce fichier 3D n'est 
 présent dans l'installation locale actuelle. Cela ne remet pas en cause les
 pads ; le modèle 3D reste une vérification visuelle optionnelle à compléter.
 
-## Décision proposée et prochaine action
+## Décision retenue
 
-1. Conserver le symbole standard `Regulator_Switching:LM5164DDA`.
-2. Rejeter les modèles Ultra Librarian reçus sans les importer.
-3. Utiliser le footprint standard KiCad explicitement basé sur `DDA0008B`, sous
-   réserve de l'accord utilisateur sur les pads IPC plus longs et la pâte
-   segmentée.
-4. Ne créer aucun symbole ni footprint projet personnalisé.
-5. Télécharger éventuellement le STEP Ultra Librarian séparément pour la vue
-   3D, sans l'utiliser comme preuve dimensionnelle.
+1. Utiliser la référence commandable `LM5164DDAT`.
+2. Conserver le symbole standard `Regulator_Switching:LM5164DDA` et affecter
+   `LM5164DDAT` à son champ `Value`.
+3. Rejeter les symboles et footprints Ultra Librarian reçus sans les importer.
+4. Utiliser le footprint standard KiCad explicitement basé sur `DDA0008B` :
+   `Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.71x3.4mm_ThermalVias`.
+5. Ne créer aucun symbole ni footprint projet personnalisé.
+6. Conserver le STEP Ultra Librarian pour la vue 3D, sans l'utiliser comme
+   preuve dimensionnelle.
 
 ## Validation encore requise dans KiCad
 

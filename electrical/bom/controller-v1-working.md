@@ -25,7 +25,7 @@ connecteurs de fort courant ne sont pas encore dimensionnés.
 
 | Référence provisoire | Qté | Valeur / référence | État |
 |---|---:|---|---|
-| U4 | 1 | LM5164DDAT proposé, 6–100 V, 1 A | brochage du symbole concordant ; relecture Konnect, MPN et footprint à confirmer |
+| U4 | 1 | LM5164DDAT, 6–100 V, 1 A | MPN et footprint standard DDA0008B retenus ; relecture Konnect restante |
 | L1 | 1 | inductance du buck auxiliaire | valeur, pertes et courant de saturation à calculer |
 | C_IN_AUX | plusieurs | céramique 100 V | valeur et boîtier après calcul et déclassement DC |
 | C_OUT_AUX | plusieurs | sortie 5 V | valeur et boîtier après calcul |

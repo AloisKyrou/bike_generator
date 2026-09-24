@@ -33,9 +33,9 @@ le symbole et le footprint avant de placer le régulateur.
 - [x] comparer le footprint associé par défaut au land pattern TI révisé ;
 - [x] examiner le modèle KiCad v6+ proposé par TI/Ultra Librarian : paquet
   rejeté pour incohérences de noms, vias et géométrie ;
-- [ ] choisir définitivement la référence commandable (`LM5164DDAT` proposée
-  pour le prototypage, `LM5164DDAR` pour une bobine de production) ;
-- [ ] confirmer le footprint standard KiCad basé sur `DDA0008B`, avec pads IPC
+- [x] retenir `LM5164DDAT` pour le prototypage (`LM5164DDAR` ne diffère que par
+  le conditionnement en grande bobine) ;
+- [x] confirmer le footprint standard KiCad basé sur `DDA0008B`, avec pads IPC
   plus longs et pâte segmentée ;
 - [ ] faire la relecture Konnect et une inspection rendue dans un projet jetable.
 

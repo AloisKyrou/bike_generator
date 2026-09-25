@@ -50,7 +50,7 @@ avant ce buck. Le LM5164 est retenu comme candidat 100 V / 1 A pour produire
 
 Le Beetle pourra ainsi démarrer dès que la génératrice produit une tension
 suffisante, indépendamment de la batterie ou de la charge raccordée après le
-buck principal. Une batterie Li-ion/LiPo 1S protégée de 400 à 500 mAh assurera
+buck principal. La batterie LiPo 1S protégée 801350 / 500 mAh assurera
 la continuité à l'arrêt et sera déconnectable pour éviter la décharge entre les
 usages. `JP_GEN_5V` isolera la branche générateur pendant la programmation USB.
 
@@ -83,6 +83,21 @@ Cette divergence est bloquante pour le schéma. Les bornes analogiques du
 MCP42100 doivent rester entre GND et VCC et leur courant doit rester très faible.
 Il faut relever les deux connexions exactes et leurs tensions avant de figer
 l'interface.
+
+Le firmware fournit néanmoins une calibration empirique utile : curseur 30 pour
+environ 120 W, cible initiale calculée 20 pour 80 W, limite calculée 50 pour
+200 W. Il suppose donc qu'une valeur numérique croissante augmente la charge.
+Cela ne remplace pas les mesures de tension, courant de curseur et masse commune.
+
+Une anomalie de démarrage est à corriger : la variable mémorisant la position
+est initialisée à `POT_INITIAL` avant l'appel de `Resistance_Init()`. Comme la
+fonction n'écrit en SPI que si la valeur demandée diffère de la valeur mémorisée,
+la consigne initiale peut ne jamais être envoyée au MCP42100.
+
+Enfin, le firmware existant affecte GPIO0 et GPIO1 aux ADC de l'ACS712 et du pont
+diviseur, alors que la nouvelle carte les utilise pour l'I2C de l'INA228. Cette
+divergence est normale pendant la transition, mais le firmware devra être adapté
+avant d'utiliser le PCB V1.
 
 ### Breadboard et puissance
 
@@ -119,12 +134,14 @@ peuvent rendre la transition plus brutale.
 
 1. Référence exacte et version de la Beetle ESP32-C3.
 2. Continuité entre négatif redressé, IN-, OUT- et masse de contrôle.
-3. Tension maximale à vide après redressement, à la cadence maximale plausible.
+3. Tension maximale à vide après redressement — génératrice entraînée, sortie
+   électrique déconnectée — à plusieurs cadences, puis maximum transitoire.
 4. Validation thermique de la cible 20 A continus / 25 A transitoires.
 5. Fonction des potentiomètres du buck et identification certaine du réglage CC.
 6. Bornes du DFR0520 employées et tensions présentes sur ces bornes.
 7. État du buck si l'ESP32 ou le DFR0520 est débranché.
-8. Référence exacte de la batterie 400–500 mAh et courant de charge admissible.
+8. Fiche exacte de la batterie protégée 801350 / 500 mAh et courant de charge
+   admissible à comparer aux 400 mA annoncés par DFRobot.
 9. Référence commandable, valeurs et protection d'entrée du LM5164.
 10. Relation exacte entre `VIN_5V`, `VUSB`, TP4057 et `BAT` sur la révision
     physique du Beetle.
@@ -141,3 +158,4 @@ mais ne bloquent plus le schéma de mesure et d'alimentation du PCB V1.
 - [ESP32-C3, documentation ADC Espressif](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/api-reference/peripherals/adc/index.html)
 - [Physique détaillée de la résistance](../pedaling-resistance-physics.md)
 - [LM5164, Texas Instruments](https://www.ti.com/product/LM5164)
+- [Dimensionnement du chemin de puissance et candidats](power-path-dimensioning.md)

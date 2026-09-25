@@ -24,11 +24,12 @@ les connecteurs de fort courant ne sont pas encore sélectionnés physiquement.
 
 | Référence | Qté | Valeur / rôle | État |
 |---|---:|---|---|
-| J4 | 1 | entrée redressée | connecteur et footprint à choisir |
-| F1 | 1 | fusible principal, hypothèse 20 A DC | calibre et pouvoir de coupure à confirmer |
-| R7 | 1 | shunt quatre bornes, hypothèse 2 mΩ | MPN, puissance et footprint à choisir |
-| J5 | 1 | départ vers buck CV/CC externe 400 W | connecteur et footprint à choisir |
-| F2 | 1 | `F_AUX` | calibre et pouvoir de coupure DC à choisir |
+| J4 | 1 | entrée redressée, candidat Anderson Powerpole PP15/45 | architecture faisceau/PCB et orientation à choisir |
+| F1 | 1 | candidat Littelfuse `LJCA020.X`, LP JCASE 20 A / 58 V DC | provisoire ; valider courbe temps-courant et porte-fusible après mesures |
+| R7 | 1 | candidat Bourns `CSS4J-4026K-2L00F`, 2 mΩ, 4 bornes, 6 W | provisoire ; land pattern et disponibilité à valider |
+| J5 | 1 | départ vers buck CV/CC, candidat Anderson Powerpole PP15/45 | architecture faisceau/PCB et orientation à choisir |
+| F2 | 1 | candidat Littelfuse `0449001.MR`, 1 A / 125 V Slo-Blo | provisoire ; valider le courant d'appel LM5164 |
+| D_TVS | 1 | candidat Littelfuse `SMCJ48A` | conditionnel : tension continue à vide < 48 V ; ne protège pas une surtension durable |
 
 ## Alimentation auxiliaire — première passe placée dans KiCad
 
@@ -47,9 +48,11 @@ les connecteurs de fort courant ne sont pas encore sélectionnés physiquement.
 | D_AUX | 1 | blocage du courant inverse | technologie et référence à choisir |
 | F_AUX | 1 | protection locale de la dérivation | calibre et pouvoir de coupure DC à choisir |
 | JP_GEN_5V | 1 | cavalier d'isolation générateur / USB | `Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical`, provisoire ; ouvert en mode USB/service |
-| J_BAT_CTRL | 1 | JST-PH 2 contacts, pas 2,00 mm, entrée latérale | `Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal`, provisoire ; vérifier pas et polarité |
+| J_BAT_CTRL | 1 | JST `S2B-PH-K-S(LF)(SN)`, 2 contacts, pas 2,00 mm, entrée latérale | `Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal` ; vérifier polarité et accès dans le boîtier |
+| J_BAT_HOUSING | 1 | JST `PHR-2` | côté câble |
+| J_BAT_CONTACT | 2 + rechange | JST `SPH-002T-P0.5S` | sertissage pour calibre de fil compatible AWG 30–24 |
 | S_BAT | 1 | interrupteur batterie | courant faible, mécanique à choisir |
-| BAT_CTRL | 1 | Li-ion/LiPo 1S protégée, 400–500 mAh recommandée ; cellule 320 mAh photographiée candidate | doit autoriser le courant de charge réel ; 400 mA vaudrait 1,25 C pour 320 mAh |
+| BAT_CTRL | 1 | LiPo 1S protégée `801350`, 3,7 V, 500 mAh | sélection utilisateur ; vérifier la fiche et l'autorisation de charge à 400 mA (0,8 C) |
 
 Références réellement utilisées dans la première passe KiCad : `JP3` pour
 `JP_GEN_5V`, `J6` pour `J_BAT_CTRL`, `S1` pour `S_BAT`, et `TP12` à `TP15` pour
@@ -82,5 +85,5 @@ calculateur TI et sélection d'une référence fabricant.
 6. tension nominale et diélectrique exact des condensateurs ;
 7. disponibilité et références fabricant de chaque passif.
 8. tension à vide et transitoires permettant de figer le LM5164 et sa protection ;
-9. batterie exacte et courant de charge autorisé ;
+9. fiche exacte de la batterie 801350 et courant de charge autorisé ;
 10. stratégie d'isolation entre alimentation générateur et USB.

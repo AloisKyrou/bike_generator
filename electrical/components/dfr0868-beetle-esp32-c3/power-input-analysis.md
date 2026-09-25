@@ -80,22 +80,18 @@ comme évolutions possibles, mais ne sont pas supposées en V1.
 
 - chimie : Li-ion/LiPo 1S, 3,7 V nominal, 4,2 V pleine charge ;
 - protection intégrée contre surcharge, décharge profonde et court-circuit ;
-- capacité cible : 400 à 500 mAh ;
+- cellule choisie par l'utilisateur : LiPo protégée `801350`, 500 mAh ;
 - courant de charge continu autorisé : au moins 400 mA ;
 - connecteur détrompé et polarité documentée ;
 - dimensions mécaniques et plage de température compatibles avec le boîtier.
 
-`J6` est provisoirement associé à une embase JST-PH horizontale `S2B-PH-K`,
-deux contacts au pas de 2,00 mm. Ce choix reproduit le type de connecteur blanc
-serti visible sur la photo, sans prouver que le boîtier réel est bien un PH.
-La vérification du pas et de la polarité reste obligatoire.
+`J6` est associé à l'embase JST-PH horizontale `S2B-PH-K-S(LF)(SN)`, deux
+contacts au pas de 2,00 mm. Le faisceau utilise un boîtier `PHR-2` et des
+contacts `SPH-002T-P0.5S`. La vérification de la polarité reste obligatoire.
 
-DFRobot annonce un courant de charge maximal de 400 mA. Cela correspond à
-1 C pour une cellule de 400 mAh et 0,8 C pour une cellule de 500 mAh : la
-capacité seule ne suffit donc pas, la fiche de la cellule est obligatoire.
-La cellule photographiée est marquée 320 mAh : à 400 mA, elle serait chargée à
-1,25 C. Elle n'est pas retenue définitivement sans fiche autorisant ce régime
-ou sans adaptation documentée du courant de charge.
+DFRobot annonce un courant de charge maximal de 400 mA. Pour la cellule 500 mAh
+choisie, cela correspond à 0,8 C. La capacité seule ne suffit pas : la fiche de
+la cellule doit autoriser ce régime, puis le courant réel doit être mesuré.
 
 ## Vérifications physiques obligatoires
 

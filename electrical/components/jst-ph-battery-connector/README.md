@@ -1,7 +1,7 @@
 # Connecteur batterie JST-PH 2 broches
 
-Statut : **choix CAO provisoire**, à confirmer sur la batterie physique avant
-fabrication.
+Statut : **famille et embase choisies par l'utilisateur**, polarité et câble à
+confirmer sur la batterie physique avant fabrication.
 
 ## Choix représenté dans KiCad
 
@@ -11,9 +11,24 @@ La feuille `MCU` utilise pour `J6` l'empreinte standard KiCad :
 Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal
 ```
 
-Il s'agit d'une embase JST série PH, deux contacts, pas de 2,00 mm, entrée
-latérale. L'entrée latérale est adaptée à une petite batterie LiPo dont les fils
-arrivent parallèlement au PCB. Aucun modèle personnalisé n'a été créé.
+Il s'agit de l'embase **`S2B-PH-K-S(LF)(SN)`**, série PH, deux contacts, pas de
+2,00 mm, entrée latérale. L'entrée latérale est adaptée à une petite batterie
+LiPo dont les fils arrivent parallèlement au PCB. Aucun modèle personnalisé n'a
+été créé.
+
+Le côté câble complet doit aussi apparaître dans la liste de courses :
+
+| Élément | Référence proposée | Quantité utile |
+|---|---|---:|
+| Embase PCB | `S2B-PH-K-S(LF)(SN)` | 1 + rechange |
+| Boîtier côté câble | `PHR-2` | 1 + rechange |
+| Contacts à sertir | `SPH-002T-P0.5S` | 2 + plusieurs rechanges |
+| Fils | compatibles AWG 30 à 24 et diamètre d'isolant de la fiche JST | 2 |
+
+Un faisceau préserti JST-PH 2,00 mm est acceptable pour un premier montage si sa
+référence, son calibre de fil et surtout sa polarité sont vérifiés. Les mots
+« mâle » et « femelle » sont ambigus dans de nombreuses annonces : commander par
+référence JST évite cette erreur.
 
 | Élément | Valeur lue dans la bibliothèque KiCad |
 |---|---|
@@ -46,15 +61,15 @@ vue d'accouplement du connecteur réel à la fiche JST.
 1. Mesurer le pas centre à centre du connecteur de la batterie : 2,00 mm.
 2. Vérifier que le boîtier est bien de famille JST-PH et non un connecteur
    visuellement proche au pas de 1,25 mm.
-3. Confirmer l'orientation de l'embase : horizontale `S2B-PH-K` ou verticale
-   `B2B-PH-K` selon le boîtier final.
+3. Confirmer que l'entrée latérale de la `S2B-PH-K-S(LF)(SN)` reste accessible
+   dans le boîtier final.
 4. Vérifier la polarité réelle du câble avant le premier branchement.
 5. Confirmer la référence exacte de la cellule, sa protection intégrée et son
    courant de charge admissible.
 
-La cellule visible sur la photo utilisateur est marquée `YK 402535`, `3.7 V`,
-`320 mAh`, `1.2 Wh`. Cette identification reste une lecture de photo, pas une
-fiche fabricant. À 400 mA, le taux de charge serait de 1,25 C ; cette batterie
-ne doit donc pas être acceptée tant que sa documentation n'autorise pas
-explicitement ce courant ou que le courant réel du chargeur n'a pas été mesuré
-et rendu compatible.
+La batterie désormais retenue par l'utilisateur est une LiPo protégée `801350`,
+`3,7 V`, `500 mAh`. À 400 mA, le taux de charge serait de 0,8 C. La protection
+intégrée contre surcharge et décharge profonde ne remplace pas la vérification
+du courant de charge normal admissible dans la fiche de la cellule. Vérifier
+aussi la polarité du connecteur : elle n'est pas normalisée entre tous les
+faisceaux vendus sous le nom JST-PH.

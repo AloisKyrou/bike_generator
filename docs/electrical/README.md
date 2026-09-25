@@ -24,7 +24,7 @@ Décisions retenues :
 - CAO : KiCad ;
 - microcontrôleur : carte DFRobot Beetle ESP32-C3 DFR0868 montée sur connecteurs ;
 - mesure : INA228, interface I2C, alimentation logique 3,3 V ;
-- shunt préliminaire : 2 mΩ, quatre bornes, 1 W minimum et 2 W préféré ;
+- shunt candidat : Bourns `CSS4J-4026K-2L00F`, 2 mΩ, quatre bornes, 6 W ;
 - emplacement : conducteur positif, après le redresseur et avant le buck ;
 - grandeur mesurée : puissance électrique envoyée par la génératrice au buck ;
 - enveloppe de puissance : 400 W, avec 20 A continus et 25 A transitoires comme
@@ -36,8 +36,8 @@ Décisions retenues :
   avant le buck principal ;
 - convertisseur auxiliaire : LM5164 retenu comme candidat 100 V / 1 A pour une
   sortie 5 V, valeurs périphériques encore à calculer ;
-- batterie contrôleur : Li-ion/LiPo 1S protégée, 400 à 500 mAh, raccordée à la
-  broche `BAT` du Beetle ;
+- batterie contrôleur : LiPo 1S protégée `801350`, 500 mAh, raccordée à la
+  broche `BAT` du Beetle par JST-PH ;
 - sélection de source : interrupteur batterie et cavalier `JP_GEN_5V` pour
   isoler l'alimentation générateur pendant l'usage USB ;
 - commande CC : DFR0520 conservé comme module pour la V1, après caractérisation ;
@@ -68,6 +68,7 @@ puissance livrée à la batterie après conversion.
 | [État actuel et questions ouvertes](as-built-and-open-questions.md) | Lecture des photos, références probables, incohérences et risques |
 | [Spécification du PCB V1](pcb-v1-ina228.md) | Architecture cible, INA228, shunt, connecteurs et coût indicatif |
 | [Campagne de mesures](measurement-campaign.md) | Relevés nécessaires avant de figer le schéma |
+| [Dimensionnement du chemin de puissance](power-path-dimensioning.md) | Interprétation des mesures, commande CC, composants candidats, batterie et intégration mécanique |
 | [Méthodologies de conception](design-methodologies.md) | Manières possibles de démarrer et méthode hybride recommandée |
 
 ## Statuts employés

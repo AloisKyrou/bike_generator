@@ -9,10 +9,13 @@ en choix de fabrication.
 - Le buck CV/CC 400 W reste un module externe en V1.
 - Le trajet de puissance de la carte est dimensionné provisoirement pour 400 W,
   20 A continus et 25 A transitoires.
+- Les observations actuelles sont environ 36 V en charge et plus de 40 V lors
+  de démarrages rapides. Elles ne remplacent pas la mesure de tension à vide,
+  génératrice entraînée mais sortie déconnectée.
 - La dérivation auxiliaire part de `BUS_PROTECTED`, après le fusible principal
   et le shunt, mais possède son propre fusible `F_AUX`.
-- Le 5 V auxiliaire alimente `VIN_5V` du Beetle. Une LiPo 1S protégée de 400 à
-  500 mAh est raccordée à `BAT` par un interrupteur mécanique.
+- Le 5 V auxiliaire alimente `VIN_5V` du Beetle. La LiPo 1S protégée
+  `801350`, 500 mAh, est raccordée à `BAT` par un interrupteur mécanique.
 - `JP_GEN_5V` permet d'isoler physiquement le 5 V générateur pendant les essais
   USB. Il ne court-circuite aucune source.
 - Aucun symbole, footprint ou modèle 3D personnalisé n'est créé sans recherche
@@ -60,8 +63,11 @@ vias thermiques compatible avec les règles du fabricant et DRC sans erreur.
 - [x] raccorder `SHUNT_HI_K`, `SHUNT_LO_K` et `BUS_PROTECTED` aux entrées
   `SHUNT_HI_K`, `SHUNT_LO_K` et `VBUS_SENSE` de la feuille INA228 ;
 - [x] créer le départ auxiliaire protégé par `F_AUX` ;
-- [ ] choisir les références physiques et footprints du shunt, des fusibles et
-  des connecteurs ;
+- [x] documenter une première présélection : Bourns
+  `CSS4J-4026K-2L00F`, Littelfuse `LJCA020.X`, `0449001.MR`, `SMCJ48A` et
+  Anderson PP15/45 ;
+- [ ] faire accepter ces candidats après les mesures, puis choisir leurs
+  footprints ou leur montage dans le faisceau ;
 - [ ] dimensionner la protection contre inversion et transitoires après les
   mesures de la génératrice.
 
@@ -88,7 +94,9 @@ reste indispensable avant tout PCB commandable.
 - [ ] rejouer ce calcul dans le calculateur officiel TI/WEBENCH ;
 - [ ] sélectionner les références commandables et vérifier leurs courbes de
   déclassement, saturation et pertes ;
-- [ ] choisir `F_AUX`, TVS et filtrage après les mesures du générateur ;
+- [x] proposer `0449001.MR` pour `F_AUX` et `SMCJ48A` pour la TVS ;
+- [ ] valider ces deux candidats après mesure du courant d'appel et de la
+  tension à vide ;
 - [x] raccorder `AUX_5V` au bloc d'alimentation du contrôleur ;
 - [x] placer l'interverrouillage manuel `JP_GEN_5V` ;
 - [ ] raccorder `AUX_PGOOD` à une fonction matérielle justifiée ;
@@ -107,15 +115,16 @@ sur toute l'enveloppe 10–60 V.
 - [x] relever sur le schéma officiel V2.0 les relations entre USB-C, `VIN_5V`,
   TP4057, `BAT` et 3,3 V ;
 - [x] documenter que `VIN_5V` et le VBUS USB-C partagent le net `VUSB` ;
-- [x] ajouter au schéma le connecteur LiPo 1S protégée 400–500 mAh et son
+- [x] ajouter au schéma le connecteur de la LiPo 1S protégée 801350 / 500 mAh et son
   interrupteur ;
-- [x] affecter provisoirement à `J6` l'embase KiCad standard JST-PH
-  `S2B-PH-K`, deux contacts au pas de 2,00 mm, et à `JP3` un header 1 × 2 au
-  pas de 2,54 mm ;
+- [x] affecter à `J6` l'embase KiCad standard correspondant à la
+  `S2B-PH-K-S(LF)(SN)`, deux contacts au pas de 2,00 mm, et à `JP3` un header
+  1 × 2 au pas de 2,54 mm ;
+- [x] documenter le côté câble `PHR-2` et les contacts
+  `SPH-002T-P0.5S` dans la nomenclature ;
 - [x] documenter la matrice générateur/USB/batterie et l'état interdit
   `JP3 fermé + USB branché` ;
-- confirmer physiquement le pas, l'orientation et la polarité du connecteur
-  batterie ;
+- confirmer physiquement l'accessibilité et la polarité du connecteur batterie ;
 - vérifier le courant de charge admissible de la batterie ;
 - garantir l'absence de retour vers le PC dans tous les états de `JP_GEN_5V`.
 
@@ -175,14 +184,17 @@ destinée à la fabrication.
 
 ## Blocages connus avant un PCB commandable
 
-- pics réels de tension du générateur non mesurés ;
+- tension en charge observée à 36 V et pics supérieurs à 40 V, mais tension à
+  vide et pics réels non encore mesurés avec un instrument adapté ;
 - références exactes du shunt, des fusibles, de la TVS et des connecteurs non
   figées ;
 - diamètre 0,20 mm des vias thermiques du footprint LM5164 à accepter auprès du
   fabricant ou à redimensionner dans une variante projet autorisée ;
 - alimentation interne du Beetle et retour USB non validés sur la révision
   physique ;
-- connecteur JST-PH et cellule 320 mAh visibles sur la photo non validés par
-  mesure et fiche fabricant ;
+- polarité JST-PH et fiche de la cellule protégée 801350 / 500 mAh non encore
+  validées ;
 - interface du potentiomètre CC encore à caractériser ;
-- dimensions mécaniques du Beetle et du buck externe non figées.
+- révision physique du Beetle non confirmée ; dimensions nominales du buck
+  externe enregistrées à 60 × 60 × 45 mm, mais fixation et source image non
+  archivées.

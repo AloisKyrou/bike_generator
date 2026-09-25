@@ -49,7 +49,7 @@ Choix de départ :
 - quatre bornes Kelvin ;
 - tolérance 1 % ou meilleure ;
 - faible coefficient de température ;
-- 1 W minimum, 2 W préféré ;
+- candidat 6 W retenu pour conserver une marge thermique importante ;
 - boîtier et surfaces cuivre compatibles avec le courant et la dissipation.
 
 | Courant | Chute sur 2 mΩ | Dissipation | Lecture en plage ±40,96 mV |
@@ -59,8 +59,14 @@ Choix de départ :
 | 15 A | 30 mV | 0,45 W | 73 % de l'échelle |
 | 20 A | 40 mV | 0,80 W | 98 % de l'échelle |
 
-Ce choix couvre donc jusqu'à environ 20 A dans la plage la plus sensible. Il ne
-fixe pas pour autant le calibre du fusible ni le courant admissible du PCB.
+Ce choix couvre donc jusqu'à environ 20 A dans la plage la plus sensible. Pour
+la cible transitoire de 25 A, la chute atteint 50 mV : il faudra basculer l'INA228
+sur la plage ±163,84 mV. Il ne fixe pas pour autant le calibre du fusible ni le
+courant admissible du PCB.
+
+Le candidat proposé est le Bourns `CSS4J-4026K-2L00F`, 2 mΩ, quatre bornes,
+6 W à 70 °C. Il reste à accepter après vérification de sa disponibilité et de
+son land pattern.
 
 La cible système est fixée à **400 W**. Le courant ne découle toutefois pas de
 la puissance seule : 400 W correspondent à 20 A sous 20 V et 16,7 A sous 24 V.
@@ -85,7 +91,7 @@ Décisions V1 :
 - circuit candidat : LM5164, capable de 6 à 100 V et 1 A ;
 - sortie : 5 V ;
 - charge continue à garantir : au moins 600 mA ;
-- batterie : Li-ion/LiPo 1S protégée, 400 à 500 mAh ;
+- batterie : LiPo 1S protégée `801350`, 500 mAh ;
 - recharge : TP4057 déjà présent sur le Beetle, 400 mA maximum annoncé ;
 - démarrage automatique possible sur l'énergie du générateur même lorsque la
   batterie contrôleur est déconnectée ;
@@ -128,7 +134,7 @@ matériel indépendant du firmware.
 - empreinte ou connecteurs pour le module DFR0520 ;
 - connecteur documenté vers la commande CC du buck ;
 - alimentation auxiliaire 10–60 V vers 5 V autour du LM5164 ;
-- batterie contrôleur 1S protégée de 400 à 500 mAh ;
+- batterie contrôleur LiPo 1S protégée `801350`, 500 mAh ;
 - interrupteur de déconnexion de la batterie ;
 - cavalier d'isolation `JP_GEN_5V` ;
 - prévention du retour de courant lorsque l'USB-C et l'alimentation externe sont
@@ -200,10 +206,14 @@ révision ultérieure.
 
 ## Vérifications avant fabrication
 
-- [ ] tension maximale à vide et en charge mesurée avant le buck ;
+- [x] tension en charge observée à environ 36 V ;
+- [x] pics supérieurs à 40 V observés au démarrage rapide ;
+- [ ] tension maximale à vide, génératrice entraînée mais sortie déconnectée,
+      et maximum transitoire mesurés avant le buck ;
 - [x] cible système fixée à 400 W ;
 - [x] base préliminaire fixée à 20 A continus et 25 A transitoires ;
-- [ ] fusible et section des conducteurs justifiés ;
+- [ ] accepter ou rejeter les candidats `LJCA020.X`, `0449001.MR`, `SMCJ48A`,
+      PP15/45, câble 12 AWG minimum et cuivre 2 oz après mesures ;
 - [ ] continuité ou isolation des masses confirmée ;
 - [ ] shunt exact sélectionné avec empreinte issue de sa fiche technique ;
 - [ ] calcul thermique du shunt, des pistes et des connecteurs effectué ;
@@ -211,7 +221,8 @@ révision ultérieure.
 - [x] architecture d'alimentation décidée : branche avant buck principal,
       LM5164 candidat, 5 V puis 3,3 V via le Beetle ;
 - [ ] calcul et références exactes du convertisseur auxiliaire validés ;
-- [ ] batterie 400–500 mAh exacte choisie avec charge 400 mA autorisée ;
+- [x] batterie LiPo protégée 801350 / 500 mAh choisie par l'utilisateur ;
+- [ ] fiche de la batterie et charge à 400 mA autorisées ;
 - [ ] absence de retour de courant entre générateur, USB et batterie vérifiée ;
 - [ ] état de sécurité au démarrage et en panne défini ;
 - [ ] schéma revu puis ERC sans erreur non justifiée ;
@@ -224,3 +235,4 @@ révision ultérieure.
 - [INA228AIDGSR chez Mouser](https://www.mouser.fr/en/ProductDetail/Texas-Instruments/INA228AIDGSR)
 - [LM5164 chez Texas Instruments](https://www.ti.com/product/LM5164)
 - [Fiche technique LM5164](https://www.ti.com/lit/ds/symlink/lm5164.pdf)
+- [Dimensionnement et présélection du chemin de puissance](./power-path-dimensioning.md)

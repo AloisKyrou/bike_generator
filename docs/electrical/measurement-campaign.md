@@ -53,7 +53,7 @@ avant toute connexion à la génératrice ou à un ordinateur :
 - [ ] absence de retour de courant avec `JP_GEN_5V` ouvert ;
 - [ ] comportement avec `JP_GEN_5V` fermé et USB volontairement absent ;
 - [ ] bascule générateur vers batterie lorsque l'entrée auxiliaire disparaît ;
-- [ ] courant de charge réel et température de la batterie 400–500 mAh ;
+- [ ] courant de charge réel et température de la batterie 801350 / 500 mAh ;
 - [ ] démarrage automatique en pédalant avec batterie déconnectée ;
 - [ ] état de la commande CC avant, pendant et après l'initialisation du MCU.
 
@@ -76,7 +76,13 @@ potentiomètre numérique, l'état de la BLUETTI et la configuration des lampes.
 
 Mesurer également :
 
-- [ ] tension redressée maximale sans charge, en restant sous une vitesse sûre ;
+- [x] tension en charge observée : environ 36 V ;
+- [x] pics observés au démarrage rapide : plus de 40 V, valeur exacte à relever ;
+- [ ] tension redressée maximale **à vide**, c'est-à-dire génératrice entraînée
+      mais sortie électrique déconnectée, à plusieurs cadences sûres ;
+- [ ] maximum transitoire relevé avec oscilloscope ou fonction peak-hold adaptée ;
+- [ ] courant d'entrée à 200, 300 et 400 W pour décider si la cible 20 A
+      continue est nécessaire ou seulement conservatrice ;
 - [ ] tension et courant juste avant le point où la résistance semble disparaître ;
 - [ ] mêmes valeurs juste après ce point ;
 - [ ] comportement avec BLUETTI puis avec charge de dissipation connue ;
@@ -96,3 +102,7 @@ La campagne doit permettre de figer :
 7. le brochage de `J_CC_CTRL` ;
 8. la valeur de repli sûre de la résistance ;
 9. les limites logicielles de tension, courant, puissance et température.
+
+Les résultats, les propositions de composants et les calculs 400 W sont
+consolidés dans
+[`power-path-dimensioning.md`](./power-path-dimensioning.md).

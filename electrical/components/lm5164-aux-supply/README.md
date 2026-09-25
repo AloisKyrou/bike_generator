@@ -29,7 +29,7 @@ l'INA228.
 | Sortie | 5 V | décidée |
 | Charge continue à garantir | au moins 600 mA | préliminaire |
 | Capacité du convertisseur | 1 A maximum | candidat LM5164 |
-| Batterie contrôleur | Li-ion/LiPo 1S protégée, 400 à 500 mAh | décidée |
+| Batterie contrôleur | LiPo 1S protégée `801350`, 500 mAh | choisie par l'utilisateur ; fiche à vérifier |
 | Chargeur | TP4057 présent sur le Beetle, 400 mA maximum annoncé | documenté DFRobot |
 
 Le budget de 600 mA couvre environ 400 mA de recharge et la logique. Le circuit
@@ -176,5 +176,5 @@ Sources officielles :
 - inductance, condensateurs, TVS et protection de branche exacts ;
 - calibre et pouvoir de coupure DC de `F_AUX` ;
 - fonctionnement simultané générateur, USB et batterie ;
-- référence de batterie 400–500 mAh et courant de charge admissible ;
+- fiche de la batterie 801350 / 500 mAh et courant de charge admissible ;
 - état CC passif lorsque le contrôleur n'est pas encore initialisé.

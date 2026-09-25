@@ -49,13 +49,15 @@ La feuille KiCad `MCU` raccorde maintenant :
 
 - `AUX_5V` à `VIN_5V` par le cavalier amovible `JP3`, représenté
   provisoirement par un header traversant 1 × 2 au pas de 2,54 mm ;
-- une batterie Li-ion/LiPo 1S protégée de 400 à 500 mAh à `BAT` par `S1` ;
+- la batterie LiPo 1S protégée `801350`, 500 mAh, à `BAT` par `S1` ;
 - la sortie 3,3 V du Beetle à l'INA228, au DFR0520 et aux interfaces logiques.
 
-Le connecteur batterie `J6` utilise provisoirement l'empreinte KiCad standard
+Le connecteur batterie `J6` utilise l'empreinte KiCad standard
 `Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal`. Le pad 1 est relié à
-`BAT_RAW` et le pad 2 à `GND`. Le pas, l'orientation et surtout la polarité du
-connecteur réel restent à vérifier. Voir
+`BAT_RAW` et le pad 2 à `GND`. L'embase choisie est la
+`S2B-PH-K-S(LF)(SN)` ; le côté câble est un boîtier `PHR-2` avec deux contacts
+`SPH-002T-P0.5S`. L'accessibilité et surtout la polarité du connecteur réel
+restent à vérifier. Voir
 [`../jst-ph-battery-connector/README.md`](../jst-ph-battery-connector/README.md).
 
 Le schéma officiel V2.0 montre que la broche externe `VIN_5V` est le même net
@@ -70,8 +72,7 @@ pas le retour vers le connecteur USB, puisque le 5 V générateur continuerait �
 élever le rail `VUSB` partagé. La V1 utilise donc un interverrouillage manuel
 explicite, à valider physiquement avant tout essai simultané.
 
-DFRobot annonce une charge maximale de 400 mA. La batterie choisie devra
-autoriser explicitement ce courant : 400 mA représente 1 C pour 400 mAh et
-0,8 C pour 500 mAh. Pour la cellule 320 mAh visible sur la photo, cela
-représenterait 1,25 C : elle reste donc une candidate non validée tant que sa
-fiche ou une mesure du courant réel ne permet pas de conclure.
+DFRobot annonce une charge maximale de 400 mA. Pour la cellule 500 mAh choisie,
+cela représente 0,8 C. Cette valeur est plausible, mais la fiche exacte de la
+cellule `801350` doit encore autoriser explicitement ce courant, puis le courant
+réel du chargeur doit être mesuré.

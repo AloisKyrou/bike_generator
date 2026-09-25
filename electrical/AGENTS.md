@@ -169,8 +169,8 @@ sortie, un véritable profil de charge ou un algorithme MPPT. Elle ne doit pas
   définitive, pour convertir une entrée fonctionnelle de 10 à 60 V en 5 V ;
 - viser au moins 600 mA continus et utiliser la capacité 1 A du candidat pour
   la marge de recharge et les transitoires de charge ;
-- utiliser une batterie Li-ion/LiPo 1S protégée de 400 à 500 mAh, dont la fiche
-  autorise explicitement le courant de charge réel du TP4057 ;
+- utiliser la batterie LiPo 1S protégée `801350`, 500 mAh, dont la fiche doit
+  encore autoriser explicitement le courant de charge réel du TP4057 ;
 - prévoir un interrupteur mécanique de batterie et `JP_GEN_5V` pour isoler la
   branche générateur lors de l'usage USB ;
 - protéger localement la dérivation auxiliaire : le fusible principal 20 A ne

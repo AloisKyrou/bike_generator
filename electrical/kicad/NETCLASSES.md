@@ -47,5 +47,6 @@ La clearance de 0,20 mm est volontairement compatible avec les land patterns val
 ## Validation
 
 - Les neuf classes ont été relues dans le projet ; aucune affectation n'est orpheline.
-- Après routage des chemins principaux et du filtre Kelvin INA228 : 114 erreurs, dont 100 connexions non routées et 14 erreurs connues sur les jumpers `JP1`/`JP2`. Aucune collision nouvelle n'a été introduite par ces pistes.
+- Après routage du chemin principal, du filtre Kelvin INA228 et du bloc auxiliaire LM5164 : 86 erreurs, dont 72 connexions non routées et 14 erreurs connues sur les jumpers `JP1`/`JP2`. Aucune collision nouvelle n'a été introduite par ces pistes.
+- Le LM5164 a désormais ses boucles `BST`/`SW`, son réseau d'injection `RIPPLE`, sa boucle `FB`, `UVLO`, `RON_SET`, `PGOOD`, les condensateurs d'entrée/sortie et le point de test 5 V routés. Les signaux sensibles qui changent de couche utilisent des vias 0,60 / 0,30 mm ; le condensateur traversant `C6` a été rapproché de l'entrée.
 - La palette de largeurs prédéfinies de l'éditeur reste à ajouter lorsque le PCB sera fermé, car KiCad écraserait une modification externe effectuée pendant que le PCB est ouvert.

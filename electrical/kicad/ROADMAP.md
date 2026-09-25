@@ -217,11 +217,12 @@ valide la géométrie générale, pas les boucles de courant, le routage Kelvin 
 la thermique. Le fusible `F1` est placé horizontalement sous les borniers et
 `J5` a été rapproché du nouveau bord inférieur.
 
-État du 26 septembre 2026 : huit netclasses sont définies et relues sans
-affectation orpheline. Le DRC retrouve l'état préalable du PCB non routé :
-112 connexions manquantes et 14 erreurs connues appartenant aux empreintes
-`JP1`/`JP2`. Le routage doit maintenant commencer par le chemin positif 20 A,
-son retour de masse, puis les prises Kelvin du shunt.
+État du 26 septembre 2026 : neuf netclasses sont définies et relues sans
+affectation orpheline. Le chemin positif 20 A, son retour de masse, les prises
+Kelvin du shunt et le bloc auxiliaire LM5164 sont routés. Le DRC indique
+72 connexions manquantes et conserve uniquement les 14 erreurs connues hors
+routage appartenant aux empreintes `JP1`/`JP2`. La suite porte sur les masses
+locales/plans, puis les liaisons logique, commande CC et interfaces.
 
 ### 8. Prototyper et qualifier
 

@@ -262,3 +262,70 @@ Le footprint n'est toutefois **pas encore validé pour fabrication**. Avant son
 placement définitif, il faut soit confirmer qu'un fabricant accepté prend en
 charge les trous finis de 0,20 mm, soit autoriser la création d'une variante de
 projet avec des vias compatibles avec ses règles, puis refaire le DRC.
+
+## Clarification : « 0,20 mm contre 0,30 mm »
+
+Il ne s'agit pas de choisir entre des **pads** de 0,20 et 0,30 mm. Trois objets
+différents interviennent :
+
+1. le grand pad exposé `EP`/9 sous le LM5164, qui évacue la chaleur et relie le
+   boîtier à GND ;
+2. les petits pads annulaires des vias thermiques, c'est-à-dire le cuivre autour
+   de chaque trou ;
+3. le perçage métallisé de ces vias.
+
+Deux valeurs de 0,30 mm sont apparues dans l'analyse, sans désigner la même
+chose :
+
+- l'ancien footprint par défaut avait un grand pad thermique inférieur de
+  **0,30 mm dans chaque axe** au land pattern TI actuel. Ce problème est réglé :
+  ce footprint a été rejeté ;
+- le footprint standard finalement retenu possède huit **perçages de via de
+  0,20 mm**, tandis que la règle DRC actuelle impose un perçage minimal de
+  **0,30 mm**. Ce second point reste ouvert et produit huit erreurs DRC.
+
+### Pourquoi conserver 0,20 mm
+
+- c'est le diamètre optionnel indiqué par le dessin TI ;
+- huit petits vias tiennent facilement sous le pad exposé ;
+- les trous plus petits limitent la quantité de pâte aspirée pendant la refusion ;
+- on conserve sans modification le footprint standard KiCad déjà relu.
+
+Cette solution exige cependant un fabricant garantissant les trous métallisés
+finis de 0,20 mm, éventuellement avec un supplément de prix ou des contraintes
+de rapport d'aspect.
+
+### Pourquoi passer à 0,30 mm
+
+- compatibilité plus large avec les procédés PCB standards ;
+- fabrication et contrôle plus simples pour une première carte ;
+- disparition de l'exception DRC si 0,30 mm reste le minimum général du projet.
+
+En contrepartie, il ne suffit pas d'agrandir le trou. Le diamètre du pad de via
+doit aussi respecter l'anneau minimal du fabricant :
+
+```text
+diamètre_pad_via >= diamètre_perçage + 2 × anneau_minimal
+```
+
+Par exemple, avec un trou de 0,30 mm et un anneau exigé de 0,15 mm, le pad doit
+faire au moins 0,60 mm. Il faut ensuite vérifier que huit pads de ce diamètre
+tiennent sous le pad thermique avec les espacements requis. Sinon, une matrice
+de six vias de 0,30 mm peut être préférable. Les trous plus grands augmentent
+aussi le risque d'aspiration de soudure ; le procédé de bouchage, remplissage ou
+tente des vias doit être défini avec l'assembleur.
+
+### Recommandation pour cette V1
+
+Ne pas abaisser globalement la règle DRC à 0,20 mm uniquement pour faire
+disparaître les erreurs. Choisir d'abord le fabricant et le procédé
+d'assemblage :
+
+- s'il garantit 0,20 mm sans contrainte gênante, conserver le footprint KiCad
+  standard et créer une règle locale documentée pour les seuls vias du pad 9 ;
+- sinon, créer après accord une variante de footprint projet à vias de 0,30 mm,
+  avec diamètre de pad et nombre de vias calculés depuis les règles du
+  fabricant, puis refaire DRC et revue thermique.
+
+Pour une première carte et tant que le fabricant n'est pas choisi, l'option
+0,30 mm est la direction la plus robuste, mais elle n'est pas encore appliquée.

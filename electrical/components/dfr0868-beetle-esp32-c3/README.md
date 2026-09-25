@@ -17,6 +17,29 @@ figer son empreinte PCB.
 Sources officielles : [wiki DFRobot DFR0868](https://wiki.dfrobot.com/dfr0868/)
 et [schéma V2.0](https://dfimg.dfrobot.com/nobody/wiki/d0e8b7f0f042c14f6959c3edc748053b.pdf).
 
+## Radio et antenne
+
+Le DFR0868 V2.0 documenté utilise un module `ESP32-C3-MINI-1`. Cette variante
+possède une antenne PCB 2,4 GHz intégrée au module. Elle sert à la fois au Wi-Fi
+802.11 b/g/n et au Bluetooth Low Energy ; l'ESP32-C3 gère leur coexistence sur
+la même antenne. La variante `ESP32-C3-MINI-1U` serait au contraire destinée à
+une antenne externe par connecteur RF, mais ce n'est pas la variante identifiée
+sur le Beetle.
+
+Conséquences pour le futur PCB porteur et le boîtier :
+
+- placer de préférence l'extrémité antenne du Beetle au bord du PCB, voire en
+  débord ;
+- ne mettre ni cuivre, ni piste, ni composant sous ou devant la zone antenne ;
+- éloigner le nœud de commutation `SW` du LM5164, l'inductance, les câbles de
+  puissance, le dissipateur du buck et la batterie ;
+- conserver si possible 15 mm de dégagement autour de l'antenne dans le
+  boîtier, sans métal ;
+- vérifier portée BLE et débit Wi-Fi dans le boîtier final.
+
+Guide officiel : [placement des modules ESP32-C3 sur une carte
+porteuse](https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32c3/pcb-layout-design.html).
+
 ## Brochage du symbole projet
 
 Vue de dessus du module, USB-C en haut :

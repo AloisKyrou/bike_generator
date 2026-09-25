@@ -23,6 +23,7 @@ desktop.ini
 
 # KiCad local state and generated fabrication outputs
 *-backups/
+**/.history/
 _autosave-*
 *.lck
 ~*.lck
@@ -31,6 +32,9 @@ electrical/kicad/exports/*
 !electrical/kicad/exports/README.md
 electrical/kicad/download/*
 !electrical/kicad/download/README.md
+
+# Generated web bundle
+dist/
 
 # Keep the images folder in git even when empty
 !docs/images/.gitkeep

@@ -21,10 +21,13 @@ en choix de fabrication.
 - Aucun symbole, footprint ou modèle 3D personnalisé n'est créé sans recherche
   préalable et accord explicite.
 - Aucun circuit de sécurité ne repose uniquement sur le firmware.
+- Le firmware reste hors périmètre jusqu'à l'existence de la première carte
+  physique ; les travaux courants portent uniquement sur le matériel et sa
+  validation électrique.
 
 ## Ordre de réalisation
 
-### 1. Valider le LM5164 et ses modèles KiCad — CAO validée, DFM à décider
+### 1. Valider le LM5164 et ses modèles KiCad — CAO et variante V1 validées
 
 Objectif : disposer d'une correspondance prouvée entre le composant physique,
 le symbole et le footprint avant de placer le régulateur.
@@ -45,12 +48,15 @@ le symbole et le footprint avant de placer le régulateur.
 - [x] placer, relire et rendre le symbole dans un projet jetable ;
 - [x] placer, relire et rendre le footprint dans le PCB jetable ; contrôler le
   repère 1, les pads, le masque, la pâte et les huit vias thermiques ;
-- [ ] confirmer qu'un fabricant accepté autorise les perçages de 0,20 mm, ou
-  autoriser une variante de footprint projet à vias redimensionnés, puis refaire
-  le DRC.
+- [x] créer après accord la variante projet à six vias Ø0,60/0,30 mm, conserver
+  le pad exposé, le masque et la pâte validés, puis refaire le DRC ;
+- [x] affecter la variante locale à U4 :
+  `BikeGenerator:SOIC-8-1EP_DDA_EP2.95x4.9mm_6Vias_D0.30mm`.
 
-Critère de sortie CAO : atteint. Critère de sortie fabrication : diamètre des
-vias thermiques compatible avec les règles du fabricant et DRC sans erreur.
+Critère de sortie CAO V1 : atteint. Le PCB jetable donne zéro erreur et zéro
+violation de règle ; son seul avertissement est l'empreinte volontairement sans
+schéma. Avant fabrication, confirmer l'anneau de 0,15 mm et le traitement des
+vias sous pad avec le fabricant.
 
 ### 2. Construire le trajet de puissance dans `POWER_PATH` — squelette validé
 
@@ -64,10 +70,15 @@ vias thermiques compatible avec les règles du fabricant et DRC sans erreur.
   `SHUNT_HI_K`, `SHUNT_LO_K` et `VBUS_SENSE` de la feuille INA228 ;
 - [x] créer le départ auxiliaire protégé par `F_AUX` ;
 - [x] documenter une première présélection : Bourns
-  `CSS4J-4026K-2L00F`, Littelfuse `LJCA020.X`, `0449001.MR`, `SMCJ48A` et
-  Anderson PP15/45 ;
-- [ ] faire accepter ces candidats après les mesures, puis choisir leurs
-  footprints ou leur montage dans le faisceau ;
+  `CSS4J-4026K-2L00F`, `0449001.MR` et Anderson PP15/45 ; le fusible principal
+  est désormais spécifié ≤ 20 A / ≥ 125 V DC et reste source-spécifique ;
+- [x] retenir `CSS4J-4026K-2L00F` et lui affecter l'empreinte KiCad native
+  `Resistor_SMD:R_Shunt_Isabellenhuette_BVR4026`, dont le land pattern est
+  identique au dessin Bourns ;
+- [x] retenir pour `J4` et `J5` le bornier Phoenix Contact `1711725`, 24 A /
+  400 V, avec son empreinte KiCad native MKDS-3 au pas de 5,08 mm ;
+- [x] retenir l'Eaton Bussmann `ABC-V-20-R`, créer son empreinte axiale locale
+  au pas choisi de 38,10 mm et l'affecter à `F1` ;
 - [ ] dimensionner la protection contre inversion et transitoires après les
   mesures de la génératrice.
 
@@ -78,11 +89,11 @@ de `AUX_SUPPLY`, `AUX_IN_PROTECTED` alimente bien le LM5164.
 Critère de sortie du squelette : atteint. La sélection physique des composants
 reste indispensable avant tout PCB commandable.
 
-### 3. Concevoir le buck auxiliaire 10–60 V vers 5 V
+### 3. Concevoir le buck auxiliaire sur bus protégé jusqu'à 80 V vers 5 V
 
 - [x] créer la feuille hiérarchique `AUX_SUPPLY` et la relier à
   `AUX_IN_PROTECTED` ;
-- [x] placer le LM5164 validé avec le footprint standard DDA0008B retenu ;
+- [x] placer le LM5164 validé avec la variante locale V1 dérivée de DDA0008B ;
 - [x] effectuer un premier calcul sourcé de `RON`, `EN/UVLO`, retour 5 V,
   inductance, réseau d'ondulation et condensateurs pour 600 mA continus avec
   marge jusqu'à 1 A ;
@@ -92,11 +103,23 @@ reste indispensable avant tout PCB commandable.
 - [x] relire les neuf nets de U4 et vérifier zéro orphelin, zéro court-circuit
   de nets et zéro chevauchement de symboles ;
 - [ ] rejouer ce calcul dans le calculateur officiel TI/WEBENCH ;
-- [ ] sélectionner les références commandables et vérifier leurs courbes de
-  déclassement, saturation et pertes ;
-- [x] proposer `0449001.MR` pour `F_AUX` et `SMCJ48A` pour la TVS ;
-- [ ] valider ces deux candidats après mesure du courant d'appel et de la
-  tension à vide ;
+- [x] sélectionner les références commandables des résistances, MLCC et de L1,
+  avec des empreintes KiCad standard favorisant la soudure manuelle ;
+- [x] choisir `C6` : Panasonic `EEU-FC2A100`, avec empreinte KiCad native ;
+- [x] vérifier les courbes fabricant des MLCC : remplacer les deux 2,2 µF /
+  100 V d'entrée insuffisants à 80 V par trois 10 µF / 100 V X7S ; conserver
+  les deux 22 µF / 16 V de sortie ;
+- [x] reporter cette correction dans `AUX_SUPPLY` : mettre `C4` et `C5` à
+  `CL32Y106KCVZ4NE` / 10 µF et ajouter `C13` identique en parallèle, sans
+  renuméroter les références existantes ;
+- [ ] vérifier les pertes de L1 avec le profil de charge définitif et confirmer
+  thermiquement les MLCC d'entrée sur prototype ;
+- [x] retenir électriquement `0449001.MR` pour `F_AUX`, créer son land pattern
+  Littelfuse exact et l'affecter à `F2` ; retirer `SMCJ48A` comme choix
+  générique, incompatible avec 80 V continus ;
+- [ ] choisir une TVS source-spécifique après mesure des transitoires ; aucun
+  composant parallèle standard ne garantit à la fois veille à 80 V et clamp
+  sous 85 V ;
 - [x] raccorder `AUX_5V` au bloc d'alimentation du contrôleur ;
 - [x] placer l'interverrouillage manuel `JP_GEN_5V` ;
 - [ ] raccorder `AUX_PGOOD` à une fonction matérielle justifiée ;
@@ -107,11 +130,13 @@ feuille racine : `AUX_PGOOD` n'est pas encore consommé. Elle disparaîtra par u
 raccordement réel au verrouillage matériel, pas par une exclusion ERC.
 
 Critère de sortie : calculs sourcés, composants commandables et démarrage sûr
-sur toute l'enveloppe 10–60 V.
+sur toute l'enveloppe vérifiée 10–80 V, avec un plafond absolu d'usage à 80 V.
 
 ### 4. Finaliser les sources du Beetle et de la batterie
 
-- confirmer la révision physique exacte du DFR0868 ;
+- [x] retenir la révision DFR0868 V2.0 à partir des photos et du CAD officiel ;
+- [x] créer et affecter à `U2` l'empreinte porte-module socketée, 20,50 ×
+  25,00 mm, rangées espacées de 17,78 mm ;
 - [x] relever sur le schéma officiel V2.0 les relations entre USB-C, `VIN_5V`,
   TP4057, `BAT` et 3,3 V ;
 - [x] documenter que `VIN_5V` et le VBUS USB-C partagent le net `VUSB` ;
@@ -134,7 +159,13 @@ Critère de sortie : matrice d'états générateur/USB/batterie vérifiée sur t
 
 - mesurer les trois bornes du potentiomètre CC du buck dans plusieurs états ;
 - confirmer plage, polarité, masse commune et courant de curseur ;
-- choisir MCP41010 ou MCP42100 selon le besoin réel ;
+- [x] intégrer le `MCP4151-104E/SN` simple canal et son découplage 100 nF ;
+- [x] vérifier le brochage `/SN`, le symbole KiCad natif et l'empreinte SOIC-8
+  native sans recréer de modèle ECAD ;
+- [x] adapter le firmware au protocole d'écriture MCP4151, supprimer `POT_MISO`
+  et forcer l'écriture de `POT_INITIAL` au démarrage ;
+- vérifier par mesure que `CC_A`, `CC_W` et `CC_B` restent entre 0 et 3,3 V et
+  sous 2,5 mA dans tous les états ;
 - définir une valeur passive sûre au démarrage ;
 - autoriser la commande seulement lorsque `PGOOD` et une condition matérielle
   cohérente avec `MCU_READY` sont satisfaits.
@@ -158,10 +189,19 @@ intentionnelle (`AUX_PGOOD`) sans avertissement. Voir
 Critère de sortie : aucune erreur inexpliquée et aucune validation reposant
 uniquement sur un rapport ERC vert.
 
+Inventaire des empreintes du 25 septembre 2026 : les 61 références du PCB ont
+une empreinte. `J4` et `J5` utilisent le bornier Phoenix Contact `1711725` et son
+empreinte KiCad native. `S1` utilise désormais le C&K / Littelfuse
+`1101M2S3CQE2`, 6 A sous 28 VDC. Le symbole SPST existant conserve les nets sur
+les bornes physiques 1 et 2 ; la borne 3 du SPDT reste volontairement libre.
+`F1` utilise l'empreinte locale validée
+`BikeGenerator:Fuse_Eaton_ABC-V-20-R_Axial_P38.10mm`.
+
 ### 7. Préparer puis router le PCB
 
 - figer les connecteurs, fusibles, shunt et dimensions mécaniques ;
-- définir les règles du domaine 20–25 A avant placement ;
+- [x] définir et affecter les netclasses de la V1 ; voir
+  [`NETCLASSES.md`](NETCLASSES.md) ;
 - placer d'abord le trajet fort courant et le shunt Kelvin ;
 - placer ensuite LM5164, INA228, logique et interfaces ;
 - séparer nœud `SW`, analogique sensible, radio et cuivre de puissance ;
@@ -169,6 +209,19 @@ uniquement sur un rapport ERC vert.
 - exécuter DRC et revue de fabrication.
 
 Critère de sortie : revue pré-fabrication explicite, sans lancer de commande.
+
+État intermédiaire du 25 septembre 2026 : contour provisoire 100 × 115 mm,
+61 empreintes synchronisées et placées, sans chevauchement de courtyard ni
+composant hors contour ; le score de placement Konnect est 100/100. Ce score
+valide la géométrie générale, pas les boucles de courant, le routage Kelvin ni
+la thermique. Le fusible `F1` est placé horizontalement sous les borniers et
+`J5` a été rapproché du nouveau bord inférieur.
+
+État du 26 septembre 2026 : huit netclasses sont définies et relues sans
+affectation orpheline. Le DRC retrouve l'état préalable du PCB non routé :
+112 connexions manquantes et 14 erreurs connues appartenant aux empreintes
+`JP1`/`JP2`. Le routage doit maintenant commencer par le chemin positif 20 A,
+son retour de masse, puis les prises Kelvin du shunt.
 
 ### 8. Prototyper et qualifier
 
@@ -186,15 +239,16 @@ destinée à la fabrication.
 
 - tension en charge observée à 36 V et pics supérieurs à 40 V, mais tension à
   vide et pics réels non encore mesurés avec un instrument adapté ;
-- références exactes du shunt, des fusibles, de la TVS et des connecteurs non
-  figées ;
-- diamètre 0,20 mm des vias thermiques du footprint LM5164 à accepter auprès du
-  fabricant ou à redimensionner dans une variante projet autorisée ;
+- référence exacte de la TVS non figée ; le fusible principal `F1`, les
+  connecteurs `J4`/`J5` et le shunt `R7` sont figés ;
+- traitement des six vias thermiques Ø0,60/0,30 mm du LM5164, anneau de
+  0,15 mm et procédé d'assemblage à confirmer auprès du fabricant ;
 - alimentation interne du Beetle et retour USB non validés sur la révision
   physique ;
 - polarité JST-PH et fiche de la cellule protégée 801350 / 500 mAh non encore
   validées ;
 - interface du potentiomètre CC encore à caractériser ;
-- révision physique du Beetle non confirmée ; dimensions nominales du buck
-  externe enregistrées à 60 × 60 × 45 mm, mais fixation et source image non
-  archivées.
+- insertion physique des headers du Beetle à confirmer sur table ; ses cotes
+  officielles et son empreinte sont désormais archivées et figées pour la V1 ;
+- dimensions nominales du buck externe enregistrées à 60 × 60 × 45 mm, mais
+  fixation et source image non archivées.

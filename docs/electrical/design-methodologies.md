@@ -46,8 +46,8 @@ garantissent pas celles du routage final.
 
 ## Méthode D — carte porte-modules minimale
 
-1. Conserver Beetle et DFR0520 sur connecteurs.
-2. Intégrer uniquement INA228, shunt, alimentation, protections et connectique.
+1. Conserver le Beetle sur connecteurs et intégrer le MCP4151 simple canal.
+2. Intégrer INA228, shunt, alimentation, protections et connectique.
 3. Garder le buck, le redresseur et les charges externes.
 4. Prévoir beaucoup de points de test et d'options non montées.
 
@@ -91,7 +91,7 @@ La meilleure approche pour ce projet combine B, C et D :
 ### Jalon 4 — schéma électrique complet
 
 - intégrer l'alimentation auxiliaire LM5164, la batterie contrôleur,
-  `JP_GEN_5V`, les protections, INA228, Beetle, DFR0520 et connecteurs ;
+  `JP_GEN_5V`, les protections, INA228, Beetle, MCP4151 et connecteurs ;
 - définir l'état sûr au reset ;
 - exécuter l'ERC et justifier explicitement chaque exception.
 

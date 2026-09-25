@@ -89,10 +89,10 @@ environ 120 W, cible initiale calculée 20 pour 80 W, limite calculée 50 pour
 200 W. Il suppose donc qu'une valeur numérique croissante augmente la charge.
 Cela ne remplace pas les mesures de tension, courant de curseur et masse commune.
 
-Une anomalie de démarrage est à corriger : la variable mémorisant la position
-est initialisée à `POT_INITIAL` avant l'appel de `Resistance_Init()`. Comme la
-fonction n'écrit en SPI que si la valeur demandée diffère de la valeur mémorisée,
-la consigne initiale peut ne jamais être envoyée au MCP42100.
+L'anomalie de démarrage identifiée ici a été corrigée dans le firmware : la
+valeur mémorisée démarre à `-1`, ce qui force l'envoi de `POT_INITIAL`. Le PCB V1
+emploie désormais un `MCP4151-104E/SN` simple canal, mais les mesures A/W/B
+restent indispensables avant connexion au buck.
 
 Enfin, le firmware existant affecte GPIO0 et GPIO1 aux ADC de l'ACS712 et du pont
 diviseur, alors que la nouvelle carte les utilise pour l'I2C de l'INA228. Cette

@@ -72,14 +72,14 @@ Le code suppose donc qu'une valeur de curseur croissante augmente la puissance
 absorbée. C'est une information fonctionnelle utile, mais elle ne démontre ni la
 tension présente sur les bornes analogiques, ni le courant du curseur, ni leur
 référence de masse. Ces grandeurs conditionnent la sécurité électrique du
-MCP42100 et doivent être mesurées.
+potentiomètre numérique et doivent être mesurées. Pour le PCB V1, les limites à
+appliquer sont celles du `MCP4151-104E/SN` alimenté en 3,3 V.
 
-Une anomalie logicielle est également à corriger avant la nouvelle carte :
-`s_currentDigipotValue` est initialisé à `POT_INITIAL`, puis
-`Resistance_Init()` redemande la même valeur. Le test « nouvelle valeur
-différente » peut donc empêcher le premier transfert SPI au démarrage. Le buck
-peut rester à l'état de mise sous tension du MCP42100 au lieu de recevoir la
-consigne 20.
+L'anomalie logicielle de démarrage identifiée sur le prototype est corrigée :
+`s_currentDigipotValue` démarre désormais à `-1`, ce qui force
+`Resistance_Init()` à transmettre `POT_INITIAL`. Cette correction ne remplace
+pas l'état sûr matériel encore à définir pour une perte d'alimentation ou un
+microcontrôleur bloqué.
 
 ### Mesures minimales, buck hors tension
 
@@ -115,8 +115,9 @@ de potentiel sous charge doivent confirmer cette référence.
 
 ### Shunt quatre bornes
 
-Proposition : **Bourns CSS4J-4026K-2L00F**, 2 mΩ, quatre terminaux, 1 %, 6 W à
-70 °C.
+Choix V1 : **Bourns CSS4J-4026K-2L00F**, 2 mΩ, quatre terminaux, 1 %, 6 W à
+70 °C, avec empreinte KiCad native compatible
+`Resistor_SMD:R_Shunt_Isabellenhuette_BVR4026`.
 
 | Courant | Chute de tension | Dissipation |
 |---:|---:|---:|
@@ -125,25 +126,18 @@ Proposition : **Bourns CSS4J-4026K-2L00F**, 2 mΩ, quatre terminaux, 1 %, 6 W à
 
 La marge thermique est confortable. Pour couvrir 25 A et 50 mV, l'INA228 devra
 utiliser sa plage ±163,84 mV plutôt que ±40,96 mV. L'empreinte exacte sera
-validée depuis le land pattern Bourns ; aucune empreinte personnalisée ne sera
-créée sans recherche supplémentaire et accord.
+La géométrie de l'empreinte native a été comparée au land pattern Bourns : pads
+force et Kelvin, entraxes et encombrement cuivre concordent. Aucun footprint
+personnalisé n'est nécessaire.
 
 ### Fusible principal
 
-Proposition initiale : **Littelfuse Low Profile JCASE 20 A / 58 V DC**, référence
-`LJCA020.X` ou conditionnement équivalent, placé près de l'entrée redressée dans
-un porte-fusible adapté.
-
-Ce choix supporte les 40 V+ déjà observés et offre un pouvoir de coupure annoncé
-de 1000 A à 58 V DC. Le calibre 20 A est cohérent avec l'enveloppe provisoire,
-mais la courbe temps-courant doit encore être confrontée au courant d'appel et au
-courant continu réellement mesuré. Si le système reste proche de 11–13 A, un
-fusible 15 A homologué 58 V DC protégerait mieux le câblage ; ce choix ne peut
-être fait qu'après les essais d'appel.
-
-La tension à vide et les transitoires doivent aussi rester dans l'enveloppe du
-fusible et du porte-fusible. Si la génératrice dépasse 58 V, cette famille ne
-convient plus, même si la tension habituelle en charge est 36 V.
+Le fusible principal reste **source-spécifique**, de calibre configurable au
+plus égal à 20 A, avec une tension assignée d'au moins 125 V DC pour rester
+compatible avec le plafond de bus V1 à 80 V. Sa courbe temps-courant, son pouvoir
+de coupure et son porte-fusible seront choisis selon la génératrice et le
+faisceau réels. Le précédent candidat LP JCASE 58 V n'est pas compatible avec
+cette enveloppe générique.
 
 ### Fusible auxiliaire
 
@@ -155,19 +149,17 @@ auxiliaire ; 1,5 A reste une variante si 1 A déclenche intempestivement.
 
 ### TVS
 
-Proposition conditionnelle : **Littelfuse SMCJ48A**, unidirectionnelle, 1500 W,
-`VRWM = 48 V`, tension de limitation maximale 77,4 V au courant d'essai.
+La V1 réserve une empreinte SMCJ optionnelle, **DNP par défaut**. Aucune TVS
+parallèle standard ne peut à la fois rester garantie inactive jusqu'à 80 V et
+garantir un clamp inférieur à la limite 85 V de l'INA228. La référence doit donc
+être choisie pour chaque source après mesure de l'amplitude, de la durée, de
+l'énergie et de l'impédance des transitoires.
 
-Elle laisse une marge sous la limite de mode commun de 85 V de l'INA228. Elle ne
-peut être retenue que si la tension continue maximale à vide reste inférieure à
-48 V. Une TVS absorbe des transitoires brefs ; elle ne protège pas contre une
-surtension continue produite par un pédalage durable. Dans ce dernier cas, il
-faudrait aussi un écrêtage actif, une charge de décharge ou une architecture
-différente.
-
-Dans l'architecture envisagée, elle se place sur le bus DC après le fusible
-principal, avec une boucle très courte vers le retour de puissance, afin qu'un
-défaut durable puisse faire ouvrir le fusible plutôt que laisser la TVS chauffer.
+La TVS ne traite que les impulsions brèves. Elle ne rend pas acceptable une
+source durablement supérieure à 80 V, situation hors spécification pour
+laquelle aucun surge-stopper n'est ajouté en V1. Si elle est peuplée, elle se
+place après le fusible principal avec une boucle très courte vers le retour de
+puissance.
 
 ### Connecteurs de puissance
 
@@ -246,7 +238,9 @@ fabrication.
 
 ## 7. Décisions encore nécessaires avant routage
 
-1. mesurer la tension redressée à vide à plusieurs cadences et le vrai pic ;
+1. mesurer la tension redressée à vide à plusieurs cadences et le vrai pic de la
+   première source, afin de vérifier qu'elle respecte l'enveloppe 80 V et de
+   choisir sa TVS éventuelle ;
 2. mesurer courant continu, courant d'appel et températures à 200, 300 et 400 W ;
 3. caractériser les deux fils de commande CC comme décrit plus haut ;
 4. confirmer la sérigraphie exacte du DFR0868 physique ;

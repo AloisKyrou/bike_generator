@@ -24,7 +24,8 @@ l'INA228.
 
 | Paramètre | Cible V1 | Statut |
 |---|---:|---|
-| Entrée fonctionnelle | 10 à 60 V DC | décidée |
+| Bus protégé | 80 V DC maximum continu | décidé ; fonctionnement durable > 80 V hors spécification |
+| Plage vérifiée pour le 5 V | 10 à 80 V DC | le démarrage UVLO reste voisin de 9 V |
 | Tenue du circuit intégré | 100 V | candidat LM5164 |
 | Sortie | 5 V | décidée |
 | Charge continue à garantir | au moins 600 mA | préliminaire |
@@ -60,15 +61,18 @@ footprint associé par défaut présente toutefois un pad thermique plus petit q
 le land pattern TI révisé en 2026 et cite un autre composant comme source. Un
 autre footprint standard KiCad, explicitement basé sur `DDA0008B`, a donc été
 retenu comme référence géométrique, relu avec Konnect et rendu dans un PCB
-jetable. Ses vias de 0,20 mm ne respectent toutefois pas le minimum de 0,30 mm
-actuellement configuré : le fabricant ou une variante projet reste à choisir.
+jetable. Une variante locale V1 conserve cette géométrie mais emploie six vias
+Ø0,60 mm percés à Ø0,30 mm. Elle est affectée à U4 et passe le DRC de validation
+sans erreur ; l'anneau de 0,15 mm et le traitement des vias sous pad restent à
+confirmer avec le fabricant.
 La comparaison complète est documentée dans
 [`kicad-validation.md`](./kicad-validation.md).
 
-Le pré-dimensionnement 10–60 V vers 5 V est détaillé dans
+Le pré-dimensionnement du bus protégé jusqu'à 80 V vers 5 V est détaillé dans
 [`design-calculation.md`](./design-calculation.md). Les valeurs proposées y sont
 explicitement marquées comme candidates jusqu'à validation par le calculateur
-TI et sélection de références commandables.
+TI et sélection de références commandables. Les résistances, les condensateurs
+et L1 sont maintenant figés pour la V1.
 
 ## Première implémentation KiCad
 
@@ -81,12 +85,15 @@ Cette première passe comprend :
 
 - U4 `LM5164DDAT` et son pad exposé relié à `GND` ;
 - le pont UVLO 1 MΩ / 200 kΩ ;
-- `RON` 41,2 kΩ ;
-- l'inductance candidate de 47 µH ;
+- `RON` 41,2 kΩ en 1206 / 250 mW ;
+- l'inductance L1 Coilcraft `MSS1038-473MLC`, 47 µH, avec l'empreinte KiCad
+  standard `Inductor_SMD:L_Coilcraft_MSS1038-XXX` ;
 - le pont de retour 316 kΩ / 100 kΩ pour la cible 5 V ;
 - le bootstrap 2,2 nF ;
 - le réseau d'injection Type-3 200 kΩ / 3,3 nF / 82 pF ;
-- les capacités d'entrée et de sortie candidates ;
+- trois capacités céramiques d'entrée 10 µF / 100 V, corrigées après lecture
+  de leur courbe DC-bias à 80 V, et les capacités de sortie validées à 5 V ;
+- le condensateur électrolytique `C6`, Panasonic `EEU-FC2A100`, 10 µF / 100 V ;
 - le pull-up de `PGOOD` vers 3,3 V ;
 - les points de test `AUX_IN`, `AUX_5V`, `AUX_PGOOD` et `GND`.
 
@@ -99,7 +106,8 @@ La topologie suit la fiche TI, notamment le réseau Type-3 placé entre `SW`,
 Le circuit intégré seul ne constitue pas l'alimentation. Le schéma final devra
 comprendre au minimum :
 
-- condensateurs d'entrée céramique 100 V avec déclassement DC vérifié ;
+- trois condensateurs d'entrée céramique 10 µF / 100 V dont la capacité
+  effective estimée reste supérieure au minimum TI à 80 V ;
 - protection locale `F_AUX` immédiatement au départ de `BUS_PROTECTED` : le
   fusible principal du chemin 20 A ne protège pas une dérivation fine ;
 - inductance dont la valeur, le courant de saturation et les pertes sont
@@ -107,8 +115,12 @@ comprendre au minimum :
 - condensateurs de sortie ;
 - pont de retour réglant précisément 5 V ;
 - réseau `RON`, `EN/UVLO` et éventuellement filtrage de `PGOOD` ;
-- protection contre les transitoires choisie après mesure du bus à vide ;
-- blocage du courant inverse vers la source générateur ;
+- protection TVS optionnelle choisie après mesure des transitoires ; aucune
+  TVS parallèle standard ne peut garantir à la fois l'absence de conduction à
+  80 V et un écrêtage sous la limite INA228 de 85 V ;
+- aucun composant `D_AUX` séparé en V1 : une diode sur l'arrivée du LM5164
+  n'isolerait pas le VBUS USB du Beetle ; l'interverrouillage manuel `JP3`
+  reste donc la frontière d'isolation retenue ;
 - cavalier `JP_GEN_5V` permettant d'isoler la source générateur pendant la
   programmation USB ;
 - points de test `AUX_IN`, `AUX_5V`, `PGOOD` et `GND`.
@@ -161,6 +173,7 @@ reposera pas uniquement sur le firmware.
 | Document | Révision / usage | SHA-256 |
 |---|---|---|
 | [`ti-lm5164-snvsa-u4d.pdf`](./ti-lm5164-snvsa-u4d.pdf) | `SNVSAU4D`, février 2026 ; limites, boîtier et circuit d'application | `CCE03619FBE13951EEA47458CD45E140361637D8FEF32AE143B82B16D597E32D` |
+| [`panasonic-eeu-fc-series.pdf`](./panasonic-eeu-fc-series.pdf) | série FC ; caractéristiques et dimensions de `EEU-FC2A100` | `42D91AE29AB6122DFE20974ABAD2EFD45D91A29337A73C5A5319616301B004F7` |
 
 Sources officielles :
 
@@ -169,11 +182,11 @@ Sources officielles :
 
 ## Points restant à figer
 
-- tension maximale et transitoires mesurés sur le bus redressé ;
-- acceptation fabricant des vias thermiques de 0,20 mm ou variante projet à
-  vias redimensionnés ;
-- calcul 5 V / 600 mA à 1 A et fréquence de découpage ;
-- inductance, condensateurs, TVS et protection de branche exacts ;
+- transitoires, énergie et impédance de source mesurés sur le premier bus redressé ;
+- acceptation fabricant de l'anneau de 0,15 mm et du traitement des six vias
+  thermiques Ø0,60/0,30 mm sous le pad exposé ;
+- vérification complémentaire du calcul 5 V / 600 mA à 1 A dans l'outil TI ;
+- TVS spécifique à la source et protection de branche exactes ;
 - calibre et pouvoir de coupure DC de `F_AUX` ;
 - fonctionnement simultané générateur, USB et batterie ;
 - fiche de la batterie 801350 / 500 mAh et courant de charge admissible ;

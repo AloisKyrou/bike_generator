@@ -8,13 +8,14 @@
 #include "hardware.h"
 #include <SPI.h>
 
-static int s_currentDigipotValue = POT_INITIAL;
+// Force the first Resistance_Set() call to program the volatile power-on state.
+static int s_currentDigipotValue = -1;
 
 static void writePot0(uint8_t value) {
   int cs_pin = Hardware_GetSPI_CS_Pin();
   SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
   digitalWrite(cs_pin, LOW);
-  SPI.transfer(CMD_WRITE_POT0);
+  SPI.transfer(MCP4151_CMD_WRITE_WIPER0);
   SPI.transfer(value);
   digitalWrite(cs_pin, HIGH);
   SPI.endTransaction();

@@ -22,7 +22,7 @@ This document covers the full power path, wiring, pinout and calibration procedu
       ▼
 [DC/DC Buck module — CV/CC 400W class]
   Sets regulated 24V bus + current limit (= pedaling resistance)
-  Current limit driven by DFR0520 digital potentiometer via SPI
+  Current limit driven by DFR0520 (prototype) or MCP4151-104 (PCB V1) via SPI
       │
       ├──────────────────────────────┐
       ▼                              ▼
@@ -42,10 +42,10 @@ The DC bus nominally runs at **24V**. The BLUETTI is the primary sink (up to ~12
 |------|----------|-------|
 | 0 | ACS712 current sensor (ADC) | `ADC_11db`, 12-bit |
 | 1 | Voltage divider (ADC) | `ADC_11db`, 12-bit |
-| 4 | DFR0520 MISO | Optional / not used |
-| 5 | DFR0520 CS | Chip Select, active LOW |
-| 6 | DFR0520 SCK | SPI clock |
-| 7 | DFR0520 MOSI / SI | SPI data |
+| 4 | Free / extension | No longer used by the PCB V1 digipot |
+| 5 | MCP4151 CS | Chip Select, active LOW |
+| 6 | MCP4151 SCK | SPI clock |
+| 7 | MCP4151 SDI/SDO | Write-only SPI data in PCB V1 |
 
 > ⚠️ ESP32-C3 ADC pins are 3.3V max. Never exceed this voltage on any ADC input.
 
@@ -102,16 +102,24 @@ At the BLUETTI 40V input ceiling, the ADC sees about 2.79V.
 
 ---
 
-## 5. Digital Potentiometer — DFR0520 (MCP42100)
+## 5. Digital Potentiometer — MCP4151-104 (PCB V1)
 
-The DFR0520 breakout embeds an MCP42100: dual 100kΩ digital pot, 256 taps, SPI interface.
+The breadboard prototype used a DFR0520 breakout containing a dual MCP42100.
+PCB V1 replaces it with one `MCP4151-104E/SN`: one 100kΩ channel, 257
+positions and a native SOIC-8 footprint. The external `CC_A`, `CC_W` and
+`CC_B` behavior remains unchanged.
 
-Only **POT0** is used. It is wired into the buck module's CC (constant current) feedback network, replacing or paralleling the manual trim pot. Moving the wiper increases or decreases the current limit setpoint → changes how hard the rider must pedal.
+The single channel is wired into the buck module's CC (constant current)
+feedback network. Moving the wiper changes the current limit setpoint and thus
+how hard the rider must pedal.
 
 **SPI protocol:**
 ```
-CS LOW → send 0x11 (write POT0) → send value (0–255) → CS HIGH
+CS LOW → send 0x00 (write volatile wiper 0) → send value (0–255) → CS HIGH
 ```
+
+The analog compatibility gate remains mandatory: before connecting the buck,
+verify that A/W/B always remain between 0 and 3.3V and below 2.5mA.
 
 **Wiper-to-power mapping (linear, single-point calibrated):**
 ```

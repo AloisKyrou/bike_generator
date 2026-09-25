@@ -1,0 +1,3 @@
+Ajouter le deuxieme potentiomètre sur celui de voltage ? pas obligé de le branché mais est ce que ça pourai têtre utile dans le futur ? -> conseil réglage à la main fonction de la batterie en sortie. 
+
+automatisé la bibliothèque de gfootprint ? -> pour chaque composant vérifier les footprints en regardant le recommeding landing pattern vue pcb et regarder avec les outils que toutes les dimensions pad écartements trous etc... 

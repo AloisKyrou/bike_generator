@@ -1,274 +1,16 @@
 (kicad_sch
-	(version 20250610)
-	(generator "konnect")
+	(version 20260306)
+	(generator "eeschema")
 	(generator_version "10.0")
 	(uuid "eebe6a65-07a1-4ea8-905b-88f7f2c4a60a")
 	(paper "A4")
 	(lib_symbols
-		(symbol "Regulator_Switching:LM5164DDA"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "U"
-				(at -8.89 11.43 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "LM5164DDA"
-				(at 5.08 11.43 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "Package_SO:HSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.1mm_ThermalVias"
-				(at 1.27 -11.43 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/lm5164.pdf?ts=1598311864250&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FLM5164%253FHQS%253DTI-null-null-octopart-df-pf-null-wwe"
-				(at -7.62 8.89 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "1A synchronous buck converter with ultra-low IQ, 6V - 100V input, adjustable output voltage, HSOP-8"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "step-down dc-dc buck regulator adjustable"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_fp_filters" "HSOP*1EP*3.9x4.9*P1.27mm*"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "LM5164DDA_1_1"
-				(rectangle
-					(start -10.16 10.16)
-					(end 10.16 -10.16)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin power_in line
-					(at -2.54 -12.7 90)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -12.7 7.62 0)
-					(length 2.54)
-					(name "VIN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -12.7 2.54 0)
-					(length 2.54)
-					(name "EN/UVLO"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -12.7 -5.08 0)
-					(length 2.54)
-					(name "RON"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 12.7 -2.54 180)
-					(length 2.54)
-					(name "FB"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin open_collector line
-					(at 12.7 -5.08 180)
-					(length 2.54)
-					(name "PGOOD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 12.7 7.62 180)
-					(length 2.54)
-					(name "BST"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_out line
-					(at 12.7 2.54 180)
-					(length 2.54)
-					(name "SW"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 -12.7 90)
-					(length 2.54)
-					(name "EP"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "Device:L"
+		(symbol "Connector:TestPoint"
 			(pin_numbers
 				(hide yes)
 			)
 			(pin_names
-				(offset 1.016)
+				(offset 0.762)
 				(hide yes)
 			)
 			(exclude_from_sim no)
@@ -276,8 +18,8 @@
 			(on_board yes)
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "L"
-				(at -1.27 0 90)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -286,8 +28,8 @@
 					)
 				)
 			)
-			(property "Value" "L"
-				(at 1.905 0 90)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -297,7 +39,7 @@
 				)
 			)
 			(property "Footprint" ""
-				(at 0 0 0)
+				(at 5.08 0 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(hide yes)
@@ -308,6 +50,17 @@
 				)
 			)
 			(property "Datasheet" ""
+				(at 5.08 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "test point"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -318,7 +71,7 @@
 					)
 				)
 			)
-			(property "Description" "Inductor"
+			(property "ki_keywords" "test point tp"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -329,7 +82,7 @@
 					)
 				)
 			)
-			(property "ki_keywords" "inductor choke coil reactor magnetic"
+			(property "ki_fp_filters" "Pin* Test*"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -340,58 +93,10 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "Choke_* *Coil* Inductor_* L_*"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "L_0_1"
-				(arc
-					(start 0 2.54)
-					(mid 0.6323 1.905)
-					(end 0 1.27)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 1.27)
-					(mid 0.6323 0.635)
-					(end 0 0)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 0)
-					(mid 0.6323 -0.635)
-					(end 0 -1.27)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 -1.27)
-					(mid 0.6323 -1.905)
-					(end 0 -2.54)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
 					(stroke
 						(width 0)
 						(type default)
@@ -401,10 +106,10 @@
 					)
 				)
 			)
-			(symbol "L_1_1"
+			(symbol "TestPoint_1_1"
 				(pin passive line
-					(at 0 3.81 270)
-					(length 1.27)
+					(at 0 0 90)
+					(length 2.54)
 					(name "1"
 						(effects
 							(font
@@ -413,164 +118,6 @@
 						)
 					)
 					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -3.81 90)
-					(length 1.27)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "Device:R"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "R"
-				(at 2.032 0 90)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "R"
-				(at 0 0 90)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at -1.778 0 90)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "Resistor"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "R res resistor"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_fp_filters" "R_*"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "R_0_1"
-				(rectangle
-					(start -1.016 -2.54)
-					(end 1.016 2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "R_1_1"
-				(pin passive line
-					(at 0 3.81 270)
-					(length 1.27)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -3.81 90)
-					(length 1.27)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -917,12 +464,12 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Connector:TestPoint"
+		(symbol "Device:L"
 			(pin_numbers
 				(hide yes)
 			)
 			(pin_names
-				(offset 0.762)
+				(offset 1.016)
 				(hide yes)
 			)
 			(exclude_from_sim no)
@@ -930,8 +477,8 @@
 			(on_board yes)
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "TP"
-				(at 0 6.858 0)
+			(property "Reference" "L"
+				(at -1.27 0 90)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -940,8 +487,8 @@
 					)
 				)
 			)
-			(property "Value" "TestPoint"
-				(at 0 5.08 0)
+			(property "Value" "L"
+				(at 1.905 0 90)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -951,7 +498,7 @@
 				)
 			)
 			(property "Footprint" ""
-				(at 5.08 0 0)
+				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(hide yes)
@@ -962,17 +509,6 @@
 				)
 			)
 			(property "Datasheet" ""
-				(at 5.08 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "test point"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -983,7 +519,7 @@
 					)
 				)
 			)
-			(property "ki_keywords" "test point tp"
+			(property "Description" "Inductor"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -994,7 +530,7 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "Pin* Test*"
+			(property "ki_keywords" "inductor choke coil reactor magnetic"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1005,10 +541,58 @@
 					)
 				)
 			)
-			(symbol "TestPoint_0_1"
-				(circle
-					(center 0 3.302)
-					(radius 0.762)
+			(property "ki_fp_filters" "Choke_* *Coil* Inductor_* L_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "L_0_1"
+				(arc
+					(start 0 2.54)
+					(mid 0.6323 1.905)
+					(end 0 1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 1.27)
+					(mid 0.6323 0.635)
+					(end 0 0)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 0)
+					(mid 0.6323 -0.635)
+					(end 0 -1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -1.27)
+					(mid 0.6323 -1.905)
+					(end 0 -2.54)
 					(stroke
 						(width 0)
 						(type default)
@@ -1018,10 +602,10 @@
 					)
 				)
 			)
-			(symbol "TestPoint_1_1"
+			(symbol "L_1_1"
 				(pin passive line
-					(at 0 0 90)
-					(length 2.54)
+					(at 0 3.81 270)
+					(length 1.27)
 					(name "1"
 						(effects
 							(font
@@ -1030,6 +614,422 @@
 						)
 					)
 					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Device:R"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Regulator_Switching:LM5164DDA"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "U"
+				(at -8.89 11.43 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "LM5164DDA"
+				(at 5.08 11.43 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Package_SO:HSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.1mm_ThermalVias"
+				(at 1.27 -11.43 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/lm5164.pdf?ts=1598311864250&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FLM5164%253FHQS%253DTI-null-null-octopart-df-pf-null-wwe"
+				(at -7.62 8.89 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "1A synchronous buck converter with ultra-low IQ, 6V - 100V input, adjustable output voltage, HSOP-8"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "step-down dc-dc buck regulator adjustable"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "HSOP*1EP*3.9x4.9*P1.27mm*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "LM5164DDA_1_1"
+				(rectangle
+					(start -10.16 10.16)
+					(end 10.16 -10.16)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin power_in line
+					(at -2.54 -12.7 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -12.7 7.62 0)
+					(length 2.54)
+					(name "VIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -12.7 2.54 0)
+					(length 2.54)
+					(name "EN/UVLO"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -5.08 0)
+					(length 2.54)
+					(name "RON"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 12.7 -2.54 180)
+					(length 2.54)
+					(name "FB"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin open_collector line
+					(at 12.7 -5.08 180)
+					(length 2.54)
+					(name "PGOOD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 12.7 7.62 180)
+					(length 2.54)
+					(name "BST"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 12.7 2.54 180)
+					(length 2.54)
+					(name "SW"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 -12.7 90)
+					(length 2.54)
+					(name "EP"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1430,180 +1430,201 @@
 		(uuid "64cb582e-bfc3-4f13-bcd6-f7b6a5236d78")
 	)
 	(junction
-		(at 55.88 85.09)
-		(diameter 0)
-		(uuid "a8be930f-a8bf-4b09-a97d-bdcf2f685202")
-	)
-	(junction
 		(at 55.88 97.79)
 		(diameter 0)
+		(color 0 0 0 0)
 		(uuid "a43c2ae4-7237-41ae-9268-8d117218889e")
 	)
-	(wire
-		(pts
-			(xy 124.46 101.6)
-			(xy 124.46 104.14)
-		)
-		(uuid "2f07772f-54db-4d5e-9ef3-e3600ea6b768")
+	(junction
+		(at 55.88 85.09)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a8be930f-a8bf-4b09-a97d-bdcf2f685202")
 	)
 	(wire
 		(pts
-			(xy 129.54 101.6)
-			(xy 129.54 104.14)
+			(xy 165.1 105.41)
+			(xy 165.1 107.95)
 		)
-		(uuid "2b993a52-b7bf-4138-9164-a35484ba955e")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "18c030ac-15a9-4971-8b15-699cc3234973")
 	)
 	(wire
 		(pts
-			(xy 114.3 81.28)
-			(xy 111.76 81.28)
+			(xy 43.18 85.09)
+			(xy 68.58 85.09)
 		)
-		(uuid "4489914e-a1d5-40b7-ae9d-4c8eccf34ff2")
-	)
-	(wire
-		(pts
-			(xy 114.3 86.36)
-			(xy 111.76 86.36)
+		(stroke
+			(width 0)
+			(type default)
 		)
-		(uuid "281eea97-e43c-4fc2-9391-6f65fa3ae079")
-	)
-	(wire
-		(pts
-			(xy 114.3 93.98)
-			(xy 111.76 93.98)
-		)
-		(uuid "3ff55429-db13-423d-8807-3c39b055e079")
-	)
-	(wire
-		(pts
-			(xy 139.7 91.44)
-			(xy 142.24 91.44)
-		)
-		(uuid "66716b27-be0b-42c1-8107-24e5829d30bc")
+		(uuid "1e9b71e5-9b6c-4606-91e7-6c0951937f50")
 	)
 	(wire
 		(pts
 			(xy 139.7 93.98)
 			(xy 142.24 93.98)
 		)
+		(stroke
+			(width 0)
+			(type default)
+		)
 		(uuid "2084ddc9-7e28-49c5-b2bc-5b55da9d8458")
 	)
 	(wire
 		(pts
-			(xy 139.7 81.28)
-			(xy 142.24 81.28)
+			(xy 173.99 116.84)
+			(xy 176.53 116.84)
 		)
-		(uuid "716082db-1343-4335-a259-ea66e1f78696")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "27d23ca3-96af-4b0b-9aa7-4b09d1084f07")
 	)
 	(wire
 		(pts
-			(xy 139.7 86.36)
-			(xy 142.24 86.36)
+			(xy 114.3 86.36)
+			(xy 111.76 86.36)
 		)
-		(uuid "70f71aca-cc66-4ed0-8e61-d932f9efa9b7")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "281eea97-e43c-4fc2-9391-6f65fa3ae079")
 	)
 	(wire
 		(pts
-			(xy 161.29 88.9)
-			(xy 158.75 88.9)
+			(xy 129.54 101.6)
+			(xy 129.54 104.14)
 		)
-		(uuid "54f9082f-b7eb-4d32-8f3e-8c5bcc5e8b90")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2b993a52-b7bf-4138-9164-a35484ba955e")
+	)
+	(wire
+		(pts
+			(xy 156.21 116.84)
+			(xy 166.37 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2d989980-91cb-4a2b-a34f-45b6e116189f")
+	)
+	(wire
+		(pts
+			(xy 124.46 101.6)
+			(xy 124.46 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2f07772f-54db-4d5e-9ef3-e3600ea6b768")
+	)
+	(wire
+		(pts
+			(xy 25.4 50.8)
+			(xy 45.72 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "324c04c0-7398-4003-bd65-e60af8e85708")
+	)
+	(wire
+		(pts
+			(xy 43.18 87.63)
+			(xy 43.18 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3b099351-6428-4796-808b-cd0aa94a27e3")
+	)
+	(wire
+		(pts
+			(xy 55.88 95.25)
+			(xy 55.88 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3fba32f6-ee28-4ff9-ba5e-fc6647b19087")
+	)
+	(wire
+		(pts
+			(xy 114.3 93.98)
+			(xy 111.76 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3ff55429-db13-423d-8807-3c39b055e079")
+	)
+	(wire
+		(pts
+			(xy 114.3 81.28)
+			(xy 111.76 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4489914e-a1d5-40b7-ae9d-4c8eccf34ff2")
 	)
 	(wire
 		(pts
 			(xy 168.91 88.9)
 			(xy 171.45 88.9)
 		)
+		(stroke
+			(width 0)
+			(type default)
+		)
 		(uuid "47d1a5c5-4a5b-4b46-a391-3728bb788964")
 	)
 	(wire
 		(pts
-			(xy 99.06 102.87)
-			(xy 99.06 100.33)
+			(xy 165.1 95.25)
+			(xy 177.8 95.25)
 		)
-		(uuid "9a52a099-945e-46b9-b260-17f4cb459d58")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "54785cfa-7348-443f-95c3-162eac73c5e5")
 	)
 	(wire
 		(pts
-			(xy 99.06 110.49)
-			(xy 99.06 113.03)
+			(xy 161.29 88.9)
+			(xy 158.75 88.9)
 		)
-		(uuid "b12dd7ac-0efa-484d-af3f-2a6f6f2a6edc")
-	)
-	(wire
-		(pts
-			(xy 81.28 78.74)
-			(xy 81.28 76.2)
+		(stroke
+			(width 0)
+			(type default)
 		)
-		(uuid "fc8b97b8-3925-4e49-9807-d6d471b7b62d")
-	)
-	(wire
-		(pts
-			(xy 81.28 86.36)
-			(xy 81.28 88.9)
-		)
-		(uuid "f2bfb4bd-3a56-4ee8-b2dd-38ee280b36c9")
-	)
-	(wire
-		(pts
-			(xy 81.28 97.79)
-			(xy 81.28 95.25)
-		)
-		(uuid "a6370802-0b3e-4963-80f0-84da447959c0")
-	)
-	(wire
-		(pts
-			(xy 81.28 105.41)
-			(xy 81.28 107.95)
-		)
-		(uuid "85760c84-481e-4ca3-a16b-d03826107a89")
-	)
-	(wire
-		(pts
-			(xy 190.5 78.74)
-			(xy 190.5 76.2)
-		)
-		(uuid "9966427a-c5b4-42e9-a47d-24b46d4654c9")
-	)
-	(wire
-		(pts
-			(xy 190.5 86.36)
-			(xy 190.5 88.9)
-		)
-		(uuid "8e188447-ec44-4fc0-9a89-12ec92ea7db2")
-	)
-	(wire
-		(pts
-			(xy 190.5 97.79)
-			(xy 190.5 95.25)
-		)
-		(uuid "3cb4a1e2-96d1-4eba-9332-4af3b97159b7")
-	)
-	(wire
-		(pts
-			(xy 190.5 105.41)
-			(xy 190.5 107.95)
-		)
-		(uuid "b1084b97-a1ff-45a9-a52b-f2d02ed5dcfe")
-	)
-	(wire
-		(pts
-			(xy 148.59 116.84)
-			(xy 146.05 116.84)
-		)
-		(uuid "fa719195-e70c-40db-8556-108bbfc1da21")
-	)
-	(wire
-		(pts
-			(xy 156.21 116.84)
-			(xy 158.75 116.84)
-		)
-		(uuid "2d989980-91cb-4a2b-a34f-45b6e116189f")
+		(uuid "54f9082f-b7eb-4d32-8f3e-8c5bcc5e8b90")
 	)
 	(wire
 		(pts
 			(xy 213.36 86.36)
 			(xy 213.36 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
 		)
 		(uuid "590ad5b4-b369-4113-a589-42293419b01b")
 	)
@@ -1612,54 +1633,86 @@
 			(xy 55.88 87.63)
 			(xy 55.88 85.09)
 		)
+		(stroke
+			(width 0)
+			(type default)
+		)
 		(uuid "60dbedaf-3e4a-4afa-8a96-314bffad4c60")
-	)
-	(wire
-		(pts
-			(xy 55.88 95.25)
-			(xy 55.88 97.79)
-		)
-		(uuid "3fba32f6-ee28-4ff9-ba5e-fc6647b19087")
-	)
-	(wire
-		(pts
-			(xy 68.58 87.63)
-			(xy 68.58 85.09)
-		)
-		(uuid "a04dd0f8-cdc4-4c01-8850-7acb48ca591e")
-	)
-	(wire
-		(pts
-			(xy 68.58 95.25)
-			(xy 68.58 97.79)
-		)
-		(uuid "f492b775-984e-47b1-b599-08d19c9d76ee")
-	)
-	(wire
-		(pts
-			(xy 43.18 87.63)
-			(xy 43.18 85.09)
-		)
-		(uuid "3b099351-6428-4796-808b-cd0aa94a27e3")
 	)
 	(wire
 		(pts
 			(xy 43.18 95.25)
 			(xy 43.18 97.79)
 		)
+		(stroke
+			(width 0)
+			(type default)
+		)
 		(uuid "660a11c7-c646-4cb3-8dce-c97a6b1fd007")
 	)
 	(wire
 		(pts
-			(xy 177.8 97.79)
-			(xy 177.8 95.25)
+			(xy 139.7 91.44)
+			(xy 142.24 91.44)
 		)
-		(uuid "9be1f16c-98fe-4386-aeb7-141353fcbdff")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "66716b27-be0b-42c1-8107-24e5829d30bc")
+	)
+	(wire
+		(pts
+			(xy 156.21 76.2)
+			(xy 158.75 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6bffa440-77a7-4991-b780-1bf515b37b93")
+	)
+	(wire
+		(pts
+			(xy 180.34 50.8)
+			(xy 228.6 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6ec78146-6a38-46b9-b863-067bf8aaac62")
+	)
+	(wire
+		(pts
+			(xy 139.7 86.36)
+			(xy 142.24 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "70f71aca-cc66-4ed0-8e61-d932f9efa9b7")
+	)
+	(wire
+		(pts
+			(xy 139.7 81.28)
+			(xy 142.24 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "716082db-1343-4335-a259-ea66e1f78696")
 	)
 	(wire
 		(pts
 			(xy 177.8 105.41)
 			(xy 177.8 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
 		)
 		(uuid "7e11542c-e4f4-4123-b954-5c4eb458419e")
 	)
@@ -1668,220 +1721,259 @@
 			(xy 165.1 97.79)
 			(xy 165.1 95.25)
 		)
+		(stroke
+			(width 0)
+			(type default)
+		)
 		(uuid "7fcffc3d-5fb5-40ac-9e36-dc223dfa12db")
 	)
 	(wire
 		(pts
-			(xy 165.1 105.41)
-			(xy 165.1 107.95)
+			(xy 81.28 105.41)
+			(xy 81.28 107.95)
 		)
-		(uuid "18c030ac-15a9-4971-8b15-699cc3234973")
-	)
-	(wire
-		(pts
-			(xy 148.59 76.2)
-			(xy 146.05 76.2)
+		(stroke
+			(width 0)
+			(type default)
 		)
-		(uuid "e78c0e2e-0c2a-49f2-831e-b3009c8b32d6")
-	)
-	(wire
-		(pts
-			(xy 156.21 76.2)
-			(xy 158.75 76.2)
-		)
-		(uuid "6bffa440-77a7-4991-b780-1bf515b37b93")
-	)
-	(wire
-		(pts
-			(xy 166.37 116.84)
-			(xy 163.83 116.84)
-		)
-		(uuid "b0271084-064d-4d24-a75c-44c2dcc1c958")
-	)
-	(wire
-		(pts
-			(xy 173.99 116.84)
-			(xy 176.53 116.84)
-		)
-		(uuid "27d23ca3-96af-4b0b-9aa7-4b09d1084f07")
-	)
-	(wire
-		(pts
-			(xy 186.69 116.84)
-			(xy 184.15 116.84)
-		)
-		(uuid "ff3bd0d2-2e2a-46c0-a047-dcae560d0e72")
-	)
-	(wire
-		(pts
-			(xy 194.31 116.84)
-			(xy 196.85 116.84)
-		)
-		(uuid "f7f7375f-fc4d-4290-a6fa-02b511060370")
-	)
-	(wire
-		(pts
-			(xy 25.4 50.8)
-			(xy 45.72 50.8)
-		)
-		(uuid "324c04c0-7398-4003-bd65-e60af8e85708")
-	)
-	(wire
-		(pts
-			(xy 45.72 50.8)
-			(xy 45.72 63.5)
-		)
-		(uuid "d48be085-59ea-43e6-8d21-5148a72ea8f7")
-	)
-	(wire
-		(pts
-			(xy 180.34 63.5)
-			(xy 180.34 50.8)
-		)
-		(uuid "f750d473-e633-4b18-b552-7716d36ccfa6")
-	)
-	(wire
-		(pts
-			(xy 180.34 50.8)
-			(xy 228.6 50.8)
-		)
-		(uuid "6ec78146-6a38-46b9-b863-067bf8aaac62")
-	)
-	(wire
-		(pts
-			(xy 208.28 63.5)
-			(xy 228.6 63.5)
-		)
-		(uuid "bcff4d8c-676a-453f-b8e5-9f2e8046ea49")
-	)
-	(wire
-		(pts
-			(xy 43.18 85.09)
-			(xy 68.58 85.09)
-		)
-		(uuid "1e9b71e5-9b6c-4606-91e7-6c0951937f50")
-	)
-	(wire
-		(pts
-			(xy 43.18 97.79)
-			(xy 68.58 97.79)
-		)
-		(uuid "bee70244-2768-46e6-87a4-88b134a18eba")
-	)
-	(wire
-		(pts
-			(xy 165.1 95.25)
-			(xy 177.8 95.25)
-		)
-		(uuid "54785cfa-7348-443f-95c3-162eac73c5e5")
+		(uuid "85760c84-481e-4ca3-a16b-d03826107a89")
 	)
 	(wire
 		(pts
 			(xy 165.1 107.95)
 			(xy 177.8 107.95)
 		)
+		(stroke
+			(width 0)
+			(type default)
+		)
 		(uuid "8c0b2915-7f26-4beb-97fb-0a52580162dc")
 	)
 	(wire
 		(pts
-			(xy 81.28 88.9)
-			(xy 81.28 95.25)
+			(xy 190.5 78.74)
+			(xy 190.5 76.2)
 		)
-		(uuid "56785510-9207-46c6-b142-9ae35fc0cec0")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9966427a-c5b4-42e9-a47d-24b46d4654c9")
 	)
 	(wire
 		(pts
-			(xy 190.5 88.9)
-			(xy 190.5 95.25)
+			(xy 99.06 102.87)
+			(xy 99.06 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9a52a099-945e-46b9-b260-17f4cb459d58")
+	)
+	(wire
+		(pts
+			(xy 177.8 97.79)
+			(xy 177.8 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9be1f16c-98fe-4386-aeb7-141353fcbdff")
+	)
+	(wire
+		(pts
+			(xy 68.58 87.63)
+			(xy 68.58 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a04dd0f8-cdc4-4c01-8850-7acb48ca591e")
+	)
+	(wire
+		(pts
+			(xy 81.28 86.36)
+			(xy 81.28 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a6370802-0b3e-4963-80f0-84da447959c0")
+	)
+	(wire
+		(pts
+			(xy 190.5 105.41)
+			(xy 190.5 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b1084b97-a1ff-45a9-a52b-f2d02ed5dcfe")
+	)
+	(wire
+		(pts
+			(xy 99.06 110.49)
+			(xy 99.06 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b12dd7ac-0efa-484d-af3f-2a6f6f2a6edc")
+	)
+	(wire
+		(pts
+			(xy 208.28 63.5)
+			(xy 228.6 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bcff4d8c-676a-453f-b8e5-9f2e8046ea49")
+	)
+	(wire
+		(pts
+			(xy 190.5 86.36)
+			(xy 190.5 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
 		)
 		(uuid "be96318a-6356-4ff6-b1d6-664843a248e8")
 	)
 	(wire
 		(pts
-			(xy 158.75 116.84)
-			(xy 163.83 116.84)
+			(xy 43.18 97.79)
+			(xy 68.58 97.79)
 		)
-		(uuid "d9624c91-4ee4-4cad-accc-b55e2a0be915")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bee70244-2768-46e6-87a4-88b134a18eba")
 	)
-	(label "GND"
-		(at 124.46 104.14 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 45.72 50.8)
+			(xy 45.72 63.5)
 		)
-		(uuid "6df7aefe-379c-4bcf-8921-d6652b1c9f78")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d48be085-59ea-43e6-8d21-5148a72ea8f7")
 	)
-	(label "GND"
-		(at 129.54 104.14 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 148.59 76.2)
+			(xy 146.05 76.2)
 		)
-		(uuid "678ffe26-830e-4d0e-9003-0454252e10ae")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e78c0e2e-0c2a-49f2-831e-b3009c8b32d6")
 	)
-	(label "AUX_IN_PROTECTED"
-		(at 111.76 81.28 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 68.58 95.25)
+			(xy 68.58 97.79)
 		)
-		(uuid "d2f1fc6c-1963-440d-aa24-3074a2896648")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f492b775-984e-47b1-b599-08d19c9d76ee")
 	)
-	(label "UVLO"
-		(at 111.76 86.36 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 180.34 63.5)
+			(xy 180.34 50.8)
 		)
-		(uuid "eac5f783-6051-4a29-8df6-62f768877b85")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f750d473-e633-4b18-b552-7716d36ccfa6")
 	)
-	(label "RON_SET"
-		(at 111.76 93.98 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 194.31 116.84)
+			(xy 196.85 116.84)
 		)
-		(uuid "8c95a75f-2d07-4fd1-b6d7-35d948c759c4")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f7f7375f-fc4d-4290-a6fa-02b511060370")
 	)
-	(label "FB"
-		(at 142.24 91.44 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 148.59 116.84)
+			(xy 146.05 116.84)
 		)
-		(uuid "9b4f5eed-dce9-4a8e-a68f-776dc98e7547")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fa719195-e70c-40db-8556-108bbfc1da21")
 	)
-	(label "AUX_PGOOD"
-		(at 142.24 93.98 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 81.28 78.74)
+			(xy 81.28 76.2)
 		)
-		(uuid "3db45d79-9687-4fb3-81ac-8dfae0827fbb")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fc8b97b8-3925-4e49-9807-d6d471b7b62d")
 	)
-	(label "BST"
-		(at 142.24 81.28 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 186.69 116.84)
+			(xy 184.15 116.84)
 		)
-		(uuid "30b618f5-c596-4362-b1b8-90a8f3b3d674")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ff3bd0d2-2e2a-46c0-a047-dcae560d0e72")
+	)
+	(wire
+		(pts
+			(xy 30.48 85.09)
+			(xy 43.18 85.09)
+		)
+		(uuid "466d5438-34c7-4240-bf34-fb9ba1c7adca")
+	)
+	(wire
+		(pts
+			(xy 30.48 85.09)
+			(xy 30.48 87.63)
+		)
+		(uuid "cc5dee98-8dd1-44ee-80ee-e6a6c951952e")
+	)
+	(wire
+		(pts
+			(xy 30.48 97.79)
+			(xy 43.18 97.79)
+		)
+		(uuid "cef76fb8-50c8-452b-84da-84db93f19ebe")
+	)
+	(wire
+		(pts
+			(xy 30.48 95.25)
+			(xy 30.48 97.79)
+		)
+		(uuid "b7486e93-aa79-457e-8451-30059db16d70")
 	)
 	(label "SW"
 		(at 142.24 86.36 0)
@@ -1893,75 +1985,55 @@
 		)
 		(uuid "06a49b80-15bb-400e-87c6-07c7ab5fabf6")
 	)
-	(label "SW"
-		(at 158.75 88.9 180)
+	(label "FB"
+		(at 196.85 116.84 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0c187449-4945-492b-a7d1-1efdc2ddf6f2")
+	)
+	(label "AUX_5V"
+		(at 176.53 116.84 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "15bb0588-3b52-4747-868e-ae80fd0aead7")
+	)
+	(label "AUX_5V"
+		(at 165.1 95.25 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1be1c9a5-47e5-4ded-b24e-0d2e4badeb09")
+	)
+	(label "AUX_PGOOD"
+		(at 213.36 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1c04df81-c212-46a1-899e-2ab516156542")
+	)
+	(label "RIPPLE"
+		(at 184.15 116.84 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "8524e7ee-1e04-4cc9-b892-9bcc0b953649")
-	)
-	(label "AUX_5V"
-		(at 171.45 88.9 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "91a6db8b-f89f-41b1-9633-a8f5c82c3ed0")
-	)
-	(label "AUX_IN_PROTECTED"
-		(at 99.06 100.33 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "76d213be-c7f6-447b-92bb-8ca6796203fc")
-	)
-	(label "RON_SET"
-		(at 99.06 113.03 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "3ec942b7-9fb6-4ab6-a8d9-d66bccb3257d")
-	)
-	(label "AUX_IN_PROTECTED"
-		(at 81.28 76.2 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "f6ea892a-c2f8-4e22-8ab2-9ef86545452a")
-	)
-	(label "UVLO"
-		(at 81.28 88.9 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "f19c7dc5-fa64-4941-910d-df27658b50e8")
-	)
-	(label "GND"
-		(at 81.28 107.95 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "66de46d8-dffb-44c2-a2f1-1b99dd747bdb")
+		(uuid "1fc47182-d195-4aec-9a39-938b729b8709")
 	)
 	(label "AUX_5V"
 		(at 190.5 76.2 0)
@@ -1972,16 +2044,6 @@
 			(justify left bottom)
 		)
 		(uuid "22861f20-4269-4ae1-afb5-c966a7c8df4f")
-	)
-	(label "FB"
-		(at 190.5 88.9 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "9ea19670-05db-4a35-8c30-6e98d7838ab7")
 	)
 	(label "GND"
 		(at 190.5 107.95 0)
@@ -2003,45 +2065,35 @@
 		)
 		(uuid "303a5c47-aec7-4425-ae60-d71aca952eb3")
 	)
+	(label "BST"
+		(at 142.24 81.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "30b618f5-c596-4362-b1b8-90a8f3b3d674")
+	)
 	(label "AUX_PGOOD"
-		(at 213.36 88.9 0)
+		(at 142.24 93.98 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "1c04df81-c212-46a1-899e-2ab516156542")
+		(uuid "3db45d79-9687-4fb3-81ac-8dfae0827fbb")
 	)
-	(label "AUX_IN_PROTECTED"
-		(at 43.18 85.09 0)
+	(label "RON_SET"
+		(at 99.06 113.03 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "ee8f8bbf-7de1-4327-bcdc-c46c2998314f")
-	)
-	(label "GND"
-		(at 43.18 97.79 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "c8684b0d-f8e9-4e9e-afec-1ba8982f3343")
-	)
-	(label "AUX_5V"
-		(at 165.1 95.25 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "1be1c9a5-47e5-4ded-b24e-0d2e4badeb09")
+		(uuid "3ec942b7-9fb6-4ab6-a8d9-d66bccb3257d")
 	)
 	(label "GND"
 		(at 165.1 107.95 0)
@@ -2053,15 +2105,95 @@
 		)
 		(uuid "6470f9d3-e977-4951-bed8-64d36584bc61")
 	)
-	(label "BST"
-		(at 146.05 76.2 180)
+	(label "GND"
+		(at 81.28 107.95 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "66de46d8-dffb-44c2-a2f1-1b99dd747bdb")
+	)
+	(label "GND"
+		(at 129.54 104.14 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "678ffe26-830e-4d0e-9003-0454252e10ae")
+	)
+	(label "GND"
+		(at 124.46 104.14 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6df7aefe-379c-4bcf-8921-d6652b1c9f78")
+	)
+	(label "AUX_IN_PROTECTED"
+		(at 99.06 100.33 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "76d213be-c7f6-447b-92bb-8ca6796203fc")
+	)
+	(label "SW"
+		(at 158.75 88.9 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "d787c31b-8261-4db1-9b13-1c2b6c5cd0cc")
+		(uuid "8524e7ee-1e04-4cc9-b892-9bcc0b953649")
+	)
+	(label "RON_SET"
+		(at 111.76 93.98 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8c95a75f-2d07-4fd1-b6d7-35d948c759c4")
+	)
+	(label "AUX_5V"
+		(at 171.45 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "91a6db8b-f89f-41b1-9633-a8f5c82c3ed0")
+	)
+	(label "FB"
+		(at 142.24 91.44 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9b4f5eed-dce9-4a8e-a68f-776dc98e7547")
+	)
+	(label "FB"
+		(at 190.5 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9ea19670-05db-4a35-8c30-6e98d7838ab7")
 	)
 	(label "SW"
 		(at 158.75 76.2 0)
@@ -2073,26 +2205,6 @@
 		)
 		(uuid "b73d0cd8-62e9-4905-bdd1-71a89b024867")
 	)
-	(label "AUX_5V"
-		(at 176.53 116.84 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "15bb0588-3b52-4747-868e-ae80fd0aead7")
-	)
-	(label "FB"
-		(at 196.85 116.84 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "0c187449-4945-492b-a7d1-1efdc2ddf6f2")
-	)
 	(label "RIPPLE"
 		(at 161.29 116.84 0)
 		(effects
@@ -2103,15 +2215,86 @@
 		)
 		(uuid "c0ed15a0-2736-4943-a39b-2c355cab3ea1")
 	)
-	(label "RIPPLE"
-		(at 184.15 116.84 180)
+	(label "GND"
+		(at 43.18 97.79 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c8684b0d-f8e9-4e9e-afec-1ba8982f3343")
+	)
+	(label "AUX_IN_PROTECTED"
+		(at 111.76 81.28 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "1fc47182-d195-4aec-9a39-938b729b8709")
+		(uuid "d2f1fc6c-1963-440d-aa24-3074a2896648")
+	)
+	(label "BST"
+		(at 146.05 76.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d787c31b-8261-4db1-9b13-1c2b6c5cd0cc")
+	)
+	(label "UVLO"
+		(at 111.76 86.36 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "eac5f783-6051-4a29-8df6-62f768877b85")
+	)
+	(label "AUX_IN_PROTECTED"
+		(at 43.18 85.09 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ee8f8bbf-7de1-4327-bcdc-c46c2998314f")
+	)
+	(label "UVLO"
+		(at 81.28 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f19c7dc5-fa64-4941-910d-df27658b50e8")
+	)
+	(label "AUX_IN_PROTECTED"
+		(at 81.28 76.2 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f6ea892a-c2f8-4e22-8ab2-9ef86545452a")
+	)
+	(hierarchical_label "AUX_PGOOD"
+		(shape output)
+		(at 228.6 63.5 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "0c11b589-64f8-430c-bb09-e6222bf5445e")
 	)
 	(hierarchical_label "AUX_IN_PROTECTED"
 		(shape input)
@@ -2135,43 +2318,72 @@
 		)
 		(uuid "dbb390bf-209c-48d7-b51c-ceb9414973ff")
 	)
-	(hierarchical_label "AUX_PGOOD"
-		(shape output)
-		(at 228.6 63.5 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "0c11b589-64f8-430c-bb09-e6222bf5445e")
-	)
 	(symbol
-		(lib_id "Regulator_Switching:LM5164DDA")
-		(at 127 88.9 0)
+		(lib_id "Device:C")
+		(at 68.58 91.44 0)
 		(unit 1)
+		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "22f9a67f-288d-41ad-84f6-677a5ca24454")
-		(property "Reference" "U4"
-			(at 118.11 77.47 0)
+		(uuid "019ae8c2-844e-4775-9174-c5762015a407")
+		(property "Reference" "C5"
+			(at 68.58 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10uF / 100V"
+			(at 68.58 78.74 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder"
+			(at 68.58 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "LM5164DDAT"
-			(at 132.08 77.47 0)
+		(property "Datasheet" "https://product.samsungsem.com/mlcc/CL32Y106KCVZ4N.do"
+			(at 68.58 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.71x3.4mm_ThermalVias"
-			(at 127 88.9 0)
+		(property "Description" "Unpolarized capacitor"
+			(at 68.58 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Samsung Electro-Mechanics"
+			(at 68.58 91.44 0)
 			(hide yes)
 			(effects
 				(font
@@ -2179,8 +2391,8 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/lm5164.pdf?ts=1598311864250&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FLM5164%253FHQS%253DTI-null-null-octopart-df-pf-null-wwe"
-			(at 127 88.9 0)
+		(property "MPN" "CL32Y106KCVZ4NE"
+			(at 68.58 91.44 0)
 			(hide yes)
 			(effects
 				(font
@@ -2188,454 +2400,54 @@
 				)
 			)
 		)
-		(property "Description" "1A synchronous buck converter with ultra-low IQ, 6V - 100V input, adjustable output voltage, HSOP-8"
-			(at 127 88.9 0)
+		(property "LCSC" "C5596909"
+			(at 68.58 91.44 0)
 			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "1"
+			(uuid "e10cf6b4-7b19-4ad1-b6e8-3c52d4a1bba4")
+		)
+		(pin "2"
+			(uuid "0ba98d91-e164-4a95-8eae-c5e69ac9b54a")
 		)
 		(instances
 			(project "bike-generator-controller"
 				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "U4")
+					(reference "C5")
 					(unit 1)
 				)
 			)
 		)
-	)
-	(symbol
-		(lib_id "Device:L")
-		(at 165.1 88.9 90)
-		(unit 1)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "a471710f-0396-4c3f-ad96-ca68f725ce2f")
-		(property "Reference" "L1"
-			(at 165.1 83.82 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "47uH"
-			(at 165.1 92.71 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 165.1 88.9 0)
+	
+		(property "Dielectric" "X7S"
+			(at 68.58 91.44 0)
 			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
-		)
-		(property "Datasheet" ""
-			(at 165.1 88.9 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Inductor"
-			(at 165.1 88.9 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(instances
-			(project "bike-generator-controller"
-				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "L1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 99.06 106.68 0)
-		(unit 1)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "621c1146-d851-402a-9807-94c6dfec4d61")
-		(property "Reference" "R8"
-			(at 102.87 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "41.2k / 1%"
-			(at 102.87 107.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 99.06 106.68 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 99.06 106.68 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 99.06 106.68 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(instances
-			(project "bike-generator-controller"
-				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "R8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 81.28 82.55 0)
-		(unit 1)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "3a559470-0022-4fd9-9dd6-a6724eefbc00")
-		(property "Reference" "R9"
-			(at 85.09 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1M / 1%"
-			(at 85.09 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 81.28 82.55 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 81.28 82.55 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 81.28 82.55 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(instances
-			(project "bike-generator-controller"
-				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "R9")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 81.28 101.6 0)
-		(unit 1)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "1411c237-b9ff-445b-92dd-556e23ce3340")
-		(property "Reference" "R10"
-			(at 85.09 100.33 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "200k / 1%"
-			(at 85.09 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 81.28 101.6 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 81.28 101.6 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 81.28 101.6 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(instances
-			(project "bike-generator-controller"
-				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "R10")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 190.5 82.55 0)
-		(unit 1)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "ef2178f6-e754-43ed-8a0e-40a5517a6b25")
-		(property "Reference" "R11"
-			(at 194.31 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "316k / 0.1%"
-			(at 194.31 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 190.5 82.55 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 190.5 82.55 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 190.5 82.55 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(instances
-			(project "bike-generator-controller"
-				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "R11")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 190.5 101.6 0)
-		(unit 1)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "4b79fb5c-9e65-4f1b-a80b-00eb263a52ae")
-		(property "Reference" "R12"
-			(at 194.31 100.33 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "100k / 0.1%"
-			(at 194.31 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 190.5 101.6 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 190.5 101.6 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 190.5 101.6 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(instances
-			(project "bike-generator-controller"
-				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "R12")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 152.4 116.84 90)
-		(unit 1)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "5dca93b5-d753-4fe8-80a3-4f0213e3397b")
-		(property "Reference" "R13"
-			(at 152.4 113.03 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "200k / 1%"
-			(at 152.4 121.92 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 152.4 116.84 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 152.4 116.84 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 152.4 116.84 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(instances
-			(project "bike-generator-controller"
-				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "R13")
-					(unit 1)
-				)
-			)
-		)
-	)
+		))
 	(symbol
 		(lib_id "Device:R")
 		(at 213.36 82.55 0)
 		(unit 1)
+		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "10838925-c49f-4146-b174-fb20b301ee1e")
 		(property "Reference" "R14"
 			(at 217.17 81.28 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2644,15 +2456,19 @@
 		)
 		(property "Value" "47k"
 			(at 217.17 83.82 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
 			(at 213.36 82.55 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2662,6 +2478,8 @@
 		(property "Datasheet" ""
 			(at 213.36 82.55 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2671,11 +2489,48 @@
 		(property "Description" "Resistor"
 			(at 213.36 82.55 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 213.36 82.55 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RC0805FR-0747KL"
+			(at 213.36 82.55 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C126351"
+			(at 213.36 82.55 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "1"
+			(uuid "56fb6c05-e890-49d9-a7e0-76bc88e2db98")
+		)
+		(pin "2"
+			(uuid "50fb34e0-cec2-48fb-9bbc-db232f6af975")
 		)
 		(instances
 			(project "bike-generator-controller"
@@ -2687,34 +2542,39 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 55.88 91.44 0)
+		(lib_id "Connector:TestPoint")
+		(at 45.72 63.5 0)
 		(unit 1)
+		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "e46b902a-cfa5-4188-9386-3a7c3e0db858")
-		(property "Reference" "C4"
-			(at 55.88 100.33 0)
+		(uuid "1162058c-2b2d-44b1-982d-675e967154b1")
+		(property "Reference" "TP12"
+			(at 45.72 56.642 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "2.2uF 100V"
-			(at 55.88 102.87 0)
+		(property "Value" "AUX_IN"
+			(at 45.72 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 55.88 91.44 0)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 45.72 63.5 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2722,61 +2582,76 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 55.88 91.44 0)
+			(at 45.72 63.5 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
-			(at 55.88 91.44 0)
+		(property "Description" "test point"
+			(at 45.72 63.5 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "1"
+			(uuid "aa2a8241-0de4-4655-b78b-8ef57934956d")
 		)
 		(instances
 			(project "bike-generator-controller"
 				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "C4")
+					(reference "TP12")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 68.58 91.44 0)
+		(lib_id "power:+3V3")
+		(at 213.36 78.74 0)
 		(unit 1)
+		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "019ae8c2-844e-4775-9174-c5762015a407")
-		(property "Reference" "C5"
-			(at 68.58 100.33 0)
+		(uuid "11cb37e2-a130-436e-8bdd-ab94b142695e")
+		(property "Reference" "#PWR001"
+			(at 213.36 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "2.2uF 100V"
-			(at 68.58 102.87 0)
+		(property "Value" "+3V3"
+			(at 213.36 75.184 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
-			(at 68.58 91.44 0)
+			(at 213.36 78.74 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2784,61 +2659,75 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 68.58 91.44 0)
+			(at 213.36 78.74 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
-			(at 68.58 91.44 0)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 213.36 78.74 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "1"
+			(uuid "21aeefdb-1100-4fd8-a044-416bb1cb5e43")
 		)
 		(instances
 			(project "bike-generator-controller"
 				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "C5")
+					(reference "#PWR001")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Polarized")
-		(at 43.18 91.44 0)
+		(lib_id "Connector:TestPoint")
+		(at 236.22 63.5 0)
 		(unit 1)
+		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "fa3f1262-d2d5-477b-a5c6-e65eabaf9217")
-		(property "Reference" "C6"
-			(at 40.64 100.33 0)
+		(uuid "12bdf93e-860f-43b5-a2dd-5586fdf48a4d")
+		(property "Reference" "TP15"
+			(at 236.22 56.642 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "10uF"
-			(at 40.64 102.87 0)
+		(property "Value" "GND"
+			(at 236.22 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 43.18 91.44 0)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 236.22 63.5 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2846,61 +2735,75 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 43.18 91.44 0)
+			(at 236.22 63.5 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "Polarized capacitor"
-			(at 43.18 91.44 0)
+		(property "Description" "test point"
+			(at 236.22 63.5 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "1"
+			(uuid "c4cef250-5359-488a-96ab-0a41e6db6568")
 		)
 		(instances
 			(project "bike-generator-controller"
 				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "C6")
+					(reference "TP15")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 177.8 101.6 0)
+		(lib_id "Device:R")
+		(at 81.28 101.6 0)
 		(unit 1)
+		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "48e9f51d-31d2-4ce7-97f2-9aab1c8b1815")
-		(property "Reference" "C7"
-			(at 177.8 110.49 0)
+		(uuid "1411c237-b9ff-445b-92dd-556e23ce3340")
+		(property "Reference" "R10"
+			(at 85.09 100.33 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "22uF"
-			(at 177.8 113.03 0)
+		(property "Value" "200k / 1%"
+			(at 85.09 102.87 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 177.8 101.6 0)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 81.28 101.6 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2908,7 +2811,29 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 177.8 101.6 0)
+			(at 81.28 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 81.28 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 81.28 101.6 0)
 			(hide yes)
 			(effects
 				(font
@@ -2916,205 +2841,36 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
-			(at 177.8 101.6 0)
+		(property "MPN" "RC0805FR-07200KL"
+			(at 81.28 101.6 0)
 			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
+		)
+		(property "LCSC" "C114562"
+			(at 81.28 101.6 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "2"
+			(uuid "5e9a58e1-86d4-461c-8c3f-6d9218c54293")
+		)
+		(pin "1"
+			(uuid "8c48932b-3814-4d45-a270-b4a603479be9")
 		)
 		(instances
 			(project "bike-generator-controller"
 				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "C7")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 165.1 101.6 0)
-		(unit 1)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "5bb68977-ee30-4248-8e22-78ac12bc5119")
-		(property "Reference" "C8"
-			(at 165.1 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "22uF"
-			(at 165.1 113.03 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 165.1 101.6 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 165.1 101.6 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 165.1 101.6 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(instances
-			(project "bike-generator-controller"
-				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "C8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 152.4 76.2 90)
-		(unit 1)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "f0bd87f9-6410-469d-a1f1-130ef73922c0")
-		(property "Reference" "C9"
-			(at 152.4 72.39 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "2.2nF 50V"
-			(at 152.4 73.66 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 152.4 76.2 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 152.4 76.2 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 152.4 76.2 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(instances
-			(project "bike-generator-controller"
-				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "C9")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 170.18 116.84 90)
-		(unit 1)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "ef630e62-e5a1-460c-9319-fde7f2942661")
-		(property "Reference" "C10"
-			(at 170.18 113.03 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "3.3nF"
-			(at 170.18 121.92 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 170.18 116.84 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 170.18 116.84 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 170.18 116.84 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(instances
-			(project "bike-generator-controller"
-				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "C10")
+					(reference "R10")
 					(unit 1)
 				)
 			)
@@ -3124,12 +2880,15 @@
 		(lib_id "Device:C")
 		(at 190.5 116.84 90)
 		(unit 1)
+		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "1e9a86c5-09a5-4dda-b3b9-e335040c7ff4")
 		(property "Reference" "C11"
 			(at 190.5 113.03 90)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3139,6 +2898,8 @@
 		)
 		(property "Value" "82pF C0G"
 			(at 190.5 121.92 90)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3146,9 +2907,11 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
 			(at 190.5 116.84 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3158,6 +2921,8 @@
 		(property "Datasheet" ""
 			(at 190.5 116.84 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3167,11 +2932,48 @@
 		(property "Description" "Unpolarized capacitor"
 			(at 190.5 116.84 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 190.5 116.84 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CC0805JRNPO9BN820"
+			(at 190.5 116.84 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C113833"
+			(at 190.5 116.84 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "1"
+			(uuid "4a62e1f0-725d-4b17-8c58-5e7a32dbaee9")
+		)
+		(pin "2"
+			(uuid "c8df21ac-8b38-4ac6-9445-ceb67e2dda5f")
 		)
 		(instances
 			(project "bike-generator-controller"
@@ -3184,74 +2986,17 @@
 	)
 	(symbol
 		(lib_id "Connector:TestPoint")
-		(at 45.72 63.5 0)
-		(unit 1)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "1162058c-2b2d-44b1-982d-675e967154b1")
-		(property "Reference" "TP12"
-			(at 45.72 56.642 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "AUX_IN"
-			(at 45.72 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
-			(at 45.72 63.5 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 45.72 63.5 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "test point"
-			(at 45.72 63.5 0)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(instances
-			(project "bike-generator-controller"
-				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "TP12")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
 		(at 180.34 63.5 0)
 		(unit 1)
+		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "229051db-ad18-48e2-b657-52dc8574a97e")
 		(property "Reference" "TP13"
 			(at 180.34 56.642 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3260,6 +3005,8 @@
 		)
 		(property "Value" "AUX_5V"
 			(at 180.34 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3269,6 +3016,8 @@
 		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
 			(at 180.34 63.5 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3278,6 +3027,8 @@
 		(property "Datasheet" ""
 			(at 180.34 63.5 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3287,11 +3038,18 @@
 		(property "Description" "test point"
 			(at 180.34 63.5 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "1"
+			(uuid "78cae96b-f79c-4e31-86fd-2c1542f87212")
 		)
 		(instances
 			(project "bike-generator-controller"
@@ -3303,92 +3061,139 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 208.28 63.5 0)
+		(lib_id "Regulator_Switching:LM5164DDA")
+		(at 127 88.9 0)
 		(unit 1)
+		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "f3afa8b0-ed95-49f7-8907-2172924928bf")
-		(property "Reference" "TP14"
-			(at 208.28 56.642 0)
+		(uuid "22f9a67f-288d-41ad-84f6-677a5ca24454")
+		(property "Reference" "U4"
+			(at 118.11 77.47 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "AUX_PGOOD"
-			(at 208.28 58.42 0)
+		(property "Value" "LM5164DDAT"
+			(at 132.08 77.47 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
-			(at 208.28 63.5 0)
+		(property "Footprint" "BikeGenerator:SOIC-8-1EP_DDA_EP2.95x4.9mm_6Vias_D0.30mm"
+			(at 127 88.9 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Datasheet" ""
-			(at 208.28 63.5 0)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/lm5164.pdf?ts=1598311864250&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FLM5164%253FHQS%253DTI-null-null-octopart-df-pf-null-wwe"
+			(at 127 88.9 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "test point"
-			(at 208.28 63.5 0)
+		(property "Description" "1A synchronous buck converter with ultra-low IQ, 6V - 100V input, adjustable output voltage, HSOP-8"
+			(at 127 88.9 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "4"
+			(uuid "b0facdf5-84da-4acf-80e0-2a7083cabe75")
+		)
+		(pin "2"
+			(uuid "d96aff26-a492-4da3-9ddd-3fe571870a6a")
+		)
+		(pin "3"
+			(uuid "af4d0f8d-e7d9-40bf-bc9d-b2b782d05bad")
+		)
+		(pin "1"
+			(uuid "71806d89-f970-4254-83ca-4a4fd86deafb")
+		)
+		(pin "5"
+			(uuid "973a23d0-2281-4b3c-b220-2e94ccec0660")
+		)
+		(pin "8"
+			(uuid "2ee9ae29-d527-42a5-9106-36849837c103")
+		)
+		(pin "9"
+			(uuid "37a7dc3c-efe6-4415-a10e-7a925bf47d4e")
+		)
+		(pin "7"
+			(uuid "031ea93c-757c-411f-a5dc-2c669b12858d")
+		)
+		(pin "6"
+			(uuid "7d949eaf-1f9b-4208-98f6-8df8acadcd32")
 		)
 		(instances
 			(project "bike-generator-controller"
 				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "TP14")
+					(reference "U4")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 236.22 63.5 0)
+		(lib_id "Device:R")
+		(at 81.28 82.55 0)
 		(unit 1)
+		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "12bdf93e-860f-43b5-a2dd-5586fdf48a4d")
-		(property "Reference" "TP15"
-			(at 236.22 56.642 0)
+		(uuid "3a559470-0022-4fd9-9dd6-a6724eefbc00")
+		(property "Reference" "R9"
+			(at 85.09 81.28 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "GND"
-			(at 236.22 58.42 0)
+		(property "Value" "1M / 1%"
+			(at 85.09 83.82 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
-			(at 236.22 63.5 0)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 81.28 82.55 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3396,7 +3201,29 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 236.22 63.5 0)
+			(at 81.28 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 81.28 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 81.28 82.55 0)
 			(hide yes)
 			(effects
 				(font
@@ -3404,52 +3231,77 @@
 				)
 			)
 		)
-		(property "Description" "test point"
-			(at 236.22 63.5 0)
+		(property "MPN" "RC0805FR-071ML"
+			(at 81.28 82.55 0)
 			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
+		)
+		(property "LCSC" "C107700"
+			(at 81.28 82.55 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "2"
+			(uuid "ba272895-3b20-4891-843c-623b3c366d39")
+		)
+		(pin "1"
+			(uuid "b36151de-f6e3-47bc-930e-84be0d92ca59")
 		)
 		(instances
 			(project "bike-generator-controller"
 				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "TP15")
+					(reference "R9")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
-		(at 213.36 78.74 0)
+		(lib_id "Device:C")
+		(at 177.8 101.6 0)
 		(unit 1)
+		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "11cb37e2-a130-436e-8bdd-ab94b142695e")
-		(property "Reference" "#PWR001"
-			(at 213.36 82.55 0)
-			(hide yes)
+		(uuid "48e9f51d-31d2-4ce7-97f2-9aab1c8b1815")
+		(property "Reference" "C7"
+			(at 177.8 110.49 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Value" "+3V3"
-			(at 213.36 75.184 0)
+		(property "Value" "22uF"
+			(at 177.8 113.03 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 213.36 78.74 0)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder"
+			(at 177.8 101.6 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3457,7 +3309,29 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 213.36 78.74 0)
+			(at 177.8 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 177.8 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Samsung Electro-Mechanics"
+			(at 177.8 101.6 0)
 			(hide yes)
 			(effects
 				(font
@@ -3465,19 +3339,142 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 213.36 78.74 0)
+		(property "MPN" "CL32B226KOJNNNE"
+			(at 177.8 101.6 0)
 			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
+		)
+		(property "LCSC" "C55530"
+			(at 177.8 101.6 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "2"
+			(uuid "9b68c333-2fc0-4dc4-b0f2-850b7e656457")
+		)
+		(pin "1"
+			(uuid "d87a49ea-13f8-4325-8bbe-874ee64a5a2c")
 		)
 		(instances
 			(project "bike-generator-controller"
 				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
-					(reference "#PWR001")
+					(reference "C7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 190.5 101.6 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4b79fb5c-9e65-4f1b-a80b-00eb263a52ae")
+		(property "Reference" "R12"
+			(at 194.31 100.33 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100k / 0.1%"
+			(at 194.31 102.87 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 190.5 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 190.5 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 190.5 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 190.5 101.6 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RT0805BRD07100KL"
+			(at 190.5 101.6 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C122537"
+			(at 190.5 101.6 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "2"
+			(uuid "dcb797ca-3e4b-41c6-a471-1e9159d302e6")
+		)
+		(pin "1"
+			(uuid "fc43c1ac-3b4d-4d00-9259-011c17adfba3")
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
+					(reference "R12")
 					(unit 1)
 				)
 			)
@@ -3487,6 +3484,7 @@
 		(lib_id "power:GND")
 		(at 236.22 63.5 0)
 		(unit 1)
+		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
@@ -3494,6 +3492,8 @@
 		(property "Reference" "#PWR002"
 			(at 236.22 69.85 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3502,6 +3502,8 @@
 		)
 		(property "Value" "GND"
 			(at 236.22 67.31 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3511,6 +3513,8 @@
 		(property "Footprint" ""
 			(at 236.22 63.5 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3520,6 +3524,8 @@
 		(property "Datasheet" ""
 			(at 236.22 63.5 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3529,11 +3535,18 @@
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 236.22 63.5 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "1"
+			(uuid "51d49dd5-0291-4091-b265-489db98e998b")
 		)
 		(instances
 			(project "bike-generator-controller"
@@ -3545,9 +3558,224 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C")
+		(at 165.1 101.6 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5bb68977-ee30-4248-8e22-78ac12bc5119")
+		(property "Reference" "C8"
+			(at 165.1 110.49 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22uF"
+			(at 165.1 113.03 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder"
+			(at 165.1 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 165.1 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 165.1 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Samsung Electro-Mechanics"
+			(at 165.1 101.6 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CL32B226KOJNNNE"
+			(at 165.1 101.6 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C55530"
+			(at 165.1 101.6 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "1"
+			(uuid "b135c085-55b7-4730-b638-da042204557a")
+		)
+		(pin "2"
+			(uuid "dc66b0f5-0f8a-45f6-b9b1-a2677729de34")
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
+					(reference "C8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 152.4 116.84 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5dca93b5-d753-4fe8-80a3-4f0213e3397b")
+		(property "Reference" "R13"
+			(at 152.4 113.03 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "200k / 1%"
+			(at 152.4 121.92 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 152.4 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 152.4 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 152.4 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 152.4 116.84 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RC0805FR-07200KL"
+			(at 152.4 116.84 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C114562"
+			(at 152.4 116.84 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "2"
+			(uuid "14387cc7-8078-41c5-9e9f-23f99380f44e")
+		)
+		(pin "1"
+			(uuid "8102ca8f-37f7-4a2d-9b9a-d6f438e04fef")
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
+					(reference "R13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:PWR_FLAG")
 		(at 38.1 50.8 0)
 		(unit 1)
+		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
@@ -3555,6 +3783,8 @@
 		(property "Reference" "#PWR003"
 			(at 38.1 48.895 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3563,6 +3793,8 @@
 		)
 		(property "Value" "PWR_FLAG"
 			(at 38.1 46.99 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3572,6 +3804,8 @@
 		(property "Footprint" ""
 			(at 38.1 50.8 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3581,6 +3815,8 @@
 		(property "Datasheet" ""
 			(at 38.1 50.8 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3590,11 +3826,18 @@
 		(property "Description" "Special symbol for telling ERC where power comes from"
 			(at 38.1 50.8 0)
 			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "1"
+			(uuid "64c80084-c1af-44da-9a76-ff62b8d5bc74")
 		)
 		(instances
 			(project "bike-generator-controller"
@@ -3605,4 +3848,919 @@
 			)
 		)
 	)
+	(symbol
+		(lib_id "Device:R")
+		(at 99.06 106.68 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "621c1146-d851-402a-9807-94c6dfec4d61")
+		(property "Reference" "R8"
+			(at 102.87 105.41 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "41.2k / 1%"
+			(at 102.87 107.95 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
+			(at 99.06 106.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_16.pdf"
+			(at 99.06 106.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 99.06 106.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 99.06 106.68 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RC1206FR-0741K2L"
+			(at 99.06 106.68 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C274076"
+			(at 99.06 106.68 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "1"
+			(uuid "a13fd06d-c74b-4a75-9505-f9d9725c2f8b")
+		)
+		(pin "2"
+			(uuid "f584dc8c-fbc1-4485-980e-e80129954bb4")
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
+					(reference "R8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:L")
+		(at 165.1 88.9 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a471710f-0396-4c3f-ad96-ca68f725ce2f")
+		(property "Reference" "L1"
+			(at 165.1 83.82 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "47uH"
+			(at 165.1 92.71 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Inductor_SMD:L_Coilcraft_MSS1038-XXX"
+			(at 165.1 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.coilcraft.com/getmedia/3e03a7b4-3b1d-4f31-b1f3-e7c621695ac0/mss1038.pdf"
+			(at 165.1 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Inductor"
+			(at 165.1 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "MSS1038-473MLC"
+			(at 165.1 88.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Coilcraft"
+			(at 165.1 88.9 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "2"
+			(uuid "8f5c02dd-57b2-4517-ad62-a787bfb30d18")
+		)
+		(pin "1"
+			(uuid "ff7a0d83-7b8b-4a07-a8aa-bfe19bb4c369")
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
+					(reference "L1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 55.88 91.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e46b902a-cfa5-4188-9386-3a7c3e0db858")
+		(property "Reference" "C4"
+			(at 55.88 100.33 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10uF / 100V"
+			(at 55.88 102.87 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder"
+			(at 55.88 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://product.samsungsem.com/mlcc/CL32Y106KCVZ4N.do"
+			(at 55.88 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 55.88 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CL32Y106KCVZ4NE"
+			(at 55.88 91.44 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Samsung Electro-Mechanics"
+			(at 55.88 91.44 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C5596909"
+			(at 55.88 91.44 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "2"
+			(uuid "8cbc3d9e-acc3-4d69-9e72-2b0b8d147e1e")
+		)
+		(pin "1"
+			(uuid "8a02d938-0b86-47ea-b7a7-c1c035fceb2b")
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
+					(reference "C4")
+					(unit 1)
+				)
+			)
+		)
+	
+		(property "Dielectric" "X7S"
+			(at 55.88 91.44 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		))
+	(symbol
+		(lib_id "Device:R")
+		(at 190.5 82.55 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ef2178f6-e754-43ed-8a0e-40a5517a6b25")
+		(property "Reference" "R11"
+			(at 194.31 81.28 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "316k / 0.1%"
+			(at 194.31 83.82 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 190.5 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 190.5 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 190.5 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 190.5 82.55 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RT0805BRD07316KL"
+			(at 190.5 82.55 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C865397"
+			(at 190.5 82.55 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "2"
+			(uuid "301e2484-19b2-497e-90a4-c4a5f4a43d92")
+		)
+		(pin "1"
+			(uuid "f2ff27cb-264a-4857-aa68-76428364846b")
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
+					(reference "R11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 170.18 116.84 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ef630e62-e5a1-460c-9319-fde7f2942661")
+		(property "Reference" "C10"
+			(at 170.18 113.03 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "3.3nF"
+			(at 170.18 121.92 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+			(at 170.18 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 170.18 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 170.18 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 170.18 116.84 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CC0805KRX7R9BB332"
+			(at 170.18 116.84 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C107149"
+			(at 170.18 116.84 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "2"
+			(uuid "62e76fa3-5270-4c62-bc81-2265a6431c1e")
+		)
+		(pin "1"
+			(uuid "84915c0b-4c46-48b0-bfd6-9295471d9b20")
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
+					(reference "C10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 152.4 76.2 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f0bd87f9-6410-469d-a1f1-130ef73922c0")
+		(property "Reference" "C9"
+			(at 152.4 72.39 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "2.2nF 50V"
+			(at 152.4 73.66 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+			(at 152.4 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 152.4 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 152.4 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 152.4 76.2 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CC0805KRX7R9BB222"
+			(at 152.4 76.2 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C107146"
+			(at 152.4 76.2 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "2"
+			(uuid "0dc47050-4ddc-4737-a54c-605d28702ae1")
+		)
+		(pin "1"
+			(uuid "d5c989e2-5527-4f27-909f-beaebf9b505b")
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
+					(reference "C9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 208.28 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f3afa8b0-ed95-49f7-8907-2172924928bf")
+		(property "Reference" "TP14"
+			(at 208.28 56.642 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "AUX_PGOOD"
+			(at 208.28 58.42 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 208.28 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 208.28 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "test point"
+			(at 208.28 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "1"
+			(uuid "3f0707e5-c322-4cf6-8f5a-11de0a20f8e6")
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
+					(reference "TP14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Polarized")
+		(at 43.18 91.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "fa3f1262-d2d5-477b-a5c6-e65eabaf9217")
+		(property "Reference" "C6"
+			(at 43.18 105.41 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10uF / 100V"
+			(at 43.18 107.95 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm"
+			(at 43.18 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://industrial.panasonic.com/cdbs/www-data/pdf/RDF0000/ABA0000C1209.pdf"
+			(at 43.18 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Polarized capacitor"
+			(at 43.18 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "EEU-FC2A100"
+			(at 43.18 91.44 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Industry"
+			(at 43.18 91.44 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(body_style 1)
+		(in_pos_files yes)
+		(pin "2"
+			(uuid "acc53d1f-a7ab-49bc-bcd4-890cbdbef4d3")
+		)
+		(pin "1"
+			(uuid "1d6f93ed-cb4e-420a-8eb5-f6f5a2f4c961")
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
+					(reference "C6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 30.48 91.44 0)
+		(unit 1)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4f25b08b-1286-4d9f-b30b-948ff022986b")
+		(property "Reference" "C13"
+			(at 30.48 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10uF / 100V"
+			(at 30.48 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder"
+			(at 30.48 91.44 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://product.samsungsem.com/mlcc/CL32Y106KCVZ4N.do"
+			(at 30.48 91.44 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 30.48 91.44 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C5596909"
+			(at 30.48 91.44 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "CL32Y106KCVZ4NE"
+			(at 30.48 91.44 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Samsung Electro-Mechanics"
+			(at 30.48 91.44 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/910facd9-576a-45c2-81aa-0b52f265a4e8"
+					(reference "C13")
+					(unit 1)
+				)
+			)
+		)
+	
+		(property "Dielectric" "X7S"
+			(at 30.48 91.44 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		))
 )

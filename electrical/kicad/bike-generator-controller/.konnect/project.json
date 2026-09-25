@@ -1,0 +1,14 @@
+{
+  "design_rules": [
+    "For controller V1, L1 is fixed to Coilcraft MSS1038-473MLC (47 uH, +/-20%) with KiCad footprint Inductor_SMD:L_Coilcraft_MSS1038-XXX. Bourns SRP1038C-470M is only a documented BOM cost-reduction alternative and must not replace L1 without a new lifecycle and availability review.",
+    "V1 protected-bus ceiling is 80 V maximum continuous and including tolerated overshoot. INA228 limit is 85 V and LM5164 limit is 100 V. Use a simple fuse plus parallel TVS for short transient suppression only; do not add an active surge-stopper solely for sustained input above 80 V. Sustained input above 80 V is out of specification and component damage is accepted. Preserve already-valid blocks and prefer minimal rating or footprint changes.",
+    "PCB V1 CC control uses U3 = Microchip MCP4151-104E/SN with native KiCad symbol Potentiometer_Digital:MCP4151-xxxx-P and native footprint Package_SO:SOIC-8_3.9x4.9mm_P1.27mm. Use write-only SPI nets POT_MOSI/POT_CS/POT_SCK and analog nets CC_A/CC_W/CC_B; do not add POT_MISO or recreate custom ECAD models. Keep C12 = 100 nF X7R at U3 VDD. Do not connect J_CC_CTRL to the external buck until CC_A/W/B are physically verified within 0–3.3 V and safely below ±2.5 mA.",
+    "For PCB V1, R7 is fixed to Bourns CSS4J-4026K-2L00F, 2 mOhm, four-terminal shunt. Use native footprint Resistor_SMD:R_Shunt_Isabellenhuette_BVR4026 because its force/sense pad geometry exactly matches the Bourns recommended land pattern. Pad mapping: 1 left force/input after F1, 2 SHUNT_HI_K, 3 SHUNT_LO_K, 4 right force/BUS_PROTECTED. Configure INA228 for the +/-163.84 mV shunt range to retain the 25 A transient envelope.",
+    "For U2 use the validated project footprint BikeGenerator:DFR0868_Beetle_ESP32-C3_V2_Socketed: DFR0868 V2.0 on two 1x8 vertical female sockets, 2.54 mm pitch, 17.78 mm row spacing, USB-C at the footprint top and antenna end at the bottom.",
+    "Keep firmware work out of scope until the first physical controller PCB exists; schematic and PCB decisions must not trigger firmware edits.",
+    "The controller PCB is generic within a 10-80 V protected-bus envelope and 20 A continuous / 25 A short-duration main path. Measurements of the first generator and external buck validate that installation but do not redefine the generic board limits."
+  ],
+  "fab_constraints": {},
+  "naming_conventions": {},
+  "sourcing": {}
+}

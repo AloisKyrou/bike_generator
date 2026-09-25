@@ -62,7 +62,7 @@ Surplus power that the BLUETTI cannot absorb is burned off by halogen lamp dump 
 | 3-phase bridge rectifier | AC to DC |
 | 400W CV/CC buck module | Regulated 24V bus and current limit |
 | **ESP32-C3** (Beetle) | MCU: sensors, BLE, digipot control |
-| **DFR0520** (MCP42100) | Digital potentiometer, sets buck current limit via SPI |
+| **DFR0520** prototype / **MCP4151-104** PCB V1 | Digital potentiometer, sets buck current limit via SPI |
 | **ACS712 30A** | Hall-effect current sensor |
 | Resistive voltage divider (100k + 7.5k) | Bus voltage measurement, safe across the BLUETTI's 12–40V input range |
 | **BLUETTI AC50S** | 500Wh power station, primary load |
@@ -78,7 +78,9 @@ See the **[component references](docs/components/README.md)** for datasheets and
 ![Electronics box placeholder](docs/images/electronics-box.jpg)
 *Photo placeholder — inside the electronics enclosure*
 
-The ESP32-C3, ACS712, and voltage divider live in a small enclosure mounted near the DC/DC buck module. The SPI cable to the DFR0520 digipot connects to the buck current-limit potentiometer terminals.
+The prototype uses an external DFR0520 module. PCB V1 integrates the equivalent
+single-channel MCP4151-104 and exposes only `CC_A`, `CC_W` and `CC_B` toward the
+buck current-limit potentiometer terminals.
 
 ---
 
@@ -91,7 +93,8 @@ Follow the wiring guide in **[docs/hardware.md](docs/hardware.md)**.
 Key points:
 - Wire the ACS712 in-line with the bus current path
 - Wire the resistive divider (100k + 7.5k) from the bus to GPIO1
-- Wire the DFR0520 to the ESP32-C3 SPI pins and into the buck CC trim pot network
+- Prototype: wire the DFR0520 as documented. PCB V1: connect only `J_CC_CTRL`
+  after validating the buck's A/W/B voltage and current limits.
 - Wire halogen pairs (2x G4 12V/20W in series) across the 24V bus
 
 ### 2. Configure config.h

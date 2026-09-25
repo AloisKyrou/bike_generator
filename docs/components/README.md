@@ -29,6 +29,7 @@ The ACS712 belongs to the current breadboard prototype. PCB V1 instead plans an
 |-----------|-----------|
 | **DFR0520** breakout (embeds MCP42100) | [DFRobot wiki](https://wiki.dfrobot.com/Dual_Digital_Pot__100K__SKU__DFR0520) · [DFRobot schematic PDF](https://dfimg.dfrobot.com/62b2fb5caa613609f271523c/wiki/b2e1ba59af7c285a9d8e6542820bb53f.pdf) |
 | **MCP42100** IC (100kΩ, 256 taps, SPI) | [Datasheet PDF](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/11195c.pdf) · [Microchip product page](https://www.microchip.com/en-us/product/MCP42100) |
+| **MCP4151-104E/SN** PCB V1 (100kΩ, single channel, SPI) | [Microchip product page](https://www.microchip.com/en-us/product/MCP4151) · [Archived project notes](../../electrical/components/mcp4151-104/) |
 
 ## Energy Storage
 

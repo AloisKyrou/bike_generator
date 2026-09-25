@@ -52,10 +52,12 @@ shunt, `BUS_PROTECTED`, the external buck connection and the separately fused
 auxiliary branch. Its Kelvin and bus outputs feed `INA228_SENSE`, while
 `AUX_IN_PROTECTED` feeds the LM5164 sheet.
 
-`AUX_SUPPLY` implements the first sourced 10–60 V to 5 V schematic around the
-LM5164, including UVLO, feedback, Type-3 ripple network, input/output
-capacitors, `PGOOD`, a power flag and four test points. Its component values are
-still candidates until TI/WEBENCH verification and physical part selection.
+`AUX_SUPPLY` implements the 5 V supply around the LM5164 for the V1 protected
+bus ceiling of 80 V, including UVLO, feedback, Type-3 ripple network,
+input/output capacitors, `PGOOD`, a power flag and four test points. Its V1
+passives and footprints are selected. The MLCC DC-bias curves are checked;
+`C4`, `C5` and the added parallel `C13` are now the selected 10 µF / 100 V
+X7S parts in KiCad. The TI/WEBENCH cross-check remains required before ordering.
 `AUX_5V` is now connected to the MCU sheet through the manual `JP3`
 generator/USB interlock. The global ERC reports exactly one intentional error:
 the root-sheet output `AUX_PGOOD` is not yet connected to the future hardware
@@ -69,9 +71,12 @@ pitch, mating orientation and polarity must be checked before PCB release.
 
 Project-owned library items currently include:
 
-- `BikeGenerator:DFR0868_Beetle_ESP32-C3` — schematic symbol only;
-- `BikeGenerator:DFR0520_Dual_Digital_Pot` — symbol and through-hole module
-  footprint.
+- `BikeGenerator:DFR0868_Beetle_ESP32-C3` — symbole de schéma ;
+- `BikeGenerator:DFR0868_Beetle_ESP32-C3_V2_Socketed` — empreinte porte-module
+  sur deux sockets 1×8, créée depuis le CAD DFRobot V2.0 et affectée à `U2` ;
+- `BikeGenerator:DFR0520_Dual_Digital_Pot` — ancien module traversant conservé
+  uniquement pour documenter le prototype ; le PCB V1 utilise les bibliothèques
+  KiCad natives pour `MCP4151-104E/SN` et son SOIC-8.
 
 See the [KiCad workflow and troubleshooting guide](WORKFLOW.md) for the
 creation steps, their manual equivalent and the verification process.
@@ -79,6 +84,8 @@ The implementation order and completion gates are tracked in the
 [KiCad roadmap](ROADMAP.md).
 The latest project-level connectivity evidence is summarized in
 [the connection audit](CONNECTION_AUDIT.md).
+The active PCB routing classes, their net assignments and their engineering
+limits are recorded in [NETCLASSES.md](NETCLASSES.md).
 
 ## Source and generated files
 

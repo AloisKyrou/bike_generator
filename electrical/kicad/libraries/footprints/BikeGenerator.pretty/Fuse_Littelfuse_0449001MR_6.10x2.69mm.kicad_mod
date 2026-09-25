@@ -1,0 +1,13 @@
+(footprint "Fuse_Littelfuse_0449001MR_6.10x2.69mm"
+  (version 20240108)
+  (generator "konnect")
+  (layer "F.Cu")
+  (descr "Littelfuse 0449001.MR, 449 Series NANO2 Slo-Blo fuse; exact manufacturer recommended land pattern: 1.96 x 3.15 mm pads, 2.95 mm gap; nominal body 6.10 x 2.69 mm")
+  (attr smd)
+  (pad "1" smd rect (at -2.455 0) (size 1.96 3.15) (layers "F.Cu" "F.Paste" "F.Mask")  )
+  (pad "2" smd rect (at 2.455 0) (size 1.96 3.15) (layers "F.Cu" "F.Paste" "F.Mask")  )
+  (fp_rect (start -3.6850 -1.8250) (end 3.6850 1.8250) (stroke (width 0.05) (type solid)) (fill none) (layer "F.CrtYd"))
+  (fp_rect (start -3.05 -1.345) (end 3.05 1.345) (stroke (width 0.1) (type solid)) (fill none) (layer "F.Fab"))
+  (fp_text reference "REF**" (at 0.0000 -2.8250 0) (layer "F.SilkS") (effects (font (size 1 1) (thickness 0.15))))
+  (fp_text value "Fuse_Littelfuse_0449001MR_6.10x2.69mm" (at 0.0000 2.8250 0) (layer "F.Fab") (effects (font (size 1 1) (thickness 0.15))))
+)

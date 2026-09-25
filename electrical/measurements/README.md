@@ -9,6 +9,9 @@ final schematic and PCB routing.
 
 The required measurement list is maintained in
 [`docs/electrical/measurement-campaign.md`](../../docs/electrical/measurement-campaign.md).
+The provisional values that allow PCB work to continue, plus the short
+validation checklist for the first generator/buck pair, are in
+[`first-generator-buck-validation-plan.md`](./first-generator-buck-validation-plan.md).
 
 Each measurement set should state:
 

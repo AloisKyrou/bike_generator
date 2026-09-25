@@ -37,9 +37,9 @@ void Hardware_SetupADC() {
 void Hardware_SetupSPI() {
   pinMode(PIN_POT_CS, OUTPUT);
   digitalWrite(PIN_POT_CS, HIGH);
-  SPI.begin(PIN_POT_SCK, PIN_POT_MISO, PIN_POT_MOSI, PIN_POT_CS);
-  Serial.printf("[HW] Digipot SPI: CS=%d, SCK=%d, MOSI=%d, MISO=%d\n", 
-                PIN_POT_CS, PIN_POT_SCK, PIN_POT_MOSI, PIN_POT_MISO);
+  SPI.begin(PIN_POT_SCK, -1, PIN_POT_MOSI, PIN_POT_CS);
+  Serial.printf("[HW] MCP4151 SPI (write-only): CS=%d, SCK=%d, MOSI=%d\n",
+                PIN_POT_CS, PIN_POT_SCK, PIN_POT_MOSI);
 }
 
 int Hardware_GetSPI_CS_Pin() {

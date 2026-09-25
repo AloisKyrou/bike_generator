@@ -1,4 +1,4 @@
-# Pré-dimensionnement LM5164 — 10–60 V vers 5 V
+# Pré-dimensionnement LM5164 — bus protégé jusqu'à 80 V vers 5 V
 
 Statut : **base de calcul pour le schéma, pas encore une nomenclature prête à
 commander**.
@@ -11,7 +11,8 @@ pages du PDF.
 
 | Paramètre | Valeur de calcul | Commentaire |
 |---|---:|---|
-| Plage d'entrée fonctionnelle | 10 à 60 V DC | après fusible principal, shunt et `F_AUX` |
+| Plage vérifiée | 10 à 80 V DC | bus protégé ; démarrage UVLO nominal vers 9 V |
+| Plafond de bus | 80 V DC continu, transitoires tolérés compris | fonctionnement durable au-dessus hors spécification |
 | Sortie | 5 V | vers l'entrée 5 V du contrôleur |
 | Charge continue attendue | 600 mA | ESP32, capteurs et recharge de la batterie |
 | Charge de dimensionnement | 1 A | marge pour recharge et pointes radio |
@@ -20,30 +21,30 @@ pages du PDF.
 | Méthode d'injection d'ondulation | type 3 | faible ondulation de sortie |
 
 La tension nominale réelle du bus dépendra de la vitesse de pédalage. Les
-calculs sont donc vérifiés à 10, 24, 36 et 60 V plutôt qu'à un seul point.
+calculs sont donc vérifiés à 10, 24, 36, 60 et 80 V plutôt qu'à un seul point.
 
-## Valeurs candidates
+## Valeurs V1 et choix encore ouverts
 
-| Fonction | Valeur candidate | Statut |
+| Fonction | Valeur / référence | Statut |
 |---|---:|---|
-| `RRON` | 41,2 kΩ, 1 % | candidat |
-| `L` | 47 µH | candidat, référence et pertes à choisir |
-| `RFB1` haut | 316 kΩ, 0,1 % | candidat |
-| `RFB2` bas | 100 kΩ, 0,1 % | candidat |
-| `RA` | 200 kΩ, 1 % | candidat |
-| `CA` | 3,3 nF | candidat |
-| `CB` | 82 pF, C0G/NP0 | candidat |
-| `CBST` | 2,2 nF, 50 V, X7R | imposé par TI |
-| `COUT` | 2 × 22 µF, 10 ou 16 V, X7R | candidat, capacité effective à vérifier |
-| `CIN` HF | 2 × 2,2 µF, 100 V, X7R | candidat, transitoires et déclassement à vérifier |
+| `RRON` | Yageo `RC1206FR-0741K2L`, 41,2 kΩ, 1 %, 250 mW | choix V1 figé |
+| `L` | Coilcraft `MSS1038-473MLC`, 47 µH ±20 % | choix V1 validé |
+| `RFB1` haut | Yageo `RT0805BRD07316KL`, 316 kΩ, 0,1 % | choix V1 figé |
+| `RFB2` bas | Yageo `RT0805BRD07100KL`, 100 kΩ, 0,1 % | choix V1 figé |
+| `RA` | Yageo `RC0805FR-07200KL`, 200 kΩ, 1 % | choix V1 figé |
+| `CA` | Yageo `CC0805KRX7R9BB332`, 3,3 nF, 50 V, X7R | choix V1 figé |
+| `CB` | Yageo `CC0805JRNPO9BN820`, 82 pF, 50 V, C0G/NP0 | choix V1 figé |
+| `CBST` | Yageo `CC0805KRX7R9BB222`, 2,2 nF, 50 V, X7R | choix V1 figé |
+| `COUT` | 2 × Samsung `CL32B226KOJNNNE`, 22 µF, 16 V, X7R | choix V1 figé ; environ 33,7 µF effectifs au total à 5 V et 25 °C |
+| `CIN` HF | 3 × Samsung `CL32Y106KCVZ4NE`, 10 µF, 100 V, X7S | choix V1 corrigé après lecture de la courbe DC-bias à 80 V |
 | `CIN` amortissement | environ 10 µF électrolytique, tension adaptée | candidat si câblage d'entrée long |
-| `RUV1` | 1 MΩ, 1 % | candidat |
-| `RUV2` | 200 kΩ, 1 % | candidat |
-| Pull-up `PGOOD` | 47 kΩ vers 3,3 V | candidat |
+| `RUV1` | Yageo `RC0805FR-071ML`, 1 MΩ, 1 % | choix V1 figé |
+| `RUV2` | Yageo `RC0805FR-07200KL`, 200 kΩ, 1 % | choix V1 figé |
+| Pull-up `PGOOD` | Yageo `RC0805FR-0747KL`, 47 kΩ, 1 % | choix V1 figé |
 
-`F_AUX`, la TVS et les références exactes des condensateurs ne peuvent pas être
-figés avant la mesure des transitoires de la génératrice et la sélection du
-connecteur.
+`F_AUX` est figé à 1 A / 125 V. Seule la TVS reste source-spécifique et dépend
+des mesures de la génératrice.
+Le condensateur d'amortissement est le Panasonic `EEU-FC2A100`, 10 µF / 100 V.
 
 ## Fréquence et résistance `RON`
 
@@ -55,8 +56,14 @@ RRON[kΩ] = VOUT[V] × 2500 / FSW[kHz]
 
 Pour 5 V et 300 kHz, la valeur théorique est 41,67 kΩ. La valeur E96 de
 41,2 kΩ donne environ 303 kHz. La durée de conduction calculée avec l'équation
-11 reste comprise entre 1,648 µs à 10 V et 0,275 µs à 60 V, très au-dessus du
+11 reste comprise entre 1,648 µs à 10 V et 0,206 µs à 80 V, très au-dessus du
 minimum contrôlable de 50 ns.
+
+À 80 V, la résistance voit environ 79 V puisque la broche RON est voisine de
+1 V. Sa dissipation est donc d'environ 151 mW. Le passage du boîtier 0805
+125 mW au `RC1206FR-0741K2L` 250 mW est nécessaire ; il laisse environ 40 % de
+marge à température ambiante. Le déclassement thermique devra encore être
+contrôlé avec la température réelle de la carte.
 
 ## Inductance
 
@@ -75,17 +82,30 @@ Avec 47 µH et un calcul conservateur à 300 kHz :
 | 24 V | 0,687 µs | 0,281 A | 1,140 A |
 | 36 V | 0,458 µs | 0,305 A | 1,153 A |
 | 60 V | 0,275 µs | 0,325 A | 1,163 A |
+| 80 V | 0,206 µs | 0,332 A | 1,166 A |
 
 La limite de courant de crête minimale spécifiée est 1,25 A et sa valeur
 maximale 1,75 A, page PDF 6. Une inductance de 47 µH conserve plus de marge
 qu'une 33 ou 39 µH lorsque sa tolérance et sa baisse à chaud sont prises en
-compte. La référence finale devra viser au moins :
+compte. La référence V1 retenue est la Coilcraft `MSS1038-473MLC` : DCR maximale
+128 mΩ, courant de saturation 1,6 A à −10 %, 1,98 A à −20 % et 2,22 A à −30 %,
+et courant thermique 1,45 A pour une élévation de 20 °C. Elle couvre donc le
+pic calculé de 1,166 A et reste exploitable face à la limite haute de 1,75 A du
+LM5164.
+
+Critères conservés pour une éventuelle substitution :
 
 - courant de saturation supérieur à 1,75 A, avec une préférence autour de 2 A
   ou davantage ;
 - courant thermique efficace compatible avec 1 A continu ;
 - valeur encore suffisante à chaud et sous courant ;
 - pertes cuivre et noyau vérifiées vers 300 kHz.
+
+L'empreinte standard retenue est
+`Inductor_SMD:L_Coilcraft_MSS1038-XXX`. La Bourns `SRP1038C-470M`, également
+couverte par une empreinte KiCad standard, reste une option de réduction de
+coût à réévaluer, mais son statut « not recommended for new designs » empêche
+de la retenir comme référence V1.
 
 ## Retour 5 V
 
@@ -117,7 +137,7 @@ Avec `RFB1 = 316 kΩ`, `RFB2 = 100 kΩ` et 300 kHz :
 - la capacité `CA` minimale calculée est environ 439 pF ;
 - `CA = 3,3 nF` maintient `RA` dans une plage pratique ;
 - `RA = 200 kΩ` donne environ 12,5 mV à 10 V, 19,8 mV à 24 V et
-  22,9 mV à 60 V ;
+  22,9 mV à 60 V, puis 23,4 mV à 80 V ;
 - pour un objectif de stabilisation de 75 µs, `CB` calculé vaut environ 79 pF,
   d'où la valeur standard 82 pF en C0G/NP0.
 
@@ -130,16 +150,25 @@ sur prototype. Le nœud FB devra rester très court et éloigné de `SW`.
 
 L'équation 21 limite l'ondulation capacitive à 0,5 % de 5 V, soit 25 mV. Avec
 47 µH, la capacité effective minimale calculée varie d'environ 3,0 µF à 10 V
-d'entrée à 5,4 µF à 60 V. Deux condensateurs de 22 µF donnent une marge utile
-pour le déclassement sous tension et les transitoires de charge, mais leur
-capacité effective doit être lue dans la courbe fabricant.
+d'entrée à 5,5 µF à 80 V. La courbe Samsung indique −23,41 % à 5 V : deux
+condensateurs de 22 µF donnent environ 33,7 µF effectifs au total à 25 °C,
+avant tolérance et température. La marge reste très supérieure au minimum
+calculé.
 
 ### Entrée
 
-TI impose au moins 2,2 µF de céramique haute fréquence près de VIN et GND et
-recommande une tension nominale jusqu'à deux fois la tension d'entrée maximale,
-page PDF 18. Deux 2,2 µF / 100 V sont une première hypothèse, pas encore une
-sélection finale : la tension de service dépendra de la TVS et des pics mesurés.
+TI impose au moins 2,2 µF de céramique haute fréquence près de VIN et GND.
+Les deux MLCC initialement choisis (`CL32B225KCJSNNE`, 2,2 µF / 100 V) ne sont
+pas conservés : la courbe Samsung indique −76,58 % à 80 V, soit seulement
+1,03 µF effectif au total. La V1 emploie trois `CL32Y106KCVZ4NE`, 10 µF /
+100 V, X7S. La courbe fabricant indique −86,06 % à 80 V, soit environ 4,18 µF
+pour trois pièces à 25 °C. Après une estimation conservatrice ajoutant la
+tolérance −10 % et la variation X7S −22 %, il reste environ 2,94 µF, au-dessus
+du minimum TI de 2,2 µF. Les données brutes sont archivées dans
+`../controller-passives-v1/` ; cette estimation devra encore être confirmée
+sur prototype. La protection doit empêcher que les transitoires tolérés
+dépassent eux aussi le plafond de 80 V ; une simple TVS parallèle ne peut pas
+le garantir universellement avec seulement 5 V de marge jusqu'à l'INA228.
 
 La fiche recommande aussi environ 10 µF électrolytique avec ESR modéré lorsque
 la source est éloignée de plus de 5 cm, afin d'amortir la résonance formée par
@@ -168,19 +197,21 @@ cycles marche/arrêt gênants.
 - inductance collée au nœud SW, avec surface SW minimale ;
 - `RRON`, diviseur FB et réseau type 3 proches du circuit ;
 - masse analogique des réseaux FB, RON et UVLO ramenée sans courant commuté ;
-- pad exposé 9 relié à GND avec les huit vias thermiques de la géométrie de
-  référence ; leur perçage de 0,20 mm reste à accepter chez le fabricant ou à
-  redimensionner dans une variante projet explicitement autorisée ;
+- pad exposé 9 relié à GND avec la variante locale V1 à six vias thermiques
+  Ø0,60/0,30 mm ; anneau de 0,15 mm et traitement des vias sous pad à confirmer
+  avec le fabricant ;
 - éloigner les pistes Kelvin INA228, l'antenne ESP32 et les signaux numériques
   du nœud SW.
 
 ## Vérifications avant placement définitif
 
 1. Rejouer le calcul avec le calculateur officiel LM5164 ou WEBENCH.
-2. Choisir des références commandables pour L, CIN, COUT et les résistances.
-3. Vérifier capacité effective, courant d'ondulation, saturation et pertes.
-4. Mesurer les pics du bus puis choisir TVS, tension des condensateurs et
-   calibre DC de `F_AUX`.
+2. Les références de CIN, COUT, C6, des résistances et de L1 sont figées pour
+   la V1.
+3. Vérifier courant d'ondulation, saturation et pertes ; les capacités
+   effectives des MLCC sont désormais calculées depuis les courbes Samsung.
+4. Mesurer les pics, leur durée et l'impédance de source, puis choisir la TVS
+   spécifique à cette source et confirmer `F_AUX`.
 5. Confirmer le schéma d'alimentation interne du Beetle et l'absence de retour
    vers l'USB.
 6. Prototyper avec une alimentation de laboratoire limitée en courant avant la

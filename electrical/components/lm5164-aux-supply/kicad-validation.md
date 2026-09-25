@@ -1,8 +1,8 @@
 # Validation KiCad du LM5164 DDA
 
-Statut : **LM5164DDAT retenu ; symbole standard KiCad validé ; géométrie du
-footprint standard relue et rendue dans un PCB jetable ; décision de fabrication
-encore requise pour ses vias thermiques de 0,20 mm**.
+Statut : **LM5164DDAT retenu ; symbole standard KiCad validé ; variante locale
+V1 à six vias thermiques de 0,30 mm créée, affectée à U4 et validée sans erreur
+DRC dans un PCB jetable**.
 
 ## Sources
 
@@ -197,9 +197,8 @@ pads ; le modèle 3D reste une vérification visuelle optionnelle à compléter.
 4. Utiliser comme référence géométrique le footprint standard KiCad
    explicitement basé sur `DDA0008B` :
    `Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.71x3.4mm_ThermalVias`.
-5. Ne pas encore créer de footprint projet personnalisé. Une variante projet ne
-   sera créée qu'après choix explicite entre une fabrication acceptant les
-   perçages de 0,20 mm et des vias thermiques redimensionnés.
+5. Utiliser pour la V1 la variante locale explicitement autorisée :
+   `BikeGenerator:SOIC-8-1EP_DDA_EP2.95x4.9mm_6Vias_D0.30mm`.
 6. Conserver le STEP Ultra Librarian pour la vue 3D, sans l'utiliser comme
    preuve dimensionnelle.
 
@@ -257,11 +256,71 @@ actuelles. Les autres avertissements proviennent du caractère volontairement
 isolé du test : le footprint a été placé directement pour l'inspection et n'a
 pas été synchronisé avec le symbole ni raccordé à des nets.
 
-Conclusion : la correspondance boîtier, pins, pads, masque et pâte est validée.
-Le footprint n'est toutefois **pas encore validé pour fabrication**. Avant son
-placement définitif, il faut soit confirmer qu'un fabricant accepté prend en
-charge les trous finis de 0,20 mm, soit autoriser la création d'une variante de
-projet avec des vias compatibles avec ses règles, puis refaire le DRC.
+Conclusion historique : la correspondance boîtier, pins, pads, masque et pâte
+du footprint standard est validée, mais ses vias de 0,20 mm sont incompatibles
+avec la règle V1. Cette empreinte standard reste la référence géométrique ; elle
+n'est plus celle affectée à U4.
+
+## Variante locale V1 à perçages de 0,30 mm
+
+Après accord explicite, la variante suivante a été créée dans la bibliothèque
+projet `BikeGenerator.pretty` et affectée à `U4` :
+
+```text
+BikeGenerator:SOIC-8-1EP_DDA_EP2.95x4.9mm_6Vias_D0.30mm
+```
+
+Tous les éléments suivants sont conservés depuis le footprint KiCad relu :
+
+- pads latéraux 1 à 8 : 1,775 × 0,60 mm, pas de 1,27 mm ;
+- cuivre frontal du pad 9 : 2,95 × 4,90 mm ;
+- ouverture de masque dédiée : 2,71 × 3,40 mm ;
+- cuivre arrière du pad 9 : 1,80 × 4,40 mm ;
+- quatre ouvertures de pâte de 1,09 × 1,37 mm, centrées à
+  `x = ±0,68 mm`, `y = ±0,85 mm` ;
+- géométries `F.Fab`, `F.SilkS`, repère de pin 1 et `F.CrtYd` ;
+- tous les éléments cuivre thermiques portent le numéro électrique 9.
+
+Le réseau thermique V1 comprend six vias traversants :
+
+| Paramètre | Valeur retenue |
+|---|---:|
+| Matrice | 2 colonnes × 3 rangées |
+| Centres X | `−0,55 mm`, `+0,55 mm` |
+| Centres Y | `−1,30 mm`, `0 mm`, `+1,30 mm` |
+| Diamètre cuivre | 0,60 mm |
+| Perçage métallisé | 0,30 mm |
+| Anneau annulaire radial | 0,15 mm |
+| Pas horizontal / espace cuivre | 1,10 mm / 0,50 mm |
+| Pas vertical / espace cuivre | 1,30 mm / 0,70 mm |
+
+Les bords des vias restent à 0,05 mm au minimum à l'intérieur du cuivre
+arrière, à 0,10 mm à l'intérieur de l'ouverture de masque et avec une marge
+supérieure sur le cuivre frontal. La règle du projet exige un perçage minimal
+de 0,30 mm, une taille de via minimale de 0,50 mm et un espacement trou à trou
+minimal de 0,25 mm ; la variante respecte ces trois limites.
+
+Une seconde carte jetable a été créée dans :
+
+```text
+electrical/kicad/exports/lm5164-validation-030/
+```
+
+Elle place la variante locale dans un contour de 20 × 20 mm. Le rapport
+`drc.json` donne :
+
+- 0 erreur ;
+- 0 violation de règle de conception ;
+- 0 élément non connecté ;
+- 1 avertissement `extra_footprint`, attendu parce que cette carte isolée ne
+  possède volontairement pas de schéma associé.
+
+Le risque thermique accepté pour cette V1 reste distinct du résultat DRC : six
+vias évacuent probablement un peu moins de chaleur que les huit vias de 0,20 mm
+du footprint de référence. Une montée en température pouvant conduire à la
+protection thermique du LM5164 est acceptée comme risque de prototype, mais ne
+constitue pas un mode nominal. La température devra être mesurée pendant les
+essais à charge croissante.
 
 ## Clarification : « 0,20 mm contre 0,30 mm »
 
@@ -315,17 +374,10 @@ de six vias de 0,30 mm peut être préférable. Les trous plus grands augmentent
 aussi le risque d'aspiration de soudure ; le procédé de bouchage, remplissage ou
 tente des vias doit être défini avec l'assembleur.
 
-### Recommandation pour cette V1
+### Décision appliquée pour cette V1
 
-Ne pas abaisser globalement la règle DRC à 0,20 mm uniquement pour faire
-disparaître les erreurs. Choisir d'abord le fabricant et le procédé
-d'assemblage :
-
-- s'il garantit 0,20 mm sans contrainte gênante, conserver le footprint KiCad
-  standard et créer une règle locale documentée pour les seuls vias du pad 9 ;
-- sinon, créer après accord une variante de footprint projet à vias de 0,30 mm,
-  avec diamètre de pad et nombre de vias calculés depuis les règles du
-  fabricant, puis refaire DRC et revue thermique.
-
-Pour une première carte et tant que le fabricant n'est pas choisi, l'option
-0,30 mm est la direction la plus robuste, mais elle n'est pas encore appliquée.
+La règle DRC globale n'a pas été abaissée. La variante projet à six vias
+Ø0,60/0,30 mm décrite ci-dessus est appliquée à U4 et passe le DRC. Avant la
+commande, il reste à confirmer auprès du fabricant l'anneau de 0,15 mm, le
+traitement des vias sous pad et les contraintes de pâte afin de limiter
+l'aspiration de soudure.

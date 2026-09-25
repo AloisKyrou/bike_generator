@@ -64,9 +64,9 @@ la cible transitoire de 25 A, la chute atteint 50 mV : il faudra basculer l'INA2
 sur la plage ±163,84 mV. Il ne fixe pas pour autant le calibre du fusible ni le
 courant admissible du PCB.
 
-Le candidat proposé est le Bourns `CSS4J-4026K-2L00F`, 2 mΩ, quatre bornes,
-6 W à 70 °C. Il reste à accepter après vérification de sa disponibilité et de
-son land pattern.
+Le choix V1 est le Bourns `CSS4J-4026K-2L00F`, 2 mΩ, quatre bornes, 6 W à
+70 °C. Son land pattern correspond exactement à l'empreinte KiCad native
+`Resistor_SMD:R_Shunt_Isabellenhuette_BVR4026`, désormais affectée à `R7`.
 
 La cible système est fixée à **400 W**. Le courant ne découle toutefois pas de
 la puissance seule : 400 W correspondent à 20 A sous 20 V et 16,7 A sous 24 V.
@@ -131,9 +131,10 @@ matériel indépendant du firmware.
 ### Contrôle
 
 - empreinte ou connecteurs pour la Beetle ESP32-C3 ;
-- empreinte ou connecteurs pour le module DFR0520 ;
+- `MCP4151-104E/SN` simple canal directement sur le PCB, avec découplage local ;
 - connecteur documenté vers la commande CC du buck ;
-- alimentation auxiliaire 10–60 V vers 5 V autour du LM5164 ;
+- alimentation auxiliaire autour du LM5164, dimensionnée pour le bus protégé
+  jusqu'à 80 V maximum ;
 - batterie contrôleur LiPo 1S protégée `801350`, 500 mAh ;
 - interrupteur de déconnexion de la batterie ;
 - cavalier d'isolation `JP_GEN_5V` ;
@@ -212,15 +213,18 @@ révision ultérieure.
       et maximum transitoire mesurés avant le buck ;
 - [x] cible système fixée à 400 W ;
 - [x] base préliminaire fixée à 20 A continus et 25 A transitoires ;
-- [ ] accepter ou rejeter les candidats `LJCA020.X`, `0449001.MR`, `SMCJ48A`,
-      PP15/45, câble 12 AWG minimum et cuivre 2 oz après mesures ;
+- [x] retenir `0449001.MR` pour le fusible auxiliaire et son land pattern exact ;
+- [ ] choisir le fusible principal source-spécifique ≥ 125 V DC, la TVS
+      éventuelle DNP par défaut, les PP15/45 et le câblage après mesures ;
 - [ ] continuité ou isolation des masses confirmée ;
-- [ ] shunt exact sélectionné avec empreinte issue de sa fiche technique ;
+- [x] shunt exact sélectionné et empreinte native comparée à sa fiche technique ;
 - [ ] calcul thermique du shunt, des pistes et des connecteurs effectué ;
 - [ ] interface CC caractérisée ;
 - [x] architecture d'alimentation décidée : branche avant buck principal,
-      LM5164 candidat, 5 V puis 3,3 V via le Beetle ;
-- [ ] calcul et références exactes du convertisseur auxiliaire validés ;
+      LM5164, 5 V puis 3,3 V via le Beetle ;
+- [x] première sélection des références et footprints du convertisseur
+      auxiliaire réalisée ;
+- [ ] calcul TI/WEBENCH et déclassement sous tension des MLCC validés ;
 - [x] batterie LiPo protégée 801350 / 500 mAh choisie par l'utilisateur ;
 - [ ] fiche de la batterie et charge à 400 mA autorisées ;
 - [ ] absence de retour de courant entre générateur, USB et batterie vérifiée ;

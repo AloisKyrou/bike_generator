@@ -17,7 +17,6 @@
 #define PIN_POT_CS          5   // Digipot Chip Select
 #define PIN_POT_SCK         6   // Digipot Clock
 #define PIN_POT_MOSI        7   // Digipot MOSI
-#define PIN_POT_MISO        4   // Digipot MISO (optional)
 
 // ============================================================================
 // SENSOR CALIBRATION
@@ -56,12 +55,12 @@
 #define VDIV_OFFSET_V       0.0f        // additive correction in Volts
 
 // ============================================================================
-// DIGITAL POTENTIOMETER (DFR0520 — internally MCP42100, 256 taps, 100kΩ)
+// DIGITAL POTENTIOMETER (MCP4151-104, single channel, 100kΩ, 257 taps)
 // ============================================================================
 
-#define CMD_WRITE_POT0      0x11    // Write to potentiometer 0 (MCP42xxx opcode)
-#define CMD_WRITE_POT1      0x12    // Write to potentiometer 1
-#define CMD_SHUTDOWN_POT0   0x21    // Shutdown POT0 (A open, B+W shorted)
+// MCP4151 16-bit write: AD3:AD0=0000 (volatile wiper 0), C1:C0=00.
+// Values used here stay in the preserved 0..255 range, therefore D8=0.
+#define MCP4151_CMD_WRITE_WIPER0  0x00
 
 // Single-point hardware calibration (linear through origin assumed).
 // HOW TO UPDATE: set wiper to POT_CAL_VALUE, let rider pedal steadily at constant
@@ -76,7 +75,7 @@
 
 // Hard limits
 #define POT_MIN             0       // Minimum wiper
-#define POT_MAX             255     // Hardware maximum (MCP42100 has 256 taps, never actually sent)
+#define POT_MAX             255     // Preserved V1 control range; MCP4151 full-scale code 256 is unused
 #define POT_SAFE_MAX        ((int)(HILL_POWER_TARGET * POT_WATTS_TO_WIPER_SLOPE))  // = old POT_MAX (50 at current cal)
 
 // Initial wiper on boot (flat road target)

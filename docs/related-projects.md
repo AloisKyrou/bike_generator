@@ -42,7 +42,7 @@ The firmware also already forms a coherent end-to-end system:
 | Layer | Current implementation | What that means |
 |---|---|---|
 | Electrical sensing | `sensors.cpp` averages the ACS712 and voltage-divider ADC readings and calculates `V_bus * I_bus` | The transmitted watts are real electrical output measurements, not invented values |
-| Electrical actuation | `resistance.cpp` writes the MCP42100/DFR0520 connected to the buck converter's CC network | Resistance is already controllable electronically, with no motorised friction knob |
+| Electrical actuation | `resistance.cpp` writes the CC-network digipot: DFR0520/MCP42100 on the breadboard, MCP4151-104 on PCB V1 | Resistance is already controllable electronically, with no motorised friction knob |
 | Manual control | A 0-100 command and the EnOcean buttons map across the safe digipot range | The bike remains usable without a training application |
 | ERG command | FTMS target watts are converted to a wiper setting using the measured `30 -> 120W` calibration, plus a small 5W margin | It provides useful target-dependent resistance today, although it is feed-forward rather than regulated ERG |
 | Simulation command | FTMS grade maps to `80W + 14W/%`, clamped to 0-200W | Zwift can already make climbs harder and descents easier |

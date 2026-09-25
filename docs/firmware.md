@@ -13,7 +13,7 @@ bike_generator/
 │
 ├── hardware.cpp/h          ADC + SPI peripheral setup
 ├── sensors.cpp/h           ACS712 current + voltage divider reading
-├── resistance.cpp/h        DFR0520 digital potentiometer control
+├── resistance.cpp/h        MCP4151-104 digital potentiometer control
 ├── physics.cpp/h           Speed & cadence simulation
 ├── control_modes.cpp/h     Manual / ERG / Simulation mode state machine
 ├── ble_ftms.cpp/h          BLE FTMS GATT service (server)
@@ -72,7 +72,9 @@ typedef struct {
 ---
 
 ### `resistance.cpp`
-Translates a target power or resistance level into a wiper position and writes it to the DFR0520 via SPI.
+Translates a target power or resistance level into a wiper position and writes
+it to the PCB V1 `MCP4151-104` via write-only SPI. The original breadboard used
+a DFR0520/MCP42100 module.
 
 **Wiper mapping (linear through origin):**
 ```

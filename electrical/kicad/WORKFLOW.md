@@ -39,7 +39,7 @@ Il référence cinq feuilles fonctionnelles :
 | 3 | `INA228_SENSE` | `ina228_sense.kicad_sch` | INA228, filtrage Kelvin, adresse, alertes et découplage |
 | 4 | `CONNECTORS` | `connectors.kicad_sch` | écran, debug et interfaces auxiliaires externes |
 | 5 | `MCU` | `mcu.kicad_sch` | Beetle ESP32-C3, alimentation logique et bus numériques |
-| 6 | `CC_CONTROL` | `cc_control.kicad_sch` | DFR0520, interface du réglage CC et état sûr |
+| 6 | `CC_CONTROL` | `cc_control.kicad_sch` | MCP4151 simple canal, interface du réglage CC et état sûr |
 
 Les connecteurs qui transportent le fort courant resteront probablement dans
 `POWER_PATH`, même si les connecteurs de commande sont regroupés dans
@@ -235,8 +235,18 @@ qui serait fait dans les éditeurs de symboles et d'empreintes :
 9. inspecter un rendu avant de les accepter.
 
 L'empreinte du DFR0520 est validée à partir du dessin de dimensions officiel.
-Le symbole DFR0868 est validé, mais son empreinte reste absente tant que la
-version exacte et les dimensions de la carte physique ne sont pas vérifiées.
+Pour le DFR0868, le CAD DFRobot V2.0 confirme une carte de 20,50 × 25,00 mm,
+un pas de 2,54 mm et un entraxe de rangées de 17,78 mm. Après recherche sans
+résultat dans les bibliothèques KiCad, l'empreinte porte-module socketée
+`BikeGenerator:DFR0868_Beetle_ESP32-C3_V2_Socketed` a été créée avec Konnect,
+relue pad par pad puis affectée à `U2`. Les trous Ø1,00 mm et pads Ø1,70 mm
+reprennent la géométrie du socket KiCad natif 1×8 ; ils ne représentent pas les
+trous Ø0,90 mm du module lui-même.
+
+Cette empreinte DFR0520 est désormais conservée uniquement comme historique du
+prototype. Le PCB V1 utilise le symbole KiCad natif
+`Potentiometer_Digital:MCP4151-xxxx-P` et l'empreinte native
+`Package_SO:SOIC-8_3.9x4.9mm_P1.27mm` ; aucun nouveau modèle n'a été créé.
 
 Dans KiCad, l'équivalent manuel se fait avec **Éditeur de symboles > Fichier >
 Nouvelle bibliothèque de projet**, puis **Éditeur d'empreintes > Nouvelle

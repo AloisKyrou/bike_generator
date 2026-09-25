@@ -1,8 +1,9 @@
 # DFR0520 / MCP42100-100 kΩ
 
-Statut : **module accepté pour le prototype PCB V1**. Le potentiomètre 0 est
-utilisé pour remplacer le potentiomètre de réglage de courant du buck. Le
-potentiomètre 1 reste disponible mais non connecté.
+Statut : **module historique du prototype sur breadboard**. Il n'est plus
+utilisé sur le PCB V1, qui intègre directement un
+[`MCP4151-104E/SN`](../mcp4151-104/README.md) simple canal. Cette page reste la
+référence pour comprendre et maintenir le prototype existant.
 
 ## Documents archivés
 
@@ -44,7 +45,7 @@ potentiomètre d'origine dans les états arrêt, minimum et maximum. Une tension
 hors de 0–3,3 V ou un courant supérieur à 1 mA imposera une interface isolée ou
 analogique différente : le DFR0520 ne devra alors pas être raccordé directement.
 
-## Intégration V1
+## Intégration du prototype historique
 
 - `U3` : module DFR0520 / MCP42100 100 kΩ ;
 - `R6` : rappel de 10 kΩ sur `POT_CS` afin de garder le module désélectionné au

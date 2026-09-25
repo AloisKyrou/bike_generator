@@ -24,7 +24,8 @@ Décisions retenues :
 - CAO : KiCad ;
 - microcontrôleur : carte DFRobot Beetle ESP32-C3 DFR0868 montée sur connecteurs ;
 - mesure : INA228, interface I2C, alimentation logique 3,3 V ;
-- shunt candidat : Bourns `CSS4J-4026K-2L00F`, 2 mΩ, quatre bornes, 6 W ;
+- shunt V1 : Bourns `CSS4J-4026K-2L00F`, 2 mΩ, quatre bornes, 6 W, avec
+  footprint KiCad natif géométriquement compatible ;
 - emplacement : conducteur positif, après le redresseur et avant le buck ;
 - grandeur mesurée : puissance électrique envoyée par la génératrice au buck ;
 - enveloppe de puissance : 400 W, avec 20 A continus et 25 A transitoires comme
@@ -34,13 +35,14 @@ Décisions retenues :
   charge aval laissée hors du périmètre du PCB contrôleur ;
 - alimentation autonome : branche auxiliaire prélevée après fusible et shunt,
   avant le buck principal ;
-- convertisseur auxiliaire : LM5164 retenu comme candidat 100 V / 1 A pour une
-  sortie 5 V, valeurs périphériques encore à calculer ;
+- convertisseur auxiliaire : LM5164 100 V / 1 A pour une sortie 5 V, composants
+  périphériques V1 sélectionnés et calcul documenté ;
 - batterie contrôleur : LiPo 1S protégée `801350`, 500 mAh, raccordée à la
   broche `BAT` du Beetle par JST-PH ;
 - sélection de source : interrupteur batterie et cavalier `JP_GEN_5V` pour
   isoler l'alimentation générateur pendant l'usage USB ;
-- commande CC : DFR0520 conservé comme module pour la V1, après caractérisation ;
+- commande CC : `MCP4151-104E/SN` simple canal intégré au PCB, après validation
+  électrique de l'interface du buck ;
 - interface principale : BLE ;
 - interface locale : voyants et connecteur I2C pour un écran optionnel ;
 - écran : non imposé et non soudé directement sur la V1.
@@ -58,7 +60,6 @@ puissance livrée à la batterie après conversion.
 - réaliser un compteur certifié d'énergie ;
 - garantir une estimation exacte de la puissance mécanique du cycliste ;
 - intégrer immédiatement un écran couleur ;
-- remplacer dès maintenant le DFR0520 par son circuit intégré nu ;
 - commuter automatiquement les charges de dissipation.
 
 ## Documents

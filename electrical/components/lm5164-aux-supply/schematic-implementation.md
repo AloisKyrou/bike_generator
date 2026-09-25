@@ -39,22 +39,24 @@ matériel de la commande CC.
 | Référence | Valeur schématique | Fonction | Statut |
 |---|---:|---|---|
 | U4 | LM5164DDAT | Buck synchrone 100 V | Référence retenue |
-| L1 | 47 µH | Stockage d'énergie | Candidate |
-| R8 | 41,2 kΩ, 1 % | Réglage `RON` | Candidate calculée |
-| R9 / R10 | 1 MΩ / 200 kΩ, 1 % | Seuil `EN/UVLO` | Candidates calculées |
-| R11 / R12 | 316 kΩ / 100 kΩ, 0,1 % | Retour 5 V | Candidates calculées |
-| R13 | 200 kΩ, 1 % | Injection d'ondulation | Candidate calculée |
-| R14 | 47 kΩ | Pull-up `PGOOD` vers 3,3 V | Candidate |
-| C4 / C5 | 2,2 µF, 100 V | Découplage d'entrée | Candidates |
-| C6 | 10 µF | Réservoir d'entrée | Candidate, technologie à choisir |
-| C7 / C8 | 22 µF | Filtrage de sortie | Candidates |
-| C9 | 2,2 nF, 50 V | Bootstrap | Candidate |
-| C10 | 3,3 nF | Condensateur `CA` Type-3 | Candidate calculée |
-| C11 | 82 pF, C0G | Condensateur `CB` Type-3 | Candidate calculée |
+| L1 | Coilcraft `MSS1038-473MLC`, 47 µH ±20 % | Stockage d'énergie | Validée pour la V1 ; `Inductor_SMD:L_Coilcraft_MSS1038-XXX` |
+| R8 | 41,2 kΩ, 1 % | Réglage `RON` | Yageo `RC1206FR-0741K2L`, 250 mW, 1206 HandSolder, figée V1 |
+| R9 / R10 | 1 MΩ / 200 kΩ, 1 % | Seuil `EN/UVLO` | Yageo `RC0805FR-071ML` / `RC0805FR-07200KL`, figées V1 |
+| R11 / R12 | 316 kΩ / 100 kΩ, 0,1 % | Retour 5 V | Yageo `RT0805BRD07316KL` / `RT0805BRD07100KL`, figées V1 |
+| R13 | 200 kΩ, 1 % | Injection d'ondulation | Yageo `RC0805FR-07200KL`, figée V1 |
+| R14 | 47 kΩ, 1 % | Pull-up `PGOOD` vers 3,3 V | Yageo `RC0805FR-0747KL`, figée V1 |
+| C4 / C5 / C13 | 10 µF, 100 V, X7S | Découplage d'entrée | Samsung `CL32Y106KCVZ4NE` ; trois pièces requises par la capacité effective à 80 V, transcrites et raccordées dans KiCad |
+| C6 | 10 µF / 100 V | Réservoir d'entrée | Panasonic `EEU-FC2A100`, `Capacitor_THT:CP_Radial_D6.3mm_P2.50mm`, figé V1 |
+| C7 / C8 | 22 µF, 16 V | Filtrage de sortie | Samsung `CL32B226KOJNNNE`, figées V1 |
+| C9 | 2,2 nF, 50 V | Bootstrap | Yageo `CC0805KRX7R9BB222`, figée V1 |
+| C10 | 3,3 nF, 50 V | Condensateur `CA` Type-3 | Yageo `CC0805KRX7R9BB332`, figée V1 |
+| C11 | 82 pF, 50 V, C0G | Condensateur `CB` Type-3 | Yageo `CC0805JRNPO9BN820`, figée V1 |
 
-Les footprints des passifs ne sont pas assignés : taille, tension, tenue au
-courant, saturation, ESR et déclassement doivent d'abord être figés à partir de
-références commandables. Aucun modèle personnalisé n'a été créé.
+Les résistances et les petits condensateurs utilisent les empreintes KiCad
+standard 0805 HandSolder, sauf R8 en 1206 HandSolder pour sa dissipation à
+80 V. Les MLCC d'entrée et de sortie utilisent la 1210
+HandSolder. `C6` emploie une empreinte traversante native KiCad. Aucun modèle
+personnalisé n'a été créé pour ces passifs.
 
 ## Topologie du réseau Type-3
 
@@ -86,14 +88,17 @@ Cette erreur reste visible jusqu'à la conception du verrouillage matériel de
 la commande CC. Elle ne doit pas être supprimée avec un marqueur d'exclusion
 ou une connexion factice.
 
-## Travail restant avant assignation des footprints
+## Travail restant avant gel complet de la feuille
 
 1. Rejouer le dimensionnement dans TI/WEBENCH.
-2. Choisir des références physiques pour L1 et tous les condensateurs.
-3. Vérifier le déclassement DC des céramiques à 60 V et à 5 V.
+2. Les passifs et L1 sont figés pour la V1 ; vérifier leurs limites thermiques
+   dans le prototype.
+3. Confirmer sur prototype la température des trois condensateurs d'entrée
+   désormais corrigés dans KiCad d'après les courbes Samsung.
 4. Vérifier le courant de saturation et les pertes de L1.
 5. Fixer fréquence, courant cible et comportement à faible charge.
-6. Décider le fabricant et le traitement des vias thermiques de 0,20 mm.
+6. Confirmer avec le fabricant l'anneau de 0,15 mm et le traitement des six
+   vias thermiques Ø0,60/0,30 mm de la variante locale affectée à U4.
 7. Concevoir l'utilisation matérielle de `AUX_PGOOD`.
 
 Source de topologie et de brochage :

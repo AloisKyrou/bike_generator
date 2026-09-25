@@ -5,7 +5,7 @@
  * Human-powered energy system + "smart trainer" feel
  * Compatible with: Zwift, GoldenCheetah, TrainerRoad, Rouvy
  * 
- * Hardware: ESP32-C3 Beetle + ACS712 + MCP42100 + Bluetti AC50S
+ * Hardware: ESP32-C3 Beetle + current/power sensing + MCP4151-104 + energy sink
  */
 
 #include "config.h"

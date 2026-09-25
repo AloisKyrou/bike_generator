@@ -165,8 +165,15 @@ sortie, un véritable profil de charge ou un algorithme MPPT. Elle ne doit pas
 - prélever l'énergie auxiliaire sur `BUS_PROTECTED`, après le fusible et le
   shunt, avant le buck principal ;
 - ne pas dépendre de la sortie 24 V du buck principal pour démarrer la logique ;
-- utiliser le LM5164 comme **candidat**, pas encore comme référence commandable
-  définitive, pour convertir une entrée fonctionnelle de 10 à 60 V en 5 V ;
+- utiliser le LM5164 pour convertir le bus protégé en 5 V ; vérifier le calcul
+  de 10 à 80 V, avec démarrage UVLO nominal vers 9 V ;
+- fixer `BUS_PROTECTED` à 80 V maximum continu, transitoires tolérés compris ;
+  un fonctionnement durable au-dessus de 80 V est hors spécification ;
+- conserver une protection simple par fusible et TVS optionnelle, sans ajouter
+  de surge-stopper uniquement pour les surtensions durables hors spécification ;
+- ne jamais figer une TVS générique prétendant à la fois rester inactive à
+  80 V et protéger l'INA228 à 85 V : la référence est source-spécifique après
+  mesure des transitoires ;
 - viser au moins 600 mA continus et utiliser la capacité 1 A du candidat pour
   la marge de recharge et les transitoires de charge ;
 - utiliser la batterie LiPo 1S protégée `801350`, 500 mAh, dont la fiche doit
@@ -185,7 +192,27 @@ Les valeurs du circuit d'application LM5164 de la fiche TI ne sont pas des
 valeurs projet par défaut. Recalculer inductance, fréquence, retour 5 V,
 condensateurs et `EN/UVLO`, puis valider avec l'outil et les équations TI.
 
-## DFR0520 et MCP42100
+## Potentiomètre numérique de commande CC
+
+Le module DFR0520 / MCP42100 appartient au prototype breadboard historique.
+Le PCB V1 utilise directement le composant simple canal
+`MCP4151-104E/SN`, 100 kΩ, avec :
+
+```text
+Potentiometer_Digital:MCP4151-xxxx-P
+Package_SO:SOIC-8_3.9x4.9mm_P1.27mm
+```
+
+Ne pas recréer ces modèles : ils existent dans KiCad. Le suffixe `/SN`, le
+brochage physique, les limites analogiques et la commande SPI doivent être
+vérifiés dans la fiche Microchip archivée sous
+`components/mcp4151-104/`. La V1 est en écriture seule : ne pas réintroduire
+`POT_MISO` sans concevoir explicitement le bus demi-duplex `SDI/SDO`.
+
+Le raccordement direct à la commande CC reste conditionné aux mesures montrant
+que `CC_A`, `CC_W` et `CC_B` restent dans `[0 V; 3,3 V]` et sous 2,5 mA.
+
+## DFR0520 et MCP42100 historiques
 
 Le module DFR0520 a été modélisé initialement pour reproduire le prototype.
 Son empreinte `BikeGenerator:DFR0520_Dual_Digital_Pot` est personnalisée et a
@@ -205,23 +232,18 @@ Son empreinte `BikeGenerator:DFR0520_Dual_Digital_Pot` est personnalisée et a
 - empreinte interdite pour une fabrication tant que ces points ne sont pas
   corrigés et revérifiés.
 
-Pour un PCB intégré, préférer a priori le composant nu si l'analyse le confirme.
-KiCad 10 fournit déjà :
-
-```text
-Potentiometer_Digital:MCP42100
-Package_SO:SOIC-14_3.9x8.7mm_P1.27mm
-```
-
-Vérifier le suffixe de boîtier Microchip avant association définitive. Si un
-seul canal est nécessaire, comparer également le MCP41010. Le second canal du
-MCP42100 ne justifie son maintien que si une utilisation future crédible est
-documentée.
+Ne pas réutiliser son empreinte personnalisée pour le PCB intégré. Elle reste
+dans le dépôt uniquement pour reproduire ou dépanner le prototype historique.
 
 ## État actuel des autres blocs
 
-- `DFR0868 Beetle ESP32-C3` : symbole documenté, mais aucune empreinte ne doit
-  être créée avant confirmation de la version et mesures de la carte physique.
+- `DFR0868 Beetle ESP32-C3` : la V2.0 est retenue d'après les photos et le CAD
+  DFRobot officiel archivé. Utiliser l'empreinte porte-module socketée
+  `BikeGenerator:DFR0868_Beetle_ESP32-C3_V2_Socketed`; ne pas la recréer.
+  Confirmer les cotes et l'insertion des headers sur la carte physique avant
+  fabrication.
+- Le firmware reste hors périmètre jusqu'à la disponibilité de la première
+  carte physique. Ne pas le modifier pour accompagner les choix de schéma.
 - `POWER_PATH` : ne pas finaliser avant choix du shunt, mesure des limites de
   tension/courant, stratégie de masse, protections et connecteurs.
 - Les erreurs ERC intentionnelles doivent rester visibles et documentées ; ne

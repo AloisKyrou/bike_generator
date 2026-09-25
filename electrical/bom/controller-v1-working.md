@@ -46,15 +46,16 @@ les connecteurs de fort courant ne sont pas encore sélectionnés physiquement.
 | R_PGOOD | 1 | 47 kΩ vers 3,3 V | candidat |
 | D_AUX | 1 | blocage du courant inverse | technologie et référence à choisir |
 | F_AUX | 1 | protection locale de la dérivation | calibre et pouvoir de coupure DC à choisir |
-| JP_GEN_5V | 1 | cavalier d'isolation générateur / USB | ouvert en mode USB/service |
-| J_BAT_CTRL | 1 | connecteur batterie 1S détrompé | modèle lié à la batterie exacte |
+| JP_GEN_5V | 1 | cavalier d'isolation générateur / USB | `Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical`, provisoire ; ouvert en mode USB/service |
+| J_BAT_CTRL | 1 | JST-PH 2 contacts, pas 2,00 mm, entrée latérale | `Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal`, provisoire ; vérifier pas et polarité |
 | S_BAT | 1 | interrupteur batterie | courant faible, mécanique à choisir |
-| BAT_CTRL | 1 | Li-ion/LiPo 1S protégée, 400–500 mAh | doit autoriser une charge de 400 mA |
+| BAT_CTRL | 1 | Li-ion/LiPo 1S protégée, 400–500 mAh recommandée ; cellule 320 mAh photographiée candidate | doit autoriser le courant de charge réel ; 400 mA vaudrait 1,25 C pour 320 mAh |
 
 Références réellement utilisées dans la première passe KiCad : `JP3` pour
 `JP_GEN_5V`, `J6` pour `J_BAT_CTRL`, `S1` pour `S_BAT`, et `TP12` à `TP15` pour
-les points de test de l'alimentation auxiliaire. Leurs footprints restent non
-assignés tant que les composants mécaniques et la batterie ne sont pas choisis.
+les points de test de l'alimentation auxiliaire. `JP3` et `J6` ont maintenant
+des footprints standard provisoires ; `S1` reste non assigné tant que le
+composant mécanique n'est pas choisi.
 
 La nomenclature d'application 12 V / 1 A publiée par TI n'est pas directement
 la nomenclature 5 V du projet. Les valeurs candidates ci-dessus proviennent du

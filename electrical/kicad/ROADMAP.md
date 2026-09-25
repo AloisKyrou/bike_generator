@@ -109,8 +109,13 @@ sur toute l'enveloppe 10–60 V.
 - [x] documenter que `VIN_5V` et le VBUS USB-C partagent le net `VUSB` ;
 - [x] ajouter au schéma le connecteur LiPo 1S protégée 400–500 mAh et son
   interrupteur ;
+- [x] affecter provisoirement à `J6` l'embase KiCad standard JST-PH
+  `S2B-PH-K`, deux contacts au pas de 2,00 mm, et à `JP3` un header 1 × 2 au
+  pas de 2,54 mm ;
 - [x] documenter la matrice générateur/USB/batterie et l'état interdit
   `JP3 fermé + USB branché` ;
+- confirmer physiquement le pas, l'orientation et la polarité du connecteur
+  batterie ;
 - vérifier le courant de charge admissible de la batterie ;
 - garantir l'absence de retour vers le PC dans tous les états de `JP_GEN_5V`.
 
@@ -135,6 +140,11 @@ imposer une charge dangereuse.
 - lancer ERC, recherche de nets courts, nets à une pin et éléments orphelins ;
 - rendre chaque feuille et effectuer une inspection visuelle ;
 - documenter séparément erreurs réelles et limites encore intentionnelles.
+
+Audit intermédiaire du 25 septembre 2026 : pins hiérarchiques cohérentes,
+netlist complète générée, liaisons principales relues et ERC à une erreur
+intentionnelle (`AUX_PGOOD`) sans avertissement. Voir
+[`CONNECTION_AUDIT.md`](./CONNECTION_AUDIT.md).
 
 Critère de sortie : aucune erreur inexpliquée et aucune validation reposant
 uniquement sur un rapport ERC vert.
@@ -172,5 +182,7 @@ destinée à la fabrication.
   fabricant ou à redimensionner dans une variante projet autorisée ;
 - alimentation interne du Beetle et retour USB non validés sur la révision
   physique ;
+- connecteur JST-PH et cellule 320 mAh visibles sur la photo non validés par
+  mesure et fiche fabricant ;
 - interface du potentiomètre CC encore à caractériser ;
 - dimensions mécaniques du Beetle et du buck externe non figées.

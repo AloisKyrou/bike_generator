@@ -19,6 +19,7 @@ correspondance broche physique → pin du symbole → pad du PCB.
 | [`dfr0868-beetle-esp32-c3/`](./dfr0868-beetle-esp32-c3/) | DFRobot Beetle ESP32-C3 | V2.0 strongly supported; footprint pending physical verification | official schematic, pinout, module datasheet and dimensions archived |
 | [`dfr0520-mcp42100/`](./dfr0520-mcp42100/) | DFR0520 / MCP42100 | symbol and custom module footprint accepted for V1 | official module schematic, dimensions and MCP42100 datasheet archived |
 | [`lm5164-aux-supply/`](./lm5164-aux-supply/) | Texas Instruments LM5164 | standard KiCad symbol pinout matches the datasheet; `LM5164DDAT` proposed; footprint not yet accepted | official TI datasheet archived; structured Konnect readback, Ultra Librarian package and power-stage values pending |
+| [`jst-ph-battery-connector/`](./jst-ph-battery-connector/) | JST-PH 2 contacts, embase `S2B-PH-K` | empreinte KiCad standard affectée provisoirement à `J6` | fiche JST archivée ; confirmer pas, orientation et polarité sur la batterie physique |
 | `buck-b0blg7tn1c/` | generic CV/CC buck, Amazon B0BLG7TN1C | present, exact controller unknown | listing copy, board photos, controller datasheet when identified |
 | `acs712-legacy/` | ACS712 module | legacy prototype measurement | Allegro datasheet, module schematic, exact variant photo |
 | `rectifier/` | three-phase bridge rectifier | exact reference to confirm | datasheet, pinout, thermal data |

@@ -1887,7 +1887,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 165.1 93.98 0)
 			(hide yes)
 			(effects
@@ -1922,7 +1922,16 @@
 				)
 			)
 		)
-	)
+	
+		(property "Status" "PROVISIONAL - removable 2.54 mm shunt"
+			(at 165.1 93.98 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		))
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x02")
 		(at 165.1 111.76 0)
@@ -1939,7 +1948,7 @@
 				)
 			)
 		)
-		(property "Value" "LiPo 1S PROTECTED"
+		(property "Value" "LiPo 1S / JST-PH 2.0 / PROV."
 			(at 165.1 116.84 0)
 			(effects
 				(font
@@ -1947,7 +1956,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal"
 			(at 165.1 111.76 0)
 			(hide yes)
 			(effects
@@ -1956,7 +1965,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.jst-mfg.com/product/pdf/eng/ePH.pdf"
 			(at 165.1 111.76 0)
 			(hide yes)
 			(effects
@@ -1982,7 +1991,16 @@
 				)
 			)
 		)
-	)
+	
+		(property "Status" "PROVISIONAL - verify battery plug pitch and polarity"
+			(at 165.1 111.76 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		))
 	(symbol
 		(lib_id "Switch:SW_SPST")
 		(at 182.88 111.76 0)

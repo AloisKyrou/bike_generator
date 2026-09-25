@@ -61,6 +61,12 @@ generator/USB interlock. The global ERC reports exactly one intentional error:
 the root-sheet output `AUX_PGOOD` is not yet connected to the future hardware
 enable logic. It must not be waived or hidden.
 
+The MCU sheet now assigns two existing KiCad footprints, both still marked
+provisional: a 2.54 mm through-hole 1x02 header for `JP3`, and
+`Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal` for the battery
+connector `J6`. `J6.1` is `BAT_RAW` and `J6.2` is `GND`. The real battery plug
+pitch, mating orientation and polarity must be checked before PCB release.
+
 Project-owned library items currently include:
 
 - `BikeGenerator:DFR0868_Beetle_ESP32-C3` — schematic symbol only;
@@ -71,6 +77,8 @@ See the [KiCad workflow and troubleshooting guide](WORKFLOW.md) for the
 creation steps, their manual equivalent and the verification process.
 The implementation order and completion gates are tracked in the
 [KiCad roadmap](ROADMAP.md).
+The latest project-level connectivity evidence is summarized in
+[the connection audit](CONNECTION_AUDIT.md).
 
 ## Source and generated files
 

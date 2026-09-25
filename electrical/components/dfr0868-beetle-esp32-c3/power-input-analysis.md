@@ -44,9 +44,10 @@ AUX_5V ---- JP3 ---- VIN_5V / VUSB du DFR0868
 LiPo 1S protégée ---- S1 ---- BAT du DFR0868
 ```
 
-`JP3` est un cavalier amovible à deux broches, sans footprint figé. Son rôle
-n'est pas de sélectionner automatiquement la meilleure source : il isole
-physiquement le générateur pendant le service USB.
+`JP3` est un cavalier amovible à deux broches. La CAO lui affecte
+provisoirement un header traversant 1 × 2 au pas de 2,54 mm. Son rôle n'est pas
+de sélectionner automatiquement la meilleure source : il isole physiquement
+le générateur pendant le service USB.
 
 `S1` déconnecte la borne positive de la batterie. Lorsqu'il est ouvert, la
 batterie ne peut ni alimenter le contrôleur ni être rechargée. Cette propriété
@@ -84,9 +85,17 @@ comme évolutions possibles, mais ne sont pas supposées en V1.
 - connecteur détrompé et polarité documentée ;
 - dimensions mécaniques et plage de température compatibles avec le boîtier.
 
+`J6` est provisoirement associé à une embase JST-PH horizontale `S2B-PH-K`,
+deux contacts au pas de 2,00 mm. Ce choix reproduit le type de connecteur blanc
+serti visible sur la photo, sans prouver que le boîtier réel est bien un PH.
+La vérification du pas et de la polarité reste obligatoire.
+
 DFRobot annonce un courant de charge maximal de 400 mA. Cela correspond à
 1 C pour une cellule de 400 mAh et 0,8 C pour une cellule de 500 mAh : la
 capacité seule ne suffit donc pas, la fiche de la cellule est obligatoire.
+La cellule photographiée est marquée 320 mAh : à 400 mA, elle serait chargée à
+1,25 C. Elle n'est pas retenue définitivement sans fiche autorisant ce régime
+ou sans adaptation documentée du courant de charge.
 
 ## Vérifications physiques obligatoires
 

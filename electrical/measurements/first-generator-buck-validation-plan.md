@@ -9,9 +9,9 @@ génératrice.
 
 | Paramètre | Valeur de conception |
 |---|---:|
-| Bus protégé utilisable | 10 à 80 V DC |
+| Bus protégé utilisable | 10 à 70 V DC garantis |
 | Démarrage auxiliaire estimé | 8,56 à 9,46 V, 9,0 V nominal |
-| Plafond continu et transitoire toléré | 80 V |
+| Plafond continu garanti | 70 V ; 70–80 V hors spécification |
 | Courant du trajet principal | 20 A continu, 25 A bref |
 | Alimentation logique | 5 V, 600 mA attendu, étage dimensionné jusqu'à 1 A |
 
@@ -24,7 +24,7 @@ La carte n'impose pas une puissance unique. Exemples idéalisés à 400 W :
 | 36 V | 11,1 A |
 | 48 V | 8,3 A |
 | 60 V | 6,7 A |
-| 80 V | 5,0 A |
+| 70 V | 5,7 A |
 
 La carte couvre donc des sources différentes, mais leur puissance exploitable
 reste limitée par la plus faible limite parmi la génératrice, le redresseur, la
@@ -38,7 +38,7 @@ carte 20 A, le buck principal et la charge.
 | courant vers 350 W | 9,7 A | ordre de grandeur |
 | courant vers 400 W | 11,1 A | dimensionnement du premier essai |
 | tension à vide à cadence comparable | 45 à 60 V | estimation seulement |
-| excursion rapide provisoire | 60 à 70 V | reste sous le plafond carte de 80 V |
+| excursion rapide provisoire | 60 à 70 V | atteint le plafond garanti de la carte |
 | tension du réglage CC | probablement 0 à 1,25/2,5 V | hypothèse de compatibilité, pas autorisation de raccordement |
 | courant du réglage CC | probablement quelques dizaines de µA | cohérent avec un potentiomètre de 100 kΩ |
 
@@ -46,10 +46,10 @@ La **tension à vide** signifie : génératrice entraînée, mais sortie électr
 déconnectée. Une génératrice immobile donne bien environ 0 V, mais ce n'est pas
 la mesure à vide utile au dimensionnement.
 
-Ces estimations permettent de conserver le schéma 10–80 V, le shunt 2 mΩ et le
-LM5164 existants. Elles ne permettent pas de choisir une TVS universelle : la
-TVS reste DNP par défaut et sera adaptée à la source après mesure de l'amplitude,
-de la durée et de la répétition des pics.
+Ces estimations permettent de conserver le shunt 2 mΩ et le LM5164 existants.
+La `SMCJ70A` retenue absorbe les transitoires en mode best effort ; les mesures
+doivent vérifier son comportement réel sans supposer qu'elle maintiendra
+toujours l'INA228 sous 85 V.
 
 ## Mesures à réaliser sur la première génératrice
 
@@ -61,8 +61,8 @@ de la durée et de la répétition des pics.
 4. Avec un oscilloscope et une sonde adaptés, maximum, durée et répétition des
    pics lors d'un démarrage rapide et d'une déconnexion de charge.
 
-Ces valeurs qualifient la première source et son fusible/sa TVS ; elles ne
-redéfinissent pas l'enveloppe générique 10–80 V de la carte.
+Ces valeurs qualifient la première source, son fusible et l'efficacité réelle
+de la TVS ; elles ne redéfinissent pas l'enveloppe garantie 10–70 V de la carte.
 
 ## Mesures à réaliser sur le réglage CC du buck
 

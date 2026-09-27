@@ -24,8 +24,8 @@ l'INA228.
 
 | Paramètre | Cible V1 | Statut |
 |---|---:|---|
-| Bus protégé | 80 V DC maximum continu | décidé ; fonctionnement durable > 80 V hors spécification |
-| Plage vérifiée pour le 5 V | 10 à 80 V DC | le démarrage UVLO reste voisin de 9 V |
+| Bus protégé | 70 V DC maximum continu garanti | 70–80 V hors spécification |
+| Plage de calcul vérifiée pour le 5 V | 10 à 80 V DC | marge de conception ; le démarrage UVLO reste voisin de 9 V |
 | Tenue du circuit intégré | 100 V | candidat LM5164 |
 | Sortie | 5 V | décidée |
 | Charge continue à garantir | au moins 600 mA | préliminaire |
@@ -115,9 +115,9 @@ comprendre au minimum :
 - condensateurs de sortie ;
 - pont de retour réglant précisément 5 V ;
 - réseau `RON`, `EN/UVLO` et éventuellement filtrage de `PGOOD` ;
-- protection TVS optionnelle choisie après mesure des transitoires ; aucune
-  TVS parallèle standard ne peut garantir à la fois l'absence de conduction à
-  80 V et un écrêtage sous la limite INA228 de 85 V ;
+- protection `SMCJ70A` montée après `F1` et avant le shunt ; elle écrête les
+  transitoires en mode best effort sans garantir de rester sous la limite
+  INA228 de 85 V ;
 - aucun composant `D_AUX` séparé en V1 : une diode sur l'arrivée du LM5164
   n'isolerait pas le VBUS USB du Beetle ; l'interverrouillage manuel `JP3`
   reste donc la frontière d'isolation retenue ;

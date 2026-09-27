@@ -165,15 +165,16 @@ sortie, un véritable profil de charge ou un algorithme MPPT. Elle ne doit pas
 - prélever l'énergie auxiliaire sur `BUS_PROTECTED`, après le fusible et le
   shunt, avant le buck principal ;
 - ne pas dépendre de la sortie 24 V du buck principal pour démarrer la logique ;
-- utiliser le LM5164 pour convertir le bus protégé en 5 V ; vérifier le calcul
-  de 10 à 80 V, avec démarrage UVLO nominal vers 9 V ;
-- fixer `BUS_PROTECTED` à 80 V maximum continu, transitoires tolérés compris ;
-  un fonctionnement durable au-dessus de 80 V est hors spécification ;
-- conserver une protection simple par fusible et TVS optionnelle, sans ajouter
-  de surge-stopper uniquement pour les surtensions durables hors spécification ;
-- ne jamais figer une TVS générique prétendant à la fois rester inactive à
-  80 V et protéger l'INA228 à 85 V : la référence est source-spécifique après
-  mesure des transitoires ;
+- utiliser le LM5164 pour convertir le bus protégé en 5 V ; conserver sa
+  vérification de calcul de 10 à 80 V comme marge de conception, avec démarrage
+  UVLO nominal vers 9 V ;
+- fixer `BUS_PROTECTED` à 70 V maximum continu garanti ; la plage 70–80 V est
+  hors spécification et un fonctionnement durable peut endommager la carte ;
+- monter une `SMCJ70A` unidirectionnelle après `F1` et avant le shunt, cathode
+  côté bus et anode à `GND` ; elle reste une protection transitoire « best
+  effort » et ne garantit pas que l'INA228 restera sous 85 V ;
+- conserver la protection simple par fusible et TVS, sans ajouter de
+  surge-stopper uniquement pour les surtensions durables hors spécification ;
 - viser au moins 600 mA continus et utiliser la capacité 1 A du candidat pour
   la marge de recharge et les transitoires de charge ;
 - utiliser la batterie LiPo 1S protégée `801350`, 500 mAh, dont la fiche doit

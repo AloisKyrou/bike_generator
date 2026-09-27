@@ -89,7 +89,7 @@ de `AUX_SUPPLY`, `AUX_IN_PROTECTED` alimente bien le LM5164.
 Critère de sortie du squelette : atteint. La sélection physique des composants
 reste indispensable avant tout PCB commandable.
 
-### 3. Concevoir le buck auxiliaire sur bus protégé jusqu'à 80 V vers 5 V
+### 3. Concevoir le buck auxiliaire 5 V, vérifié jusqu'à 80 V
 
 - [x] créer la feuille hiérarchique `AUX_SUPPLY` et la relier à
   `AUX_IN_PROTECTED` ;
@@ -115,11 +115,10 @@ reste indispensable avant tout PCB commandable.
 - [ ] vérifier les pertes de L1 avec le profil de charge définitif et confirmer
   thermiquement les MLCC d'entrée sur prototype ;
 - [x] retenir électriquement `0449001.MR` pour `F_AUX`, créer son land pattern
-  Littelfuse exact et l'affecter à `F2` ; retirer `SMCJ48A` comme choix
-  générique, incompatible avec 80 V continus ;
-- [ ] choisir une TVS source-spécifique après mesure des transitoires ; aucun
-  composant parallèle standard ne garantit à la fois veille à 80 V et clamp
-  sous 85 V ;
+  Littelfuse exact et l'affecter à `F2` ;
+- [x] retenir `SMCJ70A` comme compromis générique : 70 V continus garantis,
+  écrêtage transitoire best effort sans garantie de rester sous les 85 V de
+  l'INA228 ; la placer après `F1` et avant le shunt ;
 - [x] raccorder `AUX_5V` au bloc d'alimentation du contrôleur ;
 - [x] placer l'interverrouillage manuel `JP_GEN_5V` ;
 - [ ] raccorder `AUX_PGOOD` à une fonction matérielle justifiée ;
@@ -130,7 +129,8 @@ feuille racine : `AUX_PGOOD` n'est pas encore consommé. Elle disparaîtra par u
 raccordement réel au verrouillage matériel, pas par une exclusion ERC.
 
 Critère de sortie : calculs sourcés, composants commandables et démarrage sûr
-sur toute l'enveloppe vérifiée 10–80 V, avec un plafond absolu d'usage à 80 V.
+sur l'enveloppe garantie 10–70 V. Le bloc reste vérifié à 80 V comme marge de
+conception, sans autoriser cette tension en fonctionnement continu.
 
 ### 4. Finaliser les sources du Beetle et de la batterie
 

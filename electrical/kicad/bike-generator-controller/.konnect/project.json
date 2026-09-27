@@ -6,7 +6,9 @@
     "For PCB V1, R7 is fixed to Bourns CSS4J-4026K-2L00F, 2 mOhm, four-terminal shunt. Use native footprint Resistor_SMD:R_Shunt_Isabellenhuette_BVR4026 because its force/sense pad geometry exactly matches the Bourns recommended land pattern. Pad mapping: 1 left force/input after F1, 2 SHUNT_HI_K, 3 SHUNT_LO_K, 4 right force/BUS_PROTECTED. Configure INA228 for the +/-163.84 mV shunt range to retain the 25 A transient envelope.",
     "For U2 use the validated project footprint BikeGenerator:DFR0868_Beetle_ESP32-C3_V2_Socketed: DFR0868 V2.0 on two 1x8 vertical female sockets, 2.54 mm pitch, 17.78 mm row spacing, USB-C at the footprint top and antenna end at the bottom.",
     "Keep firmware work out of scope until the first physical controller PCB exists; schematic and PCB decisions must not trigger firmware edits.",
-    "The controller PCB is generic within a 10-80 V protected-bus envelope and 20 A continuous / 25 A short-duration main path. Measurements of the first generator and external buck validate that installation but do not redefine the generic board limits."
+    "The controller PCB is generic within a 10-80 V protected-bus envelope and 20 A continuous / 25 A short-duration main path. Measurements of the first generator and external buck validate that installation but do not redefine the generic board limits.",
+    "Input selection: populate J8 plus D2 DBI25-16A by default for a 3-phase generator. J1 is the direct DC-generator input and is DNP by default. Both paths join at RECTIFIED_RAW before F1. Never connect sources to J1 and J8 simultaneously, and do not place a small solder jumper in the 20 A power path.",
+    "F1 is Littelfuse 0456020.ER with project footprint BikeGenerator:Fuse_Littelfuse_456_10.08x3.05mm_P9.35mm. At 20 A, Littelfuse's thermal reference is at least 100 um copper thickness and 10 mm copper width. If the fabricated stackup or local copper differs, validate that the F1 body stays at or below 90 C in 25 C ambient before claiming 20 A continuous operation."
   ],
   "fab_constraints": {},
   "naming_conventions": {},

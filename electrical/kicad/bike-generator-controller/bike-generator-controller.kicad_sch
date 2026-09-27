@@ -28,6 +28,16 @@
 	)
 	(wire
 		(pts
+			(xy 176.53 129.54) (xy 207.01 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0ef46e9b-1a1f-4e9f-8488-d476478fbcfe")
+	)
+	(wire
+		(pts
 			(xy 207.01 53.34) (xy 198.12 53.34)
 		)
 		(stroke
@@ -35,6 +45,16 @@
 			(type default)
 		)
 		(uuid "20cef4d5-bb7c-4f39-bcbe-6d7f25df7c3e")
+	)
+	(wire
+		(pts
+			(xy 195.58 73.66) (xy 195.58 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "22900dce-1e3a-493b-9e95-f0f558ff7098")
 	)
 	(wire
 		(pts
@@ -48,6 +68,16 @@
 	)
 	(wire
 		(pts
+			(xy 190.5 127) (xy 176.53 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2ebd8c00-6f75-47e1-b6bb-7cccd5dced17")
+	)
+	(wire
+		(pts
 			(xy 88.9 60.96) (xy 92.71 60.96)
 		)
 		(stroke
@@ -58,6 +88,16 @@
 	)
 	(wire
 		(pts
+			(xy 190.5 68.58) (xy 190.5 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "54baf71e-515c-4abd-bddc-e02695cd1200")
+	)
+	(wire
+		(pts
 			(xy 92.71 60.96) (xy 92.71 109.22)
 		)
 		(stroke
@@ -65,6 +105,26 @@
 			(type default)
 		)
 		(uuid "59291ce0-7d4d-4723-a9eb-421665c1091a")
+	)
+	(wire
+		(pts
+			(xy 195.58 137.16) (xy 176.53 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6d986d62-72e6-4c07-ace2-556b1b180845")
+	)
+	(wire
+		(pts
+			(xy 207.01 73.66) (xy 195.58 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "72a01efd-a43b-47ad-a4f1-4a7a923184e4")
 	)
 	(wire
 		(pts
@@ -148,6 +208,16 @@
 	)
 	(wire
 		(pts
+			(xy 207.01 68.58) (xy 190.5 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d34826b8-1a16-4e69-84ca-a7e2f93eabab")
+	)
+	(wire
+		(pts
 			(xy 88.9 127) (xy 113.03 127)
 		)
 		(stroke
@@ -216,6 +286,16 @@
 		)
 		(uuid "1c658f88-ff8d-4d12-a778-67427b73ad01")
 	)
+	(label "POT_SHDN"
+		(at 176.53 129.54 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5b349228-3c9f-40b7-b064-a5f58fc4c416")
+	)
 	(label "UART_TX"
 		(at 176.53 134.62 0)
 		(effects
@@ -236,16 +316,6 @@
 		)
 		(uuid "853e5665-98ec-4097-9f3b-2540f3e956ec")
 	)
-	(label "UART_RX"
-		(at 176.53 129.54 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "88f7ab56-d649-45f2-9664-6d7ec19aba21")
-	)
 	(label "I2C_SCL"
 		(at 198.12 53.34 180)
 		(effects
@@ -265,16 +335,6 @@
 			(justify right bottom)
 		)
 		(uuid "ad82e61c-8ef8-481f-9a04-293a72e15a50")
-	)
-	(label "UART_RX"
-		(at 198.12 58.42 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "c2565ac6-f97c-4bdc-a640-68127f694ce0")
 	)
 	(label "INA_ALERT"
 		(at 110.49 119.38 180)
@@ -305,6 +365,16 @@
 			(justify left bottom)
 		)
 		(uuid "d6d3e1cb-731b-4393-8cf6-2caa00c7338d")
+	)
+	(label "POT_SHDN"
+		(at 198.12 58.42 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "f25ff37b-7644-43ae-b0c3-019d323e4c4f")
 	)
 	(sheet
 		(at 25.4 38.1)
@@ -460,9 +530,29 @@
 				(justify left)
 			)
 		)
-		(pin "UART_RX" output
+		(pin "POT_SHDN" input
 			(at 207.01 58.42 180)
 			(uuid "ad5b8959-8c42-454c-a04e-8b315ade674d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GPIO4_HALL" output
+			(at 207.01 68.58 180)
+			(uuid "8c9c4972-4573-42ca-8d60-1d3c9a01e39f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GPIO8_ACTION" output
+			(at 207.01 73.66 180)
+			(uuid "7b1c0a0c-bc55-40cd-abcc-6d1aa884f5b7")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -481,11 +571,11 @@
 	(sheet
 		(at 113.03 101.6)
 		(size 63.5 38.1)
-		(fields_autoplaced)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
+		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
 			(type solid)
@@ -518,93 +608,113 @@
 		)
 		(pin "POT_SCK" output
 			(at 176.53 119.38 0)
+			(uuid "cab09f33-57cf-477a-896c-445afb1d4979")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "cab09f33-57cf-477a-896c-445afb1d4979")
 		)
 		(pin "POT_CS" output
 			(at 176.53 124.46 0)
+			(uuid "602b010b-81ea-4ae3-8569-6a5d57fa9b87")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "602b010b-81ea-4ae3-8569-6a5d57fa9b87")
 		)
 		(pin "POT_MOSI" output
 			(at 176.53 109.22 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
 			(uuid "a232f1e4-cf6b-4700-99ac-d10541259742")
-		)
-		(pin "UART_RX" input
-			(at 176.53 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
+		)
+		(pin "POT_SHDN" output
+			(at 176.53 129.54 0)
 			(uuid "2970d648-057a-4bec-a9b5-d75efaaaa6d2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
 		)
 		(pin "UART_TX" output
 			(at 176.53 134.62 0)
+			(uuid "1c9724bc-cf95-41fb-b2f7-78527f804c3c")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "1c9724bc-cf95-41fb-b2f7-78527f804c3c")
 		)
 		(pin "I2C_SDA" bidirectional
 			(at 113.03 109.22 180)
+			(uuid "4312f42c-4006-4b9e-9a50-86d9fd2e825d")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "4312f42c-4006-4b9e-9a50-86d9fd2e825d")
 		)
 		(pin "I2C_SCL" output
 			(at 113.03 114.3 180)
+			(uuid "0b487b44-7dc4-499d-bca6-46ac8248a8e7")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "0b487b44-7dc4-499d-bca6-46ac8248a8e7")
 		)
 		(pin "INA_ALERT" input
 			(at 113.03 119.38 180)
+			(uuid "fb95bb29-2233-42ce-832e-a80add8e1f5f")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "fb95bb29-2233-42ce-832e-a80add8e1f5f")
 		)
 		(pin "AUX_5V" input
 			(at 113.03 127 180)
+			(uuid "f8d880b9-484b-463f-80e4-e8e94e97532b")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "f8d880b9-484b-463f-80e4-e8e94e97532b")
+		)
+		(pin "GPIO4_HALL" input
+			(at 176.53 127 0)
+			(uuid "4c22dac6-ea81-4fa5-8cab-49638f6725ab")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GPIO8_ACTION" input
+			(at 176.53 137.16 0)
+			(uuid "3b89daaa-662e-4a0f-91a4-bb70a2ffb231")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
 		)
 		(instances
 			(project "bike-generator-controller"
@@ -617,11 +727,11 @@
 	(sheet
 		(at 207.01 101.6)
 		(size 63.5 38.1)
-		(fields_autoplaced)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
+		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
 			(type solid)
@@ -654,33 +764,43 @@
 		)
 		(pin "POT_SCK" input
 			(at 207.01 119.38 180)
+			(uuid "549a7bc1-c9fc-4f61-b4bd-4cb52d82120b")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "549a7bc1-c9fc-4f61-b4bd-4cb52d82120b")
 		)
 		(pin "POT_CS" input
 			(at 207.01 124.46 180)
+			(uuid "e69ff811-d1f2-4485-9869-cd993ebb6674")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "e69ff811-d1f2-4485-9869-cd993ebb6674")
 		)
 		(pin "POT_MOSI" input
 			(at 207.01 109.22 180)
+			(uuid "db418dab-6f54-49cf-82f8-7a273b930cf6")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "db418dab-6f54-49cf-82f8-7a273b930cf6")
+		)
+		(pin "POT_SHDN" input
+			(at 207.01 129.54 180)
+			(uuid "ec9dc07d-192c-40aa-a502-6253379da0e7")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
 		)
 		(instances
 			(project "bike-generator-controller"

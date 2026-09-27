@@ -32,7 +32,7 @@ les connecteurs de fort courant ne sont pas encore sélectionnés physiquement.
 | R7 | 1 | Bourns `CSS4J-4026K-2L00F`, 2 mΩ, 4 bornes, 6 W | `Resistor_SMD:R_Shunt_Isabellenhuette_BVR4026` ; land pattern Bourns comparé et identique, choix V1 figé |
 | J5 | 1 | départ vers buck CV/CC, Phoenix Contact `MKDS 3/2-5,08`, MPN `1711725`, 24 A / 400 V | même empreinte native que J4 ; choix V1 figé |
 | F2 | 1 | Littelfuse `0449001.MR`, 1 A / 125 V Slo-Blo | `BikeGenerator:Fuse_Littelfuse_0449001MR_6.10x2.69mm` ; appel à valider |
-| D_TVS | 1 | TVS parallèle, boîtier SMCJ envisagé, référence non figée | transitoires courts seulement ; sélection spécifique à la source après mesure, DNP par défaut |
+| D1 | 1 | Littelfuse `SMCJ70A`, TVS unidirectionnelle 70 V, 1500 W | `Diode_SMD:D_SMC` ; montée après `F1` et avant `R7`, protection transitoire best effort |
 
 Le bornier `1711725` accepte les conducteurs rigides jusqu'à 4 mm² et les
 conducteurs souples jusqu'à 2,5 mm². Son courant nominal de 24 A laisse une
@@ -54,7 +54,7 @@ est soudé : son remplacement impose un dessoudage.
 | C4, C5, C13 | 3 | Samsung `CL32Y106KCVZ4NE`, 10 µF, 100 V, X7S | `Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder` ; environ 4,18 µF effectifs au total à 80 V et 25 °C selon la courbe fabricant ; transcrit et raccordé dans KiCad |
 | C6 | 1 | Panasonic `EEU-FC2A100`, 10 µF / 100 V, radial | `Capacitor_THT:CP_Radial_D6.3mm_P2.50mm` ; choix V1 figé |
 | C7, C8 | 2 | Samsung `CL32B226KOJNNNE`, 22 µF, 16 V, X7R | même empreinte 1210 HandSolder ; choix V1 figé |
-| R8 | 1 | Yageo `RC1206FR-0741K2L`, 41,2 kΩ, 1 %, 250 mW | `Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder` ; choix V1 figé pour 80 V max |
+| R8 | 1 | Yageo `RC1206FR-0741K2L`, 41,2 kΩ, 1 %, 250 mW | `Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder` ; vérifié à 80 V comme marge, malgré la limite d'usage de 70 V |
 | R11, R12 | 2 | Yageo `RT0805BRD07316KL` / `RT0805BRD07100KL`, 0,1 % | 0805 HandSolder ; choix V1 figé |
 | R9, R10 | 2 | Yageo `RC0805FR-071ML` / `RC0805FR-07200KL`, 1 % | 0805 HandSolder ; choix V1 figé |
 | R13, C10, C11 | 3 | Yageo `RC0805FR-07200KL` / `CC0805KRX7R9BB332` / `CC0805JRNPO9BN820` | 0805 HandSolder ; choix V1 figé |
@@ -102,7 +102,7 @@ prix et la disponibilité, pas la référence V1.
 ## Éléments qui bloquent une commande
 
 1. transitoires et impédance de la première génératrice réellement mesurés ;
-2. référence source-spécifique de la TVS et stratégie de masse du chemin de puissance ;
+2. validation sur prototype de l'écrêtage réel de `D1` et stratégie de masse du chemin de puissance ;
 3. compatibilité électrique mesurée entre `J_CC_CTRL` et le potentiomètre du
    buck ;
 4. validation sur prototype de la marge des MLCC d'entrée après correction documentée de leur capacité sous polarisation ;

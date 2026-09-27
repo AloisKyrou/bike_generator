@@ -52,8 +52,9 @@ shunt, `BUS_PROTECTED`, the external buck connection and the separately fused
 auxiliary branch. Its Kelvin and bus outputs feed `INA228_SENSE`, while
 `AUX_IN_PROTECTED` feeds the LM5164 sheet.
 
-`AUX_SUPPLY` implements the 5 V supply around the LM5164 for the V1 protected
-bus ceiling of 80 V, including UVLO, feedback, Type-3 ripple network,
+`AUX_SUPPLY` implements the 5 V supply around the LM5164 for the V1 guaranteed
+continuous bus ceiling of 70 V, while its high-voltage components remain
+checked at 80 V as design margin. It includes UVLO, feedback, Type-3 ripple network,
 input/output capacitors, `PGOOD`, a power flag and four test points. Its V1
 passives and footprints are selected. The MLCC DC-bias curves are checked;
 `C4`, `C5` and the added parallel `C13` are now the selected 10 µF / 100 V

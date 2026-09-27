@@ -1,4 +1,4 @@
-# Pré-dimensionnement LM5164 — bus protégé jusqu'à 80 V vers 5 V
+# Pré-dimensionnement LM5164 — calcul vérifié jusqu'à 80 V vers 5 V
 
 Statut : **base de calcul pour le schéma, pas encore une nomenclature prête à
 commander**.
@@ -11,8 +11,8 @@ pages du PDF.
 
 | Paramètre | Valeur de calcul | Commentaire |
 |---|---:|---|
-| Plage vérifiée | 10 à 80 V DC | bus protégé ; démarrage UVLO nominal vers 9 V |
-| Plafond de bus | 80 V DC continu, transitoires tolérés compris | fonctionnement durable au-dessus hors spécification |
+| Plage de calcul vérifiée | 10 à 80 V DC | marge de conception ; démarrage UVLO nominal vers 9 V |
+| Plafond d'utilisation garanti | 70 V DC continu | 70–80 V hors spécification malgré la vérification des composants |
 | Sortie | 5 V | vers l'entrée 5 V du contrôleur |
 | Charge continue attendue | 600 mA | ESP32, capteurs et recharge de la batterie |
 | Charge de dimensionnement | 1 A | marge pour recharge et pointes radio |
@@ -166,9 +166,8 @@ pour trois pièces à 25 °C. Après une estimation conservatrice ajoutant la
 tolérance −10 % et la variation X7S −22 %, il reste environ 2,94 µF, au-dessus
 du minimum TI de 2,2 µF. Les données brutes sont archivées dans
 `../controller-passives-v1/` ; cette estimation devra encore être confirmée
-sur prototype. La protection doit empêcher que les transitoires tolérés
-dépassent eux aussi le plafond de 80 V ; une simple TVS parallèle ne peut pas
-le garantir universellement avec seulement 5 V de marge jusqu'à l'INA228.
+sur prototype. La `SMCJ70A` réduit les transitoires, mais sa tension de clamp
+peut dépasser 85 V : la protection de l'INA228 reste donc « best effort ».
 
 La fiche recommande aussi environ 10 µF électrolytique avec ESR modéré lorsque
 la source est éloignée de plus de 5 cm, afin d'amortir la résonance formée par

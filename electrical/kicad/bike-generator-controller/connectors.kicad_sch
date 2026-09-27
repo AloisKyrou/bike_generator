@@ -221,6 +221,146 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Device:R"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "power:+3V3"
 			(power global)
 			(pin_numbers
@@ -498,19 +638,73 @@
 		)
 		(uuid "ed0d8b6e-02b5-41f2-9f7e-4e28811f65ee")
 	)
+	(junction
+		(at 125.73 125.73)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3328dc26-c248-4ed2-80b7-ebcc6958dc21")
+	)
+	(junction
+		(at 125.73 116.84)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "93679ad6-07a2-4f20-9424-bac222119f63")
+	)
+	(junction
+		(at 133.35 116.84)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c6a6372c-548f-42d4-b4b3-4afc87d6f48e")
+	)
+	(junction
+		(at 106.68 128.27)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f3d4b276-0daf-460b-ae7a-e1867aa1794d")
+	)
 	(wire
 		(pts
-			(xy 152.4 88.9) (xy 147.32 88.9)
+			(xy 135.89 120.65) (xy 135.89 113.03)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "1bd48328-5421-483d-b9b5-b982f438e1ea")
+		(uuid "062aad4c-9061-4342-a78b-5e81fb98dff1")
 	)
 	(wire
 		(pts
-			(xy 99.06 86.36) (xy 91.44 86.36)
+			(xy 133.35 123.19) (xy 133.35 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0672004c-767d-4d59-9bb1-7a39c1a50179")
+	)
+	(wire
+		(pts
+			(xy 135.89 113.03) (xy 138.43 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1893ffd7-1932-4b2d-90f3-49f7ff845462")
+	)
+	(wire
+		(pts
+			(xy 125.73 116.84) (xy 133.35 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1e2b56ff-79bf-40d8-8d71-570fd6d07e7f")
+	)
+	(wire
+		(pts
+			(xy 99.06 86.36) (xy 85.09 86.36)
 		)
 		(stroke
 			(width 0)
@@ -520,17 +714,37 @@
 	)
 	(wire
 		(pts
-			(xy 147.32 88.9) (xy 147.32 101.6)
+			(xy 138.43 125.73) (xy 135.89 125.73)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "4c7a4a01-9e56-4ae6-b6dd-6afd4480b4f3")
+		(uuid "50e45b55-0369-48a8-836f-647e49aea62e")
 	)
 	(wire
 		(pts
-			(xy 93.98 88.9) (xy 93.98 101.6)
+			(xy 106.68 124.46) (xy 106.68 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6d62acf7-91ea-4a66-ade8-fd41050dcb6a")
+	)
+	(wire
+		(pts
+			(xy 128.27 125.73) (xy 125.73 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "71902238-3f00-4ca1-a16b-33c6609d456e")
+	)
+	(wire
+		(pts
+			(xy 85.09 88.9) (xy 85.09 101.6)
 		)
 		(stroke
 			(width 0)
@@ -540,7 +754,7 @@
 	)
 	(wire
 		(pts
-			(xy 99.06 88.9) (xy 93.98 88.9)
+			(xy 99.06 88.9) (xy 85.09 88.9)
 		)
 		(stroke
 			(width 0)
@@ -550,13 +764,93 @@
 	)
 	(wire
 		(pts
-			(xy 152.4 86.36) (xy 144.78 86.36)
+			(xy 125.73 125.73) (xy 124.46 125.73)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "a9af751f-499a-41b2-88fb-48387c498ff3")
+		(uuid "a2aa81d2-22a8-4be2-9fd4-676e43923907")
+	)
+	(wire
+		(pts
+			(xy 128.27 128.27) (xy 106.68 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a80e3c5b-38d8-475b-a7ae-f6dbd49896c2")
+	)
+	(wire
+		(pts
+			(xy 125.73 124.46) (xy 125.73 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b181aa6a-bb8f-42ae-85f1-85ba05bf607c")
+	)
+	(wire
+		(pts
+			(xy 138.43 123.19) (xy 133.35 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bd3ce67e-4a87-4605-8947-1a8b30220ee7")
+	)
+	(wire
+		(pts
+			(xy 106.68 116.84) (xy 125.73 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cad5d7d4-bfbe-4a06-bc43-baac28e655f0")
+	)
+	(wire
+		(pts
+			(xy 138.43 120.65) (xy 135.89 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d975639d-318e-4271-864b-44ddc121c347")
+	)
+	(wire
+		(pts
+			(xy 106.68 128.27) (xy 102.87 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ef1fdcfb-cee2-433d-a855-9d6183acd9f5")
+	)
+	(wire
+		(pts
+			(xy 138.43 128.27) (xy 135.89 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f4a211a1-187c-4ed1-8df6-d411904bfd9b")
+	)
+	(wire
+		(pts
+			(xy 133.35 115.57) (xy 133.35 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f69d3adf-1f55-48b9-86d0-6d65445ba59e")
 	)
 	(hierarchical_label "I2C_SDA"
 		(shape bidirectional)
@@ -569,16 +863,16 @@
 		)
 		(uuid "0c7404a1-623e-42b7-b589-49dd0db3c13e")
 	)
-	(hierarchical_label "UART_TX"
-		(shape input)
-		(at 152.4 91.44 180)
+	(hierarchical_label "GPIO4_HALL"
+		(shape output)
+		(at 124.46 125.73 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right)
 		)
-		(uuid "7dc0fcba-e050-411e-9379-16d85341d33e")
+		(uuid "3e7d5457-1ce7-4fa2-8401-eb145b1fba3f")
 	)
 	(hierarchical_label "I2C_SCL"
 		(shape input)
@@ -591,20 +885,20 @@
 		)
 		(uuid "c6b73a0a-d50b-49c4-8d9d-6d2d1efead46")
 	)
-	(hierarchical_label "UART_RX"
+	(hierarchical_label "GPIO8_ACTION"
 		(shape output)
-		(at 152.4 93.98 180)
+		(at 102.87 128.27 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right)
 		)
-		(uuid "ca2950d5-6647-4654-bd55-b51a934c1ae9")
+		(uuid "ff75aba3-baa0-46b4-97e4-0ded4e2aad34")
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 93.98 101.6 0)
+		(at 85.09 101.6 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -613,8 +907,8 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "39249018-9bb7-414e-9201-4b73031eff1f")
-		(property "Reference" "#PWR007"
-			(at 93.98 107.95 0)
+		(property "Reference" "#PWR014"
+			(at 85.09 107.95 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -625,7 +919,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 93.98 105.41 0)
+			(at 85.09 105.41 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -635,7 +929,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 93.98 101.6 0)
+			(at 85.09 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -646,7 +940,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 93.98 101.6 0)
+			(at 85.09 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -657,7 +951,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 93.98 101.6 0)
+			(at 85.09 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -673,84 +967,7 @@
 		(instances
 			(project "bike-generator-controller"
 				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/30914b87-53e9-4d6e-bceb-b03d062cf739"
-					(reference "#PWR007")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+3V3")
-		(at 144.78 86.36 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "61f67f56-d72b-4063-aefc-709f58d2870c")
-		(property "Reference" "#PWR008"
-			(at 144.78 90.17 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 144.78 82.804 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 144.78 86.36 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 144.78 86.36 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 144.78 86.36 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "205fe6b9-728c-47f1-904e-3cbb37be38da")
-		)
-		(instances
-			(project "bike-generator-controller"
-				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/30914b87-53e9-4d6e-bceb-b03d062cf739"
-					(reference "#PWR008")
+					(reference "#PWR014")
 					(unit 1)
 				)
 			)
@@ -758,7 +975,7 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x04")
-		(at 157.48 88.9 0)
+		(at 143.51 123.19 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -766,9 +983,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "a1dd9651-8049-49a8-af5c-73adbafcd8a8")
-		(property "Reference" "J3"
-			(at 157.48 83.82 0)
+		(uuid "57e771de-e717-4506-b983-384dc92afb93")
+		(property "Reference" "J5"
+			(at 143.51 118.11 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -777,8 +994,8 @@
 				)
 			)
 		)
-		(property "Value" "J_DEBUG_UART"
-			(at 157.48 96.52 0)
+		(property "Value" "J_EXT_GPIO"
+			(at 143.51 130.81 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -787,8 +1004,8 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical"
-			(at 157.48 88.9 0)
+		(property "Footprint" "Connector_JST:JST_PH_S4B-PH-K_1x04_P2.00mm_Horizontal"
+			(at 143.51 123.19 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -799,7 +1016,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 157.48 88.9 0)
+			(at 143.51 123.19 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -810,7 +1027,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 157.48 88.9 0)
+			(at 143.51 123.19 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -821,29 +1038,29 @@
 			)
 		)
 		(pin "1"
-			(uuid "b46af85d-f784-4c51-9d9f-d3a599b46f3c")
-		)
-		(pin "2"
-			(uuid "4b02d474-eb70-4e55-bc77-31944472e1c7")
+			(uuid "12557431-d858-4757-aace-f16499258a27")
 		)
 		(pin "3"
-			(uuid "76124579-9e98-406d-b7c2-fb4d185b79af")
+			(uuid "a4136243-7f16-4e85-b5bf-aa486697914f")
+		)
+		(pin "2"
+			(uuid "0130e6d8-0666-4490-be9f-d8fccbc68c1d")
 		)
 		(pin "4"
-			(uuid "2f35d729-5baf-4021-b212-923f8fe43761")
+			(uuid "8d5dba60-03e8-4827-9b2f-a4c371ed2483")
 		)
 		(instances
 			(project "bike-generator-controller"
 				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/30914b87-53e9-4d6e-bceb-b03d062cf739"
-					(reference "J3")
+					(reference "J5")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 147.32 101.6 0)
+		(lib_id "Device:R")
+		(at 106.68 120.65 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -851,9 +1068,167 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "baf98afa-d555-4649-96e0-7b0171a2f0f0")
-		(property "Reference" "#PWR009"
-			(at 147.32 107.95 0)
+		(uuid "b831e589-12bf-410b-80be-0ecd17422d8a")
+		(property "Reference" "R7"
+			(at 108.712 120.65 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 106.426 120.904 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 106.68 120.65 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 106.68 120.65 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 106.68 120.65 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "2f846b57-c5d9-4353-b0cb-bedb7b497aac")
+		)
+		(pin "1"
+			(uuid "2de661d2-a7f5-475d-8649-38db05644c41")
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/30914b87-53e9-4d6e-bceb-b03d062cf739"
+					(reference "R7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 125.73 120.65 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "b859c539-e389-4f26-9033-5bfc4bf8a50f")
+		(property "Reference" "R8"
+			(at 127.762 120.65 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 125.73 120.65 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 125.73 120.65 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 125.73 120.65 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 125.73 120.65 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d7f08d64-289f-4b23-95bc-cd7f177bab9b")
+		)
+		(pin "2"
+			(uuid "1918d8df-3b8d-4c25-9957-c0635569beb5")
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/30914b87-53e9-4d6e-bceb-b03d062cf739"
+					(reference "R8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 138.43 113.03 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "c55cdf42-c600-49cc-8b07-26fe58726a34")
+		(property "Reference" "#PWR018"
+			(at 138.43 119.38 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -864,7 +1239,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 147.32 105.41 0)
+			(at 138.43 116.84 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -874,7 +1249,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 147.32 101.6 0)
+			(at 138.43 113.03 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -885,7 +1260,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 147.32 101.6 0)
+			(at 138.43 113.03 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -896,7 +1271,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 147.32 101.6 0)
+			(at 138.43 113.03 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -907,12 +1282,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "9eb749f6-90ad-4f18-9d8b-ea1763d6d423")
+			(uuid "f60ca29a-0211-4930-8790-331c29ad0218")
 		)
 		(instances
 			(project "bike-generator-controller"
 				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/30914b87-53e9-4d6e-bceb-b03d062cf739"
-					(reference "#PWR009")
+					(reference "#PWR018")
 					(unit 1)
 				)
 			)
@@ -920,7 +1295,7 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 91.44 86.36 0)
+		(at 85.09 86.36 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -929,8 +1304,8 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "c80b29b6-dc99-4094-8adb-dd761a8df8c2")
-		(property "Reference" "#PWR010"
-			(at 91.44 90.17 0)
+		(property "Reference" "#PWR013"
+			(at 85.09 90.17 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -941,7 +1316,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 91.44 82.804 0)
+			(at 85.09 82.804 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -951,7 +1326,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 91.44 86.36 0)
+			(at 85.09 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -962,7 +1337,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 91.44 86.36 0)
+			(at 85.09 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -973,7 +1348,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 91.44 86.36 0)
+			(at 85.09 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -989,7 +1364,242 @@
 		(instances
 			(project "bike-generator-controller"
 				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/30914b87-53e9-4d6e-bceb-b03d062cf739"
-					(reference "#PWR010")
+					(reference "#PWR013")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 132.08 128.27 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "cd39557b-79aa-4975-8099-08147e9abda6")
+		(property "Reference" "R10"
+			(at 132.334 131.064 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 132.08 128.27 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 132.08 128.27 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 132.08 128.27 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 132.08 128.27 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "27039b71-9def-42e7-bfd3-08e6c65a9240")
+		)
+		(pin "2"
+			(uuid "28946401-ee50-4b20-be6e-225a09d2293f")
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/30914b87-53e9-4d6e-bceb-b03d062cf739"
+					(reference "R10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 132.08 125.73 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "d9feb3e7-569c-49b0-94d6-cc5ca9d1bdd2")
+		(property "Reference" "R9"
+			(at 132.08 123.698 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 132.08 125.73 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 132.08 125.73 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 132.08 125.73 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 132.08 125.73 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "59a4041a-c314-4757-a130-ac4c0df660be")
+		)
+		(pin "1"
+			(uuid "9e8b1f50-0f77-4b6d-bed1-30f63f35c078")
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/30914b87-53e9-4d6e-bceb-b03d062cf739"
+					(reference "R9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 133.35 115.57 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "e7f03117-c019-406a-a7e3-3568590dfaa1")
+		(property "Reference" "#PWR017"
+			(at 133.35 119.38 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 133.35 112.014 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 133.35 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 133.35 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 133.35 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "97efcd94-56df-4234-98e6-8bae8ac7c519")
+		)
+		(instances
+			(project "bike-generator-controller"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/30914b87-53e9-4d6e-bceb-b03d062cf739"
+					(reference "#PWR017")
 					(unit 1)
 				)
 			)
@@ -1006,7 +1616,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "f3f634c3-cbc9-4498-aa68-9e867bc09552")
-		(property "Reference" "J2"
+		(property "Reference" "J3"
 			(at 104.14 83.82 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1074,7 +1684,7 @@
 		(instances
 			(project "bike-generator-controller"
 				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c/30914b87-53e9-4d6e-bceb-b03d062cf739"
-					(reference "J2")
+					(reference "J3")
 					(unit 1)
 				)
 			)

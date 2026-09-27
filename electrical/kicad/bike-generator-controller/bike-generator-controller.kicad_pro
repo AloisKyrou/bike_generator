@@ -60,7 +60,7 @@
           "hatch_smoothing_level": 0,
           "hatch_smoothing_value": 0.1,
           "hatch_thickness": 1.0,
-          "min_clearance": 0.5,
+          "min_clearance": 0.0,
           "min_island_area": 10.0,
           "min_thickness": 0.25,
           "pad_connection": 1,
@@ -69,7 +69,13 @@
           "thermal_relief_spoke_width": 0.5
         }
       },
-      "diff_pair_dimensions": [],
+      "diff_pair_dimensions": [
+        {
+          "gap": 0.0,
+          "via_gap": 0.0,
+          "width": 0.0
+        }
+      ],
       "drc_exclusions": [],
       "meta": {
         "version": 2
@@ -203,7 +209,11 @@
           "td_width_to_size_filter_ratio": 0.9
         }
       ],
-      "track_widths": [],
+      "track_widths": [
+        0.0,
+        0.25,
+        2.0
+      ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
           "corner_radius_percentage": 80,
@@ -230,7 +240,20 @@
           "spacing": 0.6
         }
       },
-      "via_dimensions": [],
+      "via_dimensions": [
+        {
+          "diameter": 0.0,
+          "drill": 0.0
+        },
+        {
+          "diameter": 0.8,
+          "drill": 0.4
+        },
+        {
+          "diameter": 1.2,
+          "drill": 0.6
+        }
+      ],
       "zones_allow_external_fillets": false
     },
     "ipc2581": {
@@ -516,7 +539,7 @@
         "clearance": 0.2,
         "name": "ANALOG_CTRL",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 0,
+        "priority": 1,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.25,
         "tuning_profile": "",
@@ -524,12 +547,23 @@
         "via_drill": 0.3
       },
       {
+        "clearance": 0.5,
+        "name": "AUX_HV_1A",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.75,
+        "tuning_profile": "",
+        "via_diameter": 0.8,
+        "via_drill": 0.4
+      },
+      {
         "clearance": 0.2,
         "name": "GROUND_PLANE",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 1,
+        "priority": 2,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 1.0,
+        "track_width": 0.5,
         "tuning_profile": "",
         "via_diameter": 0.8,
         "via_drill": 0.4
@@ -538,7 +572,7 @@
         "clearance": 0.2,
         "name": "HV_FLOATING",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2,
+        "priority": 3,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.25,
         "tuning_profile": "",
@@ -549,7 +583,7 @@
         "clearance": 0.2,
         "name": "LV_POWER",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 3,
+        "priority": 4,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.75,
         "tuning_profile": "",
@@ -560,7 +594,7 @@
         "clearance": 0.2,
         "name": "MEASUREMENT",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 4,
+        "priority": 5,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.25,
         "tuning_profile": "",
@@ -571,7 +605,7 @@
         "clearance": 0.2,
         "name": "POWER_20A",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 5,
+        "priority": 6,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 5.0,
         "tuning_profile": "",
@@ -582,7 +616,7 @@
         "clearance": 0.2,
         "name": "SW_NODE",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 6,
+        "priority": 7,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 1.0,
         "tuning_profile": "",
@@ -657,7 +691,7 @@
         "pattern": "Net-(F1-Pad2)"
       },
       {
-        "netclass": "POWER_20A",
+        "netclass": "AUX_HV_1A",
         "pattern": "/AUX_SUPPLY/AUX_IN_PROTECTED"
       },
       {
@@ -831,7 +865,7 @@
         "uuid": "3056615a-b94f-4555-a4c5-9bc697b25f9c"
       }
     ],
-    "used_designators": "U4,TP16-20",
+    "used_designators": "U1-4,F1-2,TP1-22,L1,#PWR1-33,C1-13,J1-7,JP1-3,R1-18,S1,TP3V1",
     "variants": []
   },
   "sheets": [

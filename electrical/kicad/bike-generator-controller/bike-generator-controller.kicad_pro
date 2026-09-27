@@ -711,7 +711,7 @@
         "pattern": "/INA228_SENSE/INA_IN_MINUS"
       },
       {
-        "netclass": "MEASUREMENT",
+        "netclass": "POWER_20A",
         "pattern": "/INA228_SENSE/VBUS_SENSE"
       },
       {

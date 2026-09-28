@@ -1,4 +1,8 @@
-# MCP4151-104 — potentiomètre numérique 100 kΩ
+# MCP4151-104 — alternative historique abandonnée pour la V1
+
+Statut : documentation conservée pour traçabilité. La V1 utilise finalement
+le double canal `MCP42100-I/SL` ; ne pas appliquer les instructions ci-dessous
+au schéma courant sans nouvelle décision d'architecture.
 
 Statut : **référence PCB V1 retenue** pour remplacer le module DFR0520 du
 prototype. La référence commandable est `MCP4151-104E/SN` : un canal,
@@ -39,7 +43,8 @@ remplacée explicitement par
 Référence contrôlée : Microchip `MCP4151-104E/SN`, datasheet `DS22060B`.
 Le suffixe `/SN` désigne le boîtier SOIC étroit 150 mil à 8 broches. Le
 brochage est donné en **vue de dessus** dans le synoptique des boîtiers en
-page 1 ; le dessin mécanique SOIC est en page 67.
+page 1 ; le dessin mécanique SOIC-8 `/SN` est en page 71. La page 67 décrit
+le boîtier DFN et ne doit pas servir à valider l'empreinte SOIC.
 
 | Broche datasheet | Fonction | Pin du symbole | Pad de l'empreinte | Vue / sens |
 |---:|---|---:|---:|---|

@@ -2779,7 +2779,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "http://ww1.microchip.com/downloads/en/DeviceDoc/11195c.pdf"
+		(property "Datasheet" "https://ww1.microchip.com/downloads/en/devicedoc/11195c.pdf"
 			(at 119.38 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -2791,6 +2791,28 @@
 			)
 		)
 		(property "Description" "Dual Digital Potentiometer, SPI interface, 256 taps, 100 kohm"
+			(at 119.38 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Microchip Technology"
+			(at 119.38 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "MCP42100-I/SL"
 			(at 119.38 90.17 0)
 			(hide yes)
 			(show_name no)

@@ -39,7 +39,7 @@ Il référence cinq feuilles fonctionnelles :
 | 3 | `INA228_SENSE` | `ina228_sense.kicad_sch` | INA228, filtrage Kelvin, adresse, alertes et découplage |
 | 4 | `CONNECTORS` | `connectors.kicad_sch` | écran, debug et interfaces auxiliaires externes |
 | 5 | `MCU` | `mcu.kicad_sch` | Beetle ESP32-C3, alimentation logique et bus numériques |
-| 6 | `CC_CONTROL` | `cc_control.kicad_sch` | MCP4151 simple canal, interface du réglage CC et état sûr |
+| 6 | `CC_CONTROL` | `cc_control.kicad_sch` | MCP42100 double canal, interfaces CC/CV et état sûr |
 
 Les connecteurs qui transportent le fort courant resteront probablement dans
 `POWER_PATH`, même si les connecteurs de commande sont regroupés dans
@@ -245,8 +245,8 @@ trous Ø0,90 mm du module lui-même.
 
 Cette empreinte DFR0520 est désormais conservée uniquement comme historique du
 prototype. Le PCB V1 utilise le symbole KiCad natif
-`Potentiometer_Digital:MCP4151-xxxx-P` et l'empreinte native
-`Package_SO:SOIC-8_3.9x4.9mm_P1.27mm` ; aucun nouveau modèle n'a été créé.
+`Potentiometer_Digital:MCP42100` et l'empreinte native
+`Package_SO:SOIC-14_3.9x8.7mm_P1.27mm` ; aucun nouveau modèle n'a été créé.
 
 Dans KiCad, l'équivalent manuel se fait avec **Éditeur de symboles > Fichier >
 Nouvelle bibliothèque de projet**, puis **Éditeur d'empreintes > Nouvelle

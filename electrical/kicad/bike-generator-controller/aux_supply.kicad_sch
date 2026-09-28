@@ -1437,6 +1437,12 @@
 		(uuid "32794002-b37a-4ef3-aaff-7b13b4e2232a")
 	)
 	(junction
+		(at 114.3 127)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3c34be90-0a91-41c2-8130-0a0b3da0e387")
+	)
+	(junction
 		(at 129.54 127)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1513,12 +1519,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a8be930f-a8bf-4b09-a97d-bdcf2f685202")
-	)
-	(junction
-		(at 81.28 81.28)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a94ec4c2-f7a5-4173-9552-e415e3babc7e")
 	)
 	(junction
 		(at 203.2 127)
@@ -1820,6 +1820,16 @@
 	)
 	(wire
 		(pts
+			(xy 148.59 111.76) (xy 153.67 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "702c93f9-c2aa-41c4-b1a3-a94ed32f3cea")
+	)
+	(wire
+		(pts
 			(xy 139.7 86.36) (xy 161.29 86.36)
 		)
 		(stroke
@@ -1920,16 +1930,6 @@
 	)
 	(wire
 		(pts
-			(xy 81.28 83.82) (xy 81.28 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9a52a099-945e-46b9-b260-17f4cb459d58")
-	)
-	(wire
-		(pts
 			(xy 228.6 97.79) (xy 228.6 96.52)
 		)
 		(stroke
@@ -1950,13 +1950,13 @@
 	)
 	(wire
 		(pts
-			(xy 81.28 91.44) (xy 81.28 111.76)
+			(xy 114.3 119.38) (xy 114.3 127)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "b12dd7ac-0efa-484d-af3f-2a6f6f2a6edc")
+		(uuid "a4bfb44f-0783-42c3-bbfe-2f33154f5747")
 	)
 	(wire
 		(pts
@@ -1997,6 +1997,16 @@
 			(type default)
 		)
 		(uuid "bae59fea-79f2-481f-8175-2a8c94428f7f")
+	)
+	(wire
+		(pts
+			(xy 114.3 127) (xy 124.46 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bb1a3b8d-08b9-4c5f-aaab-c5154ca90595")
 	)
 	(wire
 		(pts
@@ -2050,7 +2060,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 127) (xy 124.46 127)
+			(xy 49.53 127) (xy 114.3 127)
 		)
 		(stroke
 			(width 0)
@@ -2170,16 +2180,6 @@
 	)
 	(wire
 		(pts
-			(xy 81.28 111.76) (xy 114.3 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ebb1822f-36b1-4f1a-aa60-7f100986b9bd")
-	)
-	(wire
-		(pts
 			(xy 215.9 96.52) (xy 222.25 96.52)
 		)
 		(stroke
@@ -2217,16 +2217,6 @@
 			(type default)
 		)
 		(uuid "fbf8d3ed-0491-4fa3-8fab-5b15a2e864b5")
-	)
-	(wire
-		(pts
-			(xy 148.59 111.76) (xy 151.13 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fe5925b8-2531-490d-9c4a-6804ca451854")
 	)
 	(wire
 		(pts
@@ -2279,7 +2269,7 @@
 		(uuid "66faf959-f9d6-4d4d-b151-eab214f6a17a")
 	)
 	(label "RON_SET"
-		(at 111.76 111.76 180)
+		(at 114.3 104.14 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2350,7 +2340,7 @@
 	)
 	(hierarchical_label "AUX_PGOOD"
 		(shape output)
-		(at 151.13 111.76 0)
+		(at 153.67 111.76 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2481,6 +2471,17 @@
 			)
 		)
 		(property "Dielectric" "X7S"
+			(at 68.58 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DC Bias Note" "Approx. 1.39uF effective each at 80V/25C; validate bus overshoot"
 			(at 68.58 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -2639,7 +2640,7 @@
 				)
 			)
 		)
-		(property "Value" ""
+		(property "Value" "AUX_IN_PROTECTED"
 			(at 41.402 83.312 0)
 			(hide yes)
 			(show_name no)
@@ -2859,6 +2860,17 @@
 			)
 		)
 		(property "LCSC" "C114562"
+			(at 96.52 97.79 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Electrical Requirement" "200k 1%; >=25V working; >=0.1W (about 0.9mW at 80V input)"
 			(at 96.52 97.79 0)
 			(hide yes)
 			(show_name no)
@@ -3194,7 +3206,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/lm5164.pdf?ts=1598311864250&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FLM5164%253FHQS%253DTI-null-null-octopart-df-pf-null-wwe"
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/lm5164.pdf"
 			(at 127 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -3206,6 +3218,28 @@
 			)
 		)
 		(property "Description" "1A synchronous buck converter with ultra-low IQ, 6V - 100V input, adjustable output voltage, HSOP-8"
+			(at 127 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Texas Instruments"
+			(at 127 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "LM5164DDAT"
 			(at 127 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -3339,6 +3373,17 @@
 			)
 		)
 		(property "LCSC" "C107700"
+			(at 96.52 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Electrical Requirement" "1M 1%; >=100V working; >=0.1W (about 4.5mW at 80V input)"
 			(at 96.52 85.09 0)
 			(hide yes)
 			(show_name no)
@@ -3575,6 +3620,17 @@
 				)
 			)
 		)
+		(property "Electrical Requirement" "100k 0.1%; >=25V working; >=0.1W"
+			(at 203.2 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "dcb797ca-3e4b-41c6-a471-1e9159d302e6")
 		)
@@ -3690,6 +3746,17 @@
 			)
 		)
 		(property "Dielectric" "X7S"
+			(at 30.48 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DC Bias Note" "Approx. 1.39uF effective each at 80V/25C; validate bus overshoot"
 			(at 30.48 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -4098,7 +4165,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 81.28 87.63 0)
+		(at 114.3 115.57 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4106,9 +4173,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "621c1146-d851-402a-9807-94c6dfec4d61")
+		(uuid "6e2a3fb5-f61d-4f49-a338-8a33324c61a2")
 		(property "Reference" "R12"
-			(at 85.09 86.36 0)
+			(at 110.49 116.84 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4118,7 +4185,7 @@
 			)
 		)
 		(property "Value" "41.2k/1%"
-			(at 89.154 88.9 0)
+			(at 106.426 114.3 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4128,7 +4195,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
-			(at 81.28 87.63 0)
+			(at 114.3 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4139,7 +4206,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_16.pdf"
-			(at 81.28 87.63 0)
+			(at 114.3 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4150,7 +4217,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 81.28 87.63 0)
+			(at 114.3 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4161,7 +4228,7 @@
 			)
 		)
 		(property "Manufacturer" "Yageo"
-			(at 81.28 87.63 0)
+			(at 114.3 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4172,7 +4239,7 @@
 			)
 		)
 		(property "MPN" "RC1206FR-0741K2L"
-			(at 81.28 87.63 0)
+			(at 114.3 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4183,7 +4250,29 @@
 			)
 		)
 		(property "LCSC" "C274076"
-			(at 81.28 87.63 0)
+			(at 114.3 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Function" "LM5164 RON programming, approx. 300kHz"
+			(at 114.3 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Electrical Requirement" "41.2k 1%; low-voltage RON pin; connect only to GND"
+			(at 114.3 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4194,10 +4283,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "a13fd06d-c74b-4a75-9505-f9d9725c2f8b")
+			(uuid "aa707176-7ece-41d1-a0b0-8770cf2cd3f7")
 		)
 		(pin "2"
-			(uuid "f584dc8c-fbc1-4485-980e-e80129954bb4")
+			(uuid "44cec31c-cb9f-4452-a0be-749328f1b700")
 		)
 		(instances
 			(project "bike-generator-controller"
@@ -4419,6 +4508,17 @@
 				)
 			)
 		)
+		(property "DC Bias Note" "Approx. 1.39uF effective each at 80V/25C; validate bus overshoot"
+			(at 55.88 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "8cbc3d9e-acc3-4d69-9e72-2b0b8d147e1e")
 		)
@@ -4521,6 +4621,17 @@
 			)
 		)
 		(property "LCSC" "C865397"
+			(at 203.2 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Electrical Requirement" "316k 0.1%; >=25V working; >=0.1W"
 			(at 203.2 92.71 0)
 			(hide yes)
 			(show_name no)

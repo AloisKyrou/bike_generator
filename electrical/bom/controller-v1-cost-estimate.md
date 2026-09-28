@@ -48,11 +48,11 @@ des conditionnements minimaux et de l'achat auprès de plusieurs distributeurs.
 |---|---:|
 | Beetle ESP32-C3 DFR0868 | environ 6,9 € |
 | INA228AIDGSR | environ 4,0 € |
-| MCP4151-104E/SN | environ 1 à 1,5 € |
+| MCP42100-I/SL | prix à rafraîchir avant commande |
 | Shunt CSS4J-4026K-2L00F | environ 1,84 € |
 | Deux borniers Phoenix 1711725 | environ 3,1 € |
 | TVS SMCJ70A | environ 0,65 à 0,75 € |
-| Fusible principal ABC-V-20-R | environ 3,5 à 9 € selon distributeur |
+| Fusible principal Littelfuse 0456020.ER | prix à rafraîchir avant commande |
 | Interrupteur 1101M2S3CQE2 | environ 5 à 6,5 € |
 | Autres connecteurs, barrettes, sockets et passifs | environ 5 à 10 € |
 

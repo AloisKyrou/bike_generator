@@ -66,9 +66,9 @@ de la TVS ; elles ne redéfinissent pas l'enveloppe garantie 10–70 V de la car
 
 ## Mesures à réaliser sur le réglage CC du buck
 
-Le raccordement direct du MCP4151 est autorisé seulement si les trois bornes du
-potentiomètre du buck restent entre 0 et 3,3 V par rapport à `VIN-`, et si le
-courant de borne reste largement inférieur à ±2,5 mA.
+Le raccordement direct du MCP42100 est autorisé seulement si les trois bornes
+de chaque potentiomètre du buck restent entre 0 et 3,3 V par rapport à `VIN-`,
+et si le courant de borne reste inférieur à ±1 mA.
 
 1. Buck hors tension : résistance entre chaque paire des trois broches du
    potentiomètre, aux positions minimum, milieu et maximum.

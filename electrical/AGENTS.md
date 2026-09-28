@@ -193,25 +193,27 @@ Les valeurs du circuit d'application LM5164 de la fiche TI ne sont pas des
 valeurs projet par défaut. Recalculer inductance, fréquence, retour 5 V,
 condensateurs et `EN/UVLO`, puis valider avec l'outil et les équations TI.
 
-## Potentiomètre numérique de commande CC
+## Potentiomètre numérique de commande CC/CV
 
-Le module DFR0520 / MCP42100 appartient au prototype breadboard historique.
-Le PCB V1 utilise directement le composant simple canal
-`MCP4151-104E/SN`, 100 kΩ, avec :
+Le module DFR0520 appartient au prototype breadboard historique. Le PCB V1
+conserve toutefois directement son circuit intégré double canal
+`MCP42100-I/SL`, 100 kΩ, avec :
 
 ```text
-Potentiometer_Digital:MCP4151-xxxx-P
-Package_SO:SOIC-8_3.9x4.9mm_P1.27mm
+Potentiometer_Digital:MCP42100
+Package_SO:SOIC-14_3.9x8.7mm_P1.27mm
 ```
 
-Ne pas recréer ces modèles : ils existent dans KiCad. Le suffixe `/SN`, le
+Ne pas recréer ces modèles : ils existent dans KiCad. Le suffixe `/SL`, le
 brochage physique, les limites analogiques et la commande SPI doivent être
 vérifiés dans la fiche Microchip archivée sous
-`components/mcp4151-104/`. La V1 est en écriture seule : ne pas réintroduire
-`POT_MISO` sans concevoir explicitement le bus demi-duplex `SDI/SDO`.
+`components/dfr0520-mcp42100/`. La V1 utilise les deux canaux pour `CC` et
+`CV` et fonctionne en écriture seule ; `SO` peut rester non connecté s'il est
+explicitement marqué comme tel.
 
-Le raccordement direct à la commande CC reste conditionné aux mesures montrant
-que `CC_A`, `CC_W` et `CC_B` restent dans `[0 V; 3,3 V]` et sous 2,5 mA.
+Le raccordement direct aux commandes CC/CV reste conditionné aux mesures
+montrant que leurs bornes A/W/B restent dans `[0 V; 3,3 V]` et sous ±1 mA,
+limite retenue depuis la fiche MCP42100.
 
 ## DFR0520 et MCP42100 historiques
 

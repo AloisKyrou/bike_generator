@@ -7,8 +7,9 @@ en choix de fabrication.
 ## Principes de travail
 
 - Le buck CV/CC 400 W reste un module externe en V1.
-- Le trajet de puissance de la carte est dimensionné provisoirement pour 400 W,
-  20 A continus et 25 A transitoires.
+- Le trajet de puissance vise au maximum 400 W, 20 A et 80 V, sans atteindre
+  ces trois maxima simultanément. La V1 ne revendique pas 20 A continus avant
+  validation thermique ; un courant proche de 20 A reste de courte durée.
 - Les observations actuelles sont environ 36 V en charge et plus de 40 V lors
   de démarrages rapides. Elles ne remplacent pas la mesure de tension à vide,
   génératrice entraînée mais sortie déconnectée.
@@ -77,8 +78,8 @@ vias sous pad avec le fabricant.
   identique au dessin Bourns ;
 - [x] retenir pour `J4` et `J5` le bornier Phoenix Contact `1711725`, 24 A /
   400 V, avec son empreinte KiCad native MKDS-3 au pas de 5,08 mm ;
-- [x] retenir l'Eaton Bussmann `ABC-V-20-R`, créer son empreinte axiale locale
-  au pas choisi de 38,10 mm et l'affecter à `F1` ;
+- [x] remplacer la décision historique Eaton par le Littelfuse `0456020.ER`
+  et son empreinte locale au pas 9,35 mm ;
 - [ ] dimensionner la protection contre inversion et transitoires après les
   mesures de la génératrice.
 
@@ -159,13 +160,12 @@ Critère de sortie : matrice d'états générateur/USB/batterie vérifiée sur t
 
 - mesurer les trois bornes du potentiomètre CC du buck dans plusieurs états ;
 - confirmer plage, polarité, masse commune et courant de curseur ;
-- [x] intégrer le `MCP4151-104E/SN` simple canal et son découplage 100 nF ;
-- [x] vérifier le brochage `/SN`, le symbole KiCad natif et l'empreinte SOIC-8
+- [x] conserver le `MCP42100-I/SL` double canal et son découplage 100 nF ;
+- [x] vérifier le brochage `/SL`, le symbole KiCad natif et l'empreinte SOIC-14
   native sans recréer de modèle ECAD ;
-- [x] adapter le firmware au protocole d'écriture MCP4151, supprimer `POT_MISO`
-  et forcer l'écriture de `POT_INITIAL` au démarrage ;
-- vérifier par mesure que `CC_A`, `CC_W` et `CC_B` restent entre 0 et 3,3 V et
-  sous 2,5 mA dans tous les états ;
+- maintenir le SPI en écriture seule et marquer `SO` explicitement non connecté ;
+- vérifier par mesure que les bornes A/W/B des canaux CC et CV restent entre
+  0 et 3,3 V et sous ±1 mA dans tous les états ;
 - définir une valeur passive sûre au démarrage ;
 - autoriser la commande seulement lorsque `PGOOD` et une condition matérielle
   cohérente avec `MCU_READY` sont satisfaits.
@@ -181,10 +181,10 @@ imposer une charge dangereuse.
 - rendre chaque feuille et effectuer une inspection visuelle ;
 - documenter séparément erreurs réelles et limites encore intentionnelles.
 
-Audit intermédiaire du 25 septembre 2026 : pins hiérarchiques cohérentes,
-netlist complète générée, liaisons principales relues et ERC à une erreur
-intentionnelle (`AUX_PGOOD`) sans avertissement. Voir
-[`CONNECTION_AUDIT.md`](./CONNECTION_AUDIT.md).
+Contrôle du 28 septembre 2026 : ERC à zéro erreur et deux avertissements
+`UART_TX`. `AUX_PGOOD` est maintenant raccordé à TP13 et ne produit plus
+d'erreur. Voir [`CONNECTION_AUDIT.md`](./CONNECTION_AUDIT.md) et le
+[`rapport de fermeture V1`](../docs/V1_CLOSEOUT_2026-09-28.md).
 
 Critère de sortie : aucune erreur inexpliquée et aucune validation reposant
 uniquement sur un rapport ERC vert.
@@ -195,7 +195,9 @@ empreinte KiCad native. `S1` utilise désormais le C&K / Littelfuse
 `1101M2S3CQE2`, 6 A sous 28 VDC. Le symbole SPST existant conserve les nets sur
 les bornes physiques 1 et 2 ; la borne 3 du SPDT reste volontairement libre.
 `F1` utilise l'empreinte locale validée
-`BikeGenerator:Fuse_Eaton_ABC-V-20-R_Axial_P38.10mm`.
+`BikeGenerator:Fuse_Littelfuse_456_10.08x3.05mm_P9.35mm` pour la référence
+`0456020.ER`. Le routage doit encore atteindre 10 mm équivalents sur cuivre
+nominal 105 µm autour de F1.
 
 ### 7. Préparer puis router le PCB
 
@@ -223,6 +225,11 @@ Kelvin du shunt et le bloc auxiliaire LM5164 sont routés. Le DRC indique
 72 connexions manquantes et conserve uniquement les 14 erreurs connues hors
 routage appartenant aux empreintes `JP1`/`JP2`. La suite porte sur les masses
 locales/plans, puis les liaisons logique, commande CC et interfaces.
+
+État du 28 septembre 2026 après sauvegarde du PCB : DRC à zéro erreur, zéro
+connexion manquante et zéro divergence de parité schéma/PCB. Il reste 49
+avertissements, dont 42 divergences de copie d'empreinte et 7 remarques de
+sérigraphie. Leur traitement est détaillé dans le rapport de fermeture V1.
 
 ### 8. Prototyper et qualifier
 
@@ -253,3 +260,11 @@ destinée à la fabrication.
   officielles et son empreinte sont désormais archivées et figées pour la V1 ;
 - dimensions nominales du buck externe enregistrées à 60 × 60 × 45 mm, mais
   fixation et source image non archivées.
+
+## Orientation V2
+
+La V2 intégrera le buck CC/CV, la gestion automatique du bouton et de la
+batterie, un power-path USB sans retour vers le PC et de préférence un module
+ESP32-C3 directement soudé sur la carte. La spécification de travail complète
+est dans
+[`CONTROLLER_V2_INTEGRATED_SPEC.md`](../docs/CONTROLLER_V2_INTEGRATED_SPEC.md).

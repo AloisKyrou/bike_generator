@@ -60,9 +60,8 @@ passives and footprints are selected. The MLCC DC-bias curves are checked;
 `C4`, `C5` and the added parallel `C13` are now the selected 10 µF / 100 V
 X7S parts in KiCad. The TI/WEBENCH cross-check remains required before ordering.
 `AUX_5V` is now connected to the MCU sheet through the manual `JP3`
-generator/USB interlock. The global ERC reports exactly one intentional error:
-the root-sheet output `AUX_PGOOD` is not yet connected to the future hardware
-enable logic. It must not be waived or hidden.
+generator/USB interlock. `AUX_PGOOD` is exposed on TP13. The ERC recorded on
+28 September 2026 has zero errors and two `UART_TX` single-pin warnings.
 
 The MCU sheet now assigns two existing KiCad footprints, both still marked
 provisional: a 2.54 mm through-hole 1x02 header for `JP3`, and
@@ -77,7 +76,7 @@ Project-owned library items currently include:
   sur deux sockets 1×8, créée depuis le CAD DFRobot V2.0 et affectée à `U2` ;
 - `BikeGenerator:DFR0520_Dual_Digital_Pot` — ancien module traversant conservé
   uniquement pour documenter le prototype ; le PCB V1 utilise les bibliothèques
-  KiCad natives pour `MCP4151-104E/SN` et son SOIC-8.
+  KiCad natives pour `MCP42100-I/SL` et son SOIC-14.
 
 See the [KiCad workflow and troubleshooting guide](WORKFLOW.md) for the
 creation steps, their manual equivalent and the verification process.
@@ -87,6 +86,10 @@ The latest project-level connectivity evidence is summarized in
 [the connection audit](CONNECTION_AUDIT.md).
 The active PCB routing classes, their net assignments and their engineering
 limits are recorded in [NETCLASSES.md](NETCLASSES.md).
+The V1 closure evidence is recorded in
+[V1_CLOSEOUT_2026-09-28.md](../docs/V1_CLOSEOUT_2026-09-28.md), and the next
+integrated revision is specified in
+[CONTROLLER_V2_INTEGRATED_SPEC.md](../docs/CONTROLLER_V2_INTEGRATED_SPEC.md).
 
 ## Source and generated files
 

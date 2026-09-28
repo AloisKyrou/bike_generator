@@ -17,8 +17,8 @@ correspondance broche physique → pin du symbole → pad du PCB.
 | [`ina228/`](./ina228/) | Texas Instruments INA228AIDGSR | pinout and footprint accepted for PCB V1 | TI datasheet archived; errata to add if published |
 | [`current-shunt/`](./current-shunt/) | Bourns CSS4J-4026K-2L00F, 2 mΩ four-terminal shunt | référence et footprint natif figés pour PCB V1 | datasheet archivée ; land pattern et brochage Kelvin vérifiés |
 | [`dfr0868-beetle-esp32-c3/`](./dfr0868-beetle-esp32-c3/) | DFRobot Beetle ESP32-C3 | V2.0 retenu ; empreinte porte-module socketée créée et affectée à U2 | schéma, datasheet, dimensions et CAD V1/V2 officiels archivés |
-| [`dfr0520-mcp42100/`](./dfr0520-mcp42100/) | DFR0520 / MCP42100 | prototype breadboard historique, retiré du PCB V1 | documentation du module conservée |
-| [`mcp4151-104/`](./mcp4151-104/) | Microchip `MCP4151-104E/SN` | référence PCB V1 retenue ; symbole et empreinte KiCad natifs | datasheet officielle archivée ; compatibilité avec le buck à mesurer |
+| [`dfr0520-mcp42100/`](./dfr0520-mcp42100/) | DFR0520 / MCP42100 | le module reste historique, mais son CI `MCP42100-I/SL` est conservé directement sur le PCB V1 | documentation et datasheet officielles archivées |
+| [`mcp4151-104/`](./mcp4151-104/) | Microchip `MCP4151-104E/SN` | alternative simple canal abandonnée pour la V1 | documentation conservée pour traçabilité |
 | [`lm5164-aux-supply/`](./lm5164-aux-supply/) | Texas Instruments LM5164 | standard KiCad symbol pinout matches the datasheet; `LM5164DDAT` proposed; footprint not yet accepted | official TI datasheet archived; structured Konnect readback, Ultra Librarian package and power-stage values pending |
 | [`jst-ph-battery-connector/`](./jst-ph-battery-connector/) | JST-PH 2 contacts, `S2B-PH-K-S(LF)(SN)` + `PHR-2` | famille choisie et empreinte KiCad standard affectée à `J6` | fiche JST archivée ; confirmer polarité et accessibilité physique |
 | [`buck-b0blg7tn1c/`](./buck-b0blg7tn1c/) | generic CV/CC buck, Amazon B0BLG7TN1C | present, 60 × 60 × 45 mm recorded, exact controller unknown | source image, board photos, controller datasheet when identified |

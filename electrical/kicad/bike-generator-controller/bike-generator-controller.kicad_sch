@@ -16,6 +16,10 @@
 		)
 		(uuid "d2f08002-a174-4dd5-b052-e9416c230f13")
 	)
+	(no_connect
+		(at 88.9 132.08)
+		(uuid "285e79f8-5623-4d57-84cc-9a391956fa24")
+	)
 	(wire
 		(pts
 			(xy 113.03 109.22) (xy 110.49 109.22)
@@ -128,16 +132,6 @@
 	)
 	(wire
 		(pts
-			(xy 207.01 58.42) (xy 198.12 58.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "80dee38a-fe61-4094-baa2-bc274c959347")
-	)
-	(wire
-		(pts
 			(xy 113.03 119.38) (xy 110.49 119.38)
 		)
 		(stroke
@@ -195,16 +189,6 @@
 			(type default)
 		)
 		(uuid "c3a8f1db-1c66-485c-856f-993ec66184e3")
-	)
-	(wire
-		(pts
-			(xy 207.01 63.5) (xy 198.12 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cc755ac0-1a42-4307-81e7-f7c961bf59da")
 	)
 	(wire
 		(pts
@@ -306,16 +290,6 @@
 		)
 		(uuid "65e68242-18ed-4c36-a227-4f3f0b779cf6")
 	)
-	(label "UART_TX"
-		(at 198.12 63.5 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "853e5665-98ec-4097-9f3b-2540f3e956ec")
-	)
 	(label "I2C_SCL"
 		(at 198.12 53.34 180)
 		(effects
@@ -365,16 +339,6 @@
 			(justify left bottom)
 		)
 		(uuid "d6d3e1cb-731b-4393-8cf6-2caa00c7338d")
-	)
-	(label "POT_SHDN"
-		(at 198.12 58.42 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "f25ff37b-7644-43ae-b0c3-019d323e4c4f")
 	)
 	(sheet
 		(at 25.4 38.1)
@@ -513,26 +477,6 @@
 		(pin "I2C_SCL" input
 			(at 207.01 53.34 180)
 			(uuid "a1425441-bfa8-42d9-8f03-a513b6d9d35f")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "UART_TX" input
-			(at 207.01 63.5 180)
-			(uuid "966537a6-8be5-4589-876c-06a0a8b0b9e4")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "POT_SHDN" input
-			(at 207.01 58.42 180)
-			(uuid "ad5b8959-8c42-454c-a04e-8b315ade674d")
 			(effects
 				(font
 					(size 1.27 1.27)

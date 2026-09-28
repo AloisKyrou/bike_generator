@@ -57,7 +57,9 @@ J8 (U/V/W) -> D2 -> RECTIFIED_RAW -> F1
 ```
 
 La variante pour génératrice DC utilise `J1` directement sur
-`RECTIFIED_RAW`. `J1` est DNP par défaut et sa polarité doit être respectée.
+`RECTIFIED_RAW`. Pour les premiers prototypes, J1 et J8/D2 sont tous peuplés
+afin de démontrer les deux variantes, mais les deux entrées ne doivent jamais
+être branchées ou alimentées simultanément. La polarité de J1 doit être respectée.
 Il ne faut jamais raccorder simultanément une source à `J1` et à `J8`.
 
 Aucun cavalier de soudure n'est placé dans le trajet de puissance : la variante

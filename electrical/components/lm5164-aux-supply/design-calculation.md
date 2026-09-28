@@ -59,11 +59,16 @@ Pour 5 V et 300 kHz, la valeur théorique est 41,67 kΩ. La valeur E96 de
 11 reste comprise entre 1,648 µs à 10 V et 0,206 µs à 80 V, très au-dessus du
 minimum contrôlable de 50 ns.
 
-À 80 V, la résistance voit environ 79 V puisque la broche RON est voisine de
-1 V. Sa dissipation est donc d'environ 151 mW. Le passage du boîtier 0805
-125 mW au `RC1206FR-0741K2L` 250 mW est nécessaire ; il laisse environ 40 % de
-marge à température ambiante. Le déclassement thermique devra encore être
-contrôlé avec la température réelle de la carte.
+La résistance `RRON` doit être raccordée **entre la broche RON et GND**, comme
+l'indique la description de broche TI page PDF 3. Elle ne voit donc pas la
+tension d'entrée. Le schéma relie désormais correctement
+`RON_SET → R12 → GND` ; l'ancienne connexion au bus `AUX_IN_PROTECTED` a été
+supprimée. La limite absolue de la broche RON est 5,5 V, ce qui rend cette
+correction obligatoire avant alimentation. La valeur 41,2 kΩ reste correcte
+pour environ 303 kHz ; son boîtier 1206 est conservé pour la facilité
+d'assemblage, pas pour une contrainte de dissipation. Le PCB reste à
+synchroniser après suppression de l'ancien petit segment cuivre attaché à
+R12.1.
 
 ## Inductance
 
@@ -169,6 +174,14 @@ du minimum TI de 2,2 µF. Les données brutes sont archivées dans
 sur prototype. La `SMCJ70A` réduit les transitoires, mais sa tension de clamp
 peut dépasser 85 V : la protection de l'INA228 reste donc « best effort ».
 
+Ce choix est un compromis de prototype explicite. Les 100 V nominaux restent
+supérieurs au plafond projet de 80 V, mais ne satisfont pas la recommandation
+conservatrice TI de choisir une tension nominale égale à deux fois la tension
+d'entrée maximale (page PDF 18). Le bus protégé, transitoires compris, doit
+donc rester à 80 V maximum et la température/capacité effective devra être
+contrôlée pendant les essais. Passer à 160/200 V demanderait probablement une
+empreinte plus grande et une nouvelle validation de capacité sous polarisation.
+
 La fiche recommande aussi environ 10 µF électrolytique avec ESR modéré lorsque
 la source est éloignée de plus de 5 cm, afin d'amortir la résonance formée par
 les câbles et les céramiques. Le vélo entre clairement dans ce cas probable.
@@ -187,6 +200,14 @@ Le convertisseur est ainsi démarré avant 10 V dans le pire cas estimé, tout e
 restant au-dessus de sa limite fonctionnelle minimale de 6 V. Ce choix devra
 être testé sur une montée lente de la génératrice pour vérifier l'absence de
 cycles marche/arrêt gênants.
+
+À 80 V, le pont consomme environ 66,7 µA. `RUV1` voit environ 66,7 V et dissipe
+4,44 mW ; `RUV2` voit environ 13,3 V et dissipe 0,89 mW. Les références Yageo
+0805 retenues, 1 %, ont une tension de travail typique de 150 V et une puissance
+nominale de 125 mW : la marge électrique est très large. Le pont FB 316 kΩ /
+100 kΩ place FB à environ 1,202 V pour 5 V et dissipe moins de 0,1 mW par
+résistance. Ces contrôles sont donc validés sur calcul ; le prototype doit
+confirmer les seuils réels, le démarrage lent et l'absence d'oscillation.
 
 ## Contraintes de placement à reporter au PCB
 

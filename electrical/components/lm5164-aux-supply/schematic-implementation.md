@@ -40,20 +40,21 @@ matériel de la commande CC.
 |---|---:|---|---|
 | U4 | LM5164DDAT | Buck synchrone 100 V | Référence retenue |
 | L1 | Coilcraft `MSS1038-473MLC`, 47 µH ±20 % | Stockage d'énergie | Validée pour la V1 ; `Inductor_SMD:L_Coilcraft_MSS1038-XXX` |
-| R8 | 41,2 kΩ, 1 % | Réglage `RON` | Yageo `RC1206FR-0741K2L`, 250 mW, 1206 HandSolder, figée V1 |
-| R9 / R10 | 1 MΩ / 200 kΩ, 1 % | Seuil `EN/UVLO` | Yageo `RC0805FR-071ML` / `RC0805FR-07200KL`, figées V1 |
-| R11 / R12 | 316 kΩ / 100 kΩ, 0,1 % | Retour 5 V | Yageo `RT0805BRD07316KL` / `RT0805BRD07100KL`, figées V1 |
-| R13 | 200 kΩ, 1 % | Injection d'ondulation | Yageo `RC0805FR-07200KL`, figée V1 |
-| R14 | 47 kΩ, 1 % | Pull-up `PGOOD` vers 3,3 V | Yageo `RC0805FR-0747KL`, figée V1 |
-| C4 / C5 / C13 | 10 µF, 100 V, X7S | Découplage d'entrée | Samsung `CL32Y106KCVZ4NE` ; trois pièces requises par la capacité effective à 80 V, transcrites et raccordées dans KiCad |
+| R12 | 41,2 kΩ, 1 % | Réglage `RON` | Yageo `RC1206FR-0741K2L`, 250 mW, 1206 HandSolder ; valeur et raccordement à GND corrigés dans le schéma |
+| R13 / R14 | 1 MΩ / 200 kΩ, 1 % | Seuil `EN/UVLO` | Yageo `RC0805FR-071ML` / `RC0805FR-07200KL`, figées V1 |
+| R17 / R18 | 316 kΩ / 100 kΩ, 0,1 % | Retour 5 V | Yageo `RT0805BRD07316KL` / `RT0805BRD07100KL`, figées V1 |
+| R16 | 200 kΩ, 1 % | Injection d'ondulation | Yageo `RC0805FR-07200KL`, figée V1 |
+| R15 | 47 kΩ, 1 % | Pull-up `PGOOD` vers 3,3 V | Yageo `RC0805FR-0747KL`, figée V1 |
+| C5 / C7 / C8 | 10 µF, 100 V, X7S | Découplage d'entrée | Samsung `CL32Y106KCVZ4NE` ; trois pièces requises par la capacité effective à 80 V, transcrites et raccordées dans KiCad |
 | C6 | 10 µF / 100 V | Réservoir d'entrée | Panasonic `EEU-FC2A100`, `Capacitor_THT:CP_Radial_D6.3mm_P2.50mm`, figé V1 |
-| C7 / C8 | 22 µF, 16 V | Filtrage de sortie | Samsung `CL32B226KOJNNNE`, figées V1 |
+| C12 / C13 | 22 µF, 16 V | Filtrage de sortie | Samsung `CL32B226KOJNNNE`, figées V1 |
 | C9 | 2,2 nF, 50 V | Bootstrap | Yageo `CC0805KRX7R9BB222`, figée V1 |
-| C10 | 3,3 nF, 50 V | Condensateur `CA` Type-3 | Yageo `CC0805KRX7R9BB332`, figée V1 |
-| C11 | 82 pF, 50 V, C0G | Condensateur `CB` Type-3 | Yageo `CC0805JRNPO9BN820`, figée V1 |
+| C11 | 3,3 nF, 50 V | Condensateur `CA` Type-3 | Yageo `CC0805KRX7R9BB332`, figée V1 |
+| C10 | 82 pF, 50 V, C0G | Condensateur `CB` Type-3 | Yageo `CC0805JRNPO9BN820`, figée V1 |
 
 Les résistances et les petits condensateurs utilisent les empreintes KiCad
-standard 0805 HandSolder, sauf R8 en 1206 HandSolder pour sa dissipation à
+standard 0805 HandSolder, sauf R12 en 1206 HandSolder pour la facilité
+d'assemblage. Une fois reliée à GND, R12 ne dissipe pas la puissance du bus à
 80 V. Les MLCC d'entrée et de sortie utilisent la 1210
 HandSolder. `C6` emploie une empreinte traversante native KiCad. Aucun modèle
 personnalisé n'a été créé pour ces passifs.
@@ -63,30 +64,31 @@ personnalisé n'a été créé pour ces passifs.
 Le réseau d'ondulation suit la topologie de la fiche TI :
 
 ```text
-SW -- R13 -- RIPPLE -- C10 -- AUX_5V
+SW -- R16 -- RIPPLE -- C11 -- AUX_5V
                |
-              C11
+              C10
                |
                FB
 ```
 
-`C9` relie `BST` à `SW`. L1 relie `SW` à `AUX_5V`. Le pont R11/R12 relie
+`C9` relie `BST` à `SW`. L1 relie `SW` à `AUX_5V`. Le pont R17/R18 relie
 `AUX_5V`, `FB` et `GND`.
 
-## Contrôles effectués avec Konnect
+## Contrôles effectués
 
-- neuf broches de U4 reliées aux nets attendus ;
-- zéro élément orphelin ;
-- zéro court-circuit entre noms de nets ;
-- zéro chevauchement de symboles détecté ;
-- une seule alerte de net à une broche dans la feuille : `+3V3`, classée
-  `cross_sheet_unverified`, ce qui est normal pour le pull-up global de R14 ;
-- ERC global après raccordement MCU : zéro avertissement et une erreur
-  intentionnelle, `AUX_PGOOD` non raccordé sur la feuille racine.
+Audit global du 28 septembre 2026 après correction :
 
-Cette erreur reste visible jusqu'à la conception du verrouillage matériel de
-la commande CC. Elle ne doit pas être supprimée avec un marqueur d'exclusion
-ou une connexion factice.
+- neuf broches de U4 présentes dans la netlist ;
+- brochage U4 conforme, avec `U4.4 RON -> R12 41,2 kΩ -> GND` ;
+- ERC global : zéro erreur et deux avertissements, tous deux sur `UART_TX` ;
+- `AUX_PGOOD` relie U4.6 à R15 et au point de test TP13, mais n'a toujours pas
+  de consommateur matériel ;
+- le PCB doit encore être synchronisé après suppression de l'ancien segment
+  cuivre attaché à la pastille 1 de R12.
+
+L'absence de consommateur PGOOD reste volontaire tant que le verrouillage
+matériel de la commande CC n'est pas défini. Elle ne doit pas être masquée par
+une connexion arbitraire. TP13 permet désormais la mise au point du prototype.
 
 ## Travail restant avant gel complet de la feuille
 

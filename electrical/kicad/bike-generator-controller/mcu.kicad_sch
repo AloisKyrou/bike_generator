@@ -1834,6 +1834,50 @@
 				)
 			)
 		)
+		(property "Manufacturer" "JST"
+			(at 139.7 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "S2B-PH-K-S(LF)(SN)"
+			(at 139.7 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Mating Housing" "PHR-2"
+			(at 139.7 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Safety Note" "VERIFY BATTERY POLARITY BEFORE CONNECTION; NO REVERSE-POLARITY PROTECTION"
+			(at 139.7 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "232bf2e0-6cbb-465a-ad29-25fa86d48615")
 		)
@@ -2356,6 +2400,17 @@
 			)
 		)
 		(property "Manufacturer" "DFRobot"
+			(at 76.2 60.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Decoupling Review" "Module-level decoupling is integrated on the Beetle ESP32-C3 carrier; validate the exact purchased module revision and local capacitor population."
 			(at 76.2 60.96 0)
 			(hide yes)
 			(show_name no)

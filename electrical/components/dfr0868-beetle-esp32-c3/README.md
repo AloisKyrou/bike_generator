@@ -131,7 +131,7 @@ La feuille KiCad `MCU` raccorde maintenant :
 - `AUX_5V` à `VIN_5V` par le cavalier amovible `JP3`, représenté
   provisoirement par un header traversant 1 × 2 au pas de 2,54 mm ;
 - la batterie LiPo 1S protégée `801350`, 500 mAh, à `BAT` par `S1` ;
-- la sortie 3,3 V du Beetle à l'INA228, au MCP4151 et aux interfaces logiques.
+- la sortie 3,3 V du Beetle à l'INA228, au MCP42100 et aux interfaces logiques.
 
 Le connecteur batterie `J6` utilise l'empreinte KiCad standard
 `Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal`. Le pad 1 est relié à

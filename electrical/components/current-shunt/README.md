@@ -36,17 +36,20 @@ pattern recommandé par Bourns et est donc réutilisée sans modification :
   10,06 × 6,60 mm ;
 - courtyard, sérigraphie et modèle 3D présents.
 
-Le dessin Bourns ne numérote pas les quatre terminaisons. La numérotation est
-donc définie par la géométrie de l'empreinte, vue de dessus :
+Le dessin Bourns ne numérote pas les quatre terminaisons. La numérotation
+ci-dessous est celle effectivement enregistrée dans le schéma et le PCB V1 ;
+elle est donnée par net plutôt que par « gauche/droite », car l'empreinte peut
+être tournée sur le PCB :
 
 | Pad | Terminal physique | Pin du symbole `Device:R_Shunt` | Net V1 |
 |---:|---|---:|---|
-| 1 | force gauche | 1 | entrée après `F1` |
-| 2 | sense gauche | 2 | `SHUNT_HI_K` |
-| 3 | sense droite | 3 | `SHUNT_LO_K` |
-| 4 | force droite | 4 | `BUS_PROTECTED` |
+| 1 | force sortie | 1 | `VBUS_SENSE`, vers J2 et F2 |
+| 2 | sense sortie | 2 | `SHUNT_LO_K`, vers INA228 IN− |
+| 3 | sense entrée | 3 | `SHUNT_HI_K`, vers INA228 IN+ |
+| 4 | force entrée | 4 | `Net-(D1-K)`, après F1 |
 
-Cette correspondance a été relue après affectation à `R7`. Elle conserve les
+Cette correspondance a été relue dans la netlist après affectation à `R1`.
+Le courant positif traverse R1 du pad 4 vers le pad 1. Elle conserve les
 deux pistes Kelvin séparées des pads de puissance. Le nom Isabellenhütte du
 footprint ne désigne pas le composant acheté ; seule sa géométrie identique est
 réutilisée pour le Bourns.

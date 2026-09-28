@@ -1,8 +1,11 @@
 # Validation KiCad du LM5164 DDA
 
-Statut : **LM5164DDAT retenu ; symbole standard KiCad validé ; variante locale
-V1 à six vias thermiques de 0,30 mm créée, affectée à U4 et validée sans erreur
-DRC dans un PCB jetable**.
+Statut au 28 septembre 2026 : **LM5164DDAT retenu ; symbole standard KiCad
+validé ; variante locale V1 à six vias thermiques de 0,30 mm créée et affectée
+à U4 ; pads latéraux corrigés selon le land pattern TI**. Le PCB principal
+enregistré conserve une erreur DRC de clearance entre les pads 2 et 9 :
+0,450 mm réel pour 0,500 mm demandé. Le test DRC sans erreur décrit plus bas
+est celui de la variante thermique jetable avant cette correction de géométrie.
 
 ## Sources
 
@@ -80,7 +83,8 @@ Le land pattern TI révisé en 2026 indique :
 
 - huit lands de 1,55 × 0,60 mm ;
 - pas de 1,27 mm et entraxe de rangées de 5,4 mm, soit `x = ±2,70 mm` ;
-- métal du pad exposé de 2,71 × 3,40 mm ;
+- cuivre du pad exposé de 2,95 × 4,90 mm ;
+- ouverture de masque du pad exposé de 2,71 × 3,40 mm ;
 - vias optionnels de diamètre 0,20 mm ;
 - taille du métal susceptible d'être adaptée aux exigences de ligne de fuite.
 
@@ -270,9 +274,12 @@ projet `BikeGenerator.pretty` et affectée à `U4` :
 BikeGenerator:SOIC-8-1EP_DDA_EP2.95x4.9mm_6Vias_D0.30mm
 ```
 
-Tous les éléments suivants sont conservés depuis le footprint KiCad relu :
+Les éléments thermiques et graphiques suivants sont conservés depuis le
+footprint KiCad relu, tandis que les pads latéraux ont été corrigés d'après le
+land pattern TI :
 
-- pads latéraux 1 à 8 : 1,775 × 0,60 mm, pas de 1,27 mm ;
+- pads latéraux 1 à 8 : 1,55 × 0,60 mm, pas vertical de 1,27 mm, centres des
+  rangées à `x = ±2,70 mm` ;
 - cuivre frontal du pad 9 : 2,95 × 4,90 mm ;
 - ouverture de masque dédiée : 2,71 × 3,40 mm ;
 - cuivre arrière du pad 9 : 1,80 × 4,40 mm ;
@@ -307,7 +314,7 @@ electrical/kicad/exports/lm5164-validation-030/
 ```
 
 Elle place la variante locale dans un contour de 20 × 20 mm. Le rapport
-`drc.json` donne :
+`drc.json` historique de cette carte jetable donnait :
 
 - 0 erreur ;
 - 0 violation de règle de conception ;
@@ -339,9 +346,10 @@ chose :
 - l'ancien footprint par défaut avait un grand pad thermique inférieur de
   **0,30 mm dans chaque axe** au land pattern TI actuel. Ce problème est réglé :
   ce footprint a été rejeté ;
-- le footprint standard finalement retenu possède huit **perçages de via de
-  0,20 mm**, tandis que la règle DRC actuelle impose un perçage minimal de
-  **0,30 mm**. Ce second point reste ouvert et produit huit erreurs DRC.
+- le footprint standard étudié comme référence possède huit **perçages de via
+  de 0,20 mm**, tandis que la règle DRC du projet impose un perçage minimal de
+  **0,30 mm**. Ce point a été résolu dans la variante locale par six vias
+  Ø0,60/0,30 mm ; les huit erreurs décrites plus haut sont historiques.
 
 ### Pourquoi conserver 0,20 mm
 
@@ -377,7 +385,10 @@ tente des vias doit être défini avec l'assembleur.
 ### Décision appliquée pour cette V1
 
 La règle DRC globale n'a pas été abaissée. La variante projet à six vias
-Ø0,60/0,30 mm décrite ci-dessus est appliquée à U4 et passe le DRC. Avant la
-commande, il reste à confirmer auprès du fabricant l'anneau de 0,15 mm, le
+Ø0,60/0,30 mm décrite ci-dessus est appliquée à U4 et supprime les anciennes
+erreurs de diamètre de perçage. Le PCB principal conserve toutefois l'erreur
+locale pad 2 ↔ pad 9 à 0,45 mm : l'exception doit être enregistrée et documentée
+pour cette seule paire, sans abaisser la netclass complète. Avant la commande,
+il reste aussi à confirmer auprès du fabricant l'anneau de 0,15 mm, le
 traitement des vias sous pad et les contraintes de pâte afin de limiter
 l'aspiration de soudure.

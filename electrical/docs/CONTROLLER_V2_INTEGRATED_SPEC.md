@@ -103,6 +103,29 @@ Le contrôleur de bouton ne remplace pas le chargeur. Lorsque la batterie est
 connectée et que `SYSTEM_5V` vient de la génératrice ou de l'USB, le chargeur
 LiPo réalise la recharge.
 
+### Frontière explicite entre V1 et V2
+
+La gestion par bouton-poussoir appartient à la V2 et ne doit pas être ajoutée
+à la V1 en fin de routage.
+
+| Révision | Commande batterie | Comportement |
+|---|---|---|
+| V1 | interrupteur mécanique `S1` | connexion ou isolation manuelle de la batterie ; aucune temporisation |
+| V2 | bouton momentané `WAKE/STATUS` + interrupteur électronique bidirectionnel | réveil d'environ 10 min, maintien par génératrice/USB et extinction automatique |
+
+Sur la V2, la batterie reste normalement branchée physiquement au connecteur.
+La coupure de veille est réalisée électroniquement par des MOSFETs dos à dos.
+Un moyen de déconnexion physique pour stockage, maintenance ou défaut batterie
+doit néanmoins rester prévu : connecteur batterie accessible, languette de
+transport ou sectionneur de maintenance selon le boîtier final.
+
+Sur la V1, `S1` reste un moyen utile d'isolation complète. Il ne doit pas être
+supprimé uniquement parce que J6 permet de débrancher la batterie : une embase
+JST n'est pas l'organe de commande quotidien et les manipulations répétées
+fatiguent le câble et le connecteur. Remplacer `S1` par un cavalier à deux
+broches serait électriquement possible pour un prototype, mais n'améliorerait
+ni l'usage ni la sécurité et imposerait une nouvelle modification PCB.
+
 ## ESP32 et antenne
 
 La préférence V2 est d'intégrer un **module radio certifié**, par exemple une

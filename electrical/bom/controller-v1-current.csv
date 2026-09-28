@@ -47,7 +47,7 @@
 "R17","316k/0.1%","Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder","Yageo","RT0805BRD07316KL","1"
 "R18","100k/0.1%","Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder","Yageo","RT0805BRD07100KL","1"
 "R19","10k","Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder","","","1"
-"S1","1101M2S3CQE2 / BAT ON-OFF","BikeGenerator:SW_1101M2S3CQE2","C&K / Littelfuse","1101M2S3CQE2","1"
+"JP4","BATTERY CONNECT / DISCONNECT","Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical","Generic","1x02 2.54mm header + shorting shunt","1"
 "TP1","SHUNT_HI_K","TestPoint:TestPoint_Pad_D1.5mm","","","1"
 "TP2","SHUNT_LO_K","TestPoint:TestPoint_Pad_D1.5mm","","","1"
 "TP4","I2C_SDA","TestPoint:TestPoint_Pad_D1.5mm","","","1"

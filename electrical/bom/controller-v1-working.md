@@ -70,16 +70,15 @@ fabrication.
 | J_BAT_CTRL | 1 | JST `S2B-PH-K-S(LF)(SN)`, 2 contacts, pas 2,00 mm, entrée latérale | `Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal` ; vérifier polarité et accès dans le boîtier |
 | J_BAT_HOUSING | 1 | JST `PHR-2` | côté câble |
 | J_BAT_CONTACT | 2 + rechange | JST `SPH-002T-P0.5S` | sertissage pour calibre de fil compatible AWG 30–24 |
-| S_BAT (`S1`) | 1 | C&K / Littelfuse `1101M2S3CQE2`, SPDT ON-ON utilisé en SPST, 6 A sous 28 VDC | `BikeGenerator:SW_1101M2S3CQE2` ; pads 1–2 utilisés, pad 3 volontairement libre ; choix V1 figé sous réserve de l'accès mécanique du boîtier |
+| JP_BAT (`JP4`) | 1 | header 1×2, pas 2,54 mm + cavalier de court-circuit, courant admissible ≥ 1 A | `Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical` ; relie `BAT_RAW` à `BAT_CTRL` ; cavalier retiré pour stockage ou maintenance |
 | BAT_CTRL | 1 | LiPo 1S protégée `801350`, 3,7 V, 500 mAh | sélection utilisateur ; vérifier la fiche et l'autorisation de charge à 400 mA (0,8 C) |
 | HS_D2 | 1 | dissipateur/plaque aluminium, face plane ≥ 35 × 25 mm | MPN à choisir avec le boîtier ; interface thermique + vis/rondelle/écrou M4, couple 1 N·m ±10 % |
 
 Références réellement utilisées dans la première passe KiCad : `JP3` pour
-`JP_GEN_5V`, `J6` pour `J_BAT_CTRL`, `S1` pour `S_BAT`, et `TP12` à `TP15` pour
-les points de test de l'alimentation auxiliaire. `S1` est maintenant affecté
-au C&K `1101M2S3CQE2` et placé près de `J6`. Son empreinte téléchargée a été
-comparée au dessin C&K : trois perçages Ø1,85 mm espacés de 4,70 mm, corps
-6,60 × 12,70 mm et courtyard de 7,10 × 13,20 mm.
+`JP_GEN_5V`, `J6` pour `J_BAT_CTRL`, `JP4` pour `JP_BAT`, et `TP12` à `TP15`
+pour les points de test de l'alimentation auxiliaire. `JP4` remplace le coûteux
+interrupteur C&K de la première proposition et réutilise le même type de header
+et de cavalier amovible que `JP3`.
 
 La nomenclature d'application 12 V / 1 A publiée par TI n'est pas directement
 la nomenclature 5 V du projet. Les valeurs ci-dessus proviennent du

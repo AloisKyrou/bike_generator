@@ -26,22 +26,22 @@ points sont maintenant documentés dans les champs des symboles.
 - Fabricant, MPN et informations de montage complétés pour les références
   critiques, dont F1, F2, D2, J1, J5, J6, U1, U3, U4, C5, C7 et C8.
 - Liens officiels de datasheet ajoutés dans KiCad pour F2, J5/J6, U1, U3 et U4.
+- `S1` remplacé par `JP4`, jumper 1×2 au pas de 2,54 mm entre `BAT_RAW` et
+  `BAT_CTRL` ; métadonnées C&K supprimées.
 - BOM courante régénérée dans `electrical/bom/controller-v1-current.csv`.
 
 ## Action PCB bloquante — à faire manuellement
 
-Le PCB n'a volontairement pas été modifié. Avant toute synchronisation :
+Le PCB n'a volontairement pas été modifié. La simulation de synchronisation ne
+signale désormais qu'un conflit : l'objet correspondant à `JP4` porte encore
+l'ancienne empreinte C&K. À faire :
 
-1. Supprimer uniquement le segment encore relié à `R12.1` : UUID
-   `fa50253d-04a8-4851-ab9b-4d1d7baa6361`, F.Cu, largeur 0,75 mm, de
-   `(108,3 ; 86,35)` à `(108,0 ; 86,05)`, net actuel
-   `/AUX_SUPPLY/AUX_IN_PROTECTED`.
-2. Enregistrer le PCB.
-3. Mettre à jour le PCB depuis le schéma ; vérifier que `R12.1` devient `GND`
-   et que `TP13` est ajouté.
-4. Router `R12.1` vers une masse locale calme par le trajet le plus court,
-   éloigné du nœud SW. Placer et router TP13.
-5. Remplir les zones, lancer le contrôle de parité schéma/PCB puis le DRC.
+1. Enregistrer le PCB.
+2. Remplacer l'empreinte existante de JP4 par
+   `Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical`.
+3. Vérifier pad 1 = `BAT_RAW`, pad 2 = `BAT_CTRL`, puis placer et rerouter JP4.
+4. Mettre à jour le PCB depuis le schéma et vérifier que la parité est rétablie.
+5. Remplir les zones puis relancer le DRC.
 
 ## Contrôles PCB encore nécessaires
 
@@ -49,8 +49,8 @@ Le PCB n'a volontairement pas été modifié. Avant toute synchronisation :
   105 µm/3 oz, sans étranglement ; utiliser B.Cu et des vias de couture si
   possible.
 - Vérifier/résoudre les divergences entre empreintes placées et bibliothèques,
-  particulièrement U2, S1, F2, R1, L1, C6, J1/J2 et J6.
-- Vérifier à l'échelle 1:1 U4, F1, F2, D2, U2, S1, J1, J2, J5 et J6.
+  particulièrement U2, JP4, F2, R1, L1, C6, J1/J2 et J6.
+- Vérifier à l'échelle 1:1 U4, F1, F2, D2, U2, JP4, J1, J2, J5 et J6.
 - Pour U4, contrôler pin 1, pads 1–8, EP9, ouverture F.Mask
   `2,71 × 3,40 mm`, six vias thermiques et compatibilité du perçage avec le
   fabricant PCB.

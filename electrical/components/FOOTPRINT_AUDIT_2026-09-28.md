@@ -28,7 +28,7 @@ Les points bloquants sont :
 2. La décision est désormais de conserver `MCP42100-I/SL` en SOIC-14 et ses deux canaux
    CC/CV. Les anciennes mentions du `MCP4151-104E/SN` sont obsolètes.
 3. Le DRC signale **43 empreintes différentes de leur copie de bibliothèque**, dont les
-   empreintes sensibles U2, S1, F2, R1 et L1. Ce n'est pas la preuve qu'elles sont fausses,
+   empreintes sensibles U2, l'ancien S1, F2, R1 et L1. Ce n'est pas la preuve qu'elles sont fausses,
    mais c'est un problème de reproductibilité à résoudre avant fabrication.
 4. F2 est définitivement choisi : Littelfuse `0449001.MR`, 1 A / 125 V temporisé. Ses
    champs fabricant/MPN/datasheet restent à reporter dans le schéma enregistré.
@@ -258,7 +258,12 @@ Vérifications physiques indispensables :
 - aucun cuivre ou métal gênant dans la zone antenne ;
 - impression 1:1 et pose du module réel sur le papier ou le PCB test.
 
-### S1 — C&K / Littelfuse 1101M2S3CQE2
+### S1 — C&K / Littelfuse 1101M2S3CQE2 — retiré de la V1
+
+Décision du 28 septembre 2026 : ce composant et son empreinte ne sont plus
+utilisés. `JP4`, un header 1×2 au pas de 2,54 mm avec cavalier amovible, reprend
+la liaison `BAT_RAW`–`BAT_CTRL`. Les informations ci-dessous restent uniquement
+comme trace de l'audit qui a précédé cette décision.
 
 **Source :** datasheet C&K 1000 Series, révision 30 mai 2025,
 [document officiel](https://www.ckswitches.com/media/1429/1000.pdf), pages 2 et 4.
@@ -368,7 +373,7 @@ une ancienne version de KiCad, un texte déplacé ou une vraie différence de pa
 Ordre conseillé dans l'interface KiCad :
 
 1. Faire une copie/version Git avant toute synchronisation.
-2. Traiter d'abord U2, S1, F2, R1, L1, C6, J1/J2 et J6, une référence à la fois.
+2. Traiter d'abord U2, JP4, F2, R1, L1, C6, J1/J2 et J6, une référence à la fois.
 3. Utiliser `Outils > Mettre à jour les empreintes depuis les bibliothèques`, filtrer sur la
    référence, puis examiner les changements proposés avant validation.
 4. Si la copie PCB contient la correction validée, mettre à jour la bibliothèque depuis
@@ -397,11 +402,11 @@ doivent être documentées individuellement.
 - [x] Décider MCP42100 et mettre à jour les règles/documentation de référence.
 - [~] `RON_SET → R12 → GND` corrigé dans le schéma ; supprimer l'ancien segment
   de piste, synchroniser le PCB et vérifier avant alimentation.
-- [ ] Résoudre les divergences U2, S1, F2, R1, L1, C6, J1/J2 et J6.
+- [ ] Résoudre les divergences U2, JP4, F2, R1, L1, C6, J1/J2 et J6.
 - [x] Reporter dans KiCad le MPN définitif de F2 : Littelfuse `0449001.MR`.
 - [x] Supprimer `DNP` du texte de J1 et le laisser peuplé pour les premiers prototypes.
 - [ ] Choisir les MPN exacts de tous les connecteurs et passifs critiques.
-- [ ] Vérifier sur pièce réelle S1, U2 et la polarité de J6.
+- [ ] Vérifier sur pièce réelle JP4, U2 et la polarité de J6.
 - [ ] Prévoir et tester le refroidissement de D2.
 - [ ] Valider l'épaisseur/largeur de cuivre et la température de F1 à courant réel.
 - [ ] Imprimer les couches fabrication à l'échelle 1:1 et poser les composants sensibles.
@@ -415,7 +420,7 @@ Les principaux documents déjà archivés ont été identifiés par les SHA-256 
 les sections ci-dessus. Restent à archiver localement avec leur révision et leur SHA-256 :
 
 - Littelfuse 456 Series pour F1 ;
-- C&K 1000 Series pour S1 ;
+- C&K 1000 Series pour l'ancien S1 (historique, non bloquant) ;
 - fiches PDF Phoenix Contact 1711725 et 1711738.
 
 Cette absence d'archive locale ne remet pas en cause les vérifications ci-dessus, mais elle

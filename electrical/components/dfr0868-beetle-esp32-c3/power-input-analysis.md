@@ -41,7 +41,7 @@ physique par des mesures de tension et de courant avant validation produit.
 ```text
 AUX_5V ---- JP3 ---- VIN_5V / VUSB du DFR0868
 
-LiPo 1S protégée ---- S1 ---- BAT du DFR0868
+LiPo 1S protégée ---- JP4 ---- BAT du DFR0868
 ```
 
 `JP3` est un cavalier amovible à deux broches. La CAO lui affecte
@@ -49,14 +49,14 @@ provisoirement un header traversant 1 × 2 au pas de 2,54 mm. Son rôle n'est pa
 de sélectionner automatiquement la meilleure source : il isole physiquement
 le générateur pendant le service USB.
 
-`S1` déconnecte la borne positive de la batterie. Lorsqu'il est ouvert, la
+`JP4` déconnecte la borne positive de la batterie. Lorsque son cavalier est retiré, la
 batterie ne peut ni alimenter le contrôleur ni être rechargée. Cette propriété
 répond à l'objectif d'éviter une décharge entre deux utilisations, au prix de
-devoir fermer `S1` pour charger.
+devoir poser le cavalier `JP4` pour charger.
 
 ## Matrice d'utilisation
 
-| Générateur | JP3 | USB-C | S1 / batterie | Résultat |
+| Générateur | JP3 | USB-C | JP4 / batterie | Résultat |
 |---|---|---|---|---|
 | arrêté | ouvert | débranché | fermé | fonctionnement sur batterie |
 | arrêté | ouvert | branché | fermé | fonctionnement USB et recharge batterie |
@@ -101,7 +101,7 @@ la cellule doit autoriser ce régime, puis le courant réel doit être mesuré.
    USB-C.
 4. Vérifier `JP3` fermé et USB débranché la tension `VUSB`, `BAT` et `3V3`.
 5. Mesurer le courant de charge réel avec la batterie définitive.
-6. Vérifier que `S1` ouvert supprime bien charge et décharge de la cellule.
+6. Vérifier que le cavalier `JP4` retiré supprime bien charge et décharge de la cellule.
 
 Sources officielles :
 

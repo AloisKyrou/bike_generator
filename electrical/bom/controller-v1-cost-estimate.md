@@ -53,7 +53,7 @@ des conditionnements minimaux et de l'achat auprès de plusieurs distributeurs.
 | Deux borniers Phoenix 1711725 | environ 3,1 € |
 | TVS SMCJ70A | environ 0,65 à 0,75 € |
 | Fusible principal Littelfuse 0456020.ER | prix à rafraîchir avant commande |
-| Interrupteur 1101M2S3CQE2 | environ 5 à 6,5 € |
+| JP4, header 1×2 + cavalier 2,54 mm | environ 0,10 à 0,50 € |
 | Autres connecteurs, barrettes, sockets et passifs | environ 5 à 10 € |
 
 ## Limites

@@ -10,25 +10,21 @@ pas utilisés comme preuve de connexion.
 ## Résumé exécutable
 
 - **Schéma corrigé :** `R12` relie maintenant
-  `U4.4 RON -> R12 41,2 kΩ -> GND`. Le PCB n'est pas encore synchronisé : le
-  très court segment cuivre encore attaché à `R12.1` doit être supprimé par
-  l'utilisateur avant que Konnect puisse réaffecter cette pastille à `GND`.
+  `U4.4 RON -> R12 41,2 kΩ -> GND`. La simulation de synchronisation actuelle
+  ne signale plus de conflit sur R12.
 - La valeur `41,2 kΩ` est correcte pour une sortie de 5 V à environ 300 kHz :
   `RRON[kΩ] = VOUT[V] × 2500 / FSW[kHz]`. Les `100 kΩ` de l'exemple TI
   correspondent à une sortie de 12 V, pas à cette carte.
 - `PGOOD` n'est pas en court-circuit ni flottant : `U4.6` possède le pull-up
-  `R15` vers 3,3 V et le point de test `TP13` a été rétabli dans le schéma.
-  Le signal n'est toujours consommé ni par le MCU ni par un verrouillage
-  matériel. L'empreinte TP13 sera ajoutée au PCB lors de la synchronisation.
-- La parité est temporairement rompue de façon contrôlée : le schéma contient
-  désormais TP13 et la nouvelle affectation de `R12.1`, tandis que le PCB
-  ouvert conserve encore l'ancienne piste. La synchronisation est bloquée
-  volontairement par Konnect tant que cette piste n'est pas retirée.
+  `R15` vers 3,3 V et le point de test `TP13` est présent.
+- La parité est temporairement rompue de façon contrôlée uniquement par JP4 :
+  le schéma remplace S1 par un header 1×2, tandis que le PCB ouvert conserve
+  encore l'ancienne empreinte C&K. La simulation de synchronisation signale un
+  conflit `footprint_id_changed` et n'applique rien.
 - ERC : 0 erreur, 2 avertissements, tous deux dus au label `UART_TX` qui ne
   rejoint aucun autre composant.
-- DRC : 0 erreur, 0 non-connecté et 88 avertissements : 43 divergences avec les
-  bibliothèques, 24 sérigraphies sur cuivre, 18 chevauchements de sérigraphie
-  et 3 dégagements sérigraphie/bord.
+- Dernier DRC avant le remplacement de S1 : 0 erreur, 0 non-connecté et
+  49 avertissements. Il doit être relancé après remplacement/routage de JP4.
 
 ## Connexions critiques relues dans la netlist
 

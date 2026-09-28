@@ -16,7 +16,7 @@ en choix de fabrication.
 - La dérivation auxiliaire part de `BUS_PROTECTED`, après le fusible principal
   et le shunt, mais possède son propre fusible `F_AUX`.
 - Le 5 V auxiliaire alimente `VIN_5V` du Beetle. La LiPo 1S protégée
-  `801350`, 500 mAh, est raccordée à `BAT` par un interrupteur mécanique.
+  `801350`, 500 mAh, est raccordée à `BAT` par le cavalier amovible `JP4`.
 - `JP_GEN_5V` permet d'isoler physiquement le 5 V générateur pendant les essais
   USB. Il ne court-circuite aucune source.
 - Aucun symbole, footprint ou modèle 3D personnalisé n'est créé sans recherche
@@ -191,9 +191,9 @@ uniquement sur un rapport ERC vert.
 
 Inventaire des empreintes du 25 septembre 2026 : les 61 références du PCB ont
 une empreinte. `J4` et `J5` utilisent le bornier Phoenix Contact `1711725` et son
-empreinte KiCad native. `S1` utilise désormais le C&K / Littelfuse
-`1101M2S3CQE2`, 6 A sous 28 VDC. Le symbole SPST existant conserve les nets sur
-les bornes physiques 1 et 2 ; la borne 3 du SPDT reste volontairement libre.
+empreinte KiCad native. La décision du 28 septembre remplace `S1` et le C&K
+`1101M2S3CQE2` par `JP4`, un header 1×2 au pas de 2,54 mm avec cavalier. `JP4`
+conserve les nets `BAT_RAW` et `BAT_CTRL` sur ses broches 1 et 2.
 `F1` utilise l'empreinte locale validée
 `BikeGenerator:Fuse_Littelfuse_456_10.08x3.05mm_P9.35mm` pour la référence
 `0456020.ER`. Le routage doit encore atteindre 10 mm équivalents sur cuivre

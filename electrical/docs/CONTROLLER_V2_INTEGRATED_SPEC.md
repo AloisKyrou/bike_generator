@@ -110,7 +110,7 @@ La gestion par bouton-poussoir appartient à la V2 et ne doit pas être ajoutée
 
 | Révision | Commande batterie | Comportement |
 |---|---|---|
-| V1 | interrupteur mécanique `S1` | connexion ou isolation manuelle de la batterie ; aucune temporisation |
+| V1 | cavalier amovible `JP4` | connexion ou isolation manuelle de la batterie ; aucune temporisation |
 | V2 | bouton momentané `WAKE/STATUS` + interrupteur électronique bidirectionnel | réveil d'environ 10 min, maintien par génératrice/USB et extinction automatique |
 
 Sur la V2, la batterie reste normalement branchée physiquement au connecteur.
@@ -119,12 +119,11 @@ Un moyen de déconnexion physique pour stockage, maintenance ou défaut batterie
 doit néanmoins rester prévu : connecteur batterie accessible, languette de
 transport ou sectionneur de maintenance selon le boîtier final.
 
-Sur la V1, `S1` reste un moyen utile d'isolation complète. Il ne doit pas être
-supprimé uniquement parce que J6 permet de débrancher la batterie : une embase
-JST n'est pas l'organe de commande quotidien et les manipulations répétées
-fatiguent le câble et le connecteur. Remplacer `S1` par un cavalier à deux
-broches serait électriquement possible pour un prototype, mais n'améliorerait
-ni l'usage ni la sécurité et imposerait une nouvelle modification PCB.
+Sur la V1, l'isolation complète est finalement confiée à `JP4`, un cavalier à
+deux broches placé entre `BAT_RAW` et `BAT_CTRL`. Ce choix réduit fortement le
+coût du prototype et évite d'utiliser J6 comme commande répétitive. Il ne doit
+pas être interprété comme l'interface utilisateur définitive : la V2 remplace
+`JP4` par le bouton momentané et la coupure électronique décrits ci-dessus.
 
 ## ESP32 et antenne
 

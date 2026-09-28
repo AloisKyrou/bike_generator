@@ -4,9 +4,10 @@ Les petits C&K OS/JS couverts par les empreintes KiCad natives sont écartés :
 leur courant assigné de 0,1 à 0,3 A est trop faible face à la recharge et aux
 pointes du Beetle.
 
-Le candidat traversant actuel est le C&K `1101M2S3CQE2` : SPDT utilisé comme
-SPST, contacts argent, assigné jusqu'à 6 A sous 28 VDC. Il favorise la soudure
-manuelle et offre une marge confortable pour la batterie 1S.
+Cette étude est conservée comme historique mais son choix n'est plus actif en
+V1. Le C&K `1101M2S3CQE2` a été écarté pour son coût, disproportionné pour un
+prototype dont la V2 utilisera une commande électronique différente. La V1
+utilise désormais `JP4`, un header 1×2 au pas de 2,54 mm avec cavalier amovible.
 
 Sources consultées le 25 septembre 2026 :
 
@@ -39,7 +40,8 @@ Correspondance retenue :
 Le symbole SPST existant est conservé pour représenter l'usage réel. La
 différence 2 pins / 3 pads est donc intentionnelle et documentée ; elle évite
 de modifier les connexions existantes. L'empreinte est
-`BikeGenerator:SW_1101M2S3CQE2`, placée en `S1` à proximité de `J6`.
+`BikeGenerator:SW_1101M2S3CQE2`. Cette empreinte et la référence `S1` ne sont
+plus utilisées dans la V1 active ; `JP4` reprend `BAT_RAW` et `BAT_CTRL`.
 
 Fichiers sources et empreintes SHA-256 :
 

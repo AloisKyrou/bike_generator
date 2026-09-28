@@ -130,7 +130,27 @@ mécaniques non négociables.
 ## USB sécurisé
 
 La V2 n'utilisera pas la liaison interne non contrôlée VBUS/VIN du Beetle.
-Elle recevra son propre connecteur USB-C avec :
+Elle recevra son propre connecteur USB-C, accessible depuis l'extérieur du
+boîtier et idéalement soudé directement au bord du PCB principal.
+
+Les données et l'alimentation suivent deux chemins distincts :
+
+```text
+USB-C D+ / D-
+      |
+protection ESD faible capacité
+      |
+USB natif de l'ESP32-C3
+
+USB-C VBUS -> protection + limitation + blocage inverse --+
+                                                          +-> power-mux -> SYSTEM_5V
+AUX_5V venant du buck auxiliaire génératrice -------------+
+                                                                    |
+                                                                    +-> ESP32
+                                                                    +-> chargeur LiPo
+```
+
+Le connecteur comprendra :
 
 - résistances CC conformes au rôle périphérique ;
 - ESD sur USB D+/D- et VBUS ;
@@ -139,6 +159,37 @@ Elle recevra son propre connecteur USB-C avec :
 - détection `USB_PRESENT` ;
 - recharge LiPo autorisée depuis USB ;
 - USB natif de l'ESP32-C3 pour programmation et diagnostic.
+
+`VBUS_USB`, `AUX_5V` et `SYSTEM_5V` resteront trois nets distincts. Leur
+jonction ne sera réalisée qu'à l'intérieur d'un power-mux ou d'une combinaison
+d'interrupteurs avec blocage du courant inverse. Une simple piste commune ou
+deux diodes non vérifiées ne sont pas considérées comme une solution complète.
+
+Lorsque USB et génératrice sont présents simultanément, le comportement de
+référence est :
+
+- priorité à l'USB pour alimenter la logique pendant la programmation et le
+  diagnostic ;
+- isolement de `AUX_5V` afin qu'aucun courant ne reparte vers le port du PC ;
+- maintien de la détection génératrice et du fonctionnement de la chaîne de
+  puissance principale ;
+- batterie connectée et rechargeable depuis la source sélectionnée ;
+- transition sans reset entre sources, dans la limite de la réserve d'énergie
+  prévue sur `SYSTEM_5V`.
+
+L'ESP32-C3 dispose d'un contrôleur USB Serial/JTAG natif. Pour les variantes
+actuelles, USB D- et D+ sont normalement portés par GPIO18 et GPIO19 ; ce
+brochage devra être relu dans la fiche de la référence exacte avant création du
+schéma et du footprint. Le routage devra être court, symétrique, traité comme
+paire différentielle et éloigné du buck, de son nœud SW et du trajet 20 A.
+
+La solution mécanique préférée est, par ordre décroissant :
+
+1. USB-C directement au bord du PCB, aligné avec une ouverture du boîtier ;
+2. petite carte USB déportée reliée par une interconnexion interne prévue pour
+   USB, si le boîtier impose une autre position ;
+3. câble interne uniquement en dernier recours, avec blindage, masse et
+   intégrité du signal validés.
 
 Un connecteur USB supplémentaire autour d'un Beetle resterait possible, mais
 il conserverait deux cartes, deux chaînes d'alimentation et la liaison interne

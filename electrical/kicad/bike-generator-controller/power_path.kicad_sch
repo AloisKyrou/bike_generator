@@ -1347,16 +1347,6 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 57.15) (xy 72.39 57.15)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a88760d4-bf37-4edd-aa6a-0da10624fe48")
-	)
-	(wire
-		(pts
 			(xy 85.09 76.2) (xy 104.14 76.2)
 		)
 		(stroke
@@ -1375,25 +1365,25 @@
 		)
 		(uuid "de563234-80af-4765-8a72-5753075f1d4e")
 	)
-	(wire
-		(pts
-			(xy 58.42 54.61) (xy 72.39 54.61)
+	(label "GEN_PHASE_W"
+		(at 72.39 52.07 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
 		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "df44fd95-260e-4b42-b2c1-c2a0e32fcee3")
+		(uuid "2f1af20c-4c99-490c-80d8-0e40c49cf015")
 	)
-	(wire
-		(pts
-			(xy 58.42 52.07) (xy 72.39 52.07)
+	(label "GEN_PHASE_V"
+		(at 40.64 57.15 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
 		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e8fd0d36-b53b-4de5-a976-e8d59dafe2a4")
+		(uuid "32015891-31b3-4935-adc0-47a1d6588689")
 	)
 	(label "RECTIFIED_RAW"
 		(at 90.17 52.07 0)
@@ -1406,24 +1396,34 @@
 		(uuid "37bb3c05-a56f-4342-847f-c9f63b79dcb5")
 	)
 	(label "GEN_PHASE_U"
-		(at 58.42 57.15 0)
+		(at 72.39 57.15 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
-		(uuid "4d8a4878-1de0-4935-ac4f-16e8e2201e69")
+		(uuid "585c04de-7fe1-4517-93d8-41d515944c6e")
 	)
 	(label "GEN_PHASE_V"
-		(at 58.42 54.61 0)
+		(at 72.39 54.61 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8d9ea557-1d22-4f9b-9fdb-31e6ab9ad5dd")
+	)
+	(label "GEN_PHASE_W"
+		(at 40.64 52.07 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "c1c18916-c361-4905-817f-3917b4adb248")
+		(uuid "a86f9abd-f92a-4b03-a725-7cba7eb85257")
 	)
 	(label "RECTIFIED_RAW"
 		(at 60.96 76.2 0)
@@ -1435,15 +1435,15 @@
 		)
 		(uuid "c8b07a75-20a5-45da-b924-7bb8a96ae522")
 	)
-	(label "GEN_PHASE_W"
-		(at 58.42 52.07 0)
+	(label "GEN_PHASE_U"
+		(at 40.64 54.61 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "df29aa25-de5e-474c-b836-1fe11f7dace3")
+		(uuid "cd4634e1-cd3c-493e-852d-19f99f10269f")
 	)
 	(hierarchical_label "SHUNT_LO_K"
 		(shape output)
@@ -1520,7 +1520,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_Shunt_Isabellenhuette_BVR4026"
+		(property "Footprint" "BikeGenerator:R_Shunt_Isabellenhuette_BVR4026"
 			(at 109.22 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -2220,7 +2220,8 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x03")
-		(at 53.34 54.61 180)
+		(at 35.56 54.61 0)
+		(mirror y)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2230,7 +2231,7 @@
 		(dnp no)
 		(uuid "6361dff2-3d3c-4cec-970d-60479797df59")
 		(property "Reference" "J8"
-			(at 53.34 59.69 0)
+			(at 35.56 49.53 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2240,7 +2241,8 @@
 			)
 		)
 		(property "Value" "3PH_GEN_IN (1=U 2=V 3=W)"
-			(at 53.34 49.53 0)
+			(at 14.224 64.008 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2250,7 +2252,7 @@
 			)
 		)
 		(property "Footprint" "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-3-3-5.08_1x03_P5.08mm_Horizontal"
-			(at 53.34 54.61 0)
+			(at 35.56 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2261,7 +2263,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.phoenixcontact.com/fr-fr/produits/borne-de-circuit-imprime-mkds-3-3-508-1711738"
-			(at 53.34 54.61 0)
+			(at 35.56 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2272,7 +2274,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 53.34 54.61 0)
+			(at 35.56 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2283,7 +2285,7 @@
 			)
 		)
 		(property "Assembly" "Populate by default - 3-phase variant"
-			(at 53.34 54.61 0)
+			(at 35.56 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2294,7 +2296,7 @@
 			)
 		)
 		(property "Warning" "Never use together with J1"
-			(at 53.34 54.61 0)
+			(at 35.56 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2305,7 +2307,7 @@
 			)
 		)
 		(property "Datasheet Source" "Phoenix Contact official product page"
-			(at 53.34 54.61 0)
+			(at 35.56 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2316,7 +2318,7 @@
 			)
 		)
 		(property "MPN" "1711738"
-			(at 53.34 54.61 0)
+			(at 35.56 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2327,7 +2329,7 @@
 			)
 		)
 		(property "Manufacturer" "Phoenix Contact"
-			(at 53.34 54.61 0)
+			(at 35.56 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2338,7 +2340,7 @@
 			)
 		)
 		(property "Rated Current" "24 A"
-			(at 53.34 54.61 0)
+			(at 35.56 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2349,7 +2351,7 @@
 			)
 		)
 		(property "Rated Voltage" "400 V (III/2)"
-			(at 53.34 54.61 0)
+			(at 35.56 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2360,7 +2362,7 @@
 			)
 		)
 		(property "Wire Range" "2.5 mm2 nominal"
-			(at 53.34 54.61 0)
+			(at 35.56 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

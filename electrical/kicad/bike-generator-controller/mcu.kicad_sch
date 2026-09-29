@@ -1214,6 +1214,17 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "JP4 OUVERT: batterie isolee (ni charge ni decharge). Empreinte MCU a confirmer sur la carte physique."
+		(exclude_from_sim no)
+		(at 76.708 143.256 0)
+		(effects
+			(font
+				(size 1 1)
+			)
+			(justify left bottom)
+		)
+		(uuid "617b7aae-01ca-4b6b-b944-7cd2bdda41d2")
+	)
 	(text "ALIMENTATION: AUX_5V -> JP3 -> VIN_5V/VUSB. OUVRIR JP3 avant USB-C."
 		(exclude_from_sim no)
 		(at 76.708 138.176 0)
@@ -1594,11 +1605,6 @@
 		)
 		(uuid "f80e6dea-cad6-4b60-bdab-b595dc05751f")
 	)
-  (text "JP4 OUVERT: batterie isolee (ni charge ni decharge). Empreinte MCU a confirmer sur la carte physique."
-    (at 76.708 143.256 0)
-    (effects (font (size 1 1)) (justify left bottom))
-    (uuid "617b7aae-01ca-4b6b-b944-7cd2bdda41d2")
-  )
 	(symbol
 		(lib_id "power:GND")
 		(at 129.54 80.01 0)

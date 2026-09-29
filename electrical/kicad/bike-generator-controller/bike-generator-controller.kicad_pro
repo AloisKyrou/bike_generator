@@ -76,7 +76,12 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        [
+          "silk_edge_clearance|93750000|20000000|57144f40-85f4-45f5-8a0d-090aba32c8a9|104044d1-218e-40f9-9065-6b69682c7304",
+          ""
+        ]
+      ],
       "meta": {
         "version": 2
       },
@@ -111,7 +116,7 @@
         "malformed_courtyard": "error",
         "microvia_drill_out_of_range": "error",
         "mirrored_text_on_front_layer": "warning",
-        "missing_courtyard": "ignore",
+        "missing_courtyard": "warning",
         "missing_footprint": "warning",
         "missing_tuning_profile": "warning",
         "net_conflict": "warning",
@@ -133,7 +138,7 @@
         "too_many_vias": "error",
         "track_angle": "error",
         "track_dangling": "warning",
-        "track_not_centered_on_via": "ignore",
+        "track_not_centered_on_via": "warning",
         "track_on_post_machined_layer": "error",
         "track_segment_length": "error",
         "track_width": "error",
@@ -212,7 +217,8 @@
       "track_widths": [
         0.0,
         0.25,
-        2.0
+        2.0,
+        3.0
       ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
@@ -248,6 +254,10 @@
         {
           "diameter": 0.8,
           "drill": 0.4
+        },
+        {
+          "diameter": 1.2,
+          "drill": 0.6
         },
         {
           "diameter": 1.2,
@@ -539,7 +549,7 @@
         "clearance": 0.2,
         "name": "ANALOG_CTRL",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 1,
+        "priority": 2,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.25,
         "tuning_profile": "",
@@ -550,7 +560,7 @@
         "clearance": 0.5,
         "name": "AUX_HV_1A",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 0,
+        "priority": 1,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.75,
         "tuning_profile": "",
@@ -558,10 +568,21 @@
         "via_drill": 0.4
       },
       {
+        "clearance": 0.5,
+        "name": "GEN_PHASE_POWER",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 4.0,
+        "tuning_profile": "",
+        "via_diameter": 2.0,
+        "via_drill": 1.0
+      },
+      {
         "clearance": 0.2,
         "name": "GROUND_PLANE",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2,
+        "priority": 3,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.5,
         "tuning_profile": "",
@@ -572,7 +593,7 @@
         "clearance": 0.2,
         "name": "HV_FLOATING",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 3,
+        "priority": 4,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.25,
         "tuning_profile": "",
@@ -583,7 +604,7 @@
         "clearance": 0.2,
         "name": "LV_POWER",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 4,
+        "priority": 5,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.75,
         "tuning_profile": "",
@@ -594,7 +615,7 @@
         "clearance": 0.2,
         "name": "MEASUREMENT",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 5,
+        "priority": 6,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.25,
         "tuning_profile": "",
@@ -605,7 +626,7 @@
         "clearance": 0.2,
         "name": "POWER_20A",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 6,
+        "priority": 7,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 5.0,
         "tuning_profile": "",
@@ -616,7 +637,7 @@
         "clearance": 0.2,
         "name": "SW_NODE",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 7,
+        "priority": 8,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 1.0,
         "tuning_profile": "",
@@ -683,14 +704,6 @@
         "pattern": "/MCU/VIN_5V"
       },
       {
-        "netclass": "POWER_20A",
-        "pattern": "Net-(J4-Pin_1)"
-      },
-      {
-        "netclass": "POWER_20A",
-        "pattern": "Net-(F1-Pad2)"
-      },
-      {
         "netclass": "AUX_HV_1A",
         "pattern": "/AUX_SUPPLY/AUX_IN_PROTECTED"
       },
@@ -721,6 +734,18 @@
       {
         "netclass": "GROUND_PLANE",
         "pattern": "GND"
+      },
+      {
+        "netclass": "POWER_20A",
+        "pattern": "/POWER_PATH/RECTIFIED_RAW"
+      },
+      {
+        "netclass": "POWER_20A",
+        "pattern": "Net-(D1-K)"
+      },
+      {
+        "netclass": "GEN_PHASE_POWER",
+        "pattern": "/POWER_PATH/GEN_PHASE_*"
       }
     ]
   },

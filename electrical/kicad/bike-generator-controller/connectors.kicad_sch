@@ -1004,7 +1004,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_PH_S4B-PH-K_1x04_P2.00mm_Horizontal"
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical"
 			(at 143.51 123.19 0)
 			(hide yes)
 			(show_name no)
@@ -1015,7 +1015,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.jst-mfg.com/product/pdf/eng/ePH.pdf"
+		(property "Datasheet" ""
 			(at 143.51 123.19 0)
 			(hide yes)
 			(show_name no)
@@ -1026,7 +1026,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" "1x4 male pin header, 2.54 mm pitch, vertical, THT"
 			(at 143.51 123.19 0)
 			(hide yes)
 			(show_name no)
@@ -1037,7 +1037,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "JST"
+		(property "Manufacturer" "Generic"
 			(at 143.51 123.19 0)
 			(hide yes)
 			(show_name no)
@@ -1048,7 +1048,7 @@
 				)
 			)
 		)
-		(property "MPN" "S4B-PH-K-S(LF)(SN)"
+		(property "MPN" "PinHeader_1x04_P2.54mm_THT"
 			(at 143.51 123.19 0)
 			(hide yes)
 			(show_name no)
@@ -1059,7 +1059,7 @@
 				)
 			)
 		)
-		(property "Mating Housing" "PHR-4"
+		(property "Mating Housing" ""
 			(at 143.51 123.19 0)
 			(hide yes)
 			(show_name no)

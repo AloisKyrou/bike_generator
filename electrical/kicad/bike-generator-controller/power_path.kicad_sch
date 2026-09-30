@@ -1149,42 +1149,18 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "F1 - THERMIQUE (Littelfuse 0456020.ER)\nA 20 A : recommandation constructeur >= 100 um Cu et piste >= 10 mm.\nSi la fabrication differe : valider Tcorps F1 <= 90 degC a Tamb = 25 degC."
+	(text "F2 protects the auxiliary branch at 1 A; LM5164 converts AUX_IN_PROTECTED. V1 input range: 12...70 VDC (hardware UVLO: ON about 9.0 V, OFF about 8.4 V)."
 		(exclude_from_sim no)
-		(at 52.07 109.22 0)
+		(at 121.92 109.22 0)
 		(effects
 			(font
 				(size 1 1)
-				(bold yes)
 			)
 			(justify left bottom)
 		)
-		(uuid "6d14232b-e89c-4e1b-b249-bdfeab910e8d")
+		(uuid "1c24448e-42c5-42fb-8378-829f6ed1d59e")
 	)
-	(text "DEFAULT: populate J8 + D2 (3-PHASE INPUT).\nDC VARIANT: populate J1; D2/J8 may be DNP.\nONE INPUT ONLY - NEVER CONNECT J1 AND J8 TO SOURCES AT THE SAME TIME.\nJ1 POLARITY MUST BE RESPECTED."
-		(exclude_from_sim no)
-		(at 43.18 39.37 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(bold yes)
-			)
-			(justify left bottom)
-		)
-		(uuid "898755ca-ea5f-4702-9cfe-8f696b02a874")
-	)
-	(text "ENTREE GARANTIE <= 70 V CONTINU. SMCJ70A : ecretage transitoire best effort ; INA228 non garantie < 85 V."
-		(exclude_from_sim no)
-		(at 55.88 124.46 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "8b460736-c60e-4e8e-99b0-f64f7df85b9c")
-	)
-	(text "CHEMIN DE PUISSANCE 400 W - composants mecaniques a confirmer"
+	(text "POWER PATH V1 - RECTIFIED BUS 12...70 VDC - 400 W PEAK TARGET"
 		(exclude_from_sim no)
 		(at 55.626 46.99 0)
 		(effects
@@ -1194,18 +1170,31 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "8fc7e18a-95e1-467a-8677-8715b040ffc1")
+		(uuid "2956d5bd-1028-42e6-bf2f-7db93dcfffd7")
 	)
-	(text "Depart auxiliaire protege vers LM5164 (10-80 V vers 5 V)"
+	(text "F1 20 A / 80 V. 20 A continuous is NOT validated: require >=100 um Cu, >=10 mm-equivalent copper path and thermal test (target case <=90 C at 25 C ambient)."
 		(exclude_from_sim no)
-		(at 121.92 109.22 0)
+		(at 43.434 113.792 0)
 		(effects
 			(font
-				(size 1.27 1.27)
+				(size 1 1)
+				(bold yes)
 			)
 			(justify left bottom)
 		)
-		(uuid "bff4dd49-e83c-4ffc-916a-f85c45181766")
+		(uuid "4b72fd56-b5fa-4d8e-bad4-2d589cb545b7")
+	)
+	(text "DEFAULT: fit J8+D2 (3-phase). DC option: fit J1; D2/J8 may be DNP. NEVER CONNECT J1 AND J8 TO SOURCES TOGETHER. Observe J1 polarity."
+		(exclude_from_sim no)
+		(at 43.18 39.37 0)
+		(effects
+			(font
+				(size 1.15 1.15)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "c21140df-3572-4783-a60a-652e20c85396")
 	)
 	(junction
 		(at 121.92 76.2)
@@ -1489,6 +1478,11 @@
 		)
 		(uuid "9c0bd560-4759-450a-94a3-d0ec765c9632")
 	)
+  (text "D1 SMCJ70A: VRWM=70 V, VBR=77.8...86 V, VC up to 113 V. Surge mitigation only; it does NOT guarantee INA238 VBUS <85 V."
+    (at 56.134 120.65 0)
+    (effects (font (size 1 1)) (justify left bottom))
+    (uuid "a2c0118f-4aaf-485d-910e-a37b1bd8fc98")
+  )
 	(symbol
 		(lib_id "Device:R_Shunt")
 		(at 109.22 76.2 270)
@@ -2240,7 +2234,7 @@
 				)
 			)
 		)
-		(property "Value" "3PH_GEN_IN (1=U 2=V 3=W)"
+		(property "Value" "3PH_GEN_IN (1=W 2=U 3=V)"
 			(at 14.224 64.008 0)
 			(hide yes)
 			(show_name no)
@@ -2836,7 +2830,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 96.52 57.15 180)
+		(at 96.52 57.15 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2846,7 +2840,7 @@
 		(dnp no)
 		(uuid "a4384dfa-afc8-4ffe-bd84-3a82cf2cbc5d")
 		(property "Reference" "#PWR004"
-			(at 96.52 50.8 0)
+			(at 96.52 63.5 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2857,7 +2851,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 96.52 53.34 0)
+			(at 96.52 60.96 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects

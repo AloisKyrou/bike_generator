@@ -149,7 +149,7 @@ Pour la V1, l'architecture privilégiée est :
   connecté en aval ;
 - consigne de courant `CC` pilotée dynamiquement pour régler la puissance
   prélevée et donc la résistance au pédalage ;
-- INA228 utilisé pour mesurer tension, courant et puissance et permettre une
+- INA238 utilisé pour mesurer tension, courant et puissance et permettre une
   boucle de régulation ;
 - aucune modification dynamique de `CV` sans cas d'usage explicite et analyse
   de stabilité ;
@@ -172,7 +172,7 @@ sortie, un véritable profil de charge ou un algorithme MPPT. Elle ne doit pas
   hors spécification et un fonctionnement durable peut endommager la carte ;
 - monter une `SMCJ70A` unidirectionnelle après `F1` et avant le shunt, cathode
   côté bus et anode à `GND` ; elle reste une protection transitoire « best
-  effort » et ne garantit pas que l'INA228 restera sous 85 V ;
+  effort » et ne garantit pas que l'INA238 restera sous 85 V ;
 - conserver la protection simple par fusible et TVS, sans ajouter de
   surge-stopper uniquement pour les surtensions durables hors spécification ;
 - viser au moins 600 mA continus et utiliser la capacité 1 A du candidat pour

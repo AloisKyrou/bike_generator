@@ -1214,99 +1214,66 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "JP4 OUVERT: batterie isolee (ni charge ni decharge). Empreinte MCU a confirmer sur la carte physique."
+	(text "GPIO V1: 0/1=I2C; 2=INA_ALERT; 4=HALL; 5/6/7=MCP42100 CS/SCK/MOSI; 8=ACTION; 20=POT_SHDN; 21=UART_TX (NC). GPIO2/8 are strap pins; pull-ups preserve boot state."
 		(exclude_from_sim no)
-		(at 76.708 143.256 0)
+		(at 82.042 73.818 0)
 		(effects
 			(font
 				(size 1 1)
-			)
-			(justify left bottom)
-		)
-		(uuid "617b7aae-01ca-4b6b-b944-7cd2bdda41d2")
-	)
-	(text "ALIMENTATION: AUX_5V -> JP3 -> VIN_5V/VUSB. OUVRIR JP3 avant USB-C."
-		(exclude_from_sim no)
-		(at 76.708 138.176 0)
-		(effects
-			(font
-				(size 1 1)
-			)
-			(justify left bottom)
-		)
-		(uuid "7b1236a7-c6e3-43e3-a65b-21a60aef07d7")
-	)
-	(text "JP3 FERME: alimentation generateur, USB-C debranche. JP3 OUVERT avant toute connexion USB."
-		(exclude_from_sim no)
-		(at 80.264 101.854 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "ac22260d-0fdc-434e-864d-552b8d528625")
-	)
-	(text "BAT: LiPo 1S protegee 400-500 mAh; charge max DFR0868: 400 mA."
-		(exclude_from_sim no)
-		(at 76.708 140.716 0)
-		(effects
-			(font
-				(size 1 1)
-			)
-			(justify left bottom)
-		)
-		(uuid "bdce89b1-972c-430f-85bd-4dcac541370d")
-	)
-	(text "DFR0868 V2.0: VIN_5V est directement le rail VUSB."
-		(exclude_from_sim no)
-		(at 80.264 99.314 0)
-		(effects
-			(font
-				(size 1.27 1.27)
 				(bold yes)
 			)
 			(justify left bottom)
 		)
-		(uuid "c4a7b8c5-2375-4506-a212-8d13b9665b07")
+		(uuid "63d1b1fb-6145-4ccb-8f79-90ad5d51a4fd")
 	)
-	(text "AFFECTATION V1 - GPIO0/1: I2C INA228; GPIO4/5/6/7: SPI DFR0520; GPIO2: ALERT."
+	(text "POWER INTERLOCK: AUX_5V -> JP3 -> VIN/VUSB. Close JP3 only with USB disconnected; OPEN JP3 before connecting USB-C."
 		(exclude_from_sim no)
-		(at 76.708 134.366 0)
+		(at 82.296 69.342 0)
 		(effects
 			(font
-				(size 1.27 1.27)
+				(size 1.15 1.15)
 				(bold yes)
 			)
 			(justify left bottom)
 		)
-		(uuid "fdb85dde-7049-4dae-9581-9829e9f7a604")
+		(uuid "b0909724-1a4c-4729-ad56-1ff13895ceb2")
+	)
+	(text "BATTERY: protected 1S LiPo, 400-500 mAh.\n\nDFR0868 charger max=400 mA; module rated -10...60 C. JP4 open isolates battery from charge and load."
+		(exclude_from_sim no)
+		(at 178.308 106.934 0)
+		(effects
+			(font
+				(size 1 1)
+			)
+			(justify left bottom)
+		)
+		(uuid "dff7af04-4b4d-4b75-97ba-b95bda8e71d0")
 	)
 	(junction
-		(at 104.14 77.47)
+		(at 144.78 111.76)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "1167e12e-db25-4e0b-95eb-1f4c17f9559e")
 	)
 	(junction
-		(at 109.22 64.77)
+		(at 152.4 99.06)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "218d0993-893e-4f55-9d40-330e33c2ea46")
 	)
 	(junction
-		(at 39.37 69.85)
+		(at 80.01 104.14)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "8c5f3d93-7fe0-4752-bcf7-2fb3ca12e45f")
 	)
 	(no_connect
-		(at 91.44 54.61)
+		(at 132.08 88.9)
 		(uuid "1bdb49d1-ceea-494e-b8eb-b93e5ff50523")
 	)
 	(wire
 		(pts
-			(xy 91.44 57.15) (xy 95.25 57.15)
+			(xy 132.08 91.44) (xy 135.89 91.44)
 		)
 		(stroke
 			(width 0)
@@ -1316,7 +1283,7 @@
 	)
 	(wire
 		(pts
-			(xy 34.29 69.85) (xy 39.37 69.85)
+			(xy 74.93 104.14) (xy 80.01 104.14)
 		)
 		(stroke
 			(width 0)
@@ -1326,7 +1293,7 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 64.77) (xy 113.03 64.77)
+			(xy 132.08 99.06) (xy 153.67 99.06)
 		)
 		(stroke
 			(width 0)
@@ -1336,7 +1303,7 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 57.15) (xy 109.22 64.77)
+			(xy 152.4 91.44) (xy 152.4 99.06)
 		)
 		(stroke
 			(width 0)
@@ -1346,7 +1313,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 69.85) (xy 39.37 69.85)
+			(xy 101.6 104.14) (xy 80.01 104.14)
 		)
 		(stroke
 			(width 0)
@@ -1356,7 +1323,7 @@
 	)
 	(wire
 		(pts
-			(xy 96.52 77.47) (xy 106.68 77.47)
+			(xy 137.16 111.76) (xy 147.32 111.76)
 		)
 		(stroke
 			(width 0)
@@ -1366,7 +1333,7 @@
 	)
 	(wire
 		(pts
-			(xy 134.62 77.47) (xy 116.84 77.47)
+			(xy 175.26 111.76) (xy 157.48 111.76)
 		)
 		(stroke
 			(width 0)
@@ -1376,7 +1343,7 @@
 	)
 	(wire
 		(pts
-			(xy 96.52 77.47) (xy 96.52 69.85)
+			(xy 137.16 111.76) (xy 137.16 104.14)
 		)
 		(stroke
 			(width 0)
@@ -1386,7 +1353,7 @@
 	)
 	(wire
 		(pts
-			(xy 132.08 64.77) (xy 123.19 64.77)
+			(xy 172.72 99.06) (xy 163.83 99.06)
 		)
 		(stroke
 			(width 0)
@@ -1396,7 +1363,7 @@
 	)
 	(wire
 		(pts
-			(xy 45.72 67.31) (xy 60.96 67.31)
+			(xy 86.36 101.6) (xy 101.6 101.6)
 		)
 		(stroke
 			(width 0)
@@ -1406,7 +1373,7 @@
 	)
 	(wire
 		(pts
-			(xy 129.54 80.01) (xy 134.62 80.01)
+			(xy 170.18 114.3) (xy 175.26 114.3)
 		)
 		(stroke
 			(width 0)
@@ -1416,7 +1383,7 @@
 	)
 	(wire
 		(pts
-			(xy 104.14 82.55) (xy 104.14 77.47)
+			(xy 144.78 116.84) (xy 144.78 111.76)
 		)
 		(stroke
 			(width 0)
@@ -1426,7 +1393,7 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 67.31) (xy 110.49 67.31)
+			(xy 132.08 101.6) (xy 151.13 101.6)
 		)
 		(stroke
 			(width 0)
@@ -1436,7 +1403,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 59.69) (xy 45.72 59.69)
+			(xy 101.6 93.98) (xy 86.36 93.98)
 		)
 		(stroke
 			(width 0)
@@ -1446,7 +1413,7 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 69.85) (xy 96.52 69.85)
+			(xy 132.08 104.14) (xy 137.16 104.14)
 		)
 		(stroke
 			(width 0)
@@ -1455,7 +1422,7 @@
 		(uuid "f126ab3f-5843-4641-80ea-7c53fc10741a")
 	)
 	(label "VIN_5V"
-		(at 100.33 64.77 0)
+		(at 140.97 99.06 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1465,7 +1432,7 @@
 		(uuid "697d82b1-52ef-41c4-9888-ce5f5edd704f")
 	)
 	(label "BAT_RAW"
-		(at 125.73 77.47 180)
+		(at 166.37 111.76 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1475,7 +1442,7 @@
 		(uuid "d94e1263-2fd9-4768-9406-8c6bcabe7bf7")
 	)
 	(label "BAT_CTRL"
-		(at 96.52 69.85 0)
+		(at 137.16 104.14 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1486,7 +1453,7 @@
 	)
 	(hierarchical_label "POT_SHDN"
 		(shape output)
-		(at 91.44 62.23 0)
+		(at 132.08 96.52 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1497,7 +1464,7 @@
 	)
 	(hierarchical_label "GPIO8_ACTION"
 		(shape input)
-		(at 95.25 57.15 0)
+		(at 135.89 91.44 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1508,7 +1475,7 @@
 	)
 	(hierarchical_label "POT_MOSI"
 		(shape output)
-		(at 60.96 52.07 180)
+		(at 101.6 86.36 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1519,7 +1486,7 @@
 	)
 	(hierarchical_label "POT_SCK"
 		(shape output)
-		(at 60.96 57.15 180)
+		(at 101.6 91.44 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1530,7 +1497,7 @@
 	)
 	(hierarchical_label "GPIO4_HALL"
 		(shape input)
-		(at 45.72 59.69 180)
+		(at 86.36 93.98 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1541,7 +1508,7 @@
 	)
 	(hierarchical_label "INA_ALERT"
 		(shape input)
-		(at 91.44 52.07 0)
+		(at 132.08 86.36 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1552,7 +1519,7 @@
 	)
 	(hierarchical_label "UART_TX"
 		(shape output)
-		(at 91.44 59.69 0)
+		(at 132.08 93.98 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1563,7 +1530,7 @@
 	)
 	(hierarchical_label "I2C_SCL"
 		(shape output)
-		(at 60.96 62.23 180)
+		(at 101.6 96.52 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1574,7 +1541,7 @@
 	)
 	(hierarchical_label "POT_CS"
 		(shape output)
-		(at 60.96 54.61 180)
+		(at 101.6 88.9 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1585,7 +1552,7 @@
 	)
 	(hierarchical_label "I2C_SDA"
 		(shape bidirectional)
-		(at 60.96 64.77 180)
+		(at 101.6 99.06 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1596,7 +1563,7 @@
 	)
 	(hierarchical_label "AUX_5V"
 		(shape input)
-		(at 132.08 64.77 0)
+		(at 172.72 99.06 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1607,7 +1574,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 129.54 80.01 0)
+		(at 170.18 114.3 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1617,7 +1584,7 @@
 		(dnp no)
 		(uuid "14c414d0-fbf2-4403-83d1-1bcf4850653e")
 		(property "Reference" "#PWR025"
-			(at 129.54 86.36 0)
+			(at 170.18 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1628,7 +1595,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 129.54 83.82 0)
+			(at 170.18 118.11 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1638,7 +1605,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 129.54 80.01 0)
+			(at 170.18 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1649,7 +1616,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 129.54 80.01 0)
+			(at 170.18 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1660,7 +1627,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 129.54 80.01 0)
+			(at 170.18 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1684,7 +1651,7 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 45.72 67.31 0)
+		(at 86.36 101.6 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1694,7 +1661,7 @@
 		(dnp no)
 		(uuid "189a74b2-6d75-4cb6-82dc-bf655ce510a3")
 		(property "Reference" "#PWR021"
-			(at 45.72 71.12 0)
+			(at 86.36 105.41 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1705,7 +1672,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 45.72 63.754 0)
+			(at 86.36 98.044 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1715,7 +1682,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 45.72 67.31 0)
+			(at 86.36 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1726,7 +1693,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 45.72 67.31 0)
+			(at 86.36 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1737,7 +1704,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 45.72 67.31 0)
+			(at 86.36 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1761,7 +1728,7 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x02")
-		(at 139.7 77.47 0)
+		(at 180.34 111.76 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1771,7 +1738,7 @@
 		(dnp no)
 		(uuid "3033a7eb-c53d-4f47-9c10-1f403d8220ab")
 		(property "Reference" "J6"
-			(at 139.7 74.93 0)
+			(at 180.34 109.22 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1781,7 +1748,7 @@
 			)
 		)
 		(property "Value" "LiPo 1S / JST-PH 2.0 / PROV."
-			(at 148.082 85.852 0)
+			(at 193.294 118.364 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1791,7 +1758,7 @@
 			)
 		)
 		(property "Footprint" "Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal"
-			(at 139.7 77.47 0)
+			(at 180.34 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1802,7 +1769,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.jst-mfg.com/product/pdf/eng/ePH.pdf"
-			(at 139.7 77.47 0)
+			(at 180.34 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1813,7 +1780,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 139.7 77.47 0)
+			(at 180.34 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1824,7 +1791,7 @@
 			)
 		)
 		(property "Status" "PROVISIONAL - verify battery plug pitch and polarity"
-			(at 139.7 77.47 0)
+			(at 180.34 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1835,7 +1802,7 @@
 			)
 		)
 		(property "Manufacturer" "JST"
-			(at 139.7 77.47 0)
+			(at 180.34 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1846,7 +1813,7 @@
 			)
 		)
 		(property "MPN" "S2B-PH-K-S(LF)(SN)"
-			(at 139.7 77.47 0)
+			(at 180.34 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1857,7 +1824,7 @@
 			)
 		)
 		(property "Mating Housing" "PHR-2"
-			(at 139.7 77.47 0)
+			(at 180.34 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1868,7 +1835,7 @@
 			)
 		)
 		(property "Safety Note" "VERIFY BATTERY POLARITY BEFORE CONNECTION; NO REVERSE-POLARITY PROTECTION"
-			(at 139.7 77.47 0)
+			(at 180.34 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1895,7 +1862,7 @@
 	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
-		(at 109.22 57.15 0)
+		(at 152.4 91.44 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1905,7 +1872,7 @@
 		(dnp no)
 		(uuid "304774af-dad9-4a89-82de-1a5940b535c4")
 		(property "Reference" "#PWR023"
-			(at 109.22 55.245 0)
+			(at 152.4 89.535 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1916,7 +1883,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 109.22 53.34 0)
+			(at 152.4 87.63 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1926,7 +1893,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 109.22 57.15 0)
+			(at 152.4 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1937,7 +1904,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 109.22 57.15 0)
+			(at 152.4 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1948,7 +1915,7 @@
 			)
 		)
 		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 109.22 57.15 0)
+			(at 152.4 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1972,7 +1939,7 @@
 	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
-		(at 39.37 69.85 0)
+		(at 80.01 104.14 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1982,7 +1949,7 @@
 		(dnp no)
 		(uuid "3dab9cde-a9a8-434a-bd8b-c5a0af36e34c")
 		(property "Reference" "#PWR020"
-			(at 39.37 67.945 0)
+			(at 80.01 102.235 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1993,7 +1960,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 39.37 66.04 0)
+			(at 80.01 100.33 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2003,7 +1970,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 39.37 69.85 0)
+			(at 80.01 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2014,7 +1981,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 39.37 69.85 0)
+			(at 80.01 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2025,7 +1992,7 @@
 			)
 		)
 		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 39.37 69.85 0)
+			(at 80.01 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2049,7 +2016,7 @@
 	)
 	(symbol
 		(lib_id "Jumper:Jumper_2_Open")
-		(at 111.76 77.47 180)
+		(at 152.4 111.76 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2059,7 +2026,7 @@
 		(dnp no)
 		(uuid "401f9c34-7efb-4d94-b41b-48baaadc072b")
 		(property "Reference" "JP4"
-			(at 111.76 80.645 0)
+			(at 152.4 114.935 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2069,7 +2036,7 @@
 			)
 		)
 		(property "Value" "BATTERY CONNECT / DISCONNECT"
-			(at 111.76 73.914 0)
+			(at 155.448 108.712 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2079,7 +2046,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
-			(at 111.76 77.47 0)
+			(at 152.4 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2090,7 +2057,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 111.76 77.47 0)
+			(at 152.4 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2101,7 +2068,7 @@
 			)
 		)
 		(property "Description" "Removable battery isolation jumper"
-			(at 111.76 77.47 0)
+			(at 152.4 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2112,7 +2079,7 @@
 			)
 		)
 		(property "Contact Rating" ">= 1 A"
-			(at 111.76 77.47 0)
+			(at 152.4 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2123,7 +2090,7 @@
 			)
 		)
 		(property "MPN" "1x02 2.54mm header + shorting shunt"
-			(at 111.76 77.47 0)
+			(at 152.4 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2134,7 +2101,7 @@
 			)
 		)
 		(property "Manufacturer" "Generic"
-			(at 111.76 77.47 0)
+			(at 152.4 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2145,7 +2112,7 @@
 			)
 		)
 		(property "Physical Pad 3" ""
-			(at 111.76 77.47 0)
+			(at 152.4 111.76 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2172,7 +2139,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 110.49 67.31 0)
+		(at 151.13 101.6 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2182,7 +2149,7 @@
 		(dnp no)
 		(uuid "488ae20f-b0d5-47c3-9ad0-082775950ae7")
 		(property "Reference" "#PWR024"
-			(at 110.49 73.66 0)
+			(at 151.13 107.95 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2193,7 +2160,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 110.49 71.12 0)
+			(at 151.13 105.41 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2203,7 +2170,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 110.49 67.31 0)
+			(at 151.13 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2214,7 +2181,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 110.49 67.31 0)
+			(at 151.13 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2225,7 +2192,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 110.49 67.31 0)
+			(at 151.13 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2249,7 +2216,7 @@
 	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
-		(at 104.14 82.55 180)
+		(at 144.78 116.84 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2259,7 +2226,7 @@
 		(dnp no)
 		(uuid "4e118df6-97a9-48f7-9437-4f6f70b1e2a8")
 		(property "Reference" "#PWR022"
-			(at 104.14 84.455 0)
+			(at 144.78 118.745 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2270,7 +2237,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 104.14 86.36 0)
+			(at 144.78 120.65 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2280,7 +2247,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 104.14 82.55 0)
+			(at 144.78 116.84 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2291,7 +2258,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 104.14 82.55 0)
+			(at 144.78 116.84 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2302,7 +2269,7 @@
 			)
 		)
 		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 104.14 82.55 0)
+			(at 144.78 116.84 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2326,7 +2293,7 @@
 	)
 	(symbol
 		(lib_id "BikeGenerator:DFR0868_Beetle_ESP32-C3")
-		(at 76.2 60.96 0)
+		(at 116.84 95.25 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2336,7 +2303,7 @@
 		(dnp no)
 		(uuid "d026bb0b-a615-4eb4-a036-e585eab1b302")
 		(property "Reference" "U2"
-			(at 76.2 46.99 0)
+			(at 116.84 81.28 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2346,7 +2313,7 @@
 			)
 		)
 		(property "Value" "DFR0868 Beetle ESP32-C3"
-			(at 76.2 74.93 0)
+			(at 116.84 109.22 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2356,7 +2323,7 @@
 			)
 		)
 		(property "Footprint" "BikeGenerator:DFR0868_Beetle_ESP32-C3_V2_Socketed"
-			(at 76.2 60.96 0)
+			(at 116.84 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2367,7 +2334,7 @@
 			)
 		)
 		(property "Datasheet" "https://wiki.dfrobot.com/dfr0868/"
-			(at 76.2 60.96 0)
+			(at 116.84 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2378,7 +2345,7 @@
 			)
 		)
 		(property "Description" "Beetle ESP32-C3 V2 module, socketed carrier mounting"
-			(at 76.2 60.96 0)
+			(at 116.84 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2389,7 +2356,7 @@
 			)
 		)
 		(property "MPN" "DFR0868"
-			(at 76.2 60.96 0)
+			(at 116.84 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2400,7 +2367,7 @@
 			)
 		)
 		(property "Manufacturer" "DFRobot"
-			(at 76.2 60.96 0)
+			(at 116.84 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2411,7 +2378,7 @@
 			)
 		)
 		(property "Decoupling Review" "Module-level decoupling is integrated on the Beetle ESP32-C3 carrier; validate the exact purchased module revision and local capacitor population."
-			(at 76.2 60.96 0)
+			(at 116.84 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2480,7 +2447,7 @@
 	)
 	(symbol
 		(lib_id "Jumper:Jumper_2_Open")
-		(at 118.11 64.77 180)
+		(at 158.75 99.06 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2490,7 +2457,7 @@
 		(dnp no)
 		(uuid "d13b2c89-1194-438c-8cd1-53ac9e7c3f0d")
 		(property "Reference" "JP3"
-			(at 118.11 67.564 0)
+			(at 158.75 101.854 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2500,7 +2467,7 @@
 			)
 		)
 		(property "Value" "GEN 5V / USB INTERLOCK"
-			(at 125.73 61.722 0)
+			(at 166.37 96.012 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2510,7 +2477,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
-			(at 118.11 64.77 0)
+			(at 158.75 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2521,7 +2488,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 118.11 64.77 0)
+			(at 158.75 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2532,7 +2499,7 @@
 			)
 		)
 		(property "Description" "Jumper, 2-pole, open"
-			(at 118.11 64.77 0)
+			(at 158.75 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2543,7 +2510,7 @@
 			)
 		)
 		(property "Status" "PROVISIONAL - removable 2.54 mm shunt"
-			(at 118.11 64.77 0)
+			(at 158.75 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2570,7 +2537,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 34.29 69.85 0)
+		(at 74.93 104.14 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2580,7 +2547,7 @@
 		(dnp no)
 		(uuid "fab88e20-55fa-4132-a3cd-bfb68de7d9dc")
 		(property "Reference" "#PWR019"
-			(at 34.29 76.2 0)
+			(at 74.93 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2591,7 +2558,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 34.29 73.66 0)
+			(at 74.93 107.95 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2601,7 +2568,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 34.29 69.85 0)
+			(at 74.93 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2612,7 +2579,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 34.29 69.85 0)
+			(at 74.93 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2623,7 +2590,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 34.29 69.85 0)
+			(at 74.93 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

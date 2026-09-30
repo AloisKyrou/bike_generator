@@ -1406,6 +1406,74 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "OUTPUT: VOUT=1.2*(1+R17/R18)=1.2*(1+316k/100k)=4.992 V. PGOOD is open-drain; R15=47k is within TI's 10k...100k recommendation."
+		(exclude_from_sim no)
+		(at 25.146 138.684 0)
+		(effects
+			(font
+				(size 1.05 1.05)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "50af3d03-e382-44fc-bde2-02673a75f4e2")
+	)
+	(text "UVLO hardware: ON=1.5*(1+R13/R14)=9.0 V; OFF=1.4*(1+R13/R14)=8.4 V. V1 specified input minimum is 12 VDC, providing startup margin."
+		(exclude_from_sim no)
+		(at 25.146 143.256 0)
+		(effects
+			(font
+				(size 1 1)
+			)
+			(justify left bottom)
+		)
+		(uuid "8a222752-dd75-46b0-8c17-d46b5e153ba5")
+	)
+	(text "OUTPUT CAPS: C12+C13=44 uF nominal. For deltaIL about 0.33 A and 25 mV ripple, COUT(min)=deltaIL/(8*fSW*dV)=5.5 uF; confirm combined effective capacitance stays above this under 5 V bias and temperature."
+		(exclude_from_sim no)
+		(at 25.146 158.242 0)
+		(effects
+			(font
+				(size 1 1)
+			)
+			(justify left bottom)
+		)
+		(uuid "b132bf6f-7f61-43f3-941e-cf4e1296450e")
+	)
+	(text "C9=2.2 nF meets BST requirement. Type-3: C11=3.3 nF >0.44 nF minimum. At the V1 minimum of 12 V, FB ripple is above TI's 12 mV minimum; verify startup at 12 V on the bench. EP pin 9 is GND."
+		(exclude_from_sim no)
+		(at 25.146 151.638 0)
+		(effects
+			(font
+				(size 1 1)
+			)
+			(justify left bottom)
+		)
+		(uuid "e62c7b16-9b94-475b-bcc8-007744c3daf4")
+	)
+	(text "FREQUENCY: fSW=4.992*2500/41.2k=303 kHz. L1=47 uH gives deltaIL about 0.33 A and IPEAK about 1.17 A at 70 V/1 A. L1 Isat=1.6 A (10% drop), only marginal versus LM5164 1.75 A max current limit: validate startup and temperature."
+		(exclude_from_sim no)
+		(at 25.146 147.574 0)
+		(effects
+			(font
+				(size 1 1)
+			)
+			(justify left bottom)
+		)
+		(uuid "f9c294a0-45b3-4419-ad11-c9064b42ed3a")
+	)
+	(text "INPUT-CAP LIMIT: confirm effective C5+C7+C8 capacitance >=2.2 uF over DC bias and temperature. Their 100 V rating does not meet TI's preferred >=2x maximum VIN at 70 V; V1 requires bench validation."
+		(exclude_from_sim no)
+		(at 25.146 154.94 0)
+		(effects
+			(font
+				(size 1 1)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "fd180fc7-dc83-48c6-bad2-3c15e8f30a29")
+	)
 	(junction
 		(at 186.69 105.41)
 		(diameter 0)
@@ -1455,7 +1523,7 @@
 		(uuid "467d067f-75b4-4825-8d5c-4c95c1a340a1")
 	)
 	(junction
-		(at 49.53 102.87)
+		(at 63.5 102.87)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "48d59e87-4e73-478c-a8ab-0f346ca46b96")
@@ -1467,7 +1535,7 @@
 		(uuid "4bff54ac-48c2-4075-8493-b30600040969")
 	)
 	(junction
-		(at 55.88 90.17)
+		(at 69.85 90.17)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4da40902-8883-451d-9313-20793c99009c")
@@ -1479,7 +1547,7 @@
 		(uuid "5f70baf9-edf4-420b-9821-1b463967b1e8")
 	)
 	(junction
-		(at 36.83 81.28)
+		(at 50.8 81.28)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "64cb582e-bfc3-4f13-bcd6-f7b6a5236d78")
@@ -1497,25 +1565,25 @@
 		(uuid "7a270d4e-afd8-43a1-82e7-36e643ee39ce")
 	)
 	(junction
-		(at 43.18 102.87)
+		(at 57.15 102.87)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "909eb810-890b-4233-954e-4ef0325d1a46")
 	)
 	(junction
-		(at 55.88 102.87)
+		(at 69.85 102.87)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a43c2ae4-7237-41ae-9268-8d117218889e")
 	)
 	(junction
-		(at 43.18 90.17)
+		(at 57.15 90.17)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a656a937-4fab-4e6c-acf4-98597335716f")
 	)
 	(junction
-		(at 49.53 90.17)
+		(at 63.5 90.17)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a8be930f-a8bf-4b09-a97d-bdcf2f685202")
@@ -1527,7 +1595,7 @@
 		(uuid "b57510d7-be8c-411c-a604-dda657adc14d")
 	)
 	(junction
-		(at 49.53 81.28)
+		(at 63.5 81.28)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b82e2843-5469-41fb-894d-0d40376b317a")
@@ -1580,7 +1648,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 90.17) (xy 68.58 90.17)
+			(xy 69.85 90.17) (xy 82.55 90.17)
 		)
 		(stroke
 			(width 0)
@@ -1600,7 +1668,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 90.17) (xy 49.53 81.28)
+			(xy 63.5 90.17) (xy 63.5 81.28)
 		)
 		(stroke
 			(width 0)
@@ -1650,7 +1718,7 @@
 	)
 	(wire
 		(pts
-			(xy 34.29 81.28) (xy 114.3 81.28)
+			(xy 48.26 81.28) (xy 114.3 81.28)
 		)
 		(stroke
 			(width 0)
@@ -1680,7 +1748,7 @@
 	)
 	(wire
 		(pts
-			(xy 43.18 92.71) (xy 43.18 90.17)
+			(xy 57.15 92.71) (xy 57.15 90.17)
 		)
 		(stroke
 			(width 0)
@@ -1700,7 +1768,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 100.33) (xy 55.88 102.87)
+			(xy 69.85 100.33) (xy 69.85 102.87)
 		)
 		(stroke
 			(width 0)
@@ -1710,7 +1778,7 @@
 	)
 	(wire
 		(pts
-			(xy 30.48 90.17) (xy 55.88 90.17)
+			(xy 44.45 90.17) (xy 69.85 90.17)
 		)
 		(stroke
 			(width 0)
@@ -1730,7 +1798,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 102.87) (xy 49.53 127)
+			(xy 63.5 102.87) (xy 63.5 127)
 		)
 		(stroke
 			(width 0)
@@ -1770,7 +1838,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 92.71) (xy 55.88 90.17)
+			(xy 69.85 92.71) (xy 69.85 90.17)
 		)
 		(stroke
 			(width 0)
@@ -1790,7 +1858,7 @@
 	)
 	(wire
 		(pts
-			(xy 43.18 100.33) (xy 43.18 102.87)
+			(xy 57.15 100.33) (xy 57.15 102.87)
 		)
 		(stroke
 			(width 0)
@@ -1900,7 +1968,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 102.87) (xy 68.58 102.87)
+			(xy 63.5 102.87) (xy 82.55 102.87)
 		)
 		(stroke
 			(width 0)
@@ -1940,7 +2008,7 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 92.71) (xy 68.58 90.17)
+			(xy 82.55 92.71) (xy 82.55 90.17)
 		)
 		(stroke
 			(width 0)
@@ -1970,7 +2038,7 @@
 	)
 	(wire
 		(pts
-			(xy 30.48 100.33) (xy 30.48 102.87)
+			(xy 44.45 100.33) (xy 44.45 102.87)
 		)
 		(stroke
 			(width 0)
@@ -2040,7 +2108,7 @@
 	)
 	(wire
 		(pts
-			(xy 30.48 90.17) (xy 30.48 92.71)
+			(xy 44.45 90.17) (xy 44.45 92.71)
 		)
 		(stroke
 			(width 0)
@@ -2060,7 +2128,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 127) (xy 114.3 127)
+			(xy 63.5 127) (xy 114.3 127)
 		)
 		(stroke
 			(width 0)
@@ -2080,7 +2148,7 @@
 	)
 	(wire
 		(pts
-			(xy 30.48 102.87) (xy 43.18 102.87)
+			(xy 44.45 102.87) (xy 57.15 102.87)
 		)
 		(stroke
 			(width 0)
@@ -2190,7 +2258,7 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 100.33) (xy 68.58 102.87)
+			(xy 82.55 100.33) (xy 82.55 102.87)
 		)
 		(stroke
 			(width 0)
@@ -2220,7 +2288,7 @@
 	)
 	(wire
 		(pts
-			(xy 43.18 102.87) (xy 49.53 102.87)
+			(xy 57.15 102.87) (xy 63.5 102.87)
 		)
 		(stroke
 			(width 0)
@@ -2351,7 +2419,7 @@
 	)
 	(hierarchical_label "AUX_IN_PROTECTED"
 		(shape input)
-		(at 34.29 81.28 180)
+		(at 48.26 81.28 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2373,7 +2441,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 68.58 96.52 0)
+		(at 82.55 96.52 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2383,7 +2451,7 @@
 		(dnp no)
 		(uuid "019ae8c2-844e-4775-9174-c5762015a407")
 		(property "Reference" "C8"
-			(at 69.596 93.726 0)
+			(at 83.566 93.726 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2394,7 +2462,7 @@
 			)
 		)
 		(property "Value" "10uF/100V"
-			(at 69.342 99.06 0)
+			(at 83.312 99.06 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2405,7 +2473,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder"
-			(at 68.58 96.52 0)
+			(at 82.55 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2416,7 +2484,7 @@
 			)
 		)
 		(property "Datasheet" "https://product.samsungsem.com/mlcc/CL32Y106KCVZ4N.do"
-			(at 68.58 96.52 0)
+			(at 82.55 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2427,7 +2495,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 68.58 96.52 0)
+			(at 82.55 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2438,7 +2506,7 @@
 			)
 		)
 		(property "Manufacturer" "Samsung Electro-Mechanics"
-			(at 68.58 96.52 0)
+			(at 82.55 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2449,7 +2517,7 @@
 			)
 		)
 		(property "MPN" "CL32Y106KCVZ4NE"
-			(at 68.58 96.52 0)
+			(at 82.55 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2460,7 +2528,7 @@
 			)
 		)
 		(property "LCSC" "C5596909"
-			(at 68.58 96.52 0)
+			(at 82.55 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2471,7 +2539,7 @@
 			)
 		)
 		(property "Dielectric" "X7S"
-			(at 68.58 96.52 0)
+			(at 82.55 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2482,7 +2550,7 @@
 			)
 		)
 		(property "DC Bias Note" "Approx. 1.39uF effective each at 80V/25C; validate bus overshoot"
-			(at 68.58 96.52 0)
+			(at 82.55 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2621,7 +2689,7 @@
 	)
 	(symbol
 		(lib_id "Connector:TestPoint")
-		(at 36.83 81.28 180)
+		(at 50.8 81.28 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2631,7 +2699,7 @@
 		(dnp no)
 		(uuid "1162058c-2b2d-44b1-982d-675e967154b1")
 		(property "Reference" "TP12"
-			(at 41.402 85.344 0)
+			(at 55.372 85.344 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2641,7 +2709,7 @@
 			)
 		)
 		(property "Value" "AUX_IN_PROTECTED"
-			(at 41.402 83.312 0)
+			(at 55.372 83.312 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2652,7 +2720,7 @@
 			)
 		)
 		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
-			(at 36.83 81.28 0)
+			(at 50.8 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2663,7 +2731,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 36.83 81.28 0)
+			(at 50.8 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2674,7 +2742,7 @@
 			)
 		)
 		(property "Description" "test point"
-			(at 36.83 81.28 0)
+			(at 50.8 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3648,7 +3716,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 30.48 96.52 0)
+		(at 44.45 96.52 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3658,7 +3726,7 @@
 		(dnp no)
 		(uuid "4f25b08b-1286-4d9f-b30b-948ff022986b")
 		(property "Reference" "C5"
-			(at 31.242 93.472 0)
+			(at 45.212 93.472 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3669,7 +3737,7 @@
 			)
 		)
 		(property "Value" "10uF/100V"
-			(at 30.734 99.06 0)
+			(at 44.704 99.06 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3680,7 +3748,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder"
-			(at 30.48 96.52 0)
+			(at 44.45 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3691,7 +3759,7 @@
 			)
 		)
 		(property "Datasheet" "https://product.samsungsem.com/mlcc/CL32Y106KCVZ4N.do"
-			(at 30.48 96.52 0)
+			(at 44.45 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3702,7 +3770,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 30.48 96.52 0)
+			(at 44.45 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3713,7 +3781,7 @@
 			)
 		)
 		(property "LCSC" "C5596909"
-			(at 30.48 96.52 0)
+			(at 44.45 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3724,7 +3792,7 @@
 			)
 		)
 		(property "MPN" "CL32Y106KCVZ4NE"
-			(at 30.48 96.52 0)
+			(at 44.45 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3735,7 +3803,7 @@
 			)
 		)
 		(property "Manufacturer" "Samsung Electro-Mechanics"
-			(at 30.48 96.52 0)
+			(at 44.45 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3746,7 +3814,7 @@
 			)
 		)
 		(property "Dielectric" "X7S"
-			(at 30.48 96.52 0)
+			(at 44.45 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3757,7 +3825,7 @@
 			)
 		)
 		(property "DC Bias Note" "Approx. 1.39uF effective each at 80V/25C; validate bus overshoot"
-			(at 30.48 96.52 0)
+			(at 44.45 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4088,7 +4156,7 @@
 	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
-		(at 36.83 81.28 0)
+		(at 50.8 81.28 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4098,7 +4166,7 @@
 		(dnp no)
 		(uuid "6034dc45-63e0-494b-9ea8-4a4e7a273c48")
 		(property "Reference" "#PWR030"
-			(at 36.83 79.375 0)
+			(at 50.8 79.375 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4109,7 +4177,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 36.83 77.47 0)
+			(at 50.8 77.47 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4119,7 +4187,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 36.83 81.28 0)
+			(at 50.8 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4130,7 +4198,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 36.83 81.28 0)
+			(at 50.8 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4141,7 +4209,7 @@
 			)
 		)
 		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 36.83 81.28 0)
+			(at 50.8 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4400,7 +4468,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 55.88 96.52 0)
+		(at 69.85 96.52 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4410,7 +4478,7 @@
 		(dnp no)
 		(uuid "e46b902a-cfa5-4188-9386-3a7c3e0db858")
 		(property "Reference" "C7"
-			(at 57.658 94.234 0)
+			(at 71.628 94.234 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4421,7 +4489,7 @@
 			)
 		)
 		(property "Value" "10uF/100V"
-			(at 56.642 98.552 0)
+			(at 70.612 98.552 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4432,7 +4500,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder"
-			(at 55.88 96.52 0)
+			(at 69.85 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4443,7 +4511,7 @@
 			)
 		)
 		(property "Datasheet" "https://product.samsungsem.com/mlcc/CL32Y106KCVZ4N.do"
-			(at 55.88 96.52 0)
+			(at 69.85 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4454,7 +4522,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 55.88 96.52 0)
+			(at 69.85 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4465,7 +4533,7 @@
 			)
 		)
 		(property "MPN" "CL32Y106KCVZ4NE"
-			(at 55.88 96.52 0)
+			(at 69.85 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4476,7 +4544,7 @@
 			)
 		)
 		(property "Manufacturer" "Samsung Electro-Mechanics"
-			(at 55.88 96.52 0)
+			(at 69.85 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4487,7 +4555,7 @@
 			)
 		)
 		(property "LCSC" "C5596909"
-			(at 55.88 96.52 0)
+			(at 69.85 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4498,7 +4566,7 @@
 			)
 		)
 		(property "Dielectric" "X7S"
-			(at 55.88 96.52 0)
+			(at 69.85 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4509,7 +4577,7 @@
 			)
 		)
 		(property "DC Bias Note" "Approx. 1.39uF effective each at 80V/25C; validate bus overshoot"
-			(at 55.88 96.52 0)
+			(at 69.85 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4887,7 +4955,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Polarized")
-		(at 43.18 96.52 0)
+		(at 57.15 96.52 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4897,7 +4965,7 @@
 		(dnp no)
 		(uuid "fa3f1262-d2d5-477b-a5c6-e65eabaf9217")
 		(property "Reference" "C6"
-			(at 44.196 93.472 0)
+			(at 58.166 93.472 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4908,7 +4976,7 @@
 			)
 		)
 		(property "Value" "10uF/100V"
-			(at 43.434 99.06 0)
+			(at 57.404 99.06 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4919,7 +4987,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm"
-			(at 43.18 96.52 0)
+			(at 57.15 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4930,7 +4998,7 @@
 			)
 		)
 		(property "Datasheet" "https://industrial.panasonic.com/cdbs/www-data/pdf/RDF0000/ABA0000C1209.pdf"
-			(at 43.18 96.52 0)
+			(at 57.15 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4941,7 +5009,7 @@
 			)
 		)
 		(property "Description" "Polarized capacitor"
-			(at 43.18 96.52 0)
+			(at 57.15 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4952,7 +5020,7 @@
 			)
 		)
 		(property "MPN" "EEU-FC2A100"
-			(at 43.18 96.52 0)
+			(at 57.15 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4963,7 +5031,7 @@
 			)
 		)
 		(property "Manufacturer" "Panasonic Industry"
-			(at 43.18 96.52 0)
+			(at 57.15 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

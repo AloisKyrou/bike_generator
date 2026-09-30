@@ -5,16 +5,17 @@
 	(uuid "3056615a-b94f-4555-a4c5-9bc697b25f9c")
 	(paper "A4")
 	(lib_symbols)
-	(text "POWER_PATH reste volontairement ouvert : choisir le shunt, les protections et les connecteurs apres validation tension/courant."
+	(text "V1 PROTOTYPE: rectified bus 12...70 VDC; 400 W peak target. Use J1 (DC) OR J8 (3-phase), never both. High continuous current requires thermal validation."
 		(exclude_from_sim no)
 		(at 25.4 81.28 0)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(bold yes)
 			)
 			(justify left bottom)
 		)
-		(uuid "d2f08002-a174-4dd5-b052-e9416c230f13")
+		(uuid "92532535-ba2d-4ad9-a43f-6f6b58a73961")
 	)
 	(no_connect
 		(at 88.9 132.08)

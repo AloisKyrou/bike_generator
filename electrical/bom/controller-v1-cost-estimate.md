@@ -47,7 +47,7 @@ des conditionnements minimaux et de l'achat auprès de plusieurs distributeurs.
 | Poste | Estimation HT |
 |---|---:|
 | Beetle ESP32-C3 DFR0868 | environ 6,9 € |
-| INA228AIDGSR | environ 4,0 € |
+| INA238AIDGSR | environ 2,8 € |
 | MCP42100-I/SL | prix à rafraîchir avant commande |
 | Shunt CSS4J-4026K-2L00F | environ 1,84 € |
 | Deux borniers Phoenix 1711725 | environ 3,1 € |

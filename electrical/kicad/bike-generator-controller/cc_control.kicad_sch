@@ -1695,40 +1695,51 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "NE PAS RELIER J7/J9 AU BUCK AVANT MESURES. A/W/B doivent rester entre 0 et 3,3 V\net sous ±1 mA par rapport au GND de la carte."
+	(text "U3 MCP42100: dual 100k, 256 taps; ideal step about 100k/256=390.6 ohm. Total resistance tolerance is +/-30%, so calibrate the controlled setpoints."
 		(exclude_from_sim no)
-		(at 68.58 127 0)
+		(at 68.58 137.16 0)
 		(effects
 			(font
-				(size 1.27 1.27)
+				(size 1 1)
 			)
 			(justify left bottom)
 		)
-		(uuid "28595116-0124-4c97-8521-b1b9eab3b7ec")
+		(uuid "72dee109-679e-42b4-ad1b-cd1e97ece961")
 	)
-	(text "SÉCURITÉ AU DÉMARRAGE : les deux potentiomètres restent en shutdown jusqu’à ce que l’ESP force POT_SHDN à 1."
+	(text "SAFE STARTUP: R11 pulls /CS high; R19 pulls /SHDN low. /SHDN=0 disconnects A and connects W to B until ESP32 drives POT_SHDN high."
 		(exclude_from_sim no)
 		(at 68.58 132.08 0)
 		(effects
 			(font
-				(size 1.27 1.27)
-				(bold yes)
+				(size 1 1)
 			)
 			(justify left bottom)
 		)
-		(uuid "4b853a41-af9e-4545-8e26-2fc48c39ba6f")
+		(uuid "b3085f65-6167-4145-97a7-67d935bc60fa")
 	)
-	(text "J7 — 1: CC_A (PA0/A) · 2: CC_W (PW0/curseur) · 3: CC_B (PB0/B)\nJ9 — 1: CV_A (PA1/A) · 2: CV_W (PW1/curseur) · 3: CV_B (PB1/B)"
+	(text "J7: 1=CC_A, 2=CC_W, 3=CC_B. J9: 1=CV_A, 2=CV_W, 3=CV_B."
 		(exclude_from_sim no)
 		(at 141.732 117.094 0)
 		(effects
 			(font
-				(size 1.27 1.27)
+				(size 1 1)
 				(bold yes)
 			)
 			(justify left bottom)
 		)
-		(uuid "fe18296c-490c-4255-86b8-0762605999b4")
+		(uuid "f6e7559a-7f0b-450e-91ed-b55332b0bff5")
+	)
+	(text "DO NOT CONNECT J7/J9 TO THE BUCK BEFORE MEASUREMENT. A/W/B must remain within 0...3.3 V and |IW| <=1 mA relative to this board GND."
+		(exclude_from_sim no)
+		(at 68.58 127 0)
+		(effects
+			(font
+				(size 1.05 1.05)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "feef15c3-0e57-41a9-add2-3fa9ca0a091f")
 	)
 	(junction
 		(at 80.01 90.17)
@@ -1814,7 +1825,7 @@
 	)
 	(wire
 		(pts
-			(xy 151.13 85.09) (xy 132.08 85.09)
+			(xy 143.51 85.09) (xy 132.08 85.09)
 		)
 		(stroke
 			(width 0)
@@ -1844,7 +1855,7 @@
 	)
 	(wire
 		(pts
-			(xy 151.13 82.55) (xy 132.08 82.55)
+			(xy 143.51 82.55) (xy 132.08 82.55)
 		)
 		(stroke
 			(width 0)
@@ -1864,7 +1875,7 @@
 	)
 	(wire
 		(pts
-			(xy 151.13 87.63) (xy 132.08 87.63)
+			(xy 143.51 87.63) (xy 132.08 87.63)
 		)
 		(stroke
 			(width 0)
@@ -2028,7 +2039,7 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x03")
-		(at 156.21 85.09 0)
+		(at 148.59 85.09 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2038,7 +2049,7 @@
 		(dnp no)
 		(uuid "36f44075-26cc-4254-81b9-d8f9ff08402d")
 		(property "Reference" "J7"
-			(at 156.21 80.01 0)
+			(at 152.146 83.82 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2048,7 +2059,7 @@
 			)
 		)
 		(property "Value" "J_CC_CTRL"
-			(at 156.21 90.17 0)
+			(at 155.956 86.106 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2058,7 +2069,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-			(at 156.21 85.09 0)
+			(at 148.59 85.09 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2069,7 +2080,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 156.21 85.09 0)
+			(at 148.59 85.09 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2080,7 +2091,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 156.21 85.09 0)
+			(at 148.59 85.09 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2353,7 +2364,7 @@
 		(dnp no)
 		(uuid "6edd29b3-1fd0-4c59-ba19-835249c4eb6f")
 		(property "Reference" "J9"
-			(at 148.59 90.17 0)
+			(at 151.892 94.996 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2363,7 +2374,7 @@
 			)
 		)
 		(property "Value" "J_CV_CTRL"
-			(at 148.59 100.33 0)
+			(at 155.702 97.282 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects

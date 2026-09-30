@@ -1207,6 +1207,29 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "JP1/JP2 default 1-2 ties A1/A0 to GND => 7-bit I2C address 0x40. R4/R6=4.7k pull-ups; R5=10k ALERT pull-up. C1=100 nF + C3=1 uF bypass 3V3."
+		(exclude_from_sim no)
+		(at 50.8 137.16 0)
+		(effects
+			(font
+				(size 1 1)
+			)
+			(justify left bottom)
+		)
+		(uuid "17f1c5fd-cf24-4bdc-8c8a-6841cfc7585b")
+	)
+	(text "R1=2 mOhm: at 20 A, VSHUNT=I*R=40 mV and P=I^2*R=0.80 W (<6 W part rating). Pads 3/2 are Kelvin sense; R2/R3=10 ohm + C2=100 nF form the differential input filter."
+		(exclude_from_sim no)
+		(at 50.8 121.92 0)
+		(effects
+			(font
+				(size 1.05 1.05)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "defd39bc-b46d-4898-8195-5febc9aaa770")
+	)
 	(junction
 		(at 80.01 100.33)
 		(diameter 0)
@@ -1244,7 +1267,7 @@
 		(uuid "4339f116-3df4-40ad-b3ff-060049c35472")
 	)
 	(junction
-		(at 119.38 50.8)
+		(at 119.38 58.42)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4be06b51-30c0-4dc2-8fbd-fd0cab8cc4a9")
@@ -1262,13 +1285,13 @@
 		(uuid "72fa469f-40c9-4170-894f-8d6fd26bc4e5")
 	)
 	(junction
-		(at 106.68 60.96)
+		(at 106.68 68.58)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "83c8f5c7-aac9-4c4a-893a-41bd986d11b7")
 	)
 	(junction
-		(at 106.68 53.34)
+		(at 106.68 60.96)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "920ea97f-b0e5-4909-99bd-0d3c32b9123c")
@@ -1357,7 +1380,7 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 50.8) (xy 106.68 53.34)
+			(xy 106.68 58.42) (xy 106.68 60.96)
 		)
 		(stroke
 			(width 0)
@@ -1407,7 +1430,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 48.26) (xy 119.38 50.8)
+			(xy 119.38 55.88) (xy 119.38 58.42)
 		)
 		(stroke
 			(width 0)
@@ -1427,7 +1450,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 50.8) (xy 119.38 77.47)
+			(xy 119.38 58.42) (xy 119.38 77.47)
 		)
 		(stroke
 			(width 0)
@@ -1527,7 +1550,7 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 53.34) (xy 111.76 53.34)
+			(xy 106.68 60.96) (xy 111.76 60.96)
 		)
 		(stroke
 			(width 0)
@@ -1567,7 +1590,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 53.34) (xy 106.68 53.34)
+			(xy 101.6 60.96) (xy 106.68 60.96)
 		)
 		(stroke
 			(width 0)
@@ -1597,7 +1620,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 60.96) (xy 111.76 60.96)
+			(xy 101.6 68.58) (xy 111.76 68.58)
 		)
 		(stroke
 			(width 0)
@@ -1617,7 +1640,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 50.8) (xy 106.68 50.8)
+			(xy 119.38 58.42) (xy 106.68 58.42)
 		)
 		(stroke
 			(width 0)
@@ -1761,9 +1784,14 @@
 		)
 		(uuid "dff191ba-7b38-4843-b794-fe7c11b7bb90")
 	)
+  (text "INA238: VBUS 0...85 V. Use ADCRANGE=0 (+/-163.84 mV). For Imax=25 A: CURRENT_LSB=25/2^15=762.939 uA; SHUNT_CAL=1250 for RSHUNT=0.002 ohm. No energy/charge accumulator."
+    (at 50.8 129.54 0)
+    (effects (font (size 1 1)) (justify left bottom))
+    (uuid "b2864000-9da0-45d3-832a-c6fee6f2fa86")
+  )
 	(symbol
 		(lib_id "Device:C")
-		(at 111.76 57.15 180)
+		(at 111.76 64.77 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1773,7 +1801,7 @@
 		(dnp no)
 		(uuid "0373c4d2-097d-443e-84b6-c392ea4b1b51")
 		(property "Reference" "C3"
-			(at 117.094 59.436 0)
+			(at 117.094 67.056 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1784,7 +1812,7 @@
 			)
 		)
 		(property "Value" "1uF"
-			(at 117.602 55.118 0)
+			(at 117.602 62.738 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1795,7 +1823,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
-			(at 111.76 57.15 0)
+			(at 111.76 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1806,7 +1834,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 111.76 57.15 0)
+			(at 111.76 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1817,7 +1845,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 111.76 57.15 0)
+			(at 111.76 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1828,7 +1856,7 @@
 			)
 		)
 		(property "Manufacturer" "Yageo"
-			(at 111.76 57.15 0)
+			(at 111.76 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1839,7 +1867,7 @@
 			)
 		)
 		(property "MPN" "CC0805KKX7R7BB105"
-			(at 111.76 57.15 0)
+			(at 111.76 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1850,7 +1878,7 @@
 			)
 		)
 		(property "LCSC" "C94122"
-			(at 111.76 57.15 0)
+			(at 111.76 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2598,7 +2626,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 101.6 57.15 180)
+		(at 101.6 64.77 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2608,7 +2636,7 @@
 		(dnp no)
 		(uuid "6714920e-53a5-40d3-96a2-34871dc4f1fd")
 		(property "Reference" "C1"
-			(at 99.568 60.198 0)
+			(at 99.568 67.818 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2619,7 +2647,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 98.806 55.118 0)
+			(at 98.806 62.738 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2630,7 +2658,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
-			(at 101.6 57.15 0)
+			(at 101.6 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2641,7 +2669,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 101.6 57.15 0)
+			(at 101.6 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2652,7 +2680,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 101.6 57.15 0)
+			(at 101.6 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2663,7 +2691,7 @@
 			)
 		)
 		(property "Manufacturer" "Yageo"
-			(at 101.6 57.15 0)
+			(at 101.6 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2674,7 +2702,7 @@
 			)
 		)
 		(property "MPN" "CC0805KRX7R9BB104"
-			(at 101.6 57.15 0)
+			(at 101.6 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2685,7 +2713,7 @@
 			)
 		)
 		(property "LCSC" "C49678"
-			(at 101.6 57.15 0)
+			(at 101.6 64.77 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3020,7 +3048,7 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 119.38 48.26 0)
+		(at 119.38 55.88 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3030,7 +3058,7 @@
 		(dnp no)
 		(uuid "78218b8f-9d80-437e-9456-7757031084c0")
 		(property "Reference" "#PWR04"
-			(at 119.38 52.07 0)
+			(at 119.38 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3041,7 +3069,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 119.38 44.704 0)
+			(at 119.38 52.324 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3051,7 +3079,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 119.38 48.26 0)
+			(at 119.38 55.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3062,7 +3090,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 119.38 48.26 0)
+			(at 119.38 55.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3073,7 +3101,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 119.38 48.26 0)
+			(at 119.38 55.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3533,7 +3561,7 @@
 		(dnp no)
 		(uuid "c93618c6-d113-4990-bbec-bc1218754522")
 		(property "Reference" "U1"
-			(at 113.03 78.74 0)
+			(at 110.998 74.676 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3542,8 +3570,8 @@
 				)
 			)
 		)
-		(property "Value" "INA228AIDGSR"
-			(at 123.19 78.74 0)
+		(property "Value" "INA238AIDGSR"
+			(at 110.998 77.47 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3563,7 +3591,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/ina228.pdf"
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/ina238.pdf"
 			(at 119.38 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -3574,7 +3602,7 @@
 				)
 			)
 		)
-		(property "Description" "High-Side or Low-Side Measurement, Bi-Directional Current and Power Monitor (0-85V) with I2C, SMBus-, and PMBus-Compatible Interface, TSSOP-10 (Texas DGS0010A / VSSOP)"
+		(property "Description" "85-V, 16-bit, high-precision I2C current, voltage and power monitor"
 			(at 119.38 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -3596,7 +3624,7 @@
 				)
 			)
 		)
-		(property "MPN" "INA228AIDGSR"
+		(property "MPN" "INA238AIDGSR"
 			(at 119.38 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -3659,7 +3687,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 106.68 60.96 0)
+		(at 106.68 68.58 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3669,7 +3697,7 @@
 		(dnp no)
 		(uuid "d7b0b1b9-c68e-4590-87d6-d22d0f5dbc1f")
 		(property "Reference" "#PWR03"
-			(at 106.68 67.31 0)
+			(at 106.68 74.93 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3680,7 +3708,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 106.68 64.77 0)
+			(at 106.68 72.39 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3690,7 +3718,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 106.68 60.96 0)
+			(at 106.68 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3701,7 +3729,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 106.68 60.96 0)
+			(at 106.68 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3712,7 +3740,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 106.68 60.96 0)
+			(at 106.68 68.58 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

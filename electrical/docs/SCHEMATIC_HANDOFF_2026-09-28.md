@@ -15,7 +15,7 @@
 
 Les alertes automatiques de découplage restantes ne justifient pas de modifier
 le circuit : le Beetle U2 est un module avec découplage embarqué et la broche
-VBUS de l'INA228 U1 est une entrée de mesure, pas une alimentation. Ces deux
+VBUS de l'INA238 U1 est une entrée de mesure, pas une alimentation. Ces deux
 points sont maintenant documentés dans les champs des symboles.
 
 ## Modifications schéma terminées

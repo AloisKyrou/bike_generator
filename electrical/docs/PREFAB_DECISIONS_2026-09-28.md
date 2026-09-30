@@ -12,7 +12,7 @@ empreintes et du routage enregistré. Il ne remplace pas le dernier ERC/DRC.
 | J1 | Peupler J1 sur les premiers prototypes, en même temps que J8 et D2, afin de démontrer les deux variantes d'entrée. Ne jamais brancher/alimenter J1 et J8 simultanément. | Décision projet. |
 | J5 | Embase JST `S4B-PH-K-S(LF)(SN)`, boîtier câble `PHR-4`, contacts `SPH-002T-P0.5S`. | JST série PH, pages PDF 1 à 3. |
 | J6 | Embase JST `S2B-PH-K-S(LF)(SN)`, boîtier câble `PHR-2`, contacts `SPH-002T-P0.5S`. Vérifier la polarité du câble réel : pad 1 = BAT_RAW, pad 2 = GND. | JST série PH, pages PDF 1 à 3. |
-| U1 | Fabricant `Texas Instruments`, MPN `INA228AIDGSR`, boîtier DGS/VSSOP-10. | TI SLYS021A, pages PDF 3, 45 et 46. |
+| U1 | Fabricant `Texas Instruments`, MPN `INA238AIDGSR`, boîtier DGS/VSSOP-10. Remplacement broche à broche de l'INA228 ; registres et facteurs firmware différents. | TI SLYS025B, brochage p. 3, caractéristiques p. 4 et calculs p. 29. |
 | U4 | Fabricant `Texas Instruments`, MPN `LM5164DDAT`, boîtier DDA/PowerPAD-8. | TI SNVSAU4D, pages PDF 3, 28 à 30 et 34. |
 | CIN | C5/C7/C8 : Samsung `CL32Y106KCVZ4NE`, 10 µF, 100 V, X7S, 1210. Environ 4,18 µF effectifs au total à 80 V et 25 °C d'après la courbe DC-bias. | Courbe Samsung du `CL32Y106KCVZ4NE` et TI SNVSAU4D page PDF 18. |
 

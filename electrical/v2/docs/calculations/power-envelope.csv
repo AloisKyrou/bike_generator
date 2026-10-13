@@ -1,0 +1,14 @@
+vin,vout,pin,pout,iin,iout,ripple,estimatedPeak,estimatedRms,modeCaveat,peakAt6p4uH,peakAt6p4uH212kHz
+12.0000,14.4000,160.0000,144.0000,13.3333,10.0000,0.8000,13.7333,13.3353,"Pure-mode approximation; actual controller timing must be checked",13.9583,14.0704
+12.0000,24.0000,180.0000,162.0000,15.0000,6.7500,2.4000,16.2000,15.0160,"Pure-mode approximation; actual controller timing must be checked",16.8750,17.2111
+12.0000,42.0000,180.0000,162.0000,15.0000,3.8571,3.4286,16.7143,15.0326,"Pure-mode approximation; actual controller timing must be checked",17.6786,18.1587
+12.0000,54.6000,180.0000,162.0000,15.0000,2.9670,3.7451,16.8725,15.0389,"Pure-mode approximation; actual controller timing must be checked",17.9258,18.4503
+14.0000,24.0000,210.0000,189.0000,15.0000,7.8750,2.3333,16.1667,15.0151,"Pure-mode approximation; actual controller timing must be checked",16.8229,17.1497
+24.0000,42.0000,360.0000,324.0000,15.0000,7.7143,4.1143,17.0571,15.0469,"Pure-mode approximation; actual controller timing must be checked",18.2143,18.7904
+27.5000,55.0000,400.0000,360.0000,14.5455,6.5455,5.5000,17.2955,14.6319,"Pure-mode approximation; actual controller timing must be checked",18.8423,19.6125
+36.0000,14.4000,160.0000,144.0000,4.4444,10.0000,3.4560,11.7280,10.0496,"Pure-mode approximation; actual controller timing must be checked",12.7000,13.1840
+36.0000,24.0000,266.6667,240.0000,7.4074,10.0000,3.2000,11.6000,10.0426,"Pure-mode approximation; actual controller timing must be checked",12.5000,12.9481
+36.0000,42.0000,400.0000,360.0000,11.1111,8.5714,2.0571,12.1397,11.1270,"Transition region: pure-mode ripple formula not valid",12.7183,13.0063
+36.0000,54.6000,400.0000,360.0000,11.1111,6.5934,4.9055,13.5639,11.2010,"Pure-mode approximation; actual controller timing must be checked",14.9435,15.6305
+55.0000,14.4000,160.0000,144.0000,2.9091,10.0000,4.2519,12.1260,10.0750,"Pure-mode approximation; actual controller timing must be checked",13.3218,13.9172
+55.0000,54.6000,400.0000,360.0000,7.2727,6.5934,0.1588,7.3521,7.2729,"Transition region: pure-mode ripple formula not valid",7.3968,7.4191

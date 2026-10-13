@@ -1,0 +1,13 @@
+Block,Category,Label,Low_1,High_1,Low_10,High_10,Scope,Basis
+RECTIFIER,board_components,AC bridge and AC-entry connector,10,14,7,10,AC only,Inherited DBI25 and three-pole terminal; dedicated cooling separately allocated
+INPUT_PROTECTION,board_components,Input protection and DC power connectors,10,18,7,14,common,2026-10-10 single F1 after RECTIFIED_RAW plus TVS terminals and qualification reserve; no extra F_SRC in base BOM; unfused energy-rich DC sources unsupported; no whole-input safety claim
+MCU,board_components,ESP32 module and module service circuitry,4,7,3.5,6,common,Module reset boot and local interfaces; 3V3 regulation counted in LV
+LV,board_components,USB interface optional-cell charger and 3V3 regulation,8,16,6,13,common,Beetle TP4057 RT9080 diode PMOS ESD connector plus reserve for source policy and qualification; no AUX mux or logic inductor; 2026-10-08 allowance not quote
+CONTROLS,board_components,Protected manual-app CV selection and generic GPIO,10,18,7,14,common,MCP4251 relay MOSFET clamp network and manual controls; prototype accuracy and brownout qualification pending
+MAIN,board_components,BQ25756 main converter stage,80,105,50,75,integrated only,Revised2026-10-08 for100V FETs and twelve100V polymer capacitors; larger of actual drawn cost and allowance; NOT a quote or qualified thermal sizing
+OUTPUT_PROTECTION,board_components,Receiver protection qualification reserve,8,18,6,14,common,2026-10-10 soldered battery fuse baseline within BOX; no active reverse controller selected; receiver fault OVP backfeed and thermal qualification unresolved; reserve retained not fitted BOM
+CELL,offboard_hardware,Optional protected logic cell and qualified connection,5,10,4,8,OPTIONAL,Engineering allowance exact traceable cell unselected; TP4057 has no cell NTC input; full total includes this removable option
+COOLING,offboard_hardware,Converter and rectifier cooling hardware,10,25,8,20,common,Allowance not a thermal rating; cannot subtract all cooling for one omitted block
+BOX,offboard_hardware,Enclosure harness mating plugs and cadence sensor,20,45,15,35,common,Includes external Semitec 103AT-2 sensor plus harness attachment reserve; no bicycle mechanical transmission or main receiver battery; sensor observed EUR 0.60 single / 0.498 at ten included not added twice
+PCB,manufacturing,Bare PCB allocation per unit,20,50,8,20,common,Area copper stackup unresolved; not a manufacturer quote
+ASSEMBLY,manufacturing,Assembly programming and routine test per unit,40,100,20,45,common,Small batch allowance excludes engineering validation and failed prototypes

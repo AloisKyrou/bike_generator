@@ -5,6 +5,14 @@ générales du dépôt et doit être lu avant toute analyse ou modification du
 schéma, du PCB, des bibliothèques KiCad, de la nomenclature ou de la
 documentation matérielle.
 
+## Organisation par version
+
+Depuis le 5 octobre 2026, les sources, bibliothèques, BOM et revues propres à
+chaque révision sont dans `v1/` et `v2/`. Les fiches fabricant dans `components/`
+et les mesures dans `measurements/` restent communes. Les règles historiques
+V1 ci-dessous décrivent la V1 et le circuit initial copié en V2 ; elles ne figent
+pas les composants du futur convertisseur V2. Lire aussi `v2/AGENTS.md` pour la V2.
+
 ## Principe général
 
 Une solution qui fonctionne sur le prototype n'est pas automatiquement la
@@ -126,7 +134,7 @@ Toutes les mutations passent par KiCad ou Konnect. Après chaque modification :
 4. distinguer les erreurs attendues des erreurs réelles ;
 5. conserver une trace des décisions dans la documentation.
 
-Voir aussi [`kicad/WORKFLOW.md`](./kicad/WORKFLOW.md).
+Voir aussi [`kicad/WORKFLOW.md`](v1/kicad/WORKFLOW.md).
 
 ## Règles électriques de sécurité
 

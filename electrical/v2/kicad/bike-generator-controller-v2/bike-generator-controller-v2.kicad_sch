@@ -1,0 +1,1975 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "3056615a-b94f-4555-a4c5-9bc697b25f9c")
+	(paper "A4")
+	(lib_symbols
+		(symbol "power:+3V3"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "+3V3"
+				(at 0 3.556 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"+3V3\""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "+3V3_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+3V3_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(text "3V3: LOGIC_POWER_USB_ONLY -> named power interfaces.\nCommon GND on all sheets. NOT galvanically isolated."
+		(exclude_from_sim no)
+		(at 121.92 64.77 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4323a92f-f8f3-4833-ab65-373893ce62f7")
+	)
+	(text "70 V-class target: guarded ACOV 67.47-69.68 V; NOT surge qualified.\nUse J1 DC OR J8 3-phase. Source/battery fusing and thermal proof required."
+		(exclude_from_sim no)
+		(at 25.4 127 0)
+		(effects
+			(font
+				(size 1.05 1.05)
+				(bold yes)
+			)
+			(justify left top)
+		)
+		(uuid "89a4109e-91ac-4d75-b6fd-b6d3fa952b25")
+	)
+	(text "V2 ADAPTIVE CV / BQ TELEMETRY - 70 V-CLASS PROTOTYPE\nUSB / optional protected 1S only; no AUX. JP20 OPEN disables cell charging.\nIndependent manual/app CV; calibrate manual ~12 V / output ceiling ~1 A initially.\nInput ceiling ~13.6 A; ~400 W OUTPUT ambition, not a simultaneous V/I rating.\n67.2 V conditional on per-unit range/calibration, NOT guaranteed; static guard <69.52 V.\nMain wire links OPEN. Brownout, generator OV and receiver protection remain unqualified.\nIntegrated converter only; no external-converter branch. NO INTERNAL DUMP."
+		(exclude_from_sim no)
+		(at 25.4 12.7 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left top)
+		)
+		(uuid "c5b9a938-7a2e-4945-9e75-bd8fb08b6093")
+	)
+	(wire
+		(pts
+			(xy 203.2 165.1) (xy 176.53 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "068862ac-2e3b-4fa6-905c-8a44f42ad4d4")
+	)
+	(wire
+		(pts
+			(xy 176.53 109.22) (xy 207.01 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0e3d0a03-9c93-4b97-943a-887d02ffa174")
+	)
+	(wire
+		(pts
+			(xy 101.6 114.3) (xy 113.03 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "15655518-cd63-47ae-9b4d-b14e5056d2d3")
+	)
+	(wire
+		(pts
+			(xy 113.03 177.8) (xy 106.68 177.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1ea0c16f-7c03-453e-b348-734e6cd90032")
+	)
+	(wire
+		(pts
+			(xy 207.01 134.62) (xy 203.2 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "24a24e9b-0bf2-4c4b-b6cf-c62156eb1e56")
+	)
+	(wire
+		(pts
+			(xy 85.09 44.45) (xy 92.71 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "310313a2-7b34-47fd-b45f-90d20d851d69")
+	)
+	(wire
+		(pts
+			(xy 167.64 33.02) (xy 195.58 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "36332d4e-adc0-40b0-b94d-00beb611deb6")
+	)
+	(wire
+		(pts
+			(xy 21.59 39.37) (xy 16.51 39.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "366ae729-9ac1-4610-9baa-1e9f28e255fd")
+	)
+	(wire
+		(pts
+			(xy 104.14 119.38) (xy 113.03 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3a791cae-91db-445f-bc5b-8596fef7ad22")
+	)
+	(wire
+		(pts
+			(xy 104.14 119.38) (xy 104.14 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "43684683-fc91-4ad9-a4a9-60a15daa1937")
+	)
+	(wire
+		(pts
+			(xy 88.9 99.06) (xy 99.06 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4bbfdb21-6159-4d54-9bdc-262f3e77b5ab")
+	)
+	(wire
+		(pts
+			(xy 278.13 109.22) (xy 278.13 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4c456c45-0e61-414f-a662-a7137ec58fe1")
+	)
+	(wire
+		(pts
+			(xy 270.51 109.22) (xy 278.13 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4f01d646-24e3-47c3-bf4a-6cdd97e24406")
+	)
+	(wire
+		(pts
+			(xy 176.53 119.38) (xy 180.34 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "53aa546a-a3ff-45a3-8728-3c7b46a72a71")
+	)
+	(wire
+		(pts
+			(xy 176.53 106.68) (xy 207.01 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "59f13735-6ec4-41f6-b4a7-6ea3cf672d5a")
+	)
+	(wire
+		(pts
+			(xy 85.09 39.37) (xy 92.71 39.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5b4c8e32-4dc1-477f-a720-2b82fd14fa86")
+	)
+	(wire
+		(pts
+			(xy 99.06 185.42) (xy 113.03 185.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "63191bbc-2b95-4f68-ad63-7c2994376fd7")
+	)
+	(wire
+		(pts
+			(xy 16.51 39.37) (xy 16.51 36.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6ad9f488-b9c6-4784-9da0-e1d86a5aa48c")
+	)
+	(wire
+		(pts
+			(xy 207.01 129.54) (xy 200.66 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6b3ba818-0af4-49c8-b534-674dbbb1c314")
+	)
+	(wire
+		(pts
+			(xy 259.08 33.02) (xy 271.78 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7ac403bb-63fd-4938-a031-d233173e3d21")
+	)
+	(wire
+		(pts
+			(xy 101.6 114.3) (xy 101.6 172.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7ebf48ca-2b5d-45dc-b5b3-513c13c6dc71")
+	)
+	(wire
+		(pts
+			(xy 176.53 121.92) (xy 180.34 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7f8fbdc2-10c6-4d5a-80eb-a63f6bc58c40")
+	)
+	(wire
+		(pts
+			(xy 106.68 38.1) (xy 106.68 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "810f1092-487b-43ee-9030-9f8d2c990187")
+	)
+	(wire
+		(pts
+			(xy 85.09 62.23) (xy 90.17 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "821a4a12-5191-475b-8511-ba59baa7484f")
+	)
+	(wire
+		(pts
+			(xy 271.78 33.02) (xy 271.78 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "86cda8dd-b845-4bee-9df1-d63c3e99c8ce")
+	)
+	(wire
+		(pts
+			(xy 176.53 127) (xy 180.34 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "878df587-71f3-4954-89a8-e015d60e6c69")
+	)
+	(wire
+		(pts
+			(xy 110.49 104.14) (xy 113.03 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "883f9575-a97f-4f71-a71d-f73e32a6c323")
+	)
+	(wire
+		(pts
+			(xy 176.53 124.46) (xy 180.34 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "886a854a-5453-4602-a7d2-d8c574213183")
+	)
+	(wire
+		(pts
+			(xy 176.53 116.84) (xy 180.34 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8d0913db-8e15-419e-a74f-f0d1705d0b8e")
+	)
+	(wire
+		(pts
+			(xy 110.49 41.91) (xy 110.49 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "90a72c6d-2609-47bc-b137-b5c327ef299e")
+	)
+	(wire
+		(pts
+			(xy 200.66 162.56) (xy 176.53 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "924135fc-5d96-4697-b363-bed20a569a84")
+	)
+	(wire
+		(pts
+			(xy 176.53 129.54) (xy 180.34 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "961934e1-2583-4fce-a42d-27923da469f4")
+	)
+	(wire
+		(pts
+			(xy 176.53 114.3) (xy 207.01 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "99963fdd-7e41-4a78-a293-814f94773ba0")
+	)
+	(wire
+		(pts
+			(xy 127 41.91) (xy 110.49 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9a22d913-b68d-4d24-8bee-26b4a8325912")
+	)
+	(wire
+		(pts
+			(xy 106.68 109.22) (xy 113.03 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a8ce9276-8af6-4d81-af44-5d4d325a63be")
+	)
+	(wire
+		(pts
+			(xy 85.09 46.99) (xy 92.71 46.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aeeb8fd0-3eac-4aef-b4bb-920d5683a810")
+	)
+	(wire
+		(pts
+			(xy 85.09 49.53) (xy 92.71 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b059fd14-35e3-48b1-b69f-64f4c2665d7b")
+	)
+	(wire
+		(pts
+			(xy 99.06 99.06) (xy 99.06 185.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b2c1ac1f-fc3c-413c-a1da-a932d31510d7")
+	)
+	(wire
+		(pts
+			(xy 104.14 167.64) (xy 113.03 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b3639449-4e0e-42ac-957b-b3e0b4579da2")
+	)
+	(wire
+		(pts
+			(xy 113.03 134.62) (xy 109.22 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b529c74f-e9fb-4e10-89ca-4ac53d81d699")
+	)
+	(wire
+		(pts
+			(xy 200.66 129.54) (xy 200.66 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b8e79cef-79a5-4042-bd98-460795a7b500")
+	)
+	(wire
+		(pts
+			(xy 85.09 41.91) (xy 92.71 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "be2cbc2f-9696-4a58-9d52-86a02a7c8d93")
+	)
+	(wire
+		(pts
+			(xy 203.2 134.62) (xy 203.2 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c400fc22-505d-4c62-a678-6c5b1d8131cc")
+	)
+	(wire
+		(pts
+			(xy 85.09 52.07) (xy 92.71 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c42ddaa5-aae8-4755-a33e-a5c221282ada")
+	)
+	(wire
+		(pts
+			(xy 85.09 57.15) (xy 90.17 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e7041016-0616-4296-89b0-916a6cbbb820")
+	)
+	(wire
+		(pts
+			(xy 101.6 172.72) (xy 113.03 172.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ea7cbb81-a055-44e6-98be-30480b26b29c")
+	)
+	(wire
+		(pts
+			(xy 127 38.1) (xy 106.68 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eb9a5e8e-4750-420e-93fc-6732eaf69c15")
+	)
+	(wire
+		(pts
+			(xy 109.22 134.62) (xy 109.22 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fa36eb25-dc45-4710-bbcd-3fc58109177d")
+	)
+	(wire
+		(pts
+			(xy 176.53 111.76) (xy 207.01 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fb950fe7-e804-4769-b468-8d01e6f8c251")
+	)
+	(label "GPIO_EXT4"
+		(at 92.71 46.99 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0fc94637-027d-4791-ae5a-9573a00ed5c9")
+	)
+	(label "I2C_SCL"
+		(at 90.17 57.15 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2c125c8e-9397-4b34-8aa7-a8620210e4e2")
+	)
+	(label "I2C_SCL"
+		(at 111.76 114.3 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "30bacc12-688f-4af1-8e35-da9eed99d32b")
+	)
+	(label "I2C_SDA"
+		(at 111.76 119.38 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3675d91e-dedb-4146-86d4-d243c6ec916c")
+	)
+	(label "GPIO_EXT2"
+		(at 180.34 116.84 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "48639362-5169-498d-85ea-0e660b0fd4e9")
+	)
+	(label "GPIO_EXT3"
+		(at 92.71 49.53 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4e450220-4c94-4f0a-8932-cb0de3de13e9")
+	)
+	(label "GPIO_EXT2"
+		(at 92.71 52.07 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "62b7a2df-3e07-4457-9929-6adf2e4c86c6")
+	)
+	(label "GPIO_EXT10"
+		(at 92.71 41.91 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6bb66c59-0935-47b7-9dfd-c929c2b5e473")
+	)
+	(label "STATUS_LED"
+		(at 180.34 129.54 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "88a96091-07f5-4034-b286-cad81d51e2dc")
+	)
+	(label "I2C_SDA"
+		(at 90.17 62.23 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8dfd3e53-bb55-4d41-a022-0ad75a020088")
+	)
+	(label "GPIO_EXT4"
+		(at 180.34 121.92 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9915ac9e-89f3-4f31-9d08-c4d2bac45b41")
+	)
+	(label "GPIO_EXT3"
+		(at 180.34 119.38 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c378d1ed-83fb-4832-9d89-3174c48a491c")
+	)
+	(label "GPIO_EXT8"
+		(at 180.34 124.46 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c6ff3c9d-8d1c-44cd-b874-ba3b2ea2775f")
+	)
+	(label "GPIO_EXT8"
+		(at 92.71 44.45 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c84896cb-572b-4751-85b3-41518e6a3303")
+	)
+	(label "STATUS_LED"
+		(at 92.71 39.37 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ddf4304e-64f1-4b9d-a99c-0978f0b87e82")
+	)
+	(label "GPIO_EXT10"
+		(at 180.34 127 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "fa9e4b56-14f3-4d18-b16a-980c030e3c72")
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 16.51 36.83 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "2e2adc87-b224-4539-822a-094088dc5a9e")
+		(property "Reference" "#PWR9503"
+			(at 16.51 40.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 16.51 33.274 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 16.51 36.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 16.51 36.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 16.51 36.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "edbf1ba7-f763-4336-84d4-cc94aa34ebd9")
+		)
+		(instances
+			(project "bike-generator-controller-v2"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c"
+					(reference "#PWR9503")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 278.13 106.68 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "55c144b8-9811-4a41-a8bc-caca6b60bfc1")
+		(property "Reference" "#PWR9502"
+			(at 278.13 110.49 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 278.13 103.124 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 278.13 106.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 278.13 106.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 278.13 106.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "9801c17b-13cd-4414-b9c0-5608d20f4cf2")
+		)
+		(instances
+			(project "bike-generator-controller-v2"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c"
+					(reference "#PWR9502")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 109.22 132.08 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "9aa50e9c-b5c7-4dc7-9dd5-9497ef1a82e5")
+		(property "Reference" "#PWR9501"
+			(at 109.22 135.89 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 109.22 128.524 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 109.22 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 109.22 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 109.22 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "df1ce19b-831e-4a54-805e-e460be1e99ec")
+		)
+		(instances
+			(project "bike-generator-controller-v2"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c"
+					(reference "#PWR9501")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 271.78 30.48 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "be608e1a-a4a9-4e62-b36d-385da1574e90")
+		(property "Reference" "#PWR9500"
+			(at 271.78 34.29 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 271.78 26.924 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 271.78 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 271.78 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 271.78 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "e6af66c1-d6d8-4c5c-a22e-add6c75de888")
+		)
+		(instances
+			(project "bike-generator-controller-v2"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c"
+					(reference "#PWR9500")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 106.68 177.8 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "c05a404d-d2f5-4ca3-a09b-3717953b9269")
+		(property "Reference" "#PWR9504"
+			(at 106.68 181.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 106.68 174.244 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 106.68 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 106.68 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 106.68 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "c70ce078-ef71-4a59-9c6b-b3a2d951a390")
+		)
+		(instances
+			(project "bike-generator-controller-v2"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c"
+					(reference "#PWR9504")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet
+		(at 25.4 81.28)
+		(size 63.5 38.1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "0307e7a7-8bda-447e-9224-3d21381def61")
+		(property "Sheetname" "POWER_PATH"
+			(at 25.4 80.645 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "power_path.kicad_sch"
+			(at 25.4 120.015 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "BUS_PROTECTED" output
+			(at 88.9 99.06 0)
+			(uuid "09ce07aa-b1c7-4387-86c6-8314f0664a3c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "bike-generator-controller-v2"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 21.59 34.29)
+		(size 63.5 38.1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "30914b87-53e9-4d6e-bceb-b03d062cf739")
+		(property "Sheetname" "CONNECTORS"
+			(at 21.59 33.5784 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "connectors.kicad_sch"
+			(at 21.59 72.9746 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "I2C_SDA" bidirectional
+			(at 85.09 62.23 0)
+			(uuid "4ea3f0df-f473-44c5-a34e-07394de2a453")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "I2C_SCL" input
+			(at 85.09 57.15 0)
+			(uuid "a1425441-bfa8-42d9-8f03-a513b6d9d35f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GPIO_EXT2" bidirectional
+			(at 85.09 52.07 0)
+			(uuid "18d6984f-5a3d-4f44-a2b9-875e8b60678d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GPIO_EXT3" bidirectional
+			(at 85.09 49.53 0)
+			(uuid "ce578280-942a-4bc2-b21f-b34a495d4c91")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GPIO_EXT4" bidirectional
+			(at 85.09 46.99 0)
+			(uuid "5075bce3-5b75-4b20-b522-71e96bce5bd9")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GPIO_EXT8" bidirectional
+			(at 85.09 44.45 0)
+			(uuid "710d22b0-5405-46c5-a414-46d4af0f77f4")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GPIO_EXT10" bidirectional
+			(at 85.09 41.91 0)
+			(uuid "529f9e93-84b0-4a86-ae4a-92fb5a66b658")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "STATUS_LED" bidirectional
+			(at 85.09 39.37 0)
+			(uuid "d712ba67-83f3-4e22-be22-2a3d92b1c836")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "+3V3" input
+			(at 21.59 39.37 180)
+			(uuid "139114ad-74ab-493a-8a7c-619b0c025ac4")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "bike-generator-controller-v2"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 113.03 101.6)
+		(size 63.5 38.1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "3ea255a8-4db3-46df-a7e3-bbbf26e474d6")
+		(property "Sheetname" "MCU_MODULE_PROVISIONAL"
+			(at 113.03 100.965 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "mcu_module.kicad_sch"
+			(at 113.03 140.335 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "POT_SCK" output
+			(at 176.53 109.22 0)
+			(uuid "cab09f33-57cf-477a-896c-445afb1d4979")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "POT_CS" output
+			(at 176.53 111.76 0)
+			(uuid "602b010b-81ea-4ae3-8569-6a5d57fa9b87")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "POT_MOSI" output
+			(at 176.53 106.68 0)
+			(uuid "a232f1e4-cf6b-4700-99ac-d10541259742")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "CV_AUTO_N" output
+			(at 176.53 114.3 0)
+			(uuid "2970d648-057a-4bec-a9b5-d75efaaaa6d2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "I2C_SDA" bidirectional
+			(at 113.03 119.38 180)
+			(uuid "4312f42c-4006-4b9e-9a50-86d9fd2e825d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "I2C_SCL" output
+			(at 113.03 114.3 180)
+			(uuid "0b487b44-7dc4-499d-bca6-46ac8248a8e7")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GPIO_EXT2" bidirectional
+			(at 176.53 116.84 0)
+			(uuid "8753b7a9-3381-4b6a-b7ce-888b6685d44a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GPIO_EXT3" bidirectional
+			(at 176.53 119.38 0)
+			(uuid "e0dfbeaa-ce98-4ead-8007-0d26c9e98ae0")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GPIO_EXT4" bidirectional
+			(at 176.53 121.92 0)
+			(uuid "ee8a4aaa-0822-4637-bcd4-e3fabb516da6")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GPIO_EXT8" bidirectional
+			(at 176.53 124.46 0)
+			(uuid "1c4ad9e7-8721-4d94-b0fa-df659fc02beb")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GPIO_EXT10" bidirectional
+			(at 176.53 127 0)
+			(uuid "1bd448de-f1c4-4852-a836-ef0d1f4a1f4a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "STATUS_LED" bidirectional
+			(at 176.53 129.54 0)
+			(uuid "6b943383-eeac-4398-bdc4-6118908ba143")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "USB_DP" bidirectional
+			(at 113.03 109.22 180)
+			(uuid "6b3db012-d4e9-4420-97a2-d299438b70bb")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "USB_DM" bidirectional
+			(at 113.03 104.14 180)
+			(uuid "9841fe9a-53e8-43ea-80dd-85a0c8360b99")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "+3V3" input
+			(at 113.03 134.62 180)
+			(uuid "097e90fa-c724-46cf-be4a-3f687cbcf9ba")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "bike-generator-controller-v2"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 207.01 101.6)
+		(size 63.5 38.1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "44783ce9-71bf-421b-bac7-76763e851e24")
+		(property "Sheetname" "CC_CONTROL"
+			(at 207.01 100.965 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "cc_control.kicad_sch"
+			(at 207.01 140.335 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "POT_SCK" input
+			(at 207.01 109.22 180)
+			(uuid "549a7bc1-c9fc-4f61-b4bd-4cb52d82120b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "POT_CS" input
+			(at 207.01 111.76 180)
+			(uuid "e69ff811-d1f2-4485-9869-cd993ebb6674")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "POT_MOSI" input
+			(at 207.01 106.68 180)
+			(uuid "db418dab-6f54-49cf-82f8-7a273b930cf6")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CV_AUTO_N" input
+			(at 207.01 114.3 180)
+			(uuid "ec9dc07d-192c-40aa-a502-6253379da0e7")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CV_MANUAL" passive
+			(at 207.01 134.62 180)
+			(uuid "6d02bad4-8ae4-49c8-9a5b-8a73c3181e11")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CV_FB" passive
+			(at 207.01 129.54 180)
+			(uuid "e8634f59-8a8f-4197-957d-44f8540266b4")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "+3V3" input
+			(at 270.51 109.22 0)
+			(uuid "7c21a4d2-94fa-48e4-b394-e9d35514dd11")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "bike-generator-controller-v2"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 113.03 160.02)
+		(size 63.5 30.48)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "5ceb75a4-0be3-46bc-98c4-5678106d33b2")
+		(property "Sheetname" "MAIN_CONVERTER_TBD"
+			(at 113.03 159.385 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "main_converter_tbd.kicad_sch"
+			(at 113.03 180.975 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "I2C_SCL" input
+			(at 113.03 172.72 180)
+			(uuid "a00314ee-c07f-4ba8-aa8b-8093345d2650")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "I2C_SDA" bidirectional
+			(at 113.03 167.64 180)
+			(uuid "dba461f9-a56b-4725-800b-3ad228af4837")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CV_FB" passive
+			(at 176.53 162.56 0)
+			(uuid "c009ee4a-c078-46f3-9e66-d8d78f9c4995")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "CV_MANUAL" passive
+			(at 176.53 165.1 0)
+			(uuid "cf603894-dda7-4db5-80aa-5dd845704edf")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "BUS_PROTECTED" input
+			(at 113.03 185.42 180)
+			(uuid "c809ea94-5b42-4d00-97af-95272f82dacb")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "+3V3" input
+			(at 113.03 177.8 180)
+			(uuid "74853796-5ae8-4134-ad7b-0d6274a3529e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "bike-generator-controller-v2"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c"
+					(page "8")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 195.58 20.32)
+		(size 63.5 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "708c3edf-1c32-46f2-accd-57b3229f3f00")
+		(property "Sheetname" "LOGIC_POWER_USB_ONLY"
+			(at 195.58 19.6084 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "lv_power_usb_tbd.kicad_sch"
+			(at 195.58 41.2246 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "VBUS_USB" input
+			(at 195.58 33.02 180)
+			(uuid "9930ab2a-ccf2-4227-8f98-dd3bd8be0801")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "+3V3" output
+			(at 259.08 33.02 0)
+			(uuid "432e3244-2223-4b28-a1fd-7e1a34422485")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "bike-generator-controller-v2"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c"
+					(page "7")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 127 25.4)
+		(size 40.64 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "b02f9ff8-5067-45e1-a948-f392b0be82d0")
+		(property "Sheetname" "USB_INTERFACE"
+			(at 127 24.6884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "usb_interface.kicad_sch"
+			(at 127 46.3046 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "VBUS_USB" output
+			(at 167.64 33.02 0)
+			(uuid "d4fc28e6-f7fa-4dde-bd10-6501f4ec966c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "USB_DP" bidirectional
+			(at 127 38.1 180)
+			(uuid "7972a4c0-0554-47d5-a39a-1a16d807ac00")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "USB_DM" bidirectional
+			(at 127 41.91 180)
+			(uuid "d45166b9-e1f9-4bc1-bfed-645d368551aa")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "bike-generator-controller-v2"
+				(path "/3056615a-b94f-4555-a4c5-9bc697b25f9c"
+					(page "9")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)

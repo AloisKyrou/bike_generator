@@ -1,0 +1,144 @@
+{
+  "status": "PASS: arithmetic and stated counterexamples; NOT hardware qualification",
+  "topology": "A-W lower-leg rheostat with B externally open; 499k top, 13.7k fixed lower series, ideal PGND return",
+  "cornerCoverage": [
+    {
+      "rab": 70000,
+      "wiper": 0,
+      "lowest": 10.470499402628436,
+      "highest": 57.48881784636029,
+      "uncovered": []
+    },
+    {
+      "rab": 70000,
+      "wiper": 250,
+      "lowest": 10.44379749851102,
+      "highest": 56.50588355487202,
+      "uncovered": []
+    },
+    {
+      "rab": 100000,
+      "wiper": 0,
+      "lowest": 8.104668425681618,
+      "highest": 57.02372455089821,
+      "uncovered": []
+    },
+    {
+      "rab": 100000,
+      "wiper": 250,
+      "lowest": 8.090186924089512,
+      "highest": 56.056930485944655,
+      "uncovered": []
+    },
+    {
+      "rab": 130000,
+      "wiper": 0,
+      "lowest": 6.726658315935978,
+      "highest": 56.56630353018806,
+      "uncovered": []
+    },
+    {
+      "rab": 130000,
+      "wiper": 250,
+      "lowest": 6.7175880514067385,
+      "highest": 55.61525537663461,
+      "uncovered": []
+    }
+  ],
+  "worstQuantization": {
+    "target": 54.94,
+    "code": 255,
+    "trim": 11,
+    "rheostat": 565.625,
+    "gain": 35.97918948521358,
+    "volts": 54.904243154435925,
+    "errorV": 0.0357568455640731
+  },
+  "nonlinearGaps": [
+    {
+      "low": 51.25233053499578,
+      "high": 52.517482024321595
+    }
+  ],
+  "twoRangeCoverage": [
+    {
+      "rab": 70000,
+      "wiper": 0,
+      "nonlinear": false,
+      "uncovered": []
+    },
+    {
+      "rab": 70000,
+      "wiper": 0,
+      "nonlinear": true,
+      "uncovered": []
+    },
+    {
+      "rab": 70000,
+      "wiper": 250,
+      "nonlinear": false,
+      "uncovered": []
+    },
+    {
+      "rab": 70000,
+      "wiper": 250,
+      "nonlinear": true,
+      "uncovered": []
+    },
+    {
+      "rab": 100000,
+      "wiper": 0,
+      "nonlinear": false,
+      "uncovered": []
+    },
+    {
+      "rab": 100000,
+      "wiper": 0,
+      "nonlinear": true,
+      "uncovered": []
+    },
+    {
+      "rab": 100000,
+      "wiper": 250,
+      "nonlinear": false,
+      "uncovered": []
+    },
+    {
+      "rab": 100000,
+      "wiper": 250,
+      "nonlinear": true,
+      "uncovered": []
+    },
+    {
+      "rab": 130000,
+      "wiper": 0,
+      "nonlinear": false,
+      "uncovered": []
+    },
+    {
+      "rab": 130000,
+      "wiper": 0,
+      "nonlinear": true,
+      "uncovered": []
+    },
+    {
+      "rab": 130000,
+      "wiper": 250,
+      "nonlinear": false,
+      "uncovered": []
+    },
+    {
+      "rab": 130000,
+      "wiper": 250,
+      "nonlinear": true,
+      "uncovered": []
+    }
+  ],
+  "poweredShutdown": "A open: lower leg open, ideal FB follows output and target tends to Vref. Not isolation or a safe-off guarantee.",
+  "attached55VAtCode0": {
+    "feedbackV": 10.219253518254131,
+    "potTerminalAV": 8.989802161941668
+  },
+  "attached55VPoweredShutdown": "With A truly open and no protection network, FB and external A both approach 55V. MCP42100 terminal limits are violated even though the ideal converter voltage target is low.",
+  "caveats": "Resistor tolerance/drift, reference error, FBG impedance/open state, leakage, wiper-temperature bounds, powered-off behavior and dynamics excluded. The 55V target is a coverage test, not permission to command 55V without headroom. Synthetic DNL example proves ideal-code overlap alone is insufficient."
+}

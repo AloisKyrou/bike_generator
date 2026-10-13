@@ -1,0 +1,175 @@
+(footprint "R_Shunt_Isabellenhuette_BVR4026"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "4-Wire Shunt, SMD 4026, https://www.isabellenhuette.de/fileadmin/Daten/Praezisionswiderstaende/Datenblaetter/BVR.PDF")
+	(tags "kelvin-connection")
+	(property "Reference" "REF**"
+		(at 0 -4.5 0)
+		(layer "F.SilkS")
+		(uuid "c83f051f-836f-4e5d-a6ba-9a3ed1a2077c")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "R_Shunt_Isabellenhuette_BVR4026"
+		(at 0 4.699 0)
+		(layer "F.Fab")
+		(uuid "54d5dbfe-a45f-4f2b-b038-0b9790e4dd6a")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "77bf3cbc-86dc-4cb3-b72c-abc1500beca4")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "b4355612-6abf-43c0-b329-a64415864251")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -5.2 2.2)
+		(end -5.2 2.5)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "5bd85bc3-02de-4085-ac6a-e77d64a48592")
+	)
+	(fp_line
+		(start -2.5 -3.5)
+		(end 2.5 -3.5)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "610841f9-14a0-45ee-9a86-064eaf911f34")
+	)
+	(fp_line
+		(start -2.4 3.5)
+		(end 2.4 3.5)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "32db4b2a-dbaf-49e8-96a7-cf2de2d9676c")
+	)
+	(fp_line
+		(start 5.2 2.2)
+		(end 5.2 2.5)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "0c5d3bb9-e9e5-4e81-86fa-fa0554fab4c6")
+	)
+	(fp_rect
+		(start -5.55 -3.9)
+		(end 5.55 3.9)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "454ed746-17a5-4fb2-af99-4107dc828324")
+	)
+	(fp_rect
+		(start -5.05 -3.3375)
+		(end 5.05 3.3375)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "ffbdbb44-bf48-4591-ac9b-de87b7ef2bfe")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(uuid "ccb92cc5-e9bb-4c64-b617-69ed86d57ec0")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" smd roundrect
+		(at -4.025 -0.85)
+		(size 2.55 5.6)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(thermal_bridge_angle 45)
+		(uuid "17071255-6bfa-462f-9d67-75fdef97fb2a")
+	)
+	(pad "2" smd roundrect
+		(at -4.025 3.2)
+		(size 2.55 0.9)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(thermal_bridge_angle 45)
+		(uuid "5f98b00d-fc20-46a8-b611-8db7766bd9ef")
+	)
+	(pad "3" smd roundrect
+		(at 4.025 3.2)
+		(size 2.55 0.9)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(thermal_bridge_angle 45)
+		(uuid "67260d49-d273-43bc-9833-138bc7632672")
+	)
+	(pad "4" smd roundrect
+		(at 4.025 -0.85)
+		(size 2.55 5.6)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(thermal_bridge_angle 45)
+		(uuid "afcb9df7-df4f-42b4-8332-cf83e4a8fb18")
+	)
+	(embedded_fonts no)
+	(model "C:/travail/projects/bike_generator/electrical/kicad/libraries/3dmodels/Bourns_CSS4J-4026K-2L00F_envelope.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

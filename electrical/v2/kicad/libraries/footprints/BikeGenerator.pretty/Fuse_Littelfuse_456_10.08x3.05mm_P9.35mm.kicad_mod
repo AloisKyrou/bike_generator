@@ -1,0 +1,124 @@
+(footprint "Fuse_Littelfuse_456_10.08x3.05mm_P9.35mm"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Littelfuse 456 Series High Current NANO2 fuse, 20A/25A/30A package. Exact recommended pad layout: pads 3.25 x 3.43 mm, 6.10 mm inner gap, 12.60 mm overall span, 9.35 mm center pitch. Body 10.08 x 3.05 mm. Pad numbering is arbitrary because the fuse is non-polarized: pad 1 left and pad 2 right in top/component view. Datasheet: https://www.littelfuse.com/assetdocs/littelfuse_fuse_456_datasheet.pdf?assetguid=d86b18f9-14fa-4764-87ff-8aec12e9a89d")
+	(property "Reference" "REF**"
+		(at 0 -2.965 0)
+		(layer "F.SilkS")
+		(uuid "b3c4345a-82e1-4a0a-919b-d7f9347bb05e")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Fuse_Littelfuse_456_10.08x3.05mm_P9.35mm"
+		(at 0 2.965 0)
+		(layer "F.Fab")
+		(uuid "8c25d7a9-17ed-48e7-b609-04c7879febe7")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "f1b1addd-f5b9-4c60-8668-de0a4c41822e")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "71fb3601-dc88-41f3-845d-fe5474ed0d61")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_rect
+		(start -6.45 -1.865)
+		(end 6.45 1.865)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "79ee25a2-5003-4742-920e-e58e5d6737ad")
+	)
+	(fp_circle
+		(center -6.85 0)
+		(end -6.7 0)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.SilkS")
+		(uuid "88ba42f9-7f8a-4cbf-b222-0a573afc6fbb")
+	)
+	(fp_rect
+		(start -6.55 -1.965)
+		(end 6.55 1.965)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "de98578a-205c-4a95-835a-4008905f7651")
+	)
+	(fp_poly
+		(pts
+			(xy -5.04 -0.7625) (xy -4.2775 -1.525) (xy 5.04 -1.525) (xy 5.04 1.525) (xy -5.04 1.525)
+		)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "576d4773-dbe3-4a98-9f0c-e0e669e6bd9e")
+	)
+	(pad "1" smd roundrect
+		(at -4.675 0)
+		(size 3.25 3.43)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.1)
+		(uuid "0b3dfdac-0f9a-4ce7-877d-1ac0f3a63d40")
+	)
+	(pad "2" smd roundrect
+		(at 4.675 0)
+		(size 3.25 3.43)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.1)
+		(uuid "187c028f-157b-428f-8546-2267c3f86455")
+	)
+	(embedded_fonts no)
+	(model "C:/travail/projects/bike_generator/electrical/kicad/libraries/3dmodels/Littelfuse_0456020_ER.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

@@ -24,10 +24,15 @@ documentation, CSV files, reports, and other non-KiCad files.
 Resolve the repository root dynamically rather than hard-coding the original
 Windows checkout path.
 
+Select the revision explicitly. The V1 paths below are the preserved prototype.
+V2 is `electrical/v2/kicad/bike-generator-controller-v2/` with basename
+`bike-generator-controller-v2`. Each revision owns its sibling `libraries/`.
+Always bind checks and mutations to the intended revision.
+
 ```text
-electrical/kicad/bike-generator-controller/bike-generator-controller.kicad_pro
-electrical/kicad/bike-generator-controller/bike-generator-controller.kicad_sch
-electrical/kicad/bike-generator-controller/bike-generator-controller.kicad_pcb
+electrical/v1/kicad/bike-generator-controller/bike-generator-controller.kicad_pro
+electrical/v1/kicad/bike-generator-controller/bike-generator-controller.kicad_sch
+electrical/v1/kicad/bike-generator-controller/bike-generator-controller.kicad_pcb
 ```
 
 The root schematic has six child sheets. Always run hierarchy-aware checks from
@@ -159,7 +164,7 @@ Group by:
 Value,Footprint,Manufacturer,MPN,Datasheet,Description
 ```
 
-Write it to `electrical/bom/controller-v1-current.csv`, then independently inspect
+Write it to `electrical/v1/bom/controller-v1-current.csv`, then independently inspect
 the U1 row and the total grouped-row count.
 
 ## Git discipline

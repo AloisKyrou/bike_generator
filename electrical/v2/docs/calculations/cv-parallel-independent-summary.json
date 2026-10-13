@@ -1,0 +1,28 @@
+{
+  "status": "PASS arithmetic; NOT an approved schematic, accuracy or dynamic safety claim",
+  "blockers": [
+    "TI checklist explicitly requires 249k top resistor; proposed 1M needs TI clarification/validation.",
+    "MOSFET leakage, diode leakage, FB input bias, temperature drift and switching dynamics excluded.",
+    "NX6008NBK 4.8-ohm limit is only specified at 25C and VGS=1.5V.",
+    "Ground-referenced divider defeats FBG sleep disconnect; manufacturer confirmation remains open."
+  ],
+  "cornerCount": 96,
+  "continuousTrimCoverageTest": "12..52.5 V, ideal ladders and listed static corners",
+  "maxAdjacentGainRatio": 1.0327581818297504,
+  "availableTrimRatio": 1.0412234042553192,
+  "worstStaticSetpoint": 54.07261253425517,
+  "minimumGuaranteedHigh": 52.67377105758202,
+  "nominalHighMaximum": 53.27544968729982,
+  "nominalLowMaximum": 17.500098359988524,
+  "nominalManualEndpointsAtPorV": [
+    52.565900332225915,
+    8.21135853976532
+  ],
+  "manualDefaultOhms": 116688.99082568806,
+  "bleed55VWithManual12V_uA": 47.96,
+  "permanentParallelCounterexample": {
+    "description": "12V baseline,43k upper,70k rheostat, no series: MCP1mA ceiling forces a baseline gap",
+    "fallbackMaximumWithTrim": 12.234375,
+    "enabledMinimumWithTrim": 12.673885714285714
+  }
+}

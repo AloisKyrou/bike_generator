@@ -1,0 +1,2 @@
+Harness_ID,Manufacturer,MPN,Quantity_when_required,Current_A,Voltage_DC_V,Interrupt_DC_A,Price_1_EUR,Price_10_EUR,Evidence_date,Condition,Status,Source
+F_BAT,Littelfuse,0324015.MXP,1,15,125,10000,2.400,1.836,2026-10-10,Direct receiver battery without verified equivalent battery-adjacent protection,SELECTED_BASELINE_ASSEMBLY_UNQUALIFIED,https://www.digikey.fr/en/products/detail/littelfuse-inc/0324015-MXP/778519

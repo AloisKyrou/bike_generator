@@ -42,4 +42,4 @@ dispensent pas du calcul des pistes, des plans et des éventuels renforts.
   sans composant hors contour.
 
 L'empreinte locale se trouve dans
-`electrical/kicad/libraries/footprints/BikeGenerator.pretty/`.
+`electrical/v1/kicad/libraries/footprints/BikeGenerator.pretty/`.

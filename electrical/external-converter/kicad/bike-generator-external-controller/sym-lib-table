@@ -1,0 +1,6 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "BikeGenerator") (type "KiCad") (uri "${KIPRJMOD}/../libraries/symbols/BikeGenerator.kicad_sym") (options "") (descr ""))
+
+  (lib (name "Espressif") (type "KiCad") (uri "${KIPRJMOD}/../../../v2/kicad/libraries/vendor-espressif/Espressif.kicad_sym") (options "") (descr ""))
+  (lib (name "SparkFun-Regulator") (type "KiCad") (uri "${KIPRJMOD}/../../../v2/kicad/libraries/vendor/sparkfun/SparkFun-Regulator.kicad_sym") (options "") (descr "")))

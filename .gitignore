@@ -33,8 +33,25 @@ electrical/kicad/exports/*
 electrical/kicad/download/*
 !electrical/kicad/download/README.md
 
+# Per-revision generated KiCad outputs and local CAD downloads
+electrical/v*/kicad/exports/*
+!electrical/v*/kicad/exports/README.md
+electrical/v*/kicad/download/*
+!electrical/v*/kicad/download/README.md
+electrical/v*/kicad/**/.konnect/snapshots/
+
 # Generated web bundle
 dist/
+
+# Local handoff, scratch and generated external-controller artifacts
+.konnect-scratch/
+AGENT/SWITCH_IA_*.local.md
+electrical/external-converter/kicad/exports/*
+!electrical/external-converter/kicad/exports/README.md
+electrical/external-converter/kicad/**/.konnect/snapshots/
+electrical/external-converter/kicad/bike-generator-external-controller/report.txt
+electrical/v1/docs/buck_inspiration/
+electrical/v1/kicad/bike-generator-controller - Copy/
 
 # Keep the images folder in git even when empty
 !docs/images/.gitkeep

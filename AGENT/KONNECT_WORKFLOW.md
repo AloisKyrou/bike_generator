@@ -97,6 +97,18 @@ all four. They appear as expected “Extra footprint” schematic-parity message
 
 ## Known field-synchronization trap
 
+External-controller update, 15 October 2026: native Update PCB from Schematic
+can synchronize custom fields in one reviewed operation. Disable footprint
+replacement/deletion, inspect and save the action list, then verify DRC parity.
+It can open a background schematic editor; close that unmodified editor before
+the Konnect dry-run, rather than bypassing its open-schematic guard.
+
+Native footprint libraries can also be cached: a changed library ID and GUI
+Compare result did not prove J27's new pad sizes had loaded. Save/close/reopen,
+native Update Footprints from Library, actual pad-dimension readback and
+saved-file DRC resolved the discrepancy. Do not use a typed refresh when it
+explicitly rejects unsupported library pad properties.
+
 During the INA228-to-INA238 substitution, schematic-to-PCB synchronization
 updated U1's value but did not update every custom footprint field. KiCad DRC
 then exposed stale fields one by one:

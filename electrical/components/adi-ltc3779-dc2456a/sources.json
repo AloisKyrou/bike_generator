@@ -1,0 +1,26 @@
+[
+    {
+        "file":  "DC2456AF.PDF",
+        "url":  "https://www.analog.com/media/en/technical-documentation/user-guides/DC2456AF.PDF",
+        "retrieved":  "2026-10-05",
+        "status":  "failed",
+        "bytes":  0,
+        "sha256":  null
+    },
+    {
+        "file":  "DC2456A-4-SCH.PDF",
+        "url":  "https://www.analog.com/media/en/technical-documentation/user-guides/DC2456A-4-SCH.PDF",
+        "retrieved":  "2026-10-05",
+        "status":  "failed",
+        "bytes":  0,
+        "sha256":  null
+    },
+    {
+        "file":  "ltc3779.pdf",
+        "url":  "https://www.analog.com/media/en/technical-documentation/data-sheets/ltc3779.pdf",
+        "retrieved":  "2026-10-05",
+        "status":  "failed",
+        "bytes":  0,
+        "sha256":  null
+    }
+]

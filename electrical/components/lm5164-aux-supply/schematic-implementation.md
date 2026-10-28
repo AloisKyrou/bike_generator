@@ -3,7 +3,7 @@
 Date de contrôle : 24 septembre 2026.
 
 Cette note décrit l'état réellement enregistré dans la feuille KiCad
-`electrical/kicad/bike-generator-controller/aux_supply.kicad_sch`. Il s'agit
+`electrical/v1/kicad/bike-generator-controller/aux_supply.kicad_sch`. Il s'agit
 d'une première passe calculée et vérifiable, pas encore d'une nomenclature de
 fabrication.
 

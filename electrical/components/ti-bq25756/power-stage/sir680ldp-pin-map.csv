@@ -1,0 +1,10 @@
+Physical_lead,Function,Symbol_pin,Footprint_pad,Note
+1,SOURCE,1,1,Explicit pin
+2,SOURCE,2,2,Explicit pin
+3,SOURCE,3,3,Explicit pin
+4,GATE,4,4,Explicit pin
+5,DRAIN,5,5,Common drain metal; standard library deliberately uses pad5 for all drain lands
+6,DRAIN,5,5,Common drain metal; standard library deliberately uses pad5 for all drain lands
+7,DRAIN,5,5,Common drain metal; standard library deliberately uses pad5 for all drain lands
+8,DRAIN,5,5,Common drain metal; standard library deliberately uses pad5 for all drain lands
+Thermal_metal,DRAIN,5,5,Common drain copper

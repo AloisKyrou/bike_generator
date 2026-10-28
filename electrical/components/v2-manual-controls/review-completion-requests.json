@@ -1,0 +1,197 @@
+[
+  {
+    "name": "get_active_toolsets",
+    "arguments": {}
+  },
+  {
+    "name": "load_toolset",
+    "arguments": {
+      "name": [
+        "design_review"
+      ]
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/bike-generator-controller-v2.kicad_sch"
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/bike-generator-controller-v2.kicad_sch"
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/bike-generator-controller-v2.kicad_sch"
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/power_path.kicad_sch"
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/power_path.kicad_sch"
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/power_path.kicad_sch"
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/connectors.kicad_sch"
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/connectors.kicad_sch"
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/connectors.kicad_sch"
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/mcu_module.kicad_sch"
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/mcu_module.kicad_sch"
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/mcu_module.kicad_sch"
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/cc_control.kicad_sch"
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/cc_control.kicad_sch"
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/cc_control.kicad_sch"
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/ina228_sense.kicad_sch"
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/ina228_sense.kicad_sch"
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/ina228_sense.kicad_sch"
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/lv_power_usb_tbd.kicad_sch"
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/lv_power_usb_tbd.kicad_sch"
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/lv_power_usb_tbd.kicad_sch"
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/main_converter_tbd.kicad_sch"
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/main_converter_tbd.kicad_sch"
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/main_converter_tbd.kicad_sch"
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/usb_interface.kicad_sch"
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/usb_interface.kicad_sch"
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/usb_interface.kicad_sch"
+    }
+  },
+  {
+    "name": "audit_connections",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/bike-generator-controller-v2.kicad_sch",
+      "schematic_scope": "hierarchy"
+    }
+  },
+  {
+    "name": "audit_decoupling",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/bike-generator-controller-v2.kicad_sch",
+      "schematic_scope": "hierarchy"
+    }
+  },
+  {
+    "name": "audit_power_rails",
+    "arguments": {
+      "schematic": "C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/bike-generator-controller-v2.kicad_sch",
+      "schematic_scope": "hierarchy"
+    }
+  }
+]

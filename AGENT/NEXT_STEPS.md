@@ -1,5 +1,111 @@
 # Next steps and release gates
 
+## Decisions closed, implementation pending (28 October 2026)
+
+INA237AIDGSR for U1/U10 is user-approved (reconfirmed 25 October); Harwin
+1.05 mm/JST J26 0.80 mm hole variants are approved too. Do not reopen these
+decisions. Apply via KiCad/Konnect, verify models/fields and annuli, sync BOM,
+then repair USB locally and rerun final checks/exports. As of 28 October the
+IPC connection is still unconfigured; none of those CAD changes is applied.
+Keep the 24 October review as evidence for the unchanged saved board, not as
+verification of the future INA237/hole/USB edits. No order-ready package yet.
+
+## External restart, 24 October 2026
+
+Current action list: [final phases](../electrical/external-converter/FINAL_PHASES_2026-10-24.md).
+Fresh saved ERC/DRC and connectivity rechecks pass within documented scope;
+CAD unchanged. Finish local USB return repair, connector-fit decision, current
+INA procurement and coherent new exports. No live IPC available yet; user
+asked to open exact PCB. Old ZIP remains obsolete. No upload/order authorized.
+
+## Latest external order gate, 15 October 2026
+
+Read [full review](../electrical/external-converter/FULL_PREFAB_REVIEW_2026-10-15.md).
+Not released for order: repair USB reference/pair routing locally and close
+finished-hole fit acceptance, then regenerate all fabrication outputs. The old
+prefab-2026-10-15-final ZIP predates user I2C/3V3 edits and is obsolete.
+Current saved PCB CC446D8A...C1468F8D,588tracks107vias; fresh DRC0errors/4known
+silk warnings/0unconnected, ERC0,17fixturesPASS. No new schematic defect found.
+Keep prototype USB/cell/converter/10A tests separate from these pre-order gates.
+
+## Active external-converter variant, 15 October 2026
+
+LATEST: [prototype preparation](../electrical/external-converter/PREFAB_CLOSEOUT_2026-10-15.md).
+C42 correction applied/verified;591tracks107vias,ERC0,DRC0errors/4historic
+silkedge warnings/0unconnected,17negativefixturesPASS. User chose5JLCPCBbare
+boards and2componentsets. Gerbers/drills andtwo-supplierdrafts generated.
+Final sync NOOP after recovery; refs/board labels enlarged to1mm/0.15mm without
+new DRC findings. Latest exports in prefab-2026-10-15-final/. Still need
+connectorfit acceptance and portalpreview/quote before upload/order authorization.
+No order/upload. Older checkpoints below are superseded where inconsistent.
+
+Latest study: [TP4057 input bypass](../electrical/external-converter/TP4057_INPUT_BYPASS_STUDY_2026-10-15.md)
+proposes reconnecting existing C42 after R45, at U6.VCC, with no added part.
+NOT APPLIED: implement via KiCad/Konnect and rerun netlist/ERC/DRC/parity before
+closing this layout point. The [supplier plan](../electrical/external-converter/bom/SUPPLIER_PLAN_2026-10-15.md)
+covers35 MPNs/74 fitted purchased parts with DigiKey + LCSC; accessories and
+fabrication remain separate. No purchase or CAD changes in this study.
+
+Latest work is the separate [external controller](../electrical/external-converter/README.md),
+not a continuation of the older V2/V1 checkpoints below. Its direct-digipot PCB
+is fully connected:585 tracks,106 vias,ERC0,zero airwires,sync noop.
+Read the [latest 2 oz review](../electrical/external-converter/REVIEW_2OZ_2026-10-15.md).
+Local HRO/JST enlarged PTH lands resolve the previous J27/J26 annulus findings.
+DRC zero errors, four visible silk-edge warnings; routing unchanged.
+Bounded JLC geometry screen passes; PCBWay needs separate detailed-rule checks.
+User confirmed two layers/2oz on14October2026;10A remains a design objective.
+Native stackup now 70 um per face / 1.6 mm total; verify the fabrication contract;
+this approval does not select a fabricator or authorize an order.
+BOM now has zero missing purchasable MPNs: the five 10 uF capacitors are
+PROVISIONAL Murata GRM21BR61C106KE15L (16V/0805). Read the
+[capacitor review](../electrical/external-converter/CAPACITOR_SELECTION_2026-10-15.md).
+Resolve TP4057 VCC bypass before freeze: C42 is upstream of R45, not directly
+at U6.VCC. Charge and combined-condition capacitance/rail qualification remain
+open; JP20 OPEN. The 43.96-73.17 EUR planning budget is not a supplier basket.
+Return-path numerical
+review is complete with no mandatory copper repair. F1 remains 20 A, not a
+10 A limiter; source fault/current/cable/fuse coordination is still required.
+Manufacturer/stackup, thermal/current, USB/1S,
+external-converter compatibility and battery-side fusing are not qualified.
+No fabrication release. The older V1 manufacturing contract below is not
+automatically the contract for this new board.
+
+## Current V2 work
+
+V1 and V2 have independent projects and local libraries. Follow the
+[active V2 checkpoint](../electrical/v2/README.md) and
+[full-function completion criteria](../electrical/v2/docs/explanations/IMPLEMENTATION_NOTES.md).
+The [current V2 schematic](../electrical/v2/docs/SCHEMATIC_CONTINUATION_2026-10-08.md)
+now draws MCP4251 manual/app voltage selection, BQ I2C current control/telemetry,
+and the higher-current stage. It has 142 components across eight sheets,
+including eight bare probe pads. K1.9 is explicitly unconnected; the remaining
+brownout gate is not closed by that zero-part correction.
+Beetle-style TP4057/RT9080 powers logic from USB or an optional protected 1S
+cell, with no generator AUX or TPS63031. No V2 fabrication release is implied.
+
+Next V2 gates are receiver-safe relay/brownout behavior, generator OV/TVS
+coordination, thermal/ripple/stability qualification, USB/cell qualification and
+PCB layout. JP20/JP30/JP31 remain open. Approximately 400 W is an output ambition,
+not a qualified rating or autonomous limit; 55 V does not guarantee full
+13S/54.6 V charging. Read the
+[review and bring-up guide](../electrical/v2/docs/REVIEW_AND_BRINGUP_2026-10-08.md).
+Also review the
+[startup/profile and gate-drive findings](../electrical/v2/docs/CONTINUATION_READINESS_REVIEW_2026-10-08.md):
+charging defaults are not a universal appliance-supply profile, and bootstrap
+losses must be included before assigning high-side FET conduction/thermal limits.
+The numbered steps below remain the V1 release gate, not permission to modify
+or manufacture the out-of-sync copied V2 PCB.
+
+The remembered TI reference is PMP7282. See the new
+[converter comparison](../electrical/v2/docs/POWER_CONVERTER_REFERENCE_STUDY.md)
+and [buck-only / pedal-feel study](../electrical/v2/docs/BUCK_ONLY_AND_PEDAL_FEEL.md).
+The latest expanded reuse request is analyzed in the
+[compatibility decision pack](../electrical/v2/docs/compatibility/README.md).
+Buck-only remains the current setup's proven topology, but charging higher
+voltage receivers from lower-voltage donors motivated the later buck-boost
+selection. The historical approximately 60 V research envelope is superseded
+by the approved 55 V working ceiling, not a promise to fully charge every pack.
+
 The V1 design is reviewed, but it is not yet released for manufacture.
 
 ## 1. Make the repository available on the other computer
@@ -55,7 +161,7 @@ Use the `kicad-review` and `kicad-manufacture` workflows. The review must includ
 ## 4. Generate a fresh manufacturing package
 
 Only after the review passes, create a new dated output directory under
-`electrical/kicad/exports/` containing:
+`electrical/v1/kicad/exports/` containing:
 
 - Gerbers for all required copper, mask, silkscreen and edge layers;
 - plated and non-plated drill files;

@@ -1,48 +1,54 @@
 # Electrical workspace
 
-This directory contains the engineering workspace for the electrical part of
-the bike generator. It is kept separate from the firmware, web application and
-public build documentation at the repository root.
-
-The KiCad 10 project has been created through Konnect under
-[`kicad/bike-generator-controller/`](kicad/bike-generator-controller/). Its
-five-sheet functional hierarchy is in place; the component-level design is now
-implemented for measurement, control, MCU and low-voltage connectors. The
-power path remains deliberately open until its electrical limits are measured.
-
-## Directory map
+Hardware revisions have separate design, BOM and documentation directories.
+Manufacturer references and physical measurements remain shared.
 
 ```text
 electrical/
-├── components/                 Component references and downloaded datasheets
-├── measurements/               Raw measurements, photos and processed results
-├── bom/                        Working bills of materials and sourcing notes
-└── kicad/
-    ├── bike-generator-controller/  KiCad project sources
-    ├── libraries/                  Project-owned symbols, footprints and 3D models
-    └── exports/                    Generated review/fabrication outputs
+  AGENTS.md
+  components/       Shared datasheets, CAD provenance and component evidence
+  measurements/     Shared measurements, labelled by hardware revision
+  v1/
+    README.md
+    bom/             V1 purchasing and assembly records
+    docs/            V1 reviews and release decisions
+    kicad/
+      bike-generator-controller/
+      libraries/     V1-owned symbols, footprints and models
+      exports/       Generated artifacts, ignored by Git
+      download/      Local CAD downloads, ignored by Git
+  v2/
+    README.md
+    bom/             V2 selection status, no approved purchasing BOM
+    docs/            Architecture and output receiver study
+    kicad/
+      bike-generator-controller-v2/
+      libraries/     Independent copy of V1 libraries
+      exports/       Generated artifacts, ignored by Git
 ```
 
-## Existing design documentation
+## Entry points
 
-The current analysis remains in [`docs/electrical/`](../docs/electrical/) so it
-stays visible from the main project documentation:
+- [V1 baseline and release status](v1/README.md).
+- [V2 development workspace](v2/README.md).
+- [External converter controller](external-converter/README.md): V1-derived
+  power/sensing with V2 ESP32/USB logic; separate project, PCB not synchronized.
+- [V2 output receiver study](v2/docs/OUTPUT_RECEIVER_STUDY.md).
+- [Shared component references](components/README.md).
+- [Measurement campaign](measurements/README.md).
+- [Historical prototype documentation](../docs/electrical/README.md).
+- [KiCad operating workflow](../AGENT/KONNECT_WORKFLOW.md).
 
-- [Electrical decisions and scope](../docs/electrical/README.md)
-- [Observed prototype and open questions](../docs/electrical/as-built-and-open-questions.md)
-- [INA228 PCB V1 specification](../docs/electrical/pcb-v1-ina228.md)
-- [Measurement campaign](../docs/electrical/measurement-campaign.md)
-- [Design methodologies](../docs/electrical/design-methodologies.md)
-- [KiCad workflow and troubleshooting](kicad/WORKFLOW.md)
-- [Controller V1 working BOM](bom/controller-v1-working.md)
+The V2 project began as a renamed V1 copy. Its current schematic now includes
+the integrated BQ25756 stage and adaptive controls; follow the
+[current checkpoint](v2/README.md) for what is drawn versus qualified.
+The copied V2 PCB is still unsynchronized. V1 check results do not prove V2
+target capability, and no V2 fabrication or energization release is implied.
 
-## Working rules
+On 2026-10-05, the former KiCad, BOM and V1 document directories moved under
+`v1/`; the V2 architecture specification moved into `v2/docs/`. Shared
+manufacturer PDFs and measurements stayed in place.
 
-- Component PDFs and manufacturer files belong in `components/`, not beside the
-  KiCad sources.
-- Raw readings are never overwritten; corrected or transformed data goes into
-  `measurements/processed/`.
-- Generated Gerbers, PDFs and manufacturing archives belong in
-  `kicad/exports/` and are ignored by Git by default.
-- KiCad sources will be versioned, but must only be created or changed through
-  KiCad/Konnect to preserve their internal references.
+Use KiCad/Konnect for every change to KiCad source content. Keep generated
+outputs, locks, history and snapshots out of normal commits. Preserve all
+local material and stage explicit paths only.

@@ -1,0 +1,62 @@
+[
+    {
+        "file":  "denso-alternator-technical-manual.pdf",
+        "url":  "https://assets.denso-am.eu/production/attachments/Starter-Alternator-Technical-Manual-English.pdf",
+        "revision":  "July 2017",
+        "used_pages_or_sections":  "6-8",
+        "retrieved":  "2026-10-05",
+        "status":  "archived",
+        "bytes":  1187480,
+        "sha256":  "32B74E7A1A31EA88CE36961690A97E7C22735FE699FD0E93E642BE7B44AD9B27"
+    },
+    {
+        "file":  "grin-gmac-install-rev1.pdf",
+        "url":  "https://www.ebikes.ca/documents/GMAC_Install_Rev1.pdf",
+        "revision":  "Rev 1.0",
+        "used_pages_or_sections":  "1",
+        "retrieved":  "2026-10-05",
+        "status":  "failed",
+        "bytes":  0,
+        "sha256":  null
+    },
+    {
+        "file":  "grin-phaserunner-v6-manual.pdf",
+        "url":  "https://ebikes.ca/amfile/file/download/file/252/",
+        "revision":  "V6 Rev 2",
+        "used_pages_or_sections":  "PDF 15-16 and 19-21: battery limits and phase current",
+        "retrieved":  "2026-10-05",
+        "status":  "failed",
+        "bytes":  0,
+        "sha256":  null
+    },
+    {
+        "file":  "shimano-ec-e8004-charger.pdf",
+        "url":  "https://si.shimano.com/en/pdfs/um/7H40B/UM-7H40B-003-ENG.pdf",
+        "revision":  "UM-7H40B-003",
+        "used_pages_or_sections":  "1",
+        "retrieved":  "2026-10-05",
+        "status":  "failed",
+        "bytes":  0,
+        "sha256":  null
+    },
+    {
+        "file":  "grin-satiator-manual-v1.pdf",
+        "url":  "https://www.ebikes.ca/pub/media/downloadable/SATIATOR/Satiator_Manual_V1.0FW.pdf",
+        "revision":  "Firmware 1.0; historical reference",
+        "used_pages_or_sections":  "Default profile table; exact battery instructions take precedence",
+        "retrieved":  "2026-10-05",
+        "status":  "archived",
+        "bytes":  3618011,
+        "sha256":  "31575BE7B2A058EFDC9EE9BC26BDE2C95105134A4FBF85A96E66A0C4D0F26608"
+    },
+    {
+        "file":  "odrive-hoverboard-guide.rst",
+        "url":  "https://raw.githubusercontent.com/odriverobotics/ODrive/master/docs/hoverboard.rst",
+        "revision":  "master snapshot 2026-10-05; legacy guide",
+        "used_pages_or_sections":  "Motor wiring and motor configuration sections",
+        "retrieved":  "2026-10-05",
+        "status":  "archived",
+        "bytes":  12612,
+        "sha256":  "796A1CC27A0EDB5917A9D9A6412D6A4AEB0C2F8A684E06116170BDFB42874654"
+    }
+]

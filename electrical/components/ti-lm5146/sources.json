@@ -1,0 +1,34 @@
+[
+    {
+        "file":  "snvu591.pdf",
+        "url":  "https://www.ti.com/lit/pdf/snvu591",
+        "retrieved":  "2026-10-05",
+        "status":  "archived",
+        "bytes":  1607077,
+        "sha256":  "468C00A90366D7620DFC5AAC87532E620192A6E9A9C97B999F6D654DEB040CC6"
+    },
+    {
+        "file":  "snvr473.zip",
+        "url":  "https://www.ti.com/lit/zip/snvr473",
+        "retrieved":  "2026-10-05",
+        "status":  "archived",
+        "bytes":  8026744,
+        "sha256":  "04188DDE5BD57E142871959E2FEFDD1DB6B17A8C60C7F69B50A1DAA3020448EA",
+        "entries":  [
+                        "BSR049A .zip",
+                        "BSR049A(001)_BOM.xls",
+                        "BSR049A(001)_Sch.PDF",
+                        "BSR049A-Gerber.zip",
+                        "LM5146-Q1-EVM12V-oblique.png",
+                        "LM5146-Q1-EVM12V-top.png"
+                    ]
+    },
+    {
+        "file":  "lm5146.pdf",
+        "url":  "https://www.ti.com/lit/ds/symlink/lm5146.pdf",
+        "retrieved":  "2026-10-05",
+        "status":  "archived",
+        "bytes":  3321191,
+        "sha256":  "830CBF80266D2542E187123FDB1F073104A4A71D9C10EC1D057120A44B0C693C"
+    }
+]

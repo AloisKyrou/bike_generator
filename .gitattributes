@@ -1,0 +1,10 @@
+# Preserve manufacturer documents and reference CAD downloads byte-for-byte.
+*.pdf binary
+*.zip binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.PcbDoc binary
+*.step -text
+*.stp -text

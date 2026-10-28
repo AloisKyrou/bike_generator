@@ -1,5 +1,180 @@
 # V2 working instructions
 
+## JAE USB selection, 14 October 2026
+
+J27 provisionally replaced by JAE DX07S016JA1R1500 with standard footprint.
+See `docs/USB_JAE_SELECTION_2026-10-14.md`: pin map, native-UI replacement,
+local routing, BOM and manufacturing hold. 1069 tracks/131 vias/149 parts,
+16 unrouted;1056 earlier tracks unchanged,9 replaced by13, no placements moved.
+ERC0, USB118+5negative tests pass, netlist identical, sync noop. DRC132 = five
+oval-NPTH edge-clearance errors+127silk;four intentional hole parity warnings.
+No rule relaxation/exclusion. Slot0.6mm is below published JLC1mm/PCBWay0.8mm
+NPTH-slot minima; copper gap0.266mm is NOT full fabrication acceptance.
+User wants no waiver. Eurocircuits0.5mm slots only a possible process lead.
+Native refresh needed to preserve shell-pad mechanical properties: typed sync
+had lost these and did not update custom fields; native import/refresh fixed it.
+
+## Input/return routing pass 15, 14 October 2026
+
+Latest `docs/PCB_INPUT_RETURN_ROUTING_PASS15_2026-10-14.md`:1065 tracks,
+131 vias/149 parts;36 new tracks,all1029 earlier tracks and placements preserved.
+16 remaining connections:8 GND,4 USB,2 VAC,1 main input feed,1 STATUS_LED.
+DRC131 unchanged(4 USB holes+127 silk),4 hole parity,sync noop. Input and bank
+returns advanced; no zones yet. Do not join power current through quiet ground
+branches. Review input/USB placement and short MOSFET neck sizing next.
+USB local footprint study exists but is NOT assigned to J27; nominal gap
+0.2919mm,holes unchanged. Solder-overlap/fit acceptance required before using.
+See `docs/USB4105_LOCAL_FOOTPRINT_STUDY_2026-10-14.md`. No release implied.
+
+## Signal/power routing pass 14, 14 October 2026
+
+Latest: `docs/PCB_SIGNAL_POWER_ROUTING_PASS14_2026-10-14.md`.
+1029 tracks/131 vias/149 parts,32 unrouted (was104).194 retained new tracks,
+12 replaced,835 unchanged. J5/R7/R8/R9/R10/R34/H1/R70 moved as documented.
+DRC131:4 J27 holes+127 silk;4 mounting-hole parity;classes unchanged,sync noop.
+Power feed/returns,USB data and STATUS_LED still incomplete. Short1.75/1.8mm
+MOSFET approaches do not meet the uniform-trace20C-rise screen at10A; refine
+and qualify before assigning a current rating. No fabrication/power-up release.
+USB local-footprint study explicitly authorized14 October; do not suppress
+the four original errors or treat geometry checks as solder qualification.
+
+## Interface routing pass 13, 13 October 2026
+
+Latest: `docs/PCB_LINK_ROUTING_PASS13_2026-10-13.md`.847 segments/112 vias,
+149 unchanged placements.155 added, four old segments replaced (CV_FB,
+two local GND, local 3V3),692 preserved. I2C distribution,J32 SCL/SDA/INT,
+USB VBUS/CC/GND,spare-pot J7,GPIO8 pull-up,MCU-side USB escapes advanced.
+104 unrouted (was130).DRC133 unchanged:4 J27 holes+129 silk;4 hole parity,
+sync noop. No new copper/courtyard/mask findings. USB data path,GPIO feeds,
+CE/R70 supply,power/planes still open. No decision blocks continuation.
+Bottom usage and replacements documented; no fabrication/power-up approval.
+
+## Logic routing pass 12, 13 October 2026
+
+Latest: `docs/PCB_LOGIC_ROUTING_PASS12_2026-10-13.md`.696 segments/85 vias,
+149 parts; all471 old tracks preserved,225 added. Only C50(25.9,46.5)/90
+and R51(35.5,56.75)/0 moved. Charger/handover,3V3,EN/BOOT,local I2C,
+header/LED links advanced;130 unrouted (was199). DRC133:4 known USB holes
+and129 silk;no copper/courtyard/mask/dangling-via findings.4 hole parity,
+sync noop. User explicitly wants larger multi-block sessions; no blocking
+decision currently. Finish interfaces and power/planes, no release implied.
+
+## SPI routing pass 11, 13 October 2026
+
+Latest: `docs/PCB_SPI_ROUTING_PASS11_2026-10-13.md`.471 segments/61 vias,
+149 unchanged parts; all440 old tracks preserved,31 added. SPI U2-to-U3 and
+CV_AUTO_N U2-to-R87 connected. Six added vias for grouped SPI bottom crossing;
+top returns under SOIC body, no vias in solder pads. DRC129 unchanged,
+199 unrouted,4 intentional hole parity,sync noop. No new copper/courtyard
+errors. Global power/I2C/service links and final signal return/plane review
+remain open; no firmware, functional qualification or release implied.
+
+## FBG routing pass 10, 13 October 2026
+
+Latest: `docs/PCB_FBG_ROUTING_PASS10_2026-10-13.md`.440 segments/55 vias,
+149 parts;406 previous tracks preserved,12 replaced,34 new. R62 now
+(76.7,66.8)/90,R72(77.5,69.7)/0,R73(77.5,72)/180; pad identities/nets
+preserved. FBG now connected to RV2; TS/REGN/ICHG/ILIM remain connected.
+Four new vias, reasons recorded. FBG is NOT GND; its68.15mm route and CV_FB
+still need quiet-return/plane review. DRC129(4 USB+125 silk),203 unrouted,
+4 hole parity,sync noop. Next global supplies and SPI/control/service links.
+
+## CV link routing pass 9, 13 October 2026
+
+Latest: `docs/PCB_CV_LINK_ROUTING_PASS9_2026-10-13.md`.418 segments/51 vias,
+149 parts;400 previous segments preserved,4 replaced,18 new. Only TP45 moved
+to(49.2,46.7). CV_FB/K1 and TP45 connected; Q22/D24 local 3V3 tied to C4/U3,
+but global feed still open. BQ_FBG still OPEN: review the R61/R62/test-via/TS
+and ground corridor rather than adding an unexamined long detour. CV_FB length
+and ground coverage remain review items. DRC130(4 USB+126 silk),204 unrouted,
+4 hole parity,sync noop. No new copper/courtyard errors, no release.
+
+## REGN/CV routing pass 8, 13 October 2026
+
+Latest: `docs/PCB_REGN_CV_ROUTING_PASS8_2026-10-13.md`.404 segments/47 vias,
+149 parts; all 297 previous tracks preserved. Only R67 moved to (62,33.5)/0.
+REGN-to-R72 now connected, as are local K1/manual/digital/coil subcircuits.
+CV_FB/FBG, TP45, global supplies and interfaces still open; do not claim a
+completed control block. Eleven added vias documented. DRC130(4 USB holes+
+126 silk),208 unrouted,4 hole parity,sync noop. No new copper/courtyard/mask
+errors. Next quiet CV/FBG links and remaining local/logic supplies/interfaces.
+
+## Thermal/digital routing pass 7, 13 October 2026
+
+Latest: `docs/PCB_THERMAL_DIGITAL_ROUTING_PASS7_2026-10-13.md`.297 segments,
+36 vias,149 parts. J33 now(68.5,69.2)/0; R60(76.8,58.3)/180;
+R71(76.75,60.45)/180. TS/J33 ground and U9-to-R68/R69/R70 signals connected.
+REGN-to-R72 still OPEN; thermal circuit and digital/header/logic interfaces
+not complete.247 earlier track IDs/250 geometries preserved;7 new vias.
+DRC120(4 USB holes+116 silk),243 unrouted,4 hole parity,sync noop. No new
+copper/courtyard/mask errors. Remaining power, planes and release gates persist.
+
+## Test/feedback routing pass 6, 13 October 2026
+
+Latest: `docs/PCB_TEST_FEEDBACK_ROUTING_PASS6_2026-10-13.md`.257 segments/29
+vias,149 parts;228 prior geometries preserved,29 new segments/four vias. Only
+TP43 has a final new placement (97.5,57.15). TP41/42 and REGN test point now
+connected, as are U9 CV_FB-to-R66/TP40 and the R75-to-R66 output-sense branch.
+Six new bottom segments serve two test-pad crossings; other new copper on top.
+DRC124 (4 USB holes+120 silk),248 unrouted,4 hole parity,sync noop. Trial
+R62/TP41/TP42/J33 placements restored. REGN-to-R72, TS-to-J33, K1/FBG and the
+remaining interfaces/power paths/planes are not complete. No rating/release.
+
+## Threshold/RV1 routing pass 5, 13 October 2026
+
+Latest: `docs/PCB_FANOUT_ROUTING_PASS5_2026-10-13.md`.228 segments/25 vias,
+149 parts;13 local routes replaced,190 prior tracks preserved. C63/C67
+shifted slightly; RV1 now(68.2,76.5)/180, TP43(70,70). ACUV/ACOV and the
+R61-RV1 branch connected. ACOV stays top; VAC/ACUV/RV1 bottom reasons recorded.
+DRC124 (4 USB holes+120 silk),254 unrouted,4 intentional hole parity, sync
+noop. No copper/courtyard/library errors. Test pads/TS/REGN/headers incomplete.
+
+## Local settings routing pass 4, 13 October 2026
+
+Latest: `docs/PCB_SETTINGS_ROUTING_PASS4_2026-10-13.md`.203 segments/20 vias,
+149 unchanged footprints.37 segments/4 vias added;166 prior tracks and
+classes preserved. Local FSW/CE/ICHG/ILIM/TS and threshold divider chain
+connected, but ACUV/ACOV pin escapes, RV1, TP41/42, TS supply/J33 and CE/J32
+remain open. Do not claim complete control blocks. New bottom paths are
+two TS segments across current-setting escapes and five local GND segments.
+DRC119 unchanged,259 unrouted,4 intentional hole parity; sync noop.
+
+## Input sensing routing pass 3, 13 October 2026
+
+Latest: `docs/PCB_INPUT_ROUTING_PASS3_2026-10-13.md`.166 segments/16 vias,
+149 unchanged footprints.49 segments/2 ground vias added;117 previous tracks
+and all classes preserved. Input filters/VAC local decoupling and both shunt
+takeoffs routed. All new non-GND traces are on top. Preserve R1 force/sense
+separation and R75 inner-pad takeoffs when adding power copper/planes.
+DRC119 unchanged,274 unrouted,4 intentional hole parity; sync noop. No new
+copper errors. Power links, final ground regions and ratings are not complete.
+
+## Driver routing pass 2, 13 October 2026
+
+Latest: `docs/PCB_DRIVER_ROUTING_PASS2_2026-10-13.md`.117 segments/14 vias,
+149 parts;78 added segments and12 vias, all39 earlier tracks preserved.
+Twelve parts moved with verified pad identities/nets. Input RC group relocated
+off the underside SW1 corridor; keep subsequent sense routes out of it.
+Four gate paths and bootstrap nets connected; main power links and low-side
+return loops are unfinished. Do not use0.60mm SW driver returns for power.
+One0.30mm-drill via now in U9 EP: assembly/paste wicking and thermal via/plane
+design remain unqualified. DRC4 known USB hole+115 silk findings,293 unrouted,
+4 intentional hole parity; sync noop. No copper/courtyard/library mismatch.
+
+## Incremental routing checkpoint, 13 October 2026
+
+User now explicitly authorizes assistant routing, superseding the placement-only
+split below. Keep deliberate top-first routing and explain each bottom crossing.
+Read `docs/PCB_ROUTING_RULES_2026-10-13.md` before continuing. Baseline commit
+1151aa0;13 V2 netclasses cover125 nets;9 unused legacy classes/20 patterns removed
+only from V2. The future INA/external-converter variant is a separate KiCad
+project in this repository, not an architecture change to the integrated V2.
+First output-sense filter group routed:22 new segments/2 ground vias;39 total
+segments,149 unchanged placements,17 inherited tracks preserved. DRC118 unchanged,
+317 unrouted,4 intentional mounting-hole parity. No copper errors introduced.
+Power necks/ground sizing and USB impedance are NOT qualified by class defaults.
+Next review input-feed placement and critical REGN/bootstrap/gate loops together.
+
 ## Complete working placement, 13 October 2026
 
 Read `docs/PCB_FULL_PLACEMENT_PASS4_2026-10-13.md` and the per-net

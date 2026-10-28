@@ -1,0 +1,4 @@
+Purpose,MPN,Manufacturer,Supplier,Qty_per_board,Price_EUR_ex_VAT,URL,Condition
+JP20 shorting cap,QPC02SXGN-RC,Sullins,DigiKey,1,0.09,https://www.digikey.fr/fr/products/detail/sullins-connector-solutions/QPC02SXGN-RC/2618262,Keep JP20 OPEN until charging is qualified
+Optional 1S mating housing,PHR-2,JST,DigiKey,1,0.09,https://www.digikey.fr/fr/products/detail/jst-sales-america-inc/PHR-2/608607,Only needed if existing battery cable does not already fit with correct polarity
+Optional 1S precrimp lead,ASPHSPH24K305,JST,DigiKey,1,0.44,https://www.digikey.fr/fr/products/detail/jst-sales-america-inc/ASPHSPH24K305/6009459,Double-ended black 304.8mm lead cut into two leads; mark positive red and verify polarity; no soldering directly to cell

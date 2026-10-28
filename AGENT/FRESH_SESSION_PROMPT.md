@@ -1,5 +1,12 @@
 # Fresh-session prompt
 
+For current V2 development, read `electrical/v2/README.md`,
+`electrical/v2/AGENTS.md` and `electrical/v2/docs/OUTPUT_RECEIVER_STUDY.md` first.
+V1 and V2 are separated. V2's adaptive schematic has advanced beyond the
+original V1 copy; its copied PCB remains unsynchronized. Follow the latest
+checkpoint in `AGENT/README.md`. The prompt below is retained specifically
+for resuming the V1 manufacturing release, not current V2 design work.
+
 Copy the block below into a new Codex conversation after cloning or opening the
 repository on the other computer.
 

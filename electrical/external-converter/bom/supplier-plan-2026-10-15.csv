@@ -1,0 +1,36 @@
+MPN,Manufacturer,References,Qty_per_board,Supplier,Minimum_order,Order_multiple,URL,Status
+CC0805KRX7R9BB104,Yageo,C1 C102 C2 C31 C4 C50,6,DigiKey,1,1,https://www.digikey.com/en/products/detail/yageo/CC0805KRX7R9BB104/302874,STOCK_LISTED_RECHECK_CART
+C2012X7R2A104K125AA,TDK,C101,1,DigiKey,1,1,https://www.digikey.com/en/products/detail/tdk/C2012X7R2A104K125AA/569044,STOCK_LISTED_RECHECK_CART
+CC0805KKX7R7BB105,Yageo,C103 C3 C32,3,DigiKey,1,1,https://www.digikey.com/en/products/detail/yageo/CC0805KKX7R7BB105/2103103,STOCK_LISTED_RECHECK_CART
+GRM21BR61C106KE15L,Murata,C30 C42 C45 C46 C47,5,LCSC,10,10,https://www.lcsc.com/product-detail/C77075.html,PROVISIONAL_CAPACITOR_STOCK_LISTED
+SMCJ70A,Littelfuse,D1,1,DigiKey,1,1,https://www.digikey.com/en/products/detail/littelfuse-inc/SMCJ70A/762422,STOCK_LISTED_RECHECK_CART
+DBI25-16A,Diotec,D2,1,DigiKey,1,1,https://www.digikey.com/en/products/detail/diotec-semiconductor/DBI25-16A/13154338,STOCK_LISTED_RECHECK_CART
+SS1H10-E3/61T,Vishay,D20,1,DigiKey,1,1,https://www.digikey.com/en/products/detail/vishay-general-semiconductor-diodes-division/SS1H10-E3-61T/1091541,STOCK_LISTED_RECHECK_CART
+WP710A10LGD,Kingbright,D21,1,DigiKey,1,1,https://www.digikey.com/en/products/detail/kingbright/WP710A10LGD/2657762,STOCK_LISTED_RECHECK_CART
+WP710A10LID,Kingbright,D22,1,DigiKey,1,1,https://www.digikey.com/en/products/detail/kingbright/WP710A10LID/2657763,STOCK_LISTED_RECHECK_CART
+0456020.ER,Littelfuse,F1,1,DigiKey,1,1,https://www.digikey.fr/fr/products/detail/littelfuse-inc/0456020-ER/1754634,STOCK_LISTED_RECHECK_CART
+1711725,Phoenix Contact,J1 J2 J40 J41,4,DigiKey,1,1,https://www.digikey.com/en/products/detail/phoenix-contact/1711725/260395,STOCK_LISTED_RECHECK_CART
+M20-9990346,Harwin,J21 J23 J7 J9,4,DigiKey,1,1,https://www.digikey.com/en/products/detail/harwin-inc/M20-9990346/3728228,STOCK_LISTED_RECHECK_CART
+M20-9990246,Harwin,J25 J28 JP20,3,DigiKey,1,1,https://www.digikey.com/en/products/detail/harwin-inc/M20-9990246/3728226,STOCK_LISTED_RECHECK_CART
+S2B-PH-K-S(LF)(SN),JST,J26,1,DigiKey,1,1,https://www.digikey.com/en/products/detail/jst-sales-america-inc/S2B-PH-K-S/926626,EXACT_MPN_IN_PAGE_ALIASES_RECHECK_CART
+TYPE-C-31-M-12,HRO,J27,1,LCSC,5,5,https://www.lcsc.com/product-detail/C165948.html,STOCK_LISTED_RECHECK_CART
+M20-9990446,Harwin,J3,1,DigiKey,1,1,https://www.digikey.com/en/products/detail/harwin-inc/M20-9990446/3728230,STOCK_LISTED_RECHECK_CART
+M20-9980546,Harwin,J5,1,DigiKey,1,1,https://www.digikey.com/en/products/detail/harwin-inc/M20-9980546/3728088,STOCK_LISTED_RECHECK_CART
+1711738,Phoenix Contact,J8,1,DigiKey,1,1,https://www.digikey.com/en/products/detail/phoenix-contact/1711738/260396,STOCK_LISTED_RECHECK_CART
+AO3401A,Alpha and Omega Semiconductor,Q20,1,DigiKey,1,1,https://www.digikey.com/en/products/detail/alpha-omega-semiconductor-inc/AO3401A/1855943,STOCK_LISTED_RECHECK_CART
+CSS4J-4026K-2L00F,Bourns,R1 R100,2,DigiKey,1,1,https://www.digikey.com/en/products/detail/bourns-inc/CSS4J-4026K-2L00F/6023759,STOCK_LISTED_RECHECK_CART
+RC0805FR-071KL,Yageo,R10 R34 R35 R51 R7 R8 R9,7,DigiKey,1,1,https://www.digikey.com/en/products/detail/yageo/RC0805FR-071KL/727444,STOCK_LISTED_RECHECK_CART
+RC0805FR-0710RL,Yageo,R101 R102 R2 R3,4,DigiKey,1,1,https://www.digikey.com/en/products/detail/yageo/RC0805FR-0710RL/727534,STOCK_LISTED_RECHECK_CART
+RC0805FR-0710KL,Yageo,R11 R30 R31 R36 R37 R5,6,DigiKey,1,1,https://www.digikey.com/en/products/detail/yageo/RC0805FR-0710KL/730482,STOCK_LISTED_RECHECK_CART
+RC0805FR-0722RL,Yageo,R32 R33,2,DigiKey,1,1,https://www.digikey.com/en/products/detail/yageo/RC0805FR-0722RL/727735,STOCK_LISTED_RECHECK_CART
+RC0805FR-074K7L,Yageo,R4 R6,2,DigiKey,1,1,https://www.digikey.com/en/products/detail/yageo/RC0805FR-074K7L/727929,STOCK_LISTED_RECHECK_CART
+CRM1206-FX-R820ELF,Bourns,R45,1,DigiKey,1,1,https://www.digikey.com/en/products/detail/bourns-inc/CRM1206-FX-R820ELF/3543251,STOCK_LISTED_RECHECK_CART
+RC0805FR-072KL,Yageo,R46 R47,2,DigiKey,1,1,https://www.digikey.com/en/products/detail/yageo/RC0805FR-072KL/727664,STOCK_LISTED_RECHECK_CART
+RC0805FR-07200KL,Yageo,R48,1,DigiKey,1,1,https://www.digikey.com/en/products/detail/yageo/RC0805FR-07200KL/727724,STOCK_LISTED_RECHECK_CART
+RC0805FR-075K1L,Yageo,R49 R50,2,LCSC,100,100,https://www.lcsc.com/product-detail/C84375.html,STOCK_LISTED_RECHECK_CART
+INA238AIDGSR,Texas Instruments,U1 U10,2,LCSC,1,1,https://www.lcsc.com/product-detail/C2868250.html,STOCK_LISTED_RECHECK_CART
+ESP32-C3-MINI-1-N4X,Espressif,U2,1,DigiKey,1,1,https://www.digikey.com/en/products/detail/espressif-systems/ESP32-C3-MINI-1-N4X/27525554,STOCK_LISTED_RECHECK_CART
+MCP42100-I/SL,Microchip,U3,1,DigiKey,1,1,https://www.digikey.com/en/products/detail/microchip-technology/MCP42100-I-SL/362091,STOCK_LISTED_RECHECK_CART
+TP4057-42-SOT26-R,Top Power ASIC,U6,1,LCSC,5,5,https://www.lcsc.com/product-detail/C12044.html,STOCK_LISTED_RECHECK_CART
+RT9080-33GJ5,Richtek,U7,1,LCSC,5,5,https://www.lcsc.com/product-detail/C841192.html,STOCK_LISTED_RECHECK_CART
+USBLC6-2SC6,STMicroelectronics,U8,1,DigiKey,1,1,https://www.digikey.com/en/products/detail/stmicroelectronics/USBLC6-2SC6/1040559,STOCK_LISTED_RECHECK_CART

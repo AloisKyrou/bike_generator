@@ -1,6 +1,11 @@
 ﻿# V2 overall cost dashboard
 
-## Current cost reading, 12 October 2026
+## Current cost reading, 14 October 2026
+
+J27 now provisionally uses JAE DX07S016JA1R1500: EUR1.58 single /1.344 at ten,
+an increase of EUR0.88 /0.75 versus the previous GCT. Its 0.6mm NPTH slot
+still needs a compatible fabrication process; no waiver or purchase approval.
+See [selection and hold](../docs/USB_JAE_SELECTION_2026-10-14.md).
 
 User approved the accessible-assembly AOY66923 THT alternative for Q10-Q13.
 It is now drawn provisionally, replacing SiR870; AONS is no longer the pending
@@ -9,7 +14,7 @@ fit and REGN/bootstrap qualification remain open. No new driver supply selected.
 
 | Cost basis, EUR ex VAT/delivery | One board | Per board in batch of ten |
 |---|---:|---:|
-| Drawn component subtotal, provisional AOY and THT capacitor bank | 86.36-108.64 | 63.18-80.48 |
+| Drawn component subtotal, provisional AOY, THT capacitor bank and JAE USB | 87.24-109.52 | 63.93-81.23 |
 | Previous same-day subtotal with SiR870, comparison only | 90.28-112.56 | 65.81-83.11 |
 | Complete board-component budget, unresolved reserves retained | 130.00-196.00 | 86.50-146.50 |
 | Complete device DIY, PCB/cooling/cell/box/harness and reserves, excluding paid assembly | 185.00-326.00 | 121.50-229.50 |
@@ -26,7 +31,7 @@ do not fall automatically: unresolved block reserves still govern.
 The conservative one-board column prices each component at quantity one.
 Twelve provisional EEU-FR2A101 are now drawn. At EUR0.795 each for10 pieces,
 their basket costs EUR9.54 instead of the conservative single-part EUR14.88.
-Applying ONLY that EUR5.34 correction gives **EUR81.02-103.30 currently drawn**,
+Applying ONLY that EUR5.34 correction gives **EUR81.90-104.18 currently drawn**,
 before PCB, cooling and reserves.
 The ten-board column already includes this tier; do not subtract it again.
 The old polymer basket was EUR31.02, hence EUR21.48 basket saving, conditional
@@ -60,7 +65,7 @@ circuits. See [decision](../docs/MINIMUM_PROTECTION_DECISION_2026-10-10.md).
 Generated from a saved schematic XML export; NOT a purchasing or fabrication release.
 EUR per board, excluding VAT and delivery. Column 10 means per board in a ten-board batch.
 
-Export: review-aoy-mosfets-2026-10-12/after.xml; SHA-256: 24BF5C51265B1B5F5D4B3A4E5A1A9B00F213FBAB59723561EDB4746228364BB6
+Export: .konnect-scratch/jae16-after.xml; SHA-256: A709DF675BD7310BBB1A683B38081C3BBAFB34599047CA4BA75A44370DFFE68A
 Components exported: 145. Fitted entries without price: 0 (includes engineering allowances).
 
 | Block | Drawn parts, 1 board | Complete-block budget, 1 board | Complete-block budget, 10 boards |
@@ -68,7 +73,7 @@ Components exported: 145. Fitted entries without price: 0 (includes engineering 
 | AC bridge and AC-entry connector | 10.00-14.00 | 10.00-14.00 | 7.00-10.50 |
 | Input protection and DC power connectors | 8.16-8.26 | 10.00-18.00 | 7.00-14.00 |
 | ESP32 module and module service circuitry | 3.44-5.72 | 4.00-7.00 | 3.50-6.00 |
-| USB interface optional-cell charger and 3V3 regulation | 4.11-8.43 | 8.00-16.00 | 6.00-13.00 |
+| USB interface optional-cell charger and 3V3 regulation | 4.99-9.31 | 8.00-16.00 | 6.00-13.00 |
 | Protected manual-app CV selection and generic GPIO | 5.50-9.65 | 10.00-18.00 | 7.00-14.00 |
 | BQ25756 main converter stage | 55.15-62.58 | 80.00-105.00 | 50.00-75.00 |
 | Receiver protection qualification reserve | 0.00-0.00 | 8.00-18.00 | 6.00-14.00 |

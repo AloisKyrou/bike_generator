@@ -102,7 +102,7 @@ sans la même comparaison détaillée.
 Le paquet téléchargé le 24 septembre 2026 est conservé localement dans :
 
 ```text
-electrical/kicad/download/ul_LM5164DDAR/
+electrical/v1/kicad/download/ul_LM5164DDAR/
 ```
 
 Il contient un symbole et quatre footprints, mais aucun fichier STEP. Son
@@ -230,7 +230,7 @@ d'un cache Ultra Librarian ou d'une bibliothèque projet.
 Un projet jetable a été créé dans :
 
 ```text
-electrical/kicad/exports/lm5164-validation/
+electrical/v1/kicad/exports/lm5164-validation/
 ```
 
 Le symbole y a été placé avec `Value = LM5164DDAT` et le footprint standard
@@ -310,7 +310,7 @@ minimal de 0,25 mm ; la variante respecte ces trois limites.
 Une seconde carte jetable a été créée dans :
 
 ```text
-electrical/kicad/exports/lm5164-validation-030/
+electrical/v1/kicad/exports/lm5164-validation-030/
 ```
 
 Elle place la variante locale dans un contour de 20 × 20 mm. Le rapport

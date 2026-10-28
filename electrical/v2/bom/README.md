@@ -1,5 +1,14 @@
 # V2 BOM status
 
+## JAE USB update, 14 October 2026
+
+J27 provisionally uses DX07S016JA1R1500, EUR1.58 single /1.344 at ten,
+replacing GCT USB4105. Current CSV inventory:145 components, zero unpriced
+fitted entries. Drawn subtotal87.24-109.52 EUR one-off /63.93-81.23 per board
+at ten, excluding VAT/delivery. Existing complete-block reserves unchanged.
+The standard footprint's0.6mm NPTH slot has an unresolved fabrication gate;
+see [selection evidence](../docs/USB_JAE_SELECTION_2026-10-14.md). Not an order BOM.
+
 ## Through-hole capacitor cost study, 12 October 2026
 
 Follow-up implementation: twelve EEU-FR2A101100uF/100V THT capacitors are now

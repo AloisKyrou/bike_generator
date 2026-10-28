@@ -28,6 +28,29 @@ correspondance broche physique → pin du symbole → pad du PCB.
 | `dump-load/` | G4 halogen branches | present or planned | lamp ratings, holders, thermal notes |
 | [`connectors-and-protection/`](./connectors-and-protection/) | fuses, TVS and power connectors | provisional candidates documented | final choice after voltage/current measurements |
 
+## V2 converter research, 2026-10-05
+
+- [Recovered generators and battery compatibility](generator-compatibility/README.md):
+  source register and archive supporting the broader V2 decision pack.
+- [TI PMP7282](ti-pmp7282/README.md): recovered historical reference PDFs.
+- [TI LM5146](ti-lm5146/README.md): evaluation guide and Altium design package.
+- [ADI LTC3779 / DC2456A](adi-ltc3779-dc2456a/README.md): online source index;
+  local downloads failed, no vendor binaries archived.
+
+These are research references, not approved V2 components or fabrication files.
+
+Update 2026-10-08: [Beetle-derived V2 logic power](beetle-power-v2/README.md)
+records TP4057 and RT9080 physical pin/model evidence, the exact source circuit,
+and unresolved discrete-part candidates. It supersedes BQ24074/TPS63031 for
+active V2 logic power, subject to USB/cell/thermal qualification.
+
+Update 2026-10-06, with later selection clarified: [TI BQ25756 / BQ25756EVM](ti-bq25756/README.md) now has
+archived current datasheet, EVM schematic/BOM/layout guide, selection notes,
+checklist and an inspected native Altium design ZIP. It is a cost-sensitive
+buck-boost controller selected for V2 at a 55 V working ceiling; the complete
+stage is not qualified hardware. Its 70 V IC / 55 V EVM limits and narrow I2C
+output-voltage trim prevent treating it as a drop-in universal V2 stage.
+
 ## Known online references
 
 - INA228: <https://www.ti.com/product/INA228>

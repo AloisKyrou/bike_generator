@@ -90,7 +90,7 @@ revue avant fabrication.
 6. Réconciliation du tableau ci-dessus sans ambiguïté restante.
 
 Les rendus et le schéma jetable sont placés dans
-`electrical/kicad/exports/` et restent volontairement ignorés par Git.
+`electrical/v1/kicad/exports/` et restent volontairement ignorés par Git.
 
 ## Conséquences pour le schéma V1
 

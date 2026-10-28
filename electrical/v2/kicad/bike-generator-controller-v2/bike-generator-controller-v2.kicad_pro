@@ -76,12 +76,7 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [
-        [
-          "silk_edge_clearance|93750000|20000000|57144f40-85f4-45f5-8a0d-090aba32c8a9|104044d1-218e-40f9-9065-6b69682c7304",
-          ""
-        ]
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -216,9 +211,17 @@
       ],
       "track_widths": [
         0.0,
+        0.2,
         0.25,
+        0.4,
+        0.6,
+        0.75,
+        1.0,
         2.0,
-        3.0
+        3.0,
+        5.0,
+        8.0,
+        10.0
       ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
@@ -252,12 +255,12 @@
           "drill": 0.0
         },
         {
-          "diameter": 0.8,
-          "drill": 0.4
+          "diameter": 0.6,
+          "drill": 0.3
         },
         {
-          "diameter": 1.2,
-          "drill": 0.6
+          "diameter": 0.8,
+          "drill": 0.4
         },
         {
           "diameter": 1.2,
@@ -547,54 +550,10 @@
       },
       {
         "clearance": 0.2,
-        "name": "ANALOG_CTRL",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.25,
-        "tuning_profile": "",
-        "via_diameter": 0.6,
-        "via_drill": 0.3
-      },
-      {
-        "clearance": 0.5,
-        "name": "AUX_HV_1A",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.75,
-        "tuning_profile": "",
-        "via_diameter": 0.8,
-        "via_drill": 0.4
-      },
-      {
-        "clearance": 0.5,
-        "name": "GEN_PHASE_POWER",
+        "name": "V2_ANALOG",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 0,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 4.0,
-        "tuning_profile": "",
-        "via_diameter": 2.0,
-        "via_drill": 1.0
-      },
-      {
-        "clearance": 0.2,
-        "name": "GROUND_PLANE",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 3,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.5,
-        "tuning_profile": "",
-        "via_diameter": 0.8,
-        "via_drill": 0.4
-      },
-      {
-        "clearance": 0.2,
-        "name": "HV_FLOATING",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 4,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.25,
         "tuning_profile": "",
         "via_diameter": 0.6,
@@ -602,9 +561,31 @@
       },
       {
         "clearance": 0.2,
-        "name": "LV_POWER",
+        "name": "V2_BOOTSTRAP",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 5,
+        "priority": 1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.6,
+        "tuning_profile": "",
+        "via_diameter": 0.8,
+        "via_drill": 0.4
+      },
+      {
+        "clearance": 0.2,
+        "name": "V2_GATE",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.6,
+        "tuning_profile": "",
+        "via_diameter": 0.8,
+        "via_drill": 0.4
+      },
+      {
+        "clearance": 0.2,
+        "name": "V2_GND_RETURN",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 3,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.75,
         "tuning_profile": "",
@@ -612,10 +593,21 @@
         "via_drill": 0.4
       },
       {
-        "clearance": 0.2,
-        "name": "MEASUREMENT",
+        "clearance": 0.5,
+        "name": "V2_INPUT_POWER",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 6,
+        "priority": 4,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 8.0,
+        "tuning_profile": "",
+        "via_diameter": 1.2,
+        "via_drill": 0.6
+      },
+      {
+        "clearance": 0.2,
+        "name": "V2_KELVIN_HV",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 5,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.25,
         "tuning_profile": "",
@@ -624,25 +616,80 @@
       },
       {
         "clearance": 0.2,
-        "name": "POWER_20A",
+        "name": "V2_LV_POWER",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 6,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.75,
+        "tuning_profile": "",
+        "via_diameter": 0.8,
+        "via_drill": 0.4
+      },
+      {
+        "clearance": 0.5,
+        "name": "V2_OUTPUT_POWER",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 7,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 5.0,
         "tuning_profile": "",
-        "via_diameter": 2.0,
-        "via_drill": 1.0
+        "via_diameter": 1.2,
+        "via_drill": 0.6
       },
       {
         "clearance": 0.2,
-        "name": "SW_NODE",
+        "name": "V2_RELAY_DRIVE",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 8,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 1.0,
+        "track_width": 0.4,
         "tuning_profile": "",
-        "via_diameter": 0.8,
-        "via_drill": 0.4
+        "via_diameter": 0.6,
+        "via_drill": 0.3
+      },
+      {
+        "clearance": 0.2,
+        "name": "V2_SIGNAL",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 9,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.25,
+        "tuning_profile": "",
+        "via_diameter": 0.6,
+        "via_drill": 0.3
+      },
+      {
+        "clearance": 0.2,
+        "name": "V2_SWITCH_MIXED",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 10,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 10.0,
+        "tuning_profile": "",
+        "via_diameter": 1.2,
+        "via_drill": 0.6
+      },
+      {
+        "clearance": 0.2,
+        "name": "V2_USB_PENDING",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 11,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.25,
+        "tuning_profile": "",
+        "via_diameter": 0.6,
+        "via_drill": 0.3
+      },
+      {
+        "clearance": 0.2,
+        "name": "V2_VAC_MIXED",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 12,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 8.0,
+        "tuning_profile": "",
+        "via_diameter": 1.2,
+        "via_drill": 0.6
       }
     ],
     "meta": {
@@ -652,107 +699,515 @@
     "netclass_assignments": null,
     "netclass_patterns": [
       {
-        "netclass": "HV_FLOATING",
-        "pattern": "/AUX_SUPPLY/BST"
-      },
-      {
-        "netclass": "ANALOG_CTRL",
-        "pattern": "/CC_CONTROL/CC_A"
-      },
-      {
-        "netclass": "ANALOG_CTRL",
-        "pattern": "/CC_CONTROL/CC_W"
-      },
-      {
-        "netclass": "ANALOG_CTRL",
-        "pattern": "/CC_CONTROL/CC_B"
-      },
-      {
-        "netclass": "ANALOG_CTRL",
-        "pattern": "/AUX_SUPPLY/FB"
-      },
-      {
-        "netclass": "ANALOG_CTRL",
-        "pattern": "/AUX_SUPPLY/RIPPLE"
-      },
-      {
-        "netclass": "ANALOG_CTRL",
-        "pattern": "/AUX_SUPPLY/RON_SET"
-      },
-      {
-        "netclass": "ANALOG_CTRL",
-        "pattern": "/AUX_SUPPLY/UVLO"
-      },
-      {
-        "netclass": "LV_POWER",
+        "netclass": "V2_LV_POWER",
         "pattern": "+3V3"
       },
       {
-        "netclass": "LV_POWER",
-        "pattern": "/AUX_SUPPLY/AUX_5V"
-      },
-      {
-        "netclass": "LV_POWER",
-        "pattern": "/MCU/BAT_CTRL"
-      },
-      {
-        "netclass": "LV_POWER",
-        "pattern": "/MCU/BAT_RAW"
-      },
-      {
-        "netclass": "LV_POWER",
-        "pattern": "/MCU/VIN_5V"
-      },
-      {
-        "netclass": "AUX_HV_1A",
-        "pattern": "/AUX_SUPPLY/AUX_IN_PROTECTED"
-      },
-      {
-        "netclass": "MEASUREMENT",
-        "pattern": "/INA228_SENSE/SHUNT_HI_K"
-      },
-      {
-        "netclass": "MEASUREMENT",
-        "pattern": "/INA228_SENSE/SHUNT_LO_K"
-      },
-      {
-        "netclass": "MEASUREMENT",
-        "pattern": "/INA228_SENSE/INA_IN_PLUS"
-      },
-      {
-        "netclass": "MEASUREMENT",
-        "pattern": "/INA228_SENSE/INA_IN_MINUS"
-      },
-      {
-        "netclass": "POWER_20A",
-        "pattern": "/INA228_SENSE/VBUS_SENSE"
-      },
-      {
-        "netclass": "SW_NODE",
-        "pattern": "/AUX_SUPPLY/SW"
-      },
-      {
-        "netclass": "GROUND_PLANE",
+        "netclass": "V2_GND_RETURN",
         "pattern": "GND"
       },
       {
-        "netclass": "POWER_20A",
+        "netclass": "V2_INPUT_POWER",
         "pattern": "/POWER_PATH/RECTIFIED_RAW"
       },
       {
-        "netclass": "POWER_20A",
-        "pattern": "Net-(D1-K)"
+        "netclass": "V2_INPUT_POWER",
+        "pattern": "/POWER_PATH/GEN_PHASE_*"
       },
       {
-        "netclass": "GEN_PHASE_POWER",
-        "pattern": "/POWER_PATH/GEN_PHASE_*"
+        "netclass": "V2_SIGNAL",
+        "pattern": "/CC_CONTROL/CV_AUTO_N"
+      },
+      {
+        "netclass": "V2_RELAY_DRIVE",
+        "pattern": "/CC_CONTROL/CV_COIL_PLUS"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "/CC_CONTROL/CV_DIGITAL_DRAIN"
+      },
+      {
+        "netclass": "V2_RELAY_DRIVE",
+        "pattern": "/CC_CONTROL/CV_DRIVE"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "/CC_CONTROL/CV_MANUAL"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "/CC_CONTROL/CV_POT1_AW"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "/CC_CONTROL/POT0_A"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "/CC_CONTROL/POT0_B"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "/CC_CONTROL/POT0_W"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/CC_CONTROL/POT_CS"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/CC_CONTROL/POT_MOSI"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/CC_CONTROL/POT_SCK"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/GPIO_EXT10"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/GPIO_EXT2"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/GPIO_EXT3"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/GPIO_EXT4"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/GPIO_EXT8"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/I2C_SCL"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/I2C_SDA"
+      },
+      {
+        "netclass": "V2_LV_POWER",
+        "pattern": "/LOGIC_POWER_USB_ONLY/BAT_1S"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/LOGIC_POWER_USB_ONLY/REG_EN"
+      },
+      {
+        "netclass": "V2_LV_POWER",
+        "pattern": "/LOGIC_POWER_USB_ONLY/SYS_BAT"
+      },
+      {
+        "netclass": "V2_LV_POWER",
+        "pattern": "/LOGIC_POWER_USB_ONLY/TP_VCC"
+      },
+      {
+        "netclass": "V2_KELVIN_HV",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_ACN"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_ACOV"
+      },
+      {
+        "netclass": "V2_KELVIN_HV",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_ACP"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_ACUV"
+      },
+      {
+        "netclass": "V2_BOOTSTRAP",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_BTST1"
+      },
+      {
+        "netclass": "V2_BOOTSTRAP",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_BTST2"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_CE"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_FBG"
+      },
+      {
+        "netclass": "V2_GATE",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_HIDRV1"
+      },
+      {
+        "netclass": "V2_GATE",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_HIDRV2"
+      },
+      {
+        "netclass": "V2_INPUT_POWER",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_IN"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_INT"
+      },
+      {
+        "netclass": "V2_GATE",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_LODRV1"
+      },
+      {
+        "netclass": "V2_GATE",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_LODRV2"
+      },
+      {
+        "netclass": "V2_OUTPUT_POWER",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_OUT"
+      },
+      {
+        "netclass": "V2_GATE",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_REGN"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_SCL"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_SDA"
+      },
+      {
+        "netclass": "V2_KELVIN_HV",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_SRN"
+      },
+      {
+        "netclass": "V2_KELVIN_HV",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_SRP"
+      },
+      {
+        "netclass": "V2_SWITCH_MIXED",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_SW1"
+      },
+      {
+        "netclass": "V2_SWITCH_MIXED",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_SW2"
+      },
+      {
+        "netclass": "V2_OUTPUT_POWER",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_SYS"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_TS"
+      },
+      {
+        "netclass": "V2_VAC_MIXED",
+        "pattern": "/MAIN_CONVERTER_TBD/BQ_VAC"
+      },
+      {
+        "netclass": "V2_INPUT_POWER",
+        "pattern": "/MAIN_CONVERTER_TBD/BUS_PROTECTED"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "/MAIN_CONVERTER_TBD/CV_FB"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/MCU_MODULE_PROVISIONAL/BOOT_N"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/MCU_MODULE_PROVISIONAL/MCU_EN"
+      },
+      {
+        "netclass": "V2_USB_PENDING",
+        "pattern": "/MCU_MODULE_PROVISIONAL/USB_DM"
+      },
+      {
+        "netclass": "V2_USB_PENDING",
+        "pattern": "/MCU_MODULE_PROVISIONAL/USB_DM_MCU"
+      },
+      {
+        "netclass": "V2_USB_PENDING",
+        "pattern": "/MCU_MODULE_PROVISIONAL/USB_DP"
+      },
+      {
+        "netclass": "V2_USB_PENDING",
+        "pattern": "/MCU_MODULE_PROVISIONAL/USB_DP_MCU"
+      },
+      {
+        "netclass": "V2_INPUT_POWER",
+        "pattern": "/POWER_PATH/GEN_PHASE_U"
+      },
+      {
+        "netclass": "V2_INPUT_POWER",
+        "pattern": "/POWER_PATH/GEN_PHASE_V"
+      },
+      {
+        "netclass": "V2_INPUT_POWER",
+        "pattern": "/POWER_PATH/GEN_PHASE_W"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "/STATUS_LED"
+      },
+      {
+        "netclass": "V2_LV_POWER",
+        "pattern": "/USB_INTERFACE/VBUS_USB"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "Net-(D21-A)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "Net-(D21-K)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "Net-(D22-A)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "Net-(J27-CC1)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "Net-(J27-CC2)"
+      },
+      {
+        "netclass": "V2_USB_PENDING",
+        "pattern": "Net-(J27-D+-PadA6)"
+      },
+      {
+        "netclass": "V2_USB_PENDING",
+        "pattern": "Net-(J27-D--PadA7)"
+      },
+      {
+        "netclass": "V2_OUTPUT_POWER",
+        "pattern": "Net-(J31-Pin_1)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "Net-(J5-Pin_1)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "Net-(J5-Pin_3)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "Net-(J5-Pin_5)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "Net-(J5-Pin_7)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "Net-(J5-Pin_9)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "Net-(JP20-B)"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "Net-(K1-Pad4)"
+      },
+      {
+        "netclass": "V2_GATE",
+        "pattern": "Net-(Q10-G)"
+      },
+      {
+        "netclass": "V2_GATE",
+        "pattern": "Net-(Q11-G)"
+      },
+      {
+        "netclass": "V2_GATE",
+        "pattern": "Net-(Q12-G)"
+      },
+      {
+        "netclass": "V2_GATE",
+        "pattern": "Net-(Q13-G)"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "Net-(Q21-S)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "Net-(Q22-G)"
+      },
+      {
+        "netclass": "V2_KELVIN_HV",
+        "pattern": "Net-(R1-Pad2)"
+      },
+      {
+        "netclass": "V2_KELVIN_HV",
+        "pattern": "Net-(R1-Pad3)"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "Net-(R61-Pad2)"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "Net-(R67-Pad2)"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "Net-(R84-Pad2)"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "Net-(R89-Pad2)"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "Net-(U6-PROG)"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "Net-(U9-FSW_SYNC)"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "Net-(U9-ICHG)"
+      },
+      {
+        "netclass": "V2_ANALOG",
+        "pattern": "Net-(U9-ILIM_HIZ)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(D23-NC-Pad2)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(D25-NC-Pad2)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(J27-SBU1-PadA8)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(J27-SBU2-PadB8)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(K1-NC-Pad5)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(K1-NC-Pad6)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(K1-Pad9)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U2-NC-Pad10)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U2-NC-Pad15)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U2-NC-Pad17)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U2-NC-Pad24)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U2-NC-Pad25)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U2-NC-Pad28)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U2-NC-Pad29)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U2-NC-Pad32)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U2-NC-Pad33)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U2-NC-Pad34)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U2-NC-Pad35)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U2-NC-Pad4)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U2-NC-Pad7)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U2-NC-Pad9)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U3-SDO-Pad13)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U6-STDBY-Pad5)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U7-NC-Pad4)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U9-NC-Pad15)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U9-NC-Pad16)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U9-NC-Pad31)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U9-STAT1-Pad4)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U9-STAT2-Pad5)"
+      },
+      {
+        "netclass": "V2_SIGNAL",
+        "pattern": "unconnected-(U9-~{PG}-Pad6)"
       }
     ]
   },
   "pcbnew": {
     "last_paths": {
       "idf": "",
-      "netlist": "../../../../.konnect-scratch/v2-layout-start.net",
+      "netlist": "../../../../.konnect-scratch/jae16-after.net",
       "plot": "",
       "specctra_dsn": "",
       "step": "",

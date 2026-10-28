@@ -1,5 +1,83 @@
 # Guide de routage apres implantation
 
+Derniere passe : `PCB_INPUT_RETURN_ROUTING_PASS15_2026-10-14.md`.
+1065 segments/131 vias,16 connexions restantes (8 masses,4 USB,2 VAC,
+1 alimentation principale,1 LED).36 segments ajoutes,aucun deplacement,
+1029 anciens preserves. DRC131 inchange;sync noop. Cuivre local entree,
+fusible/TVS et banques de masse avances;plans et retours critiques incomplets.
+Variante USB etudiee et creee,non appliquee avant verification de soudabilite.
+Voir `USB4105_LOCAL_FOOTPRINT_STUDY_2026-10-14.md`. Aucun feu vert fabrication.
+
+Passe precedente : `PCB_SIGNAL_POWER_ROUTING_PASS14_2026-10-14.md`.
+1029 segments/131 vias,32 connexions restantes contre104. GPIO rapproches
+de l'ESP,CE/pull-up et cuivre de commutation/sortie avances. Huit placements
+modifies et12 segments remplaces volontairement;835 anciens preserves.
+DRC131:4 erreurs J27+127 serigraphie;sync noop. Reste alimentation d'entree,
+USB data,STATUS_LED et20 connexions de masse. Etranglements de puissance
+encore a dimensionner/qualifier. Etude d'empreinte USB locale autorisee.
+Pas d'autorisation de fabrication ni de mise sous tension.
+
+Passe precedente : `PCB_LINK_ROUTING_PASS13_2026-10-13.md`. I2C global,
+J32 SCL/SDA/INT, USB VBUS/CC/masse locale, potentiometre libre J7 et
+sorties USB MCU vers resistances raccordes.847 segments,112 vias;
+104 connexions restantes contre130.155 segments ajoutes, quatre remplaces,
+692 preserves. Aucun composant deplace; classes inchangees. DRC133
+inchange, quatre erreurs J27 toujours ouvertes; sync noop. USB data
+complet,GPIO,CE/R70 et cuivre de puissance/plans restent a terminer.
+Passages dessous documentes. Pas de decision utilisateur bloquante.
+
+Passe precedente : `PCB_LOGIC_ROUTING_PASS12_2026-10-13.md`. Alimentation
+logique/recharge,distribution3V3,EN/BOOT,I2C local,branches LED/connecteurs.
+696 segments,85 vias;130 connexions restantes contre199 avant.225 segments
+ajoutes,471 anciens preserves. Seuls C50/R51 deplaces. Aucun nouveau defaut
+cuivre/courtyard/masque;4 erreurs J27 et129 avertissements de serigraphie.
+I2C global,USB,GPIO/services et cuivre de puissance/plans restent ouverts.
+Aucune decision utilisateur bloquante; poursuivre par plusieurs blocs.
+
+Passe precedente : `PCB_SPI_ROUTING_PASS11_2026-10-13.md`. SPI entre U2/U3
+et commande CV_AUTO_N raccordes. Aucun deplacement; six vias SPI documentes,
+retour dessus sous le SOIC sans via dans ses pastilles.471 segments,61 vias,
+199 connexions restantes. Alimentations globales/I2C/services encore ouverts.
+
+Passe precedente : `PCB_FBG_ROUTING_PASS10_2026-10-13.md`. FBG raccorde a RV2,
+R62 pivote/deplace et R72/R73 legerement decales. Quatre vias documentes;
+connectivite TS/REGN/reglages de courant preservee.440 segments,55 vias,
+203 connexions restantes. Longueur FBG68.15mm et couverture par la masse
+encore a revoir avec CV_FB; aucune qualification de bruit ou puissance.
+
+Passe precedente : `PCB_CV_LINK_ROUTING_PASS9_2026-10-13.md`. CV_FB/K1 et TP45
+raccordes; alimentations locales Q22/D24 reliees a C4/U3, mais pas encore a
+la source 3V3. BQ_FBG reste ouvert : revoir le couloir R61/R62/TS avant de
+tracer. Quatre vias ajoutes; branche manuelle et retour RV1 repris.418 segments,
+51 vias,204 connexions restantes. Longueur CV_FB/retour calme a revoir.
+
+Passe precedente : `PCB_REGN_CV_ROUTING_PASS8_2026-10-13.md`. REGN vers R72
+est raccorde, ainsi qu'une grande partie du bloc local K1/RV2/U3/Q21/Q22.
+R67 rapproche de R89; onze vias ajoutes et justifies. CV_FB/FBG, TP45 et les
+alimentations/interfaces globales restent ouverts.404 segments,47 vias,
+208 connexions restantes. Les mentions d'ouvertures ci-dessous sont historiques.
+
+Passe precedente : `PCB_THERMAL_DIGITAL_ROUTING_PASS7_2026-10-13.md`, J33
+rapproche et raccorde, SCL/SDA/INT vers leurs resistances. Sept nouveaux vias
+justifies dans ce compte rendu. REGN vers R72 reste ouvert.
+
+Passe precedente : `PCB_TEST_FEEDBACK_ROUTING_PASS6_2026-10-13.md`, points de
+test courant/REGN et retour CV local. Deux franchissements dessous pour TP41/42;
+TP43 rapproche de D11. REGN vers R72 et TS vers J33 restent ouverts.
+
+Passe precedente : `PCB_FANOUT_ROUTING_PASS5_2026-10-13.md`, sorties ACUV/ACOV
+et branche du potentiometre de courant. C63/C67/RV1/TP43 repositionnes.
+
+Derniere passe : `PCB_SETTINGS_ROUTING_PASS4_2026-10-13.md`, reglages locaux
+du BQ et chaine de seuils. TS franchit dessous les reglages de courant;
+deux autres vias rejoignent la masse locale. Connexions restantes explicites.
+
+Dernier etat : voir `PCB_INPUT_ROUTING_PASS3_2026-10-13.md` pour les filtres,
+prises Kelvin et deux retours GND supplementaires. Aucun nouveau signal dessous.
+Voir aussi `PCB_DRIVER_ROUTING_PASS2_2026-10-13.md` pour les passages
+dessous effectivement traces, leur justification et leurs controles. Le guide
+ci-dessous est le registre initial de candidats, avant ces passes de routage.
+
 13 octobre 2026. PCB V2, deux couches. Guide de travail, pas une validation
 de fabrication. Les composants sont tous places, mais certaines positions
 restent a optimiser au passage des pistes. Aucune nouvelle piste ni via ajoute.

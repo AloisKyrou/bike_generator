@@ -1,0 +1,50 @@
+[
+    {
+        "file":  "sluua30.pdf",
+        "url":  "https://www.ti.com/lit/pdf/sluua30",
+        "retrieved":  "2026-10-05",
+        "status":  "archived",
+        "bytes":  1982910,
+        "sha256":  "7BE8DC2D238CCF4E94804739BD680B307463E9FE702E3622194F600628EA5165"
+    },
+    {
+        "file":  "slur966.pdf",
+        "url":  "https://www.ti.com/lit/pdf/slur966",
+        "retrieved":  "2026-10-05",
+        "status":  "archived",
+        "bytes":  93384,
+        "sha256":  "B52F7E5FC196B58B01802E12A9E4BF7EDAE81CF0743BE17E22ECE9C0399908D7"
+    },
+    {
+        "file":  "sluua31.pdf",
+        "url":  "https://www.ti.com/lit/pdf/sluua31",
+        "retrieved":  "2026-10-05",
+        "status":  "archived",
+        "bytes":  1017120,
+        "sha256":  "B857BF099CC068EDCC51940D7556E9F58F333142FDA2842EFBFF1A139CF2E74A"
+    },
+    {
+        "file":  "slur965.pdf",
+        "url":  "https://www.ti.com/lit/pdf/slur965",
+        "retrieved":  "2026-10-05",
+        "status":  "archived",
+        "bytes":  284907,
+        "sha256":  "5466B319EC0442A0561B9CBD5DADAA452B9A3322F814344347A26EBBCC86D753"
+    },
+    {
+        "file":  "sluc388.zip",
+        "url":  "https://www.ti.com/lit/zip/sluc388",
+        "retrieved":  "2026-10-05",
+        "status":  "not-a-valid-document-or-login-response",
+        "bytes":  0,
+        "sha256":  null
+    },
+    {
+        "file":  "lm5116.pdf",
+        "url":  "https://www.ti.com/lit/ds/symlink/lm5116.pdf",
+        "retrieved":  "2026-10-05",
+        "status":  "archived",
+        "bytes":  1793690,
+        "sha256":  "D681490326F776660C56C35CE805095890CB4692850E7314790A5F43E4F67F79"
+    }
+]

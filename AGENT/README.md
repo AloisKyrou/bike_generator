@@ -1,5 +1,396 @@
 # Future-agent handoff
 
+## Approved changes pending application, 28 October 2026
+
+User confirmed INA237AIDGSR for BOTH U1/U10 on 25 October, after explicitly
+reconfirming the choice. Do not ask this selection question again. Also approved
+local Harwin header drill changes 1.00 -> 1.05 mm and J26 JST 0.75 -> 0.80 mm,
+with unchanged parts/positions and fresh pad-clearance/annulus verification.
+These approvals are NOT completed CAD work: saved board remains CC446D8A...
+C1468F8D, still INA238 and old holes. USB routing repair remains pending too.
+28 October Konnect retry: IPC not_configured, no reachable editor. No native
+CAD mutation was attempted. Apply via KiCad/Konnect, sync PCB fields, regenerate
+BOM/shopping lists and run checks before release. Firmware remains out of scope;
+record INA237 identification/alert differences for later implementation.
+User requests Git checkpoint/push and a separate local, uncommitted AI-switch
+file. No fabrication/order approval. Previous ZIP remains obsolete.
+
+## External restart review, 24 October 2026
+
+Read electrical/external-converter/FINAL_PHASES_2026-10-24.md first.
+Fresh saved ERC0/9sheets; XML81parts84nets287pins unchanged;17fixturesPASS.
+Fresh DRC0errors/4knownsilk/0unconnected; parity only H1/H2/H4.
+PCB remains CC446D8A...C1468F8D; no CAD edits in this recheck. USB local repair,
+connector-fit disposition and final new fabrication package still needed.
+Konnect reports no UI and unconfigured IPC; user asked to open exact external
+PCB. Procurement recheck found only3 planned INA238AIDGSR vs4needed; do not
+blindly use old shopping drafts/prices. New bom/ORDER_READINESS_2026-10-24.md
+checks35MPNs: other34stockadequate; INA237AIDGSR pincompatiblecandidate at
+DKUSD3.23/11792stock, userapprovalrequested, NOTsubstituted. Driver must handle
+absent0x3FdeviceID and lowerprecision. No fabrication/no-order claim changed.
+No order/upload. Prototype tests remain separate from pre-order closure.
+
+## Latest full external review, 15 October 2026
+
+Read electrical/external-converter/FULL_PREFAB_REVIEW_2026-10-15.md FIRST.
+User requested review beyond ERC/DRC. Preserve user I2C/3V3 edits; current saved
+PCB CC446D8A...C1468F8D, 588 tracks/107 vias/84 footprints. Native fill/save,
+fresh DRC0 errors/4knownsilk/0unconnected; saved/live trace geometry matches.
+Fresh electrical review found no new confirmed schematic pinout defect;17
+fixturesPASS. USB longpair crosses bottom-plane slits and lacks continuous
+reference on B.Cu: localized reroute/return repair recommended BEFORE order.
+Connector finished-hole tolerance needs decision (JST/Harwin/Phoenix); no
+proven wrong pinmap. Seven obsolete netclasses/3V3 width appearance are cleanup,
+not safety findings. No root routing changes applied in this review.
+Older prefab-2026-10-15-final ZIP is now OBSOLETE, do not order it. Review-only
+outputs in full-review-2026-10-15/. No upload/order. Independent electrical and
+mechanical reports linked in full review. Preserve normal prototype test gates.
+
+## External prototype preparation, latest 15 October 2026
+
+Read electrical/external-converter/PREFAB_CLOSEOUT_2026-10-15.md FIRST.
+C42 now TP_VCC afterR45, closeU6.4; no addedparts. OnlyC42.1 net changed.
+591segments107vias84footprints; onlyC42/C45 moved; localBATvia moved/newGNDvia.
+ERC0,DRC0errors/4historic silkedge warnings/0unconnected,parityH1H2H4.
+Direct verifier now17negativefixtures, independent corrected reviewPASS.
+User chose5JLCPCB boards /componentsfor2 /2layers2oz1.6mm/selfassembly.
+Supplier drafts: bom/shopping-2boards-2026-10-15/. No order/upload/cart.
+LATEST Gerber/PTH/NPTH exports: kicad/exports/prefab-2026-10-15-final/.
+User recovered/closed schematic: final sync NOOP, nine sheets, zero changes.
+User delegated legend choice: refs +19 board labels now1mm/0.15mm. DRC still
+0errors/4historicwarnings/0unconnected;17fixturesPASS. Copper/mask/outline/drill
+Gerbers identical to prior export ignoring timestamps; only front legend changed.
+PreflighttoolREADY is bounded, NOT fullrelease: connectorfit and portalpreview
+pending. See JLC_ORDER_REVIEW_2026-10-15.md. JP20OPEN.
+KiCad crashed during nativePythonconsoleattempt; recovered by user. Do NOT use
+that console again; exactMCPselection plusnativepropertiesUI worked reliably.
+Older study-only/unappliedC42 and585track entries below are historical.
+
+## External sourcing and bypass study, latest 15 October 2026
+
+User requested study, not CAD changes. Read
+electrical/external-converter/TP4057_INPUT_BYPASS_STUDY_2026-10-15.md:
+recommend reconnecting C42 after R45 onto TP_VCC, close to U6.4, following
+TP4057 Rev2.2 p9; zero added parts. NOT APPLIED. JP20 remains OPEN; capacitor
+bias/USB/charge qualification stays open. Native design unchanged by this study.
+bom/SUPPLIER_PLAN_2026-10-15.md and supplier-plan-2026-10-15.csv allocate all
+35 MPNs/74 purchased parts to DigiKey29 + LCSC6. Two component suppliers,
+plus separate PCB fabrication; accessories not yet fully selected. Exact parts
+preserved, no orders/substitutions. Recheck stock/cart/freight; F1 stock indexed.
+LCSC INA238 expensive USD8.4027 each; low DigiKey quote remains unavailable.
+
+## External capacitor checkpoint, latest 15 October 2026
+
+Read electrical/external-converter/CAPACITOR_SELECTION_2026-10-15.md FIRST,
+then the 2 oz review below. Five 10uF gaps now have PROVISIONAL Murata
+GRM21BR61C106KE15L (16V/0805), no missing purchasable MPNs. Native fields/value
+sync only: same 585 tracks, 106 vias, 84 footprints, pads and net connectivity.
+Fresh ERC0, DRC0errors/4knownsilk warnings/0unconnected; parity only H1/H2/H4;
+sync noop, Direct verifier and all12 negative fixtures pass. Visual sheets checked.
+Do NOT confuse MPN completion with capacitor/charge qualification. Typical
+DC-bias reviewed, but C42 is upstream of R45, NOT directly on TP4057.VCC.
+Resolve local VCC bypass before design freeze; JP20 remains OPEN. Five caps
+retain PROVISIONAL notes in schematic/PCB/BOM. No fabrication/power approval.
+LCSC C77075 observed USD0.0414 each atMOQ10; EUR planning budget unchanged.
+Evidence: external-converter/kicad/exports/capacitors-2026-10-15/.
+V1/V2/firmware untouched. Older five-missing-MPN entries below are historical.
+
+## External 2 oz checkpoint, 15 October 2026
+
+Read electrical/external-converter/REVIEW_2OZ_2026-10-15.md FIRST.
+User-approved local HRO/JST PTH-pad variants applied, holes/positions unchanged.
+Actual native stackup is 2 layers / 0.070 mm copper each / 1.600 mm total.
+84 footprints, 585 segments, 106 vias; routing preserved. DRC zero errors,
+four existing silk-edge warnings, zero unconnected; parity only H1/H2/H4.
+ERC zero; Direct verifier and 12 negative fixtures pass; sync noop.
+All 58 component PTHs reviewed, minimum annulus now 0.320 mm. Bounded JLC
+2 oz geometry screen passes; NOT manufacturer acceptance. PCBWay generic
+0.15 mm annulus was misleading: use its detailed 70 um rules, including vias.
+Return-plane/spoke calculation complete: no mandatory reroute; retain thermals.
+36 BOM MPN gaps filled, FIVE 10 uF caps still awaiting bias qualification.
+Budget now 43.96-73.17 EUR planning only; lower end includes unavailable stock.
+F1 20 A is not a 10 A limiter; source-specific fault coordination remains open.
+Review outputs: external-converter/kicad/exports/review-2oz-2026-10-15/.
+No fabrication/power-up release. V1/V2/firmware unchanged by this pass.
+Older external entries below are historical where superseded.
+
+## External USB closure, latest 14 October 2026
+
+Read electrical/external-converter/USB_CLOSEOUT_2026-10-14.md FIRST.
+J27 now HRO TYPE-C-31-M-12, standard footprint, user-approved USB replacement.
+84 footprints (user removedH3/movedH2; preserve),585 tracks455top/130bottom,
+106vias.552 previous tracks unchanged;23 removed/33added locally. ERC0,
+DRC0errors/4silk warnings/0unconnected;parity onlyH1/H2/H4;syncnoop.
+Native UI corrected J27 custom fields that Konnect sync omitted. New review
+PDFs/JSON/XML are under external-converter/kicad/exports/usb-closeout-2026-10-14/.
+Independent review confirms USB map; HRO fixes JAE NPTH-slot issue but NOT
+JLC2oz compatibility: J27/J26 PTHannuli0.20/0.225mm vs0.254 required. No waiver.
+User confirmed on14October2026: target2layers/2oz (about70um) for10A.
+This approves the design basis, not a fabricator, rule waiver or order.
+PCBWay is a lead only. Read CURRENT_AND_FABRICATION_2026-10-14.md.
+BOM regenerated; budget43.47-77.89EUR planning only;41 small-part MPN gaps.
+INA238 LCSC freshstock469 atUSD8.4027 vs cheaper unavailable DK. See bom/README.
+No fabrication/power-up release. V1/V2/firmware untouched by this USB pass.
+Older JAE/checkpoint entries below are history, not the current external state.
+
+## External direct-digipot PCB checkpoint, 14 October 2026
+
+LATEST decision supersedes the relay approval and untouched-PCB notes below.
+User accepts prototype-style direct MCP42100 outputs instead of complicated
+unpowered mechanical fallback. K1-K3 and eleven related parts removed; GPIO20
+NC; /RS and /SHDN high. No automatic manual fallback or guaranteed safe code
+with logic off. Power and initialize logic before converter enable; qualify
+terminal voltage/current and back-power behavior. Read external-converter
+CONTROL_AND_SENSING.md and DIRECT_DIGIPOT_CHECKPOINT_2026-10-14.md.
+
+Schematic: 81 parts/84 nets/9 sheets, ERC0 and 12 negative fixtures pass.
+PCB routing COMPLETE: 85 footprints including four retained holes, 575 tracks
+(447 top/128 bottom), 104 vias, zero unconnected items. Provisional stepped
+outline bounds 80x115mm, with left cell-connector extension and ESP antenna
+notch. Saved refilled copper, then final silk-only cleanup: DRC 7 findings,
+5 known JAE internal edge errors and 2 U2 antenna-outline silk-edge warnings.
+No short/track-clearance/courtyard/library-mismatch or dangling-route findings.
+Sync noop, only four board-only holes expected. No exclusions added.
+Read electrical/external-converter/PCB_ROUTING_COMPLETE_2026-10-14.md and
+INDEPENDENT_REVIEW_2026-10-14.md next. JAE slot tolerance/process remains the
+fabrication blocker; current/thermal, USB/1S and RF remain qualification gates.
+F1 cannot protect a fault supplied by the receiver battery: fuse near battery.
+V1 source manifest hashes verified unchanged; V2/firmware not modified here.
+No fabrication or power-up release. Existing project ignored checks retained.
+
+Konnect netclass edits are file-backed: a subsequent live save can overwrite
+them with cached project data. Verified workflow: save/close native PCB,
+apply classes through Konnect, reopen, save/read back. Do not bypass IPC guards.
+Native Update Footprints from Library restored U2/J27/Q20 mechanical properties;
+avoid blind typed refresh/sync that reintroduces mismatch.
+
+## External PCB reuse proposal, 14 October 2026
+
+User requested inspection and a minimal-reroute proposal, not implementation.
+Read electrical/external-converter/PCB_REUSE_PLAN_2026-10-14.md before layout.
+Saved PCB70x110mm,64footprints,429segments(390top/39bottom),53via records;
+still byte-identical V1. Current schematic95components/110nets, PCB46nets.
+Plan preserves input-power and INA/Kelvin anchors, uses old AUX region for
+output sensing/terminals, and rebuilds upper ESP/USB/power/relay circuitry.
+No native changes or synchronization dry-run: IPC editor unavailable, evidence
+from native saved-file SVG/GenCAD exports. Do not blind-reuse renamed nets or
+repurposed references (notablyR19). No fixed new coordinates or outline change.
+
+## External converter three-wire approval, 14 October 2026
+
+Latest user decision: full independent CC and CV A/W/B interfaces, to support
+both rheostat and divider configurations. Three TQ2-3V DPDT relays share one
+GPIO20/AUTO_N and AO3401A driver; NC external mechanical 100k, NO MCP42100.
+All six terminals switch; no A/W straps. Mechanical pots remain external.
+GPIO20 low requests digital after initialization, high/released requests manual;
+MCP /RS and /SHDN stay high. This supersedes the raw checkpoint below.
+Active `cc_selector_3wire.kicad_sch`:95components/110nets, ERC0; independent
+ThreeWire netlist checks and9negative fixtures pass. Raw/two-wire sheets inactive.
+See CONTROL_AND_SENSING.md for the exact six-pole contract and qualification gates.
+Latest report: electrical/external-converter/THREE_WIRE_CHECKPOINT_2026-10-14.md.
+Review PDF under external-converter/kicad/exports/three-wire-2026-10-14/.
+No universal converter compatibility: terminal range/current, relay skew,
+brownout injection and USB/LDO budget remain unqualified. About139mA coil load.
+PCB remains unsynchronized; V1/V2 and firmware are outside this change.
+
+## External converter checkpoint, 14 October 2026
+
+New independent variant: `electrical/external-converter/README.md`.
+Project `electrical/external-converter/kicad/bike-generator-external-controller/`.
+V1 copied/renamed through Konnect; V1 and V2 preserved. Current schematic removes
+LM5164, imports V2 ESP32/USB/optional1S/GPIO, and adds a second INA238/shunt for
+converter output. Raw V1 MCP42100 100k CC/CV A/W/B headers retained with
+GPIO20-to-SHDN. User questioned the assumed two-wire interface: automatic
+manual/digital selection is NOT active; `cc_selector.kicad_sch` is an unlinked
+two-wire study, not the current circuit. See `CONTROL_AND_SENSING.md`.
+82 components/84 nets; fresh hierarchy ERC0; independent raw-netlist checks and
+five negative fixtures pass. PCB is still byte-identical V1 and UNSYNCHRONIZED.
+No manufacturing/power-up release. INA238 stock and JAE fabrication gates remain.
+Prioritize latest user interface decision before activating a selector; a 100k
+value alone does not establish two-wire versus three-wire converter control.
+
+## JAE USB selection, 14 October 2026
+
+User provisionally accepted JAE DX07S016JA1R1500; J27 schematic/PCB/BOM updated.
+Read `electrical/v2/docs/USB_JAE_SELECTION_2026-10-14.md` before more USB work.
+1069 tracks/131 vias/149 parts, 16 unrouted; nine local tracks replaced by13,
+1056 preserved, all placements unchanged. ERC0, USB118 checks+5negative cases
+pass, nets unchanged, sync noop. DRC132: five J27 oval-NPTH edge errors+127silk;
+four intentional mounting-hole parity. No rule changes/exclusions. Important:
+0.266mm nominal gap passes hole0.25 but oval uses edge0.50; 0.6mm NPTH slot is
+below JLC1mm/PCBWay0.8mm published minima. JAE is NOT fabrication-cleared.
+Eurocircuits0.5mm slots is only a lead; full process/cost not checked. No waiver
+authorized. Native UI refresh restored mechanical pad properties after typed
+sync; avoid reintroducing library mismatch via unsupported footprint updates.
+BOM drawn subtotal87.24-109.52 EUR one-off; no ordering/release approval.
+
+## Input/return routing pass 15, 14 October 2026
+
+Latest `electrical/v2/docs/PCB_INPUT_RETURN_ROUTING_PASS15_2026-10-14.md`.
+1065 tracks/131 vias/149 parts;36 added,all1029 preceding tracks preserved,
+no placement changes.16 unrouted versus32 (104 before pass14).DRC131 remains
+4 J27 holes+127 silk;4 hole parity;sync noop. Local input/fuse/TVS and capacitor
+ground banks connected, main feed/switching returns/USB/LED still incomplete.
+USB local study created and checked separately, NOT applied to J27: see
+`USB4105_LOCAL_FOOTPRINT_STUDY_2026-10-14.md`; physical solder-fit gate remains.
+`verify-routes15-pass.mjs` PASS. No fabrication/power-up approval.
+
+## Signal/power routing pass 14, 14 October 2026
+
+Read `electrical/v2/docs/PCB_SIGNAL_POWER_ROUTING_PASS14_2026-10-14.md`.
+1029 tracks/131 vias/149 parts; 194 new tracks, 12 deliberately replaced,
+835 earlier tracks exactly preserved. J5/R7/R8/R9/R10/R34/H1/R70 moved.
+32 unrouted versus104; DRC131:4 existing USB holes+127 silk;4 hole parity,
+sync noop. GPIO/CE/pull-up, switching and output positive paths advanced.
+Input feeds, USB data, STATUS_LED and 20 GND items remain. Short power necks
+need current/thermal review; do not declare 400 W or fabrication readiness.
+User authorizes local USB footprint study, not a manufacturer qualification.
+Verifier `verify-finish14-pass.mjs` PASS. No schematic/value/firmware changes.
+
+## Interface routing pass 13, 13 October 2026
+
+Read `electrical/v2/docs/PCB_LINK_ROUTING_PASS13_2026-10-13.md` first.
+847 segments/112 vias/149 unchanged placements.155 segments added, four
+deliberately replaced,692 preserved exactly. I2C distribution, J32 SCL/SDA/INT,
+USB VBUS/CC/local GND, spare-pot J7 and MCU-side USB escapes connected.
+104 unrouted versus130 before. DRC133 unchanged:4 J27 holes+129 silk,
+4 mounting-hole parity,sync noop. No new copper/courtyard/mask findings.
+USB data path, GPIO feeds, CE/R70 supply and power/planes remain open.
+Bottom transitions and four replacements documented; no user blocker.
+Verifier `verify-links13-pass.mjs` PASS. No component/config/value changes.
+
+## Logic routing pass 12, 13 October 2026
+
+Read `electrical/v2/docs/PCB_LOGIC_ROUTING_PASS12_2026-10-13.md` first.
+Larger autonomous session: 696 segments/85 vias/149 parts; all471 earlier
+tracks preserved,225 added (162 top/63 bottom). Only C50/R51 moved. Logic
+handover/charger,3V3 distribution,EN/BOOT,local I2C and header/LED branches
+advanced.130 unrouted versus199 before. DRC133:4 known J27 holes +129 silk,
+no copper/courtyard/mask/dangling-via errors;4 hole parity,sync noop.
+Native menu deletion after exact Konnect selection now verified for vias.
+Next I2C distribution,USB/GPIO/service,then power copper/planes. No user
+decision blocks continuation; do not return to tiny single-net sessions.
+
+## SPI routing pass 11, 13 October 2026
+
+Read `electrical/v2/docs/PCB_SPI_ROUTING_PASS11_2026-10-13.md` first.
+471 segments/61 vias/149 unchanged parts; all440 previous tracks preserved,
+31 added. POT_CS/SCK/MOSI now connect U2 to U3; CV_AUTO_N U2-to-R87 stays
+entirely top. Six SPI vias with bottom passage/under-SOIC escape documented.
+DRC129 unchanged(4 USB+125 silk),199 unrouted,4 hole parity,sync noop. No new
+copper/courtyard/mask errors. Next global logic power, I2C/service/control,
+then power copper/planes. Signal return/clock/noise qualification still open.
+
+## FBG routing pass 10, 13 October 2026
+
+Read `electrical/v2/docs/PCB_FBG_ROUTING_PASS10_2026-10-13.md` first.
+440 segments/55 vias/149 parts;406 earlier tracks preserved,12 replaced,
+34 new. R62 now(76.7,66.8)/90,R72(77.5,69.7)/0,R73(77.5,72)/180.
+BQ_FBG now connected to RV2; TS/REGN/current-setting connectivity preserved.
+Four new vias documented. FBG length68.15mm remains a quiet-return/plane
+review item, not noise-qualified. DRC129(4 USB+125 silk),203 unrouted,4 hole
+parity,sync noop. No new copper/courtyard/mask errors. Next global logic
+power and SPI/control/service links, then power copper/planes.
+
+## CV link routing pass 9, 13 October 2026
+
+Read `electrical/v2/docs/PCB_CV_LINK_ROUTING_PASS9_2026-10-13.md` first.
+418 segments/51 vias/149 parts;400 previous segments preserved,4 replaced,
+18 new. Only TP45 moved to(49.2,46.7). CV_FB/K1 and TP45 now connected;
+Q22/D24 local 3V3 ties connected, not global regulator feed. BQ_FBG still OPEN:
+review R61/R62/test-via/TS/ground corridor before routing. CV_FB branch remains
+provisional pending quiet-return/plane review. DRC130(4 USB+126 silk),204
+unrouted,4 hole parity,sync noop. No new copper/courtyard errors.
+
+## REGN/CV routing pass 8, 13 October 2026
+
+Read `electrical/v2/docs/PCB_REGN_CV_ROUTING_PASS8_2026-10-13.md` first.
+404 segments/47 vias/149 parts; all 297 earlier tracks preserved. Only R67
+moved to (62,33.5)/0. REGN-to-R72 and much of the local manual/digital relay
+control are connected; CV_FB/FBG, TP45 and global supplies/interfaces remain
+open. Eleven new vias with bottom-crossing reasons recorded. DRC130:4 known
+USB holes+126 silk; no copper/courtyard/mask errors.208 unrouted,4 hole parity,
+sync noop. Next quiet CV/FBG links and remaining local/logic feeds, then power.
+
+## Thermal/digital routing pass 7, 13 October 2026
+
+Read `electrical/v2/docs/PCB_THERMAL_DIGITAL_ROUTING_PASS7_2026-10-13.md` first.
+297 segments/36 vias,149 parts;247 prior IDs/250 geometries preserved. J33 now
+(68.5,69.2)/0, R60(76.8,58.3)/180, R71(76.75,60.45)/180. TS/header ground and
+U9-to-R68/R69/R70 SCL/SDA/INT connected; REGN-to-R72 still OPEN. Seven new vias,
+documented bottom crossings. DRC120:4 known USB holes+116 silk, no copper,
+courtyard or mask-bridge errors;243 unrouted,4 hole parity,sync noop. Next REGN
+supply, FBG/CV and service/logic links, then remaining power copper/planes.
+
+## Test/feedback routing pass 6, 13 October 2026
+
+Read `electrical/v2/docs/PCB_TEST_FEEDBACK_ROUTING_PASS6_2026-10-13.md` first.
+257 segments/29 vias,149 parts. All228 prior track geometries preserved (224
+same UUIDs);29 new segments/four vias. Only TP43 finally moved, to(97.5,57.15).
+TP41/42/43 connected; U9 CV_FB-to-R66/TP40 and R75-to-R66 sense branch routed
+on top. Two test-pad crossings underneath. Trial R62/TP41/TP42/J33 moves rejected
+and restored. DRC124:4 known USB holes+120 silk, no copper/courtyard errors;
+248 unrouted,4 intentional hole parity, sync noop. REGN-to-R72, TS-to-J33,
+K1/FBG/interfaces and main power/planes remain open. No release or rating.
+
+## Threshold fanout and RV1 routing pass 5, 13 October 2026
+
+Read `electrical/v2/docs/PCB_FANOUT_ROUTING_PASS5_2026-10-13.md` first.
+228 segments/25 vias,149 parts.13 local VAC/ACP/ACN tracks replaced,190
+others preserved;38 final new segments. C63/C67 moved slightly, RV1 moved
+to(68.2,76.5)/180 and TP43 to(70,70). ACUV/ACOV and R61-to-RV1 connected.
+ACOV top; short VAC crossing, ACUV and RV1 branch bottom. DRC124:4 known
+USB holes+120 silk, no copper/courtyard errors;254 unrouted,4 hole parity,
+sync noop. Next test pads, REGN/TS/CE headers and local interfaces.
+KiCad manager socket conflict resolved by normal close/reopen of pcbnew alone.
+
+## Local BQ settings routing pass 4, 13 October 2026
+
+Read `electrical/v2/docs/PCB_SETTINGS_ROUTING_PASS4_2026-10-13.md` first.
+203 segments/20 vias,149 unchanged footprints;37 segments/4 vias added,
+all166 earlier tracks and classes preserved. FSW, local CE/ICHG/ILIM/TS
+and divider resistor chain connected, NOT complete control blocks. ACUV/ACOV
+pin escapes, RV1, test pads, TS REGN/J33 and CE J32 remain open. Two TS
+segments and five GND segments added underneath, with documented reasons.
+DRC119 unchanged,259 unrouted,4 intentional hole parity; sync noop.
+Next local fanout/placement review, then remaining interfaces and power feed.
+
+## Input sensing routing pass 3, 13 October 2026
+
+Read `electrical/v2/docs/PCB_INPUT_ROUTING_PASS3_2026-10-13.md` first.
+166 segments/16 vias,149 unchanged footprints;49 segments and2 ground vias
+added. All117 previous tracks and netclasses preserved. Input filters and
+local VAC decoupling connected; input/output shunt takeoffs routed on top.
+R75 remains two-terminal: preserve separate sense branches with future power
+copper. DRC119 unchanged (4 USB holes+115 silk),274 unrouted,4 intentional
+hole parity; sync noop. Power links, planes and ratings remain incomplete.
+Next quiet BQ settings, input-feed placement review, then power loops.
+
+## Driver routing pass 2, 13 October 2026
+
+Read `electrical/v2/docs/PCB_DRIVER_ROUTING_PASS2_2026-10-13.md` first.
+117 segments/14 vias,149 footprints;78 segments and12 vias added, all39 prior
+segments preserved. Twelve small parts deliberately repositioned, pad nets
+unchanged. Four gate paths and bootstrap nets connected; power loops/low-side
+source returns NOT complete. Input RC group moved away from underside SW1.
+DRC4 known USB hole errors+115 silk warnings,293 unrouted,4 intentional hole
+parity; sync noop. No copper/courtyard/library mismatch errors. One ground via
+now in U9 EP: solder-wicking/thermal/plane details remain explicit fab gates.
+Next input RC/VAC/Kelvin routing, then input-feed placement and power copper.
+
+## Incremental routing authorized, 13 October 2026
+
+User now asks the assistant to try routing, with deliberate top-first planning
+and netclasses prepared first. Reference commit `1151aa0` precedes routing.
+Read `electrical/v2/docs/PCB_ROUTING_RULES_2026-10-13.md` first. Thirteen V2
+classes cover all125 nets;9 obsolete classes/20 patterns removed from V2 only.
+First local output-sense filter pass adds22 segments/2 ground vias,39 segments
+total;149 placements and17 inherited tracks unchanged. DRC118 unchanged,
+317 unrouted,4 intentional hole parity. No new copper errors; routing partial.
+Separate future external-converter card belongs in its own KiCad project;
+see `electrical/v2/docs/FUTURE_BOARD_VARIANTS.md`. No V1 edits.
+Earlier placement-only/no-autonomous-routing entries below are historical.
+
 ## Full working placement checkpoint, 13 October 2026
 
 Read `electrical/v2/docs/PCB_FULL_PLACEMENT_PASS4_2026-10-13.md` and

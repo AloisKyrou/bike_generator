@@ -1,0 +1,514 @@
+[
+  {
+    "name": "get_active_toolsets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "result": {
+        "content": [
+          {
+            "text": "{\"active_toolsets\":[{\"description\":\"Place, refresh, move, rotate, flip, align, duplicate and repair PCB footprints; inspect pads; inspect and edit a placed footprint's graphics\",\"name\":\"pcb_components\",\"tool_count\":19},{\"description\":\"Net connectivity, pin queries, trace paths, overlap/orphan detection\",\"name\":\"sch_analysis\",\"tool_count\":15},{\"description\":\"Wires, net labels, power symbols, junctions, no-connects, pin-to-pin connections\",\"name\":\"sch_wiring\",\"tool_count\":20},{\"description\":\"Bulk add, edit, delete, and move schematic elements in one call\",\"name\":\"sch_batch\",\"tool_count\":12},{\"description\":\"Add, edit, move, rotate, and delete schematic symbols, and set the page size\",\"name\":\"sch_components\",\"tool_count\":20},{\"description\":\"Hierarchical sheets: add/edit/move/delete/duplicate a sheet, hierarchy and page-numbering queries, import/add/edit/delete sheet pins, pin/label sync validation\",\"name\":\"sch_hierarchy\",\"tool_count\":12},{\"description\":\"Export schematic to SVG/PDF/PNG/netlist, run ERC, and synchronize a live PCB\",\"name\":\"sch_export\",\"tool_count\":10},{\"description\":\"DRC, design rules, layer constraints, clearance checks, KiCAD UI control (ERC is in sch_export)\",\"name\":\"verification\",\"tool_count\":10},{\"description\":\"Create, open, save, rename, snapshot KiCAD projects, and launch the live schematic viewer\",\"name\":\"project\",\"tool_count\":7},{\"description\":\"User preferences, project rules, design rules, fab constraints — call load_user_config at session start\",\"name\":\"config\",\"tool_count\":7},{\"description\":\"Gerber, PDF, SVG, 3D model, BOM, Specctra DSN, pick-and-place, DRC, DXF/GenCAD/IPC-2581/ODB++\",\"name\":\"pcb_export\",\"tool_count\":14},{\"description\":\"Search, register, and author symbol and footprint libraries — create symbols and footprints, edit pads, graphics, metadata and 3D models\",\"name\":\"library\",\"tool_count\":17}],\"total_active_tools\":163}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "load_toolset",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 4,
+      "result": {
+        "content": [
+          {
+            "text": "{\"errors\":[],\"loaded\":[\"design_review\"],\"tools\":[{\"description\":\"Audit schematic connectivity between IC power nets and decoupling capacitors. This does not inspect PCB placement distance; use PCB clearance/placement tools for a physical review. Defaults to one file; set schematic_scope to 'hierarchy' to audit every reachable sheet instance.\",\"name\":\"audit_decoupling\"},{\"description\":\"Check for common connection mistakes: missing pull-ups on I2C/reset, missing series resistors on LEDs, floating inputs, outputs shorted together. Defaults to one file; set schematic_scope to 'hierarchy' to audit every reachable sheet instance.\",\"name\":\"audit_connections\"},{\"description\":\"Check power rail integrity: missing bulk capacitance, no test points on power rails, voltage regulator output caps missing. Defaults to one file; set schematic_scope to 'hierarchy' to audit every reachable sheet instance.\",\"name\":\"audit_power_rails\"},{\"description\":\"DFM checks for the configured fab house: component spacing, silkscreen overlap, via-in-pad, acid traps, board outline issues.\",\"name\":\"audit_manufacturing\"},{\"description\":\"Run all available audit checks and produce a consolidated design review report. Audits every reachable schematic sheet, and when a board is supplied also runs KiCAD's DRC, folding its errors, unconnected items and schematic-parity findings into the verdict. Reports status, coverage, and diagnostics. Returns an INCOMPLETE verdict instead of approval when coverage is partial, when an audit failed, or when DRC could not run. This is the tool to call when the user asks 'is my board ready?' or 'review my design'.\",\"name\":\"run_design_review\"},{\"description\":\"Analyze the BOM for supply chain risks: parts with no MPN, lifecycle warnings, low stock, parts not available from preferred distributors. Defaults to one file; set schematic_scope to 'hierarchy' to audit every reachable sheet instance.\",\"name\":\"check_bom_health\"}],\"tools_added\":6}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 5,
+      "result": {
+        "content": [
+          {
+            "text": "{\"short_count\":0,\"shorts\":[]}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 6,
+      "result": {
+        "content": [
+          {
+            "text": "{\"orphan_count\":0,\"orphans\":[],\"tolerance\":0.05}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 7,
+      "result": {
+        "content": [
+          {
+            "text": "{\"nets\":[],\"single_pin_net_count\":0}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 8,
+      "result": {
+        "content": [
+          {
+            "text": "{\"short_count\":0,\"shorts\":[]}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 9,
+      "result": {
+        "content": [
+          {
+            "text": "{\"orphan_count\":0,\"orphans\":[],\"tolerance\":0.05}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 10,
+      "result": {
+        "content": [
+          {
+            "text": "{\"nets\":[{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"SHUNT_HI_K\",\"pin_count\":1,\"pins\":[{\"pin\":\"3\",\"pin_name\":\"\",\"reference\":\"R1\",\"type\":\"component_pin\",\"x\":106.67999999999999,\"y\":78.74000000000001}],\"type\":\"HierarchicalLabel\",\"x\":106.68,\"y\":91.44},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"SHUNT_LO_K\",\"pin_count\":1,\"pins\":[{\"pin\":\"2\",\"pin_name\":\"\",\"reference\":\"R1\",\"type\":\"component_pin\",\"x\":111.76,\"y\":78.74000000000001}],\"type\":\"HierarchicalLabel\",\"x\":111.76,\"y\":91.44}],\"single_pin_net_count\":2}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 11,
+      "result": {
+        "content": [
+          {
+            "text": "{\"short_count\":0,\"shorts\":[]}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 12,
+      "result": {
+        "content": [
+          {
+            "text": "{\"orphan_count\":0,\"orphans\":[],\"tolerance\":0.05}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 13,
+      "result": {
+        "content": [
+          {
+            "text": "{\"nets\":[{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"GPIO_EXT10\",\"pin_count\":1,\"pins\":[{\"pin\":\"1\",\"pin_name\":\"\",\"reference\":\"R34\",\"type\":\"component_pin\",\"x\":107.95,\"y\":116.84}],\"type\":\"HierarchicalLabel\",\"x\":40.64,\"y\":116.84},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"GPIO_EXT3\",\"pin_count\":1,\"pins\":[{\"pin\":\"1\",\"pin_name\":\"\",\"reference\":\"R8\",\"type\":\"component_pin\",\"x\":107.95,\"y\":71.12}],\"type\":\"HierarchicalLabel\",\"x\":40.64,\"y\":71.12},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"GPIO_EXT4\",\"pin_count\":1,\"pins\":[{\"pin\":\"1\",\"pin_name\":\"\",\"reference\":\"R9\",\"type\":\"component_pin\",\"x\":107.95,\"y\":86.36}],\"type\":\"HierarchicalLabel\",\"x\":40.64,\"y\":86.36},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"I2C_SCL\",\"pin_count\":1,\"pins\":[{\"pin\":\"4\",\"pin_name\":\"Pin_4\",\"reference\":\"J3\",\"type\":\"component_pin\",\"x\":248.92,\"y\":127.0}],\"type\":\"HierarchicalLabel\",\"x\":218.44,\"y\":127.0},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"I2C_SDA\",\"pin_count\":1,\"pins\":[{\"pin\":\"3\",\"pin_name\":\"Pin_3\",\"reference\":\"J3\",\"type\":\"component_pin\",\"x\":248.92,\"y\":124.46000000000001}],\"type\":\"HierarchicalLabel\",\"x\":218.44,\"y\":124.46},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"STATUS_LED\",\"pin_count\":1,\"pins\":[{\"pin\":\"1\",\"pin_name\":\"\",\"reference\":\"R35\",\"type\":\"component_pin\",\"x\":229.87,\"y\":45.72}],\"type\":\"HierarchicalLabel\",\"x\":215.9,\"y\":45.72}],\"single_pin_net_count\":6}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 14,
+      "result": {
+        "content": [
+          {
+            "text": "{\"short_count\":0,\"shorts\":[]}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 15,
+      "result": {
+        "content": [
+          {
+            "text": "{\"orphan_count\":0,\"orphans\":[],\"tolerance\":0.05}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 16,
+      "result": {
+        "content": [
+          {
+            "text": "{\"nets\":[{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"GPIO_EXT10\",\"pin_count\":1,\"pins\":[{\"pin\":\"16\",\"pin_name\":\"GPIO10\",\"reference\":\"U2\",\"type\":\"component_pin\",\"x\":154.94,\"y\":111.76}],\"type\":\"HierarchicalLabel\",\"x\":162.56,\"y\":111.76},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"GPIO_EXT2\",\"pin_count\":1,\"pins\":[{\"pin\":\"5\",\"pin_name\":\"GPIO2/ADC1_CH2\",\"reference\":\"U2\",\"type\":\"component_pin\",\"x\":154.94,\"y\":91.44000000000001}],\"type\":\"HierarchicalLabel\",\"x\":162.56,\"y\":91.44},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"GPIO_EXT3\",\"pin_count\":1,\"pins\":[{\"pin\":\"6\",\"pin_name\":\"GPIO3/ADC1_CH3\",\"reference\":\"U2\",\"type\":\"component_pin\",\"x\":154.94,\"y\":93.98}],\"type\":\"HierarchicalLabel\",\"x\":162.56,\"y\":93.98},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"GPIO_EXT4\",\"pin_count\":1,\"pins\":[{\"pin\":\"18\",\"pin_name\":\"GPIO4/ADC1_CH4\",\"reference\":\"U2\",\"type\":\"component_pin\",\"x\":154.94,\"y\":96.52000000000001}],\"type\":\"HierarchicalLabel\",\"x\":162.56,\"y\":96.52},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"GPIO_EXT8\",\"pin_count\":1,\"pins\":[{\"pin\":\"22\",\"pin_name\":\"GPIO8\",\"reference\":\"U2\",\"type\":\"component_pin\",\"x\":154.94,\"y\":106.68}],\"type\":\"HierarchicalLabel\",\"x\":162.56,\"y\":106.68},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"I2C_SCL\",\"pin_count\":1,\"pins\":[{\"pin\":\"13\",\"pin_name\":\"GPIO1/ADC1_CH1/XTAL_32K_N\",\"reference\":\"U2\",\"type\":\"component_pin\",\"x\":99.06,\"y\":73.66000000000001}],\"type\":\"HierarchicalLabel\",\"x\":91.44,\"y\":73.66},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"I2C_SDA\",\"pin_count\":1,\"pins\":[{\"pin\":\"12\",\"pin_name\":\"GPIO0/ADC1_CH0/XTAL_32K_P\",\"reference\":\"U2\",\"type\":\"component_pin\",\"x\":99.06,\"y\":71.12}],\"type\":\"HierarchicalLabel\",\"x\":91.44,\"y\":71.12},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"POT_CS\",\"pin_count\":1,\"pins\":[{\"pin\":\"19\",\"pin_name\":\"GPIO5/ADC2_CH0\",\"reference\":\"U2\",\"type\":\"component_pin\",\"x\":154.94,\"y\":99.06}],\"type\":\"HierarchicalLabel\",\"x\":162.56,\"y\":99.06},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"POT_MOSI\",\"pin_count\":1,\"pins\":[{\"pin\":\"21\",\"pin_name\":\"GPIO7\",\"reference\":\"U2\",\"type\":\"component_pin\",\"x\":154.94,\"y\":104.14}],\"type\":\"HierarchicalLabel\",\"x\":162.56,\"y\":104.14},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"POT_SCK\",\"pin_count\":1,\"pins\":[{\"pin\":\"20\",\"pin_name\":\"GPIO6\",\"reference\":\"U2\",\"type\":\"component_pin\",\"x\":154.94,\"y\":101.60000000000001}],\"type\":\"HierarchicalLabel\",\"x\":162.56,\"y\":101.6},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"POT_SHDN\",\"pin_count\":1,\"pins\":[{\"pin\":\"30\",\"pin_name\":\"GPIO20/U0RXD\",\"reference\":\"U2\",\"type\":\"component_pin\",\"x\":154.94,\"y\":73.66000000000001}],\"type\":\"HierarchicalLabel\",\"x\":162.56,\"y\":73.66},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"STATUS_LED\",\"pin_count\":1,\"pins\":[{\"pin\":\"31\",\"pin_name\":\"GPIO21/U0TXD\",\"reference\":\"U2\",\"type\":\"component_pin\",\"x\":154.94,\"y\":71.12}],\"type\":\"HierarchicalLabel\",\"x\":162.56,\"y\":71.12}],\"single_pin_net_count\":12}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 17,
+      "result": {
+        "content": [
+          {
+            "text": "{\"short_count\":0,\"shorts\":[]}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 18,
+      "result": {
+        "content": [
+          {
+            "text": "{\"orphan_count\":0,\"orphans\":[],\"tolerance\":0.05}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 19,
+      "result": {
+        "content": [
+          {
+            "text": "{\"nets\":[{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"POT_MOSI\",\"pin_count\":1,\"pins\":[{\"pin\":\"3\",\"pin_name\":\"SI\",\"reference\":\"U3\",\"type\":\"component_pin\",\"x\":106.67999999999999,\"y\":85.09}],\"type\":\"HierarchicalLabel\",\"x\":106.68,\"y\":85.09},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"POT_SCK\",\"pin_count\":1,\"pins\":[{\"pin\":\"2\",\"pin_name\":\"SCK\",\"reference\":\"U3\",\"type\":\"component_pin\",\"x\":106.67999999999999,\"y\":82.55}],\"type\":\"HierarchicalLabel\",\"x\":106.68,\"y\":82.55}],\"single_pin_net_count\":2}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 20,
+      "result": {
+        "content": [
+          {
+            "text": "{\"short_count\":0,\"shorts\":[]}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 21,
+      "result": {
+        "content": [
+          {
+            "text": "{\"orphan_count\":0,\"orphans\":[],\"tolerance\":0.05}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 22,
+      "result": {
+        "content": [
+          {
+            "text": "{\"nets\":[{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"VBUS_SENSE\",\"pin_count\":1,\"pins\":[{\"pin\":\"8\",\"pin_name\":\"Vbus\",\"reference\":\"U1\",\"type\":\"component_pin\",\"x\":109.22,\"y\":82.55}],\"type\":\"HierarchicalLabel\",\"x\":105.41,\"y\":82.55}],\"single_pin_net_count\":1}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 23,
+      "result": {
+        "content": [
+          {
+            "text": "{\"short_count\":0,\"shorts\":[]}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 24,
+      "result": {
+        "content": [
+          {
+            "text": "{\"orphan_count\":0,\"orphans\":[],\"tolerance\":0.05}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 25,
+      "result": {
+        "content": [
+          {
+            "text": "{\"nets\":[],\"single_pin_net_count\":0}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 26,
+      "result": {
+        "content": [
+          {
+            "text": "{\"short_count\":0,\"shorts\":[]}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 27,
+      "result": {
+        "content": [
+          {
+            "text": "{\"orphan_count\":0,\"orphans\":[],\"tolerance\":0.05}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 28,
+      "result": {
+        "content": [
+          {
+            "text": "{\"nets\":[{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"I2C_SCL\",\"pin_count\":1,\"pins\":[{\"pin\":\"1\",\"pin_name\":\"\",\"reference\":\"R68\",\"type\":\"component_pin\",\"x\":97.78999999999999,\"y\":153.67}],\"type\":\"HierarchicalLabel\",\"x\":83.82,\"y\":153.67},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"HierarchicalLabel\"],\"net\":\"I2C_SDA\",\"pin_count\":1,\"pins\":[{\"pin\":\"1\",\"pin_name\":\"\",\"reference\":\"R69\",\"type\":\"component_pin\",\"x\":97.78999999999999,\"y\":162.56}],\"type\":\"HierarchicalLabel\",\"x\":83.82,\"y\":162.56}],\"single_pin_net_count\":2}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_shorted_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 29,
+      "result": {
+        "content": [
+          {
+            "text": "{\"short_count\":0,\"shorts\":[]}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_orphan_items",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 30,
+      "result": {
+        "content": [
+          {
+            "text": "{\"orphan_count\":0,\"orphans\":[],\"tolerance\":0.05}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "find_single_pin_nets",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 31,
+      "result": {
+        "content": [
+          {
+            "text": "{\"nets\":[{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"GlobalLabel\"],\"net\":\"USB_DM\",\"pin_count\":1,\"pins\":[{\"pin\":\"6\",\"pin_name\":\"I/O1\",\"reference\":\"U8\",\"type\":\"component_pin\",\"x\":147.32000000000002,\"y\":86.36}],\"type\":\"GlobalLabel\",\"x\":177.8,\"y\":86.36},{\"cross_sheet_unverified\":true,\"label_count\":1,\"label_types\":[\"GlobalLabel\"],\"net\":\"USB_DP\",\"pin_count\":1,\"pins\":[{\"pin\":\"4\",\"pin_name\":\"I/O2\",\"reference\":\"U8\",\"type\":\"component_pin\",\"x\":147.32000000000002,\"y\":88.9}],\"type\":\"GlobalLabel\",\"x\":177.8,\"y\":88.9}],\"single_pin_net_count\":2}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "audit_connections",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 32,
+      "result": {
+        "content": [
+          {
+            "text": "{\"audit\":\"connections\",\"coverage\":{\"audited_sheet_instances\":9,\"schematic_files\":9,\"sheet_instances\":9,\"symbol_instances\":214},\"diagnostics\":[],\"findings\":[{\"category\":\"connection\",\"component\":\"U9\",\"issue\":\"I2C SDA pin on U9 (net: BQ_SDA) has no pull-up resistor\",\"recommendation\":\"Add a 4.7k pull-up resistor from BQ_SDA to VCC\",\"severity\":\"warning\",\"sheet_instance_path\":\"/5ceb75a4-0be3-46bc-98c4-5678106d33b2/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\main_converter_tbd.kicad_sch\"},{\"category\":\"connection\",\"component\":\"U9\",\"issue\":\"I2C SCL pin on U9 (net: BQ_SCL) has no pull-up resistor\",\"recommendation\":\"Add a 4.7k pull-up resistor from BQ_SCL to VCC\",\"severity\":\"warning\",\"sheet_instance_path\":\"/5ceb75a4-0be3-46bc-98c4-5678106d33b2/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\main_converter_tbd.kicad_sch\"}],\"schematic_scope\":\"hierarchy\",\"sheet_results\":[{\"audit\":\"connections\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":0},\"diagnostics\":[],\"findings\":[],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/bike-generator-controller-v2.kicad_sch\",\"status\":\"complete\",\"summary\":\"0 connection issues found.\"},{\"audit\":\"connections\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":11},\"diagnostics\":[],\"findings\":[],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/0307e7a7-8bda-447e-9224-3d21381def61/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\power_path.kicad_sch\",\"status\":\"complete\",\"summary\":\"0 connection issues found.\"},{\"audit\":\"connections\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":19},\"diagnostics\":[],\"findings\":[],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/30914b87-53e9-4d6e-bceb-b03d062cf739/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\connectors.kicad_sch\",\"status\":\"complete\",\"summary\":\"0 connection issues found.\"},{\"audit\":\"connections\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":21},\"diagnostics\":[],\"findings\":[],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/3ea255a8-4db3-46df-a7e3-bbbf26e474d6/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\mcu_module.kicad_sch\",\"status\":\"complete\",\"summary\":\"0 connection issues found.\"},{\"audit\":\"connections\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":12},\"diagnostics\":[],\"findings\":[],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/44783ce9-71bf-421b-bac7-76763e851e24/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\cc_control.kicad_sch\",\"status\":\"complete\",\"summary\":\"0 connection issues found.\"},{\"audit\":\"connections\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":26},\"diagnostics\":[],\"findings\":[],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/6678dfab-b138-40b1-b9f5-ecf1c2d4e0e0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\ina228_sense.kicad_sch\",\"status\":\"complete\",\"summary\":\"0 connection issues found.\"},{\"audit\":\"connections\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":26},\"diagnostics\":[],\"findings\":[],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/708c3edf-1c32-46f2-accd-57b3229f3f00/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\lv_power_usb_tbd.kicad_sch\",\"status\":\"complete\",\"summary\":\"0 connection issues found.\"},{\"audit\":\"connections\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":85},\"diagnostics\":[],\"findings\":[{\"category\":\"connection\",\"component\":\"U9\",\"issue\":\"I2C SDA pin on U9 (net: BQ_SDA) has no pull-up resistor\",\"recommendation\":\"Add a 4.7k pull-up resistor from BQ_SDA to VCC\",\"severity\":\"warning\",\"sheet_instance_path\":\"/5ceb75a4-0be3-46bc-98c4-5678106d33b2/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\main_converter_tbd.kicad_sch\"},{\"category\":\"connection\",\"component\":\"U9\",\"issue\":\"I2C SCL pin on U9 (net: BQ_SCL) has no pull-up resistor\",\"recommendation\":\"Add a 4.7k pull-up resistor from BQ_SCL to VCC\",\"severity\":\"warning\",\"sheet_instance_path\":\"/5ceb75a4-0be3-46bc-98c4-5678106d33b2/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\main_converter_tbd.kicad_sch\"}],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/5ceb75a4-0be3-46bc-98c4-5678106d33b2/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\main_converter_tbd.kicad_sch\",\"status\":\"complete\",\"summary\":\"2 connection issues found.\"},{\"audit\":\"connections\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":14},\"diagnostics\":[],\"findings\":[],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/b02f9ff8-5067-45e1-a948-f392b0be82d0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\usb_interface.kicad_sch\",\"status\":\"complete\",\"summary\":\"0 connection issues found.\"}],\"status\":\"complete\",\"summary\":\"connections audit covered 9/9 sheet instances across 9 schematic files; 2 findings.\"}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "audit_decoupling",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 33,
+      "result": {
+        "content": [
+          {
+            "text": "{\"audit\":\"decoupling\",\"coverage\":{\"audited_sheet_instances\":9,\"schematic_files\":9,\"sheet_instances\":9,\"symbol_instances\":214},\"diagnostics\":[],\"findings\":[{\"category\":\"decoupling\",\"component\":\"U1\",\"issue\":\"Power pin 'Vbus' on U1 has no decoupling capacitor (net: VBUS_SENSE)\",\"recommendation\":\"Add a 100nF ceramic capacitor close to U1 pin 'Vbus'\",\"severity\":\"error\",\"sheet_instance_path\":\"/6678dfab-b138-40b1-b9f5-ecf1c2d4e0e0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\ina228_sense.kicad_sch\"}],\"pass_count\":6,\"pcb_distance_checked\":false,\"schematic_scope\":\"hierarchy\",\"scope\":\"schematic_connectivity\",\"sheet_results\":[{\"audit\":\"decoupling\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":0},\"diagnostics\":[],\"findings\":[],\"pass_count\":0,\"pcb_distance_checked\":false,\"schematic_scope\":\"file\",\"scope\":\"schematic_connectivity\",\"sheet_instance_path\":\"/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/bike-generator-controller-v2.kicad_sch\",\"status\":\"complete\",\"summary\":\"0/0 power pins have decoupling. 0 issues found.\",\"total_power_pins\":0},{\"audit\":\"decoupling\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":11},\"diagnostics\":[],\"findings\":[],\"pass_count\":0,\"pcb_distance_checked\":false,\"schematic_scope\":\"file\",\"scope\":\"schematic_connectivity\",\"sheet_instance_path\":\"/0307e7a7-8bda-447e-9224-3d21381def61/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\power_path.kicad_sch\",\"status\":\"complete\",\"summary\":\"0/0 power pins have decoupling. 0 issues found.\",\"total_power_pins\":0},{\"audit\":\"decoupling\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":19},\"diagnostics\":[],\"findings\":[],\"pass_count\":0,\"pcb_distance_checked\":false,\"schematic_scope\":\"file\",\"scope\":\"schematic_connectivity\",\"sheet_instance_path\":\"/30914b87-53e9-4d6e-bceb-b03d062cf739/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\connectors.kicad_sch\",\"status\":\"complete\",\"summary\":\"0/0 power pins have decoupling. 0 issues found.\",\"total_power_pins\":0},{\"audit\":\"decoupling\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":21},\"diagnostics\":[],\"findings\":[],\"pass_count\":1,\"pcb_distance_checked\":false,\"schematic_scope\":\"file\",\"scope\":\"schematic_connectivity\",\"sheet_instance_path\":\"/3ea255a8-4db3-46df-a7e3-bbbf26e474d6/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\mcu_module.kicad_sch\",\"status\":\"complete\",\"summary\":\"1/1 power pins have decoupling. 0 issues found.\",\"total_power_pins\":1},{\"audit\":\"decoupling\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":12},\"diagnostics\":[],\"findings\":[],\"pass_count\":1,\"pcb_distance_checked\":false,\"schematic_scope\":\"file\",\"scope\":\"schematic_connectivity\",\"sheet_instance_path\":\"/44783ce9-71bf-421b-bac7-76763e851e24/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\cc_control.kicad_sch\",\"status\":\"complete\",\"summary\":\"1/1 power pins have decoupling. 0 issues found.\",\"total_power_pins\":1},{\"audit\":\"decoupling\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":26},\"diagnostics\":[],\"findings\":[{\"category\":\"decoupling\",\"component\":\"U1\",\"issue\":\"Power pin 'Vbus' on U1 has no decoupling capacitor (net: VBUS_SENSE)\",\"recommendation\":\"Add a 100nF ceramic capacitor close to U1 pin 'Vbus'\",\"severity\":\"error\",\"sheet_instance_path\":\"/6678dfab-b138-40b1-b9f5-ecf1c2d4e0e0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\ina228_sense.kicad_sch\"}],\"pass_count\":2,\"pcb_distance_checked\":false,\"schematic_scope\":\"file\",\"scope\":\"schematic_connectivity\",\"sheet_instance_path\":\"/6678dfab-b138-40b1-b9f5-ecf1c2d4e0e0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\ina228_sense.kicad_sch\",\"status\":\"complete\",\"summary\":\"2/3 power pins have decoupling. 1 issues found.\",\"total_power_pins\":3},{\"audit\":\"decoupling\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":26},\"diagnostics\":[],\"findings\":[],\"pass_count\":1,\"pcb_distance_checked\":false,\"schematic_scope\":\"file\",\"scope\":\"schematic_connectivity\",\"sheet_instance_path\":\"/708c3edf-1c32-46f2-accd-57b3229f3f00/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\lv_power_usb_tbd.kicad_sch\",\"status\":\"complete\",\"summary\":\"1/1 power pins have decoupling. 0 issues found.\",\"total_power_pins\":1},{\"audit\":\"decoupling\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":85},\"diagnostics\":[],\"findings\":[],\"pass_count\":0,\"pcb_distance_checked\":false,\"schematic_scope\":\"file\",\"scope\":\"schematic_connectivity\",\"sheet_instance_path\":\"/5ceb75a4-0be3-46bc-98c4-5678106d33b2/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\main_converter_tbd.kicad_sch\",\"status\":\"complete\",\"summary\":\"0/0 power pins have decoupling. 0 issues found.\",\"total_power_pins\":0},{\"audit\":\"decoupling\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":14},\"diagnostics\":[],\"findings\":[],\"pass_count\":1,\"pcb_distance_checked\":false,\"schematic_scope\":\"file\",\"scope\":\"schematic_connectivity\",\"sheet_instance_path\":\"/b02f9ff8-5067-45e1-a948-f392b0be82d0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\usb_interface.kicad_sch\",\"status\":\"complete\",\"summary\":\"1/1 power pins have decoupling. 0 issues found.\",\"total_power_pins\":1}],\"status\":\"complete\",\"summary\":\"decoupling audit covered 9/9 sheet instances across 9 schematic files; 1 findings.\",\"total_power_pins\":7}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "name": "audit_power_rails",
+    "response": {
+      "jsonrpc": "2.0",
+      "id": 34,
+      "result": {
+        "content": [
+          {
+            "text": "{\"audit\":\"power_rails\",\"coverage\":{\"audited_sheet_instances\":9,\"schematic_files\":9,\"sheet_instances\":9,\"symbol_instances\":214},\"diagnostics\":[],\"findings\":[{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no decoupling capacitors\",\"recommendation\":\"Add at least one 100nF ceramic cap on the '+3V3' rail\",\"severity\":\"error\",\"sheet_instance_path\":\"/30914b87-53e9-4d6e-bceb-b03d062cf739/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\connectors.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no test point\",\"recommendation\":\"Add a test point on '+3V3' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/30914b87-53e9-4d6e-bceb-b03d062cf739/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\connectors.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no test point\",\"recommendation\":\"Add a test point on '+3V3' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/3ea255a8-4db3-46df-a7e3-bbbf26e474d6/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\mcu_module.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no bulk capacitance (>= 10uF)\",\"recommendation\":\"Add a 10uF or larger electrolytic/ceramic cap on the '+3V3' rail near the power source\",\"severity\":\"warning\",\"sheet_instance_path\":\"/44783ce9-71bf-421b-bac7-76763e851e24/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\cc_control.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no test point\",\"recommendation\":\"Add a test point on '+3V3' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/44783ce9-71bf-421b-bac7-76763e851e24/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\cc_control.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no bulk capacitance (>= 10uF)\",\"recommendation\":\"Add a 10uF or larger electrolytic/ceramic cap on the '+3V3' rail near the power source\",\"severity\":\"warning\",\"sheet_instance_path\":\"/6678dfab-b138-40b1-b9f5-ecf1c2d4e0e0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\ina228_sense.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail 'VBUS_SENSE' has no decoupling capacitors\",\"recommendation\":\"Add at least one 100nF ceramic cap on the 'VBUS_SENSE' rail\",\"severity\":\"error\",\"sheet_instance_path\":\"/6678dfab-b138-40b1-b9f5-ecf1c2d4e0e0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\ina228_sense.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no test point\",\"recommendation\":\"Add a test point on '+3V3' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/6678dfab-b138-40b1-b9f5-ecf1c2d4e0e0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\ina228_sense.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail 'VBUS_SENSE' has no test point\",\"recommendation\":\"Add a test point on 'VBUS_SENSE' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/6678dfab-b138-40b1-b9f5-ecf1c2d4e0e0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\ina228_sense.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no test point\",\"recommendation\":\"Add a test point on '+3V3' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/708c3edf-1c32-46f2-accd-57b3229f3f00/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\lv_power_usb_tbd.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail 'VBUS_USB' has no test point\",\"recommendation\":\"Add a test point on 'VBUS_USB' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/708c3edf-1c32-46f2-accd-57b3229f3f00/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\lv_power_usb_tbd.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no decoupling capacitors\",\"recommendation\":\"Add at least one 100nF ceramic cap on the '+3V3' rail\",\"severity\":\"error\",\"sheet_instance_path\":\"/5ceb75a4-0be3-46bc-98c4-5678106d33b2/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\main_converter_tbd.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no test point\",\"recommendation\":\"Add a test point on '+3V3' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/5ceb75a4-0be3-46bc-98c4-5678106d33b2/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\main_converter_tbd.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail 'VBUS_USB' has no bulk capacitance (>= 10uF)\",\"recommendation\":\"Add a 10uF or larger electrolytic/ceramic cap on the 'VBUS_USB' rail near the power source\",\"severity\":\"warning\",\"sheet_instance_path\":\"/b02f9ff8-5067-45e1-a948-f392b0be82d0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\usb_interface.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail 'VBUS_USB' has no test point\",\"recommendation\":\"Add a test point on 'VBUS_USB' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/b02f9ff8-5067-45e1-a948-f392b0be82d0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\usb_interface.kicad_sch\"}],\"power_nets\":[\"GND\",\"+3V3\",\"GND\",\"+3V3\",\"GND\",\"+3V3\",\"GND\",\"+3V3\",\"GND\",\"VBUS_SENSE\",\"+3V3\",\"GND\",\"VBUS_USB\",\"+3V3\",\"GND\",\"GND\",\"VBUS_USB\"],\"schematic_scope\":\"hierarchy\",\"sheet_results\":[{\"audit\":\"power_rails\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":0},\"diagnostics\":[],\"findings\":[],\"power_nets\":[],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2/bike-generator-controller-v2.kicad_sch\",\"status\":\"complete\",\"summary\":\"0 power rail issues found across 0 rails.\"},{\"audit\":\"power_rails\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":11},\"diagnostics\":[],\"findings\":[],\"power_nets\":[\"GND\"],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/0307e7a7-8bda-447e-9224-3d21381def61/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\power_path.kicad_sch\",\"status\":\"complete\",\"summary\":\"0 power rail issues found across 1 rails.\"},{\"audit\":\"power_rails\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":19},\"diagnostics\":[],\"findings\":[{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no decoupling capacitors\",\"recommendation\":\"Add at least one 100nF ceramic cap on the '+3V3' rail\",\"severity\":\"error\",\"sheet_instance_path\":\"/30914b87-53e9-4d6e-bceb-b03d062cf739/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\connectors.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no test point\",\"recommendation\":\"Add a test point on '+3V3' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/30914b87-53e9-4d6e-bceb-b03d062cf739/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\connectors.kicad_sch\"}],\"power_nets\":[\"+3V3\",\"GND\"],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/30914b87-53e9-4d6e-bceb-b03d062cf739/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\connectors.kicad_sch\",\"status\":\"complete\",\"summary\":\"2 power rail issues found across 2 rails.\"},{\"audit\":\"power_rails\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":21},\"diagnostics\":[],\"findings\":[{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no test point\",\"recommendation\":\"Add a test point on '+3V3' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/3ea255a8-4db3-46df-a7e3-bbbf26e474d6/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\mcu_module.kicad_sch\"}],\"power_nets\":[\"+3V3\",\"GND\"],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/3ea255a8-4db3-46df-a7e3-bbbf26e474d6/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\mcu_module.kicad_sch\",\"status\":\"complete\",\"summary\":\"1 power rail issues found across 2 rails.\"},{\"audit\":\"power_rails\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":12},\"diagnostics\":[],\"findings\":[{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no bulk capacitance (>= 10uF)\",\"recommendation\":\"Add a 10uF or larger electrolytic/ceramic cap on the '+3V3' rail near the power source\",\"severity\":\"warning\",\"sheet_instance_path\":\"/44783ce9-71bf-421b-bac7-76763e851e24/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\cc_control.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no test point\",\"recommendation\":\"Add a test point on '+3V3' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/44783ce9-71bf-421b-bac7-76763e851e24/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\cc_control.kicad_sch\"}],\"power_nets\":[\"+3V3\",\"GND\"],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/44783ce9-71bf-421b-bac7-76763e851e24/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\cc_control.kicad_sch\",\"status\":\"complete\",\"summary\":\"2 power rail issues found across 2 rails.\"},{\"audit\":\"power_rails\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":26},\"diagnostics\":[],\"findings\":[{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no bulk capacitance (>= 10uF)\",\"recommendation\":\"Add a 10uF or larger electrolytic/ceramic cap on the '+3V3' rail near the power source\",\"severity\":\"warning\",\"sheet_instance_path\":\"/6678dfab-b138-40b1-b9f5-ecf1c2d4e0e0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\ina228_sense.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail 'VBUS_SENSE' has no decoupling capacitors\",\"recommendation\":\"Add at least one 100nF ceramic cap on the 'VBUS_SENSE' rail\",\"severity\":\"error\",\"sheet_instance_path\":\"/6678dfab-b138-40b1-b9f5-ecf1c2d4e0e0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\ina228_sense.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no test point\",\"recommendation\":\"Add a test point on '+3V3' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/6678dfab-b138-40b1-b9f5-ecf1c2d4e0e0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\ina228_sense.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail 'VBUS_SENSE' has no test point\",\"recommendation\":\"Add a test point on 'VBUS_SENSE' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/6678dfab-b138-40b1-b9f5-ecf1c2d4e0e0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\ina228_sense.kicad_sch\"}],\"power_nets\":[\"+3V3\",\"GND\",\"VBUS_SENSE\"],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/6678dfab-b138-40b1-b9f5-ecf1c2d4e0e0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\ina228_sense.kicad_sch\",\"status\":\"complete\",\"summary\":\"4 power rail issues found across 3 rails.\"},{\"audit\":\"power_rails\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":26},\"diagnostics\":[],\"findings\":[{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no test point\",\"recommendation\":\"Add a test point on '+3V3' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/708c3edf-1c32-46f2-accd-57b3229f3f00/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\lv_power_usb_tbd.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail 'VBUS_USB' has no test point\",\"recommendation\":\"Add a test point on 'VBUS_USB' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/708c3edf-1c32-46f2-accd-57b3229f3f00/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\lv_power_usb_tbd.kicad_sch\"}],\"power_nets\":[\"+3V3\",\"GND\",\"VBUS_USB\"],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/708c3edf-1c32-46f2-accd-57b3229f3f00/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\lv_power_usb_tbd.kicad_sch\",\"status\":\"complete\",\"summary\":\"2 power rail issues found across 3 rails.\"},{\"audit\":\"power_rails\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":85},\"diagnostics\":[],\"findings\":[{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no decoupling capacitors\",\"recommendation\":\"Add at least one 100nF ceramic cap on the '+3V3' rail\",\"severity\":\"error\",\"sheet_instance_path\":\"/5ceb75a4-0be3-46bc-98c4-5678106d33b2/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\main_converter_tbd.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail '+3V3' has no test point\",\"recommendation\":\"Add a test point on '+3V3' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/5ceb75a4-0be3-46bc-98c4-5678106d33b2/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\main_converter_tbd.kicad_sch\"}],\"power_nets\":[\"+3V3\",\"GND\"],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/5ceb75a4-0be3-46bc-98c4-5678106d33b2/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\main_converter_tbd.kicad_sch\",\"status\":\"complete\",\"summary\":\"2 power rail issues found across 2 rails.\"},{\"audit\":\"power_rails\",\"coverage\":{\"audited_sheet_instances\":1,\"schematic_files\":1,\"sheet_instances\":1,\"symbol_instances\":14},\"diagnostics\":[],\"findings\":[{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail 'VBUS_USB' has no bulk capacitance (>= 10uF)\",\"recommendation\":\"Add a 10uF or larger electrolytic/ceramic cap on the 'VBUS_USB' rail near the power source\",\"severity\":\"warning\",\"sheet_instance_path\":\"/b02f9ff8-5067-45e1-a948-f392b0be82d0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\usb_interface.kicad_sch\"},{\"category\":\"power\",\"component\":null,\"issue\":\"Power rail 'VBUS_USB' has no test point\",\"recommendation\":\"Add a test point on 'VBUS_USB' for debugging\",\"severity\":\"info\",\"sheet_instance_path\":\"/b02f9ff8-5067-45e1-a948-f392b0be82d0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\usb_interface.kicad_sch\"}],\"power_nets\":[\"GND\",\"VBUS_USB\"],\"schematic_scope\":\"file\",\"sheet_instance_path\":\"/b02f9ff8-5067-45e1-a948-f392b0be82d0/\",\"source\":\"C:/travail/bike_generator/electrical/v2/kicad/bike-generator-controller-v2\\\\usb_interface.kicad_sch\",\"status\":\"complete\",\"summary\":\"2 power rail issues found across 2 rails.\"}],\"status\":\"complete\",\"summary\":\"power_rails audit covered 9/9 sheet instances across 9 schematic files; 15 findings.\"}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  }
+]

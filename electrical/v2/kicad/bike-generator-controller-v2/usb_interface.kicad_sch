@@ -3805,17 +3805,6 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "Exact models unchanged: GCT USB4105-GF-A-120 / ST USBLC6-2SC6.\nPin and package validation: electrical/components/ti-lv-power-v2/.\nDo not connect a valuable PC to generator-powered prototype before fault review."
-		(exclude_from_sim no)
-		(at 25.4 165.1 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left top)
-		)
-		(uuid "1496fa0c-21e9-4cf3-90f8-db35ee77f2cd")
-	)
 	(text "USB INTERFACE - LOGIC POWER AND DATA - PROVISIONAL"
 		(exclude_from_sim no)
 		(at 25.4 25.4 0)
@@ -4136,6 +4125,11 @@
 		)
 		(uuid "eea9fdd6-4fc5-4f77-862d-a5e9ce9f733c")
 	)
+  (text "Provisional J27: JAE DX07S016JA1R1500 / ESD: ST USBLC6-2SC6.\nJAE pin map and fabrication hold: docs/USB_JAE_SELECTION_2026-10-14.md.\nDo not connect a valuable PC to generator-powered prototype before fault review."
+    (at 25.4 165.1 0)
+    (effects (font (size 1.27 1.27)) (justify left top))
+    (uuid "62652a10-7d88-4cee-a632-84dbf1231f27")
+  )
 	(symbol
 		(lib_id "power:GND")
 		(at 68.58 106.68 0)
@@ -4593,7 +4587,7 @@
 				)
 			)
 		)
-		(property "Value" "USB4105-GF-A-120"
+		(property "Value" "DX07S016JA1R1500"
 			(at 68.58 57.785 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4603,7 +4597,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+		(property "Footprint" "Connector_USB:USB_C_Receptacle_JAE_DX07S016JA1R1500"
 			(at 68.58 77.47 0)
 			(hide yes)
 			(show_name no)
@@ -4614,7 +4608,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.usb.org/sites/default/files/documents/usb_type-c.zip"
+		(property "Datasheet" "https://www.jae.com/en/connectors/series/detail/product/id=91780"
 			(at 68.58 77.47 0)
 			(hide yes)
 			(show_name no)
@@ -4636,7 +4630,7 @@
 				)
 			)
 		)
-		(property "Design_Status" "PROVISIONAL USB2 - not released"
+		(property "Design_Status" "PROVISIONAL USB2 - JAE SJ121836 pin map checked; not released"
 			(at 68.58 77.47 0)
 			(hide yes)
 			(show_name no)
@@ -4647,7 +4641,7 @@
 				)
 			)
 		)
-		(property "MPN" "USB4105-GF-A-120"
+		(property "MPN" "DX07S016JA1R1500"
 			(at 68.58 77.47 0)
 			(hide yes)
 			(show_name no)
@@ -4658,7 +4652,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "GCT"
+		(property "Manufacturer" "JAE"
 			(at 68.58 77.47 0)
 			(hide yes)
 			(show_name no)

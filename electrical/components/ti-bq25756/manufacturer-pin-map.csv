@@ -1,0 +1,38 @@
+Physical_pin,Manufacturer_function,Manufacturer_IO,Planned_symbol_pin,Planned_footprint_pad,Constraint,Status
+1,SCL,I,1,1,I2C clock pull up to logic rail,MANUFACTURER_MAP_ONLY
+2,SDA,IO,2,2,I2C data pull up to logic rail,MANUFACTURER_MAP_ONLY
+3,INT,O,3,3,Open drain active-low interrupt; 256us pulse,MANUFACTURER_MAP_ONLY
+4,STAT1,O,4,4,Open drain status; can be reassigned by register,MANUFACTURER_MAP_ONLY
+5,STAT2,O,5,5,Open drain status; can be reassigned by register,MANUFACTURER_MAP_ONLY
+6,PG,O,6,6,Open drain active-low power good; can be reassigned by register,MANUFACTURER_MAP_ONLY
+7,CE,IO,7,7,Do not float; active-low enable can be overridden by register,MANUFACTURER_MAP_ONLY
+8,TS,I,8,8,NTC network referenced to REGN and PGND; receiver-specific qualification,MANUFACTURER_MAP_ONLY
+9,ICHG,I,9,9,Resistor current limit; pin function can be disabled by register,MANUFACTURER_MAP_ONLY
+10,ILIM_HIZ,I,10,10,Resistor input current limit/HIZ; pin function can be disabled by register,MANUFACTURER_MAP_ONLY
+11,FBG,I,11,11,Feedback return; high impedance outside input operating window,MANUFACTURER_MAP_ONLY
+12,FB,I,12,12,Output feedback; affects CV and proportional charging thresholds,MANUFACTURER_MAP_ONLY
+13,SRN,I,13,13,Battery shunt negative; Kelvin and differential filtering,MANUFACTURER_MAP_ONLY
+14,SRP,I,14,14,Battery shunt positive; Kelvin and common-mode filtering,MANUFACTURER_MAP_ONLY
+15,NC,-,15,15,Leave floating; do not connect to ground,MANUFACTURER_MAP_ONLY
+16,NC,-,16,16,Leave floating; do not connect to ground,MANUFACTURER_MAP_ONLY
+17,PGND,-,17,17,Connect directly to PGND; NOT an NC pin,MANUFACTURER_MAP_ONLY
+18,SW2,P,18,18,Boost-side switch node and inductor terminal,MANUFACTURER_MAP_ONLY
+19,HIDRV2,O,19,19,Boost-side high-side NMOS gate,MANUFACTURER_MAP_ONLY
+20,BTST2,P,20,20,Bootstrap capacitor to SW2 not ground,MANUFACTURER_MAP_ONLY
+21,LODRV2,O,21,21,Boost-side low-side NMOS gate,MANUFACTURER_MAP_ONLY
+22,PGND,P,22,22,High-current driver ground,MANUFACTURER_MAP_ONLY
+23,DRV_SUP,P,23,23,Gate supply; local 4.7uF to PGND; external supply sequencing required,MANUFACTURER_MAP_ONLY
+24,REGN,P,24,24,Internal LDO OUTPUT; local 4.7uF to PGND,MANUFACTURER_MAP_ONLY
+25,LODRV1,O,25,25,Buck-side low-side NMOS gate,MANUFACTURER_MAP_ONLY
+26,BTST1,P,26,26,Bootstrap capacitor to SW1 not ground,MANUFACTURER_MAP_ONLY
+27,HIDRV1,O,27,27,Buck-side high-side NMOS gate,MANUFACTURER_MAP_ONLY
+28,SW1,P,28,28,Buck-side switch node and inductor terminal,MANUFACTURER_MAP_ONLY
+29,ACN,I,29,29,Input shunt negative; Kelvin and differential filtering,MANUFACTURER_MAP_ONLY
+30,ACP,I,30,30,Input shunt positive; Kelvin and common-mode filtering,MANUFACTURER_MAP_ONLY
+31,NC,-,31,31,Leave floating; do not connect to ground,MANUFACTURER_MAP_ONLY
+32,VAC,P,32,32,Input voltage detection; reverse-mode regulated node,MANUFACTURER_MAP_ONLY
+33,VAC,P,33,33,Input bias supply; ACUV/ACOV divider must reference this pin,MANUFACTURER_MAP_ONLY
+34,ACUV,I,34,34,Input UV threshold/DPM; do not float,MANUFACTURER_MAP_ONLY
+35,ACOV,I,35,35,Input OV threshold; do not float,MANUFACTURER_MAP_ONLY
+36,FSW_SYNC,I,36,36,Frequency programming resistor or qualified clock,MANUFACTURER_MAP_ONLY
+37,Thermal_pad,P,37,37,Solder exposed pad; thermal vias and PGND connection,MANUFACTURER_MAP_ONLY
